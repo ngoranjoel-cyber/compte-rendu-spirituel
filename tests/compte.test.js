@@ -31,7 +31,8 @@ function faux(options = {}) {
       return rep(200, { access_token: s.jetonValide, refresh_token: "r1", expires_in: 3600, user: { id: UID, email: corps.email } });
     }
     if (u.pathname === "/auth/v1/token" && u.searchParams.get("grant_type") === "password") {
-      if (corps.password !== s.motDePasse) return rep(400, { code: 400, error_code: "invalid_credentials", msg: "Invalid login credentials" });
+      const attendu = s.ancienCompte ? s.motDePasse : s.motDePasse + "#crs-carnet";   // un ancien compte a son mot de passe tel quel
+      if (corps.password !== attendu) return rep(400, { code: 400, error_code: "invalid_credentials", msg: "Invalid login credentials" });
       return rep(200, { access_token: s.jetonValide, refresh_token: "r1", expires_in: 3600, user: { id: UID, email: corps.email } });
     }
     if (u.pathname === "/auth/v1/token" && u.searchParams.get("grant_type") === "refresh_token") {
@@ -41,6 +42,7 @@ function faux(options = {}) {
       return rep(200, { access_token: s.jetonValide, refresh_token: "r" + (s.refreshs + 1), expires_in: 3600, user: { id: UID, email: "a@b.c" } });
     }
     if (u.pathname === "/auth/v1/logout") return rep(204);
+    if (u.pathname === "/auth/v1/user" && init.method === "PUT") { s.nouveauMdp = corps.password; return rep(200, { id: UID }); }
     if (u.pathname.startsWith("/rest/") && auth !== "Bearer " + s.jetonValide) return rep(401, { code: "PGRST303", message: "JWT expired" });
     if (u.pathname === "/rest/v1/rpc/rejoindre_assemblee") {
       if (corps.code !== "ABCD2345") return rep(400, { code: "P0002", message: "Code d'assemblée inconnu." });
@@ -237,4 +239,29 @@ test("saisies de plusieurs personnes : une seule requête filtrée", async () =>
   const a = s.appels.at(-1);
   assert.strictEqual(a.params.get("user_id"), "in.(u1,u2)");
   assert.strictEqual(a.params.get("or"), "(and(cle.gte.jours/2026-11-16,cle.lte.jours/2026-11-22),cle.eq.semaines/2026-11-16)");
+});
+
+test("mot de passe : 4 caractères suffisent, complétés avant l'envoi au serveur", async () => {
+  const s = faux();
+  const { c } = client(s);
+  await assert.rejects(c.inscrire({ email: "a@b.c", motDePasse: "123" }), { message: "Mot de passe trop court : au moins 4 caractères." });
+  assert.strictEqual(s.appels.length, 0, "rien n'est envoyé si le code est trop court");
+  await c.inscrire({ email: "a@b.c", motDePasse: "1234" });
+  assert.strictEqual(s.appels[0].corps.password, "1234#crs-carnet");
+  s.motDePasse = "1234";
+  await c.connecter("a@b.c", "1234");
+  assert.strictEqual(s.appels.at(-1).corps.password, "1234#crs-carnet");
+  await c.changerMotDePasse("5678");
+  assert.strictEqual(s.nouveauMdp, "5678#crs-carnet");
+});
+
+test("mot de passe : un compte créé avant ce réglage se connecte toujours, puis passe à la nouvelle forme", async () => {
+  const s = faux({ ancienCompte: true, motDePasse: "ancienmotdepasse" });
+  const { c } = client(s);
+  await c.connecter("a@b.c", "ancienmotdepasse");
+  assert.strictEqual(c.session().id, UID);
+  const essais = s.appels.filter((a) => a.chemin === "/auth/v1/token").map((a) => a.corps.password);
+  assert.deepStrictEqual(essais, ["ancienmotdepasse#crs-carnet", "ancienmotdepasse"]);
+  await new Promise((r) => setTimeout(r, 20));
+  assert.strictEqual(s.nouveauMdp, "ancienmotdepasse#crs-carnet");
 });
