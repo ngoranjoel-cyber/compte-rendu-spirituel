@@ -1,8 +1,6 @@
-/* Connexion au serveur Supabase (voir README, « Comptes en ligne »).
-   Ces deux valeurs sont publiques par nature : la sécurité vient des règles de la base (supabase/schema.sql).
-   Laissées vides, l'application fonctionne sans compte : les saisies restent sur l'appareil. */
+/* Connexion au serveur des comptes (Supabase). Ces valeurs sont publiques par nature. */
 window.CONFIG_COMPTE = {
-  url: "",        // Project URL, par exemple "https://abcdefghijkl.supabase.co"
-  cle: "",        // Publishable key, par exemple "sb_publishable_..."
-  urlSite: ""     // Adresse du site (GitHub Pages), pour les liens reçus par e-mail
+  url: "https://arkgrjncbwyujalgkvtp.supabase.co",
+  cle: "sb_publishable_8W-FzgCEbM1mkCqpdIGPTg_UjpNX7UC",
+  urlSite: "https://ngoranjoel-cyber.github.io/compte-rendu-spirituel/"
 };
