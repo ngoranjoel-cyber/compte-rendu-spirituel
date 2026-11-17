@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e8ecf1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Compte rendu">
+<title>Compte rendu spirituel</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
+</head>
+<body class="auth">
+
+<!-- Icônes (traits, 24 x 24) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-logo" viewBox="0 0 24 24"><path d="M3 6.5h5.5A3.5 3.5 0 0 1 12 10v10a3 3 0 0 0-3-3H3z"/><path d="M21 6.5h-5.5A3.5 3.5 0 0 0 12 10v10a3 3 0 0 1 3-3h6z"/><path d="M12 1.5v5M9.5 3.5h5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-user-check" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 4.5 2"/><path d="M15 17l2.5 2.5L22 15"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.2a6.5 6.5 0 0 1 4 5.8"/></symbol>
+  <symbol id="i-group" viewBox="0 0 24 24"><circle cx="5.5" cy="9" r="2.5"/><circle cx="12" cy="6.5" r="2.5"/><circle cx="18.5" cy="9" r="2.5"/><path d="M1.5 19a4 4 0 0 1 7.5-2"/><path d="M7.5 19a4.5 4.5 0 0 1 9 0"/><path d="M15 17a4 4 0 0 1 7.5 2"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9.3-9.3C1.5 7.4 3.6 4 7 4c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.5 3.4 4.3 6.7C19.5 15.4 12 20 12 20z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5V21h16"/></symbol>
+  <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.5c1 3 5 5.5 5 10.5a5 5 0 0 1-10 0c0-2.5 1.4-4 2.5-5 .3 1.5 1 2.5 2 3 0-3 0-5.8.5-8.5z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-week" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 15h10"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l5 5L19 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M4 21h16"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2 20h20"/></symbol>
+</svg>
+
+<div class="app" id="page">
+  <!-- Menu latéral (ordinateur) -->
+  <aside class="lateral" aria-label="Menu">
+    <div class="marque"><span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span><div><b>Compte rendu</b><span>Prier · Méditer · Prêcher</span></div></div>
+    <nav>
+      <button type="button" data-aller="jour"><span class="pic petit vert"><svg class="ic"><use href="#i-sun"/></svg></span>Ma journée</button>
+      <button type="button" data-aller="semaine"><span class="pic petit bleu"><svg class="ic"><use href="#i-week"/></svg></span>Ma semaine</button>
+      <button type="button" data-aller="mois"><span class="pic petit violet"><svg class="ic"><use href="#i-grid"/></svg></span>Mon mois</button>
+      <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="pic petit orange"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Mes disciples</span></button>
+      <button type="button" data-aller="profil"><span class="pic petit ardoise"><svg class="ic"><use href="#i-user"/></svg></span>Mon profil</button>
+    </nav>
+    <div class="pied-lateral">
+      <span class="synchro" id="etatSynchroLateral" hidden></span>
+      <button type="button" class="moi" data-aller="profil"><span class="avatar petit" id="avatarLateral">?</span><div><b id="nomLateral"></b><span id="assembleeLaterale"></span></div></button>
+    </div>
+  </aside>
+
+  <div class="contenu">
+    <!-- En-tête (téléphone) -->
+    <header class="entete">
+      <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
+      <div class="titre-vue"><b id="titreVue">Compte rendu</b><span id="pastille"></span></div>
+      <button type="button" class="avatar" id="avatarEntete" data-aller="profil" aria-label="Mon profil">?</button>
+    </header>
+
+    <div class="page">
+      <!-- ========== Connexion / création de compte ========== -->
+      <main class="vue" id="vueConnexion" hidden>
+        <div class="auth-cadre">
+          <div class="auth-intro">
+            <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
+            <div><h1>Compte rendu spirituel</h1><p>Votre vie de prière, jour après jour, sur tous vos appareils.</p></div>
+            <ul>
+              <li><span class="pic vert"><svg class="ic"><use href="#i-sun"/></svg></span>Notez votre journée en quelques gestes</li>
+              <li><span class="pic bleu"><svg class="ic"><use href="#i-printer"/></svg></span>Imprimez la semaine et le mois en PDF</li>
+              <li><span class="pic violet"><svg class="ic"><use href="#i-users"/></svg></span>Votre faiseur de disciple suit vos progrès</li>
+            </ul>
+          </div>
+          <div class="auth-form">
+            <div class="segments" role="tablist">
+              <button type="button" role="tab" id="ongletConnexion" aria-selected="true">Se connecter</button>
+              <button type="button" role="tab" id="ongletInscription" aria-selected="false">Créer un compte</button>
+            </div>
+            <p class="msg" id="msgLien" role="status"></p>
+
+            <form id="formConnexion" autocomplete="on" class="vue" style="gap:14px">
+              <label class="champ">E-mail<input type="email" id="c-email" autocomplete="username" inputmode="email" required></label>
+              <label class="champ">Mot de passe<input type="password" id="c-mdp" autocomplete="current-password" required></label>
+              <label class="case"><input type="checkbox" data-montrer="c-mdp">Afficher le mot de passe</label>
+              <button class="btn vert large" type="submit" id="btnConnexion">Se connecter</button>
+              <span class="msg" id="msgConnexion" role="status"></span>
+              <button class="lien" type="button" id="versOubli">Mot de passe oublié ?</button>
+            </form>
+
+            <form id="formOubli" autocomplete="on" class="vue" style="gap:14px" hidden>
+              <p class="aide">Saisissez votre e-mail : vous recevrez un lien pour choisir un nouveau mot de passe.</p>
+              <label class="champ">E-mail<input type="email" id="o-email" autocomplete="username" inputmode="email" required></label>
+              <button class="btn vert large" type="submit" id="btnOubli">Recevoir le lien</button>
+              <span class="msg" id="msgOubli" role="status"></span>
+              <button class="lien" type="button" id="retourConnexion">‹ Retour à la connexion</button>
+            </form>
+
+            <form id="formInscription" autocomplete="on" class="vue" style="gap:14px" hidden>
+              <div class="champs">
+                <label class="champ">Nom<input type="text" id="i-nom" autocomplete="family-name" required maxlength="80"></label>
+                <label class="champ">Prénoms<input type="text" id="i-prenoms" autocomplete="given-name" required maxlength="120"></label>
+                <label class="champ">Contact (téléphone)<input type="tel" id="i-contact" autocomplete="tel" inputmode="tel" required maxlength="40"></label>
+                <label class="champ">Zone / Ville<input type="text" id="i-zone" autocomplete="address-level2" required maxlength="120"></label>
+                <label class="champ large">E-mail<input type="email" id="i-email" autocomplete="username" inputmode="email" required></label>
+                <label class="champ large">Mot de passe (8 caractères au moins)<input type="password" id="i-mdp" autocomplete="new-password" minlength="8" required></label>
+              </div>
+              <label class="case"><input type="checkbox" data-montrer="i-mdp">Afficher le mot de passe</label>
+              <p class="aide">Votre assemblée et votre faiseur de disciple se choisissent à l'étape suivante.</p>
+              <button class="btn vert large" type="submit" id="btnInscription">Créer mon compte</button>
+              <span class="msg" id="msgInscription" role="status"></span>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- ========== Nouveau mot de passe ========== -->
+      <main class="vue" id="vueMdp" hidden>
+        <form class="carte" id="formMdp" style="max-width:480px;margin:6vh auto 0;width:100%">
+          <span class="pic bleu"><svg class="ic"><use href="#i-key"/></svg></span>
+          <h2>Nouveau mot de passe</h2>
+          <label class="champ">Nouveau mot de passe (8 caractères au moins)<input type="password" id="n-mdp" autocomplete="new-password" minlength="8" required></label>
+          <label class="case"><input type="checkbox" data-montrer="n-mdp">Afficher le mot de passe</label>
+          <button class="btn vert large" type="submit">Enregistrer le mot de passe</button>
+          <span class="msg" id="msgMdp" role="status"></span>
+        </form>
+      </main>
+
+      <!-- ========== Chargement du compte ========== -->
+      <main class="vue" id="vueChargement" hidden>
+        <div class="carte" style="max-width:480px;margin:6vh auto 0;width:100%">
+          <span class="pic bleu"><svg class="ic"><use href="#i-cloud"/></svg></span>
+          <h2>Ouverture de votre compte…</h2>
+          <p class="msg" id="msgChargement" role="status">Récupération de votre profil.</p>
+          <div class="actions"><button class="btn" id="reessayerChargement" hidden>Réessayer</button><button class="lien" id="deconnexionChargement">Se déconnecter</button></div>
+        </div>
+      </main>
+
+      <!-- ========== Premiers pas : assemblée puis faiseur ========== -->
+      <main class="vue" id="vueAccueil" hidden>
+        <div class="tete-vue"><div><h1 id="titreAccueil">Bienvenue</h1><p class="sous" id="texteAccueil"></p></div></div>
+        <div id="etapeAssemblee" class="vue">
+          <div class="etape-cartes">
+            <form class="carte" id="formRejoindre">
+              <span class="pic bleu"><svg class="ic"><use href="#i-home"/></svg></span>
+              <h2>Rejoindre mon assemblée</h2>
+              <p class="aide">Le responsable de votre assemblée vous donne un code de 8 caractères.</p>
+              <label class="champ">Code de l'assemblée<input class="code" type="text" id="a-code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
+              <button class="btn vert" type="submit">Rejoindre</button>
+              <span class="msg" id="msgRejoindre" role="status"></span>
+            </form>
+            <form class="carte" id="formCreerAssemblee">
+              <span class="pic orange"><svg class="ic"><use href="#i-shield"/></svg></span>
+              <h2>Je suis responsable d'assemblée</h2>
+              <p class="aide">Créez l'assemblée : vous recevrez le code à donner aux membres et vous verrez leurs comptes rendus.</p>
+              <label class="champ">Nom de l'assemblée<input type="text" id="a-nom" maxlength="120" required placeholder="Chez les …"></label>
+              <label class="champ">Zone / Ville<input type="text" id="a-zone" maxlength="120"></label>
+              <button class="btn sombre" type="submit">Créer l'assemblée</button>
+              <span class="msg" id="msgCreerAssemblee" role="status"></span>
+            </form>
+          </div>
+          <form class="carte" id="formSansAssemblee">
+            <h2>Mon assemblée n'est pas encore sur l'application</h2>
+            <p class="aide">Indiquez son nom pour vos comptes rendus. Vous pourrez la rejoindre plus tard avec un code.</p>
+            <div class="actions" style="align-items:flex-end"><label class="champ" style="flex:1;min-width:200px">Nom de l'assemblée<input type="text" id="a-nomLibre" maxlength="120" required></label><button class="btn" type="submit">Continuer</button></div>
+            <span class="msg" id="msgSansAssemblee" role="status"></span>
+          </form>
+        </div>
+        <form class="carte" id="etapeFaiseur" hidden>
+          <span class="pic violet"><svg class="ic"><use href="#i-user-check"/></svg></span>
+          <h2>Mon faiseur de disciple</h2>
+          <p class="aide">Il verra vos comptes rendus. Le responsable de l'assemblée les voit aussi.</p>
+          <label class="champ">Choisir dans l'assemblée<select id="f-choix"></select></label>
+          <label class="champ" id="f-libreBloc" hidden>Nom de votre faiseur de disciple<input type="text" id="f-libre" maxlength="120"></label>
+          <div class="actions"><button class="btn vert" type="submit">Continuer</button><button class="lien" type="button" id="faiseurPlusTard">Plus tard</button></div>
+          <span class="msg" id="msgFaiseur" role="status"></span>
+        </form>
+      </main>
+
+      <!-- ========== Ma journée ========== -->
+      <main class="vue" id="vueJour" hidden>
+        <div class="tete-vue tete-nav">
+          <div><h1 id="jLabel">…</h1><p class="sous" id="quiSuisJe"></p></div>
+          <div class="nav-date">
+            <button class="btn-rond" id="jPrec" aria-label="Jour précédent"><svg class="ic"><use href="#i-left"/></svg></button>
+            <button class="btn" id="jAuj">Aujourd'hui</button>
+            <button class="btn-rond" id="jSuiv" aria-label="Jour suivant"><svg class="ic"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <span class="synchro" id="etatSynchro" hidden></span>
+        <div class="bande" id="bande" aria-label="Jours de la semaine"></div>
+
+        <div class="carte annonce" id="carteImport" hidden>
+          <span class="pic orange"><svg class="ic"><use href="#i-upload"/></svg></span>
+          <div class="vue" style="gap:10px;flex:1">
+            <h2>Saisies trouvées sur cet appareil</h2>
+            <p class="aide" id="texteImport"></p>
+            <div class="actions"><button class="btn vert" id="btnImporter">Les ajouter à mon compte</button><button class="lien" id="btnIgnorerImport">Ignorer</button></div>
+          </div>
+        </div>
+
+        <div class="trio" aria-live="polite">
+          <button type="button" class="trio-item" id="tPrier" data-vers="sec-prier"><span class="pic rose"><svg class="ic"><use href="#i-heart"/></svg></span><b>Prier</b><span id="ePrier">à faire</span></button>
+          <button type="button" class="trio-item" id="tMediter" data-vers="sec-mediter"><span class="pic bleu"><svg class="ic"><use href="#i-book-open"/></svg></span><b>Méditer</b><span id="eMediter">à faire</span></button>
+          <button type="button" class="trio-item" id="tPrecher" data-vers="sec-precher"><span class="pic vert"><svg class="ic"><use href="#i-megaphone"/></svg></span><b>Prêcher</b><span id="ePrecher">à faire</span></button>
+        </div>
+
+        <form id="formJour" autocomplete="off" class="vue">
+          <div class="grille-2" id="sectionsJour"></div>
+          <div class="barre-enreg">
+            <span class="msg" id="msgJour" role="status"></span>
+            <button class="btn vert" id="btnJour" type="submit"><svg class="ic"><use href="#i-check"/></svg>Enregistrer</button>
+          </div>
+        </form>
+
+        <div class="raccourcis">
+          <button type="button" class="raccourci" data-aller="semaine"><span class="pic bleu"><svg class="ic"><use href="#i-week"/></svg></span><div><b>Ma semaine</b><span id="eSemaine">0 %</span></div><svg class="ic fleche"><use href="#i-right"/></svg></button>
+          <button type="button" class="raccourci" data-aller="mois"><span class="pic violet"><svg class="ic"><use href="#i-grid"/></svg></span><div><b>Mon mois</b><span id="eMois">0 / 30</span></div><svg class="ic fleche"><use href="#i-right"/></svg></button>
+          <button type="button" class="raccourci" data-aller="suivi" id="barreSuivi" hidden><span class="pic orange"><svg class="ic"><use href="#i-users"/></svg></span><div><b id="titreBarreSuivi">Mes disciples</b><span id="eSuivi"></span></div><svg class="ic fleche"><use href="#i-right"/></svg></button>
+        </div>
+      </main>
+
+      <!-- ========== Ma semaine ========== -->
+      <main class="vue" id="vueSemaine" hidden>
+        <div class="tete-vue tete-nav">
+          <div><h1>Ma semaine</h1><p class="sous" id="sLabel">…</p></div>
+          <div class="nav-date">
+            <button class="btn-rond" id="sPrec" aria-label="Semaine précédente"><svg class="ic"><use href="#i-left"/></svg></button>
+            <button class="btn-rond" id="sSuiv" aria-label="Semaine suivante"><svg class="ic"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="score-bloc">
+              <div class="anneau"><svg viewBox="0 0 100 100"><circle class="fond-anneau" cx="50" cy="50" r="42"/><circle class="val-anneau" id="sAnneau" cx="50" cy="50" r="42" stroke-dasharray="263.9" stroke-dashoffset="263.9"/></svg><b id="sScore">0 %</b></div>
+              <div><h2>Score de la semaine</h2><p class="aide" id="sMessage">Semaine à remplir.</p></div>
+            </div>
+            <button class="btn vert" id="btnPdfSemaine"><svg class="ic"><use href="#i-printer"/></svg>Imprimer / PDF de la semaine</button>
+          </div>
+          <div class="panneau">
+            <div class="panneau-titre"><span class="pic petit vert"><svg class="ic"><use href="#i-target"/></svg></span><h2>Objectifs</h2></div>
+            <div class="vue" style="gap:8px" id="sBilan"></div>
+          </div>
+        </div>
+        <div class="panneau">
+          <div class="panneau-titre"><span class="pic petit bleu"><svg class="ic"><use href="#i-calendar"/></svg></span><h2>Jour par jour</h2><span class="aide">Prier · Méditer · Prêcher</span></div>
+          <div class="vue" style="gap:8px" id="listeSemaine"></div>
+        </div>
+        <form class="carte" id="formSemaine" autocomplete="off">
+          <h2>À remplir pour la semaine</h2>
+          <label class="champ">Qu'est-ce que Dieu t'a dit cette semaine ?<textarea id="s-parole" rows="3"></textarea></label>
+          <div class="champs">
+            <label class="champ">Sujet de prière / engagement 1<input type="text" id="s-sujet0"></label>
+            <label class="champ">Sujet de prière / engagement 2<input type="text" id="s-sujet1"></label>
+            <label class="champ">Sujet de prière / engagement 3<input type="text" id="s-sujet2"></label>
+          </div>
+          <div class="actions"><button class="btn vert" type="submit"><svg class="ic"><use href="#i-check"/></svg>Enregistrer la semaine</button><span class="msg" id="msgSemaine" role="status"></span></div>
+        </form>
+      </main>
+
+      <!-- ========== Mon mois ========== -->
+      <main class="vue" id="vueMois" hidden>
+        <div class="tete-vue tete-nav">
+          <div><h1 id="mLabel">…</h1><p class="sous">Touchez un jour pour l'ouvrir.</p></div>
+          <div class="nav-date">
+            <button class="btn-rond" id="mPrec" aria-label="Mois précédent"><svg class="ic"><use href="#i-left"/></svg></button>
+            <button class="btn-rond" id="mSuiv" aria-label="Mois suivant"><svg class="ic"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="calendrier" id="calMois"></div>
+            <div class="legende"><span><i style="background:var(--vert)"></i>Prier, méditer et prêcher</span><span><i style="background:var(--orange)"></i>En partie</span><span><i style="background:var(--trait-fort)"></i>Rien</span></div>
+          </div>
+          <div class="carte">
+            <h2>Le mois en chiffres</h2>
+            <div class="tuiles" id="tuiles"></div>
+          </div>
+        </div>
+        <form class="carte" id="formInfos" autocomplete="off">
+          <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-coins"/></svg></span><div><h2>À remplir avant d'imprimer le mois</h2><p class="aide">Dons au Seigneur, âmes gagnées, livres et besoins.</p></div></div>
+          <label class="champ">Somme d'argent reçue dans le mois (FCFA)<input type="number" id="m-revenu" min="0" step="1" inputmode="numeric"></label>
+          <div class="panneau">
+            <p class="aide" style="padding:2px 4px">Pour chaque rubrique, saisissez le pourcentage ou le montant : l'autre se calcule.</p>
+            <div class="don tete"><span>Rubrique</span><span>%</span><span>Montant (F)</span><span></span></div>
+            <div id="dons" class="vue" style="gap:6px"></div>
+            <div class="don total"><span>Total</span><span id="donsPct">0 %</span><span id="donsMontant">0 F</span><span></span></div>
+            <div class="actions"><button class="lien" type="button" id="ajouterDon">+ Ajouter une rubrique</button><span class="msg" id="msgDons"></span></div>
+          </div>
+          <div class="champs"><label class="champ">Âmes gagnées et intégrées<input type="number" id="m-ames" min="0" step="1" inputmode="numeric"></label></div>
+          <div class="grille-2">
+            <div class="vue" style="gap:8px"><h3>Livres lus</h3><div class="vue" style="gap:8px" id="livres"></div></div>
+            <div class="vue" style="gap:8px"><h3>Besoins de prière</h3><div class="vue" style="gap:8px" id="besoins"></div></div>
+          </div>
+          <div class="actions"><button class="btn vert" type="submit" id="btnInfos"><svg class="ic"><use href="#i-check"/></svg>Enregistrer</button><span class="msg" id="msgInfos" role="status"></span></div>
+        </form>
+        <div class="carte">
+          <h2>Imprimer et partager</h2>
+          <div class="actions">
+            <button class="btn vert" id="btnPdfMois"><svg class="ic"><use href="#i-printer"/></svg>Imprimer / PDF du mois</button>
+            <button class="btn" id="btnXl"><svg class="ic"><use href="#i-file"/></svg>Fichier Excel</button>
+          </div>
+          <p class="aide">Le fichier Excel contient la feuille du mois, une feuille par semaine et le tableau de bord.</p>
+          <span class="msg" id="msgXl" role="status"></span>
+        </div>
+        <div class="carte">
+          <h2>Sauvegarde</h2>
+          <p class="aide" id="texteSauvegarde">Vos saisies restent sur cet appareil. Gardez une copie de temps en temps.</p>
+          <div class="actions">
+            <button class="btn" id="btnSauver" type="button"><svg class="ic"><use href="#i-download"/></svg>Créer une sauvegarde</button>
+            <label class="btn" style="cursor:pointer"><svg class="ic"><use href="#i-upload"/></svg>Restaurer<input type="file" id="fichierSauvegarde" accept=".json,application/json" hidden></label>
+          </div>
+          <span class="msg" id="msgSauve" role="status"></span>
+        </div>
+      </main>
+
+      <!-- ========== Suivi : disciples / assemblée ========== -->
+      <main class="vue" id="vueSuivi" hidden>
+        <div class="tete-vue tete-nav">
+          <div><h1 id="titreSuivi">Mes disciples</h1><p class="sous" id="suLabel">…</p></div>
+          <div class="nav-date">
+            <button class="btn-rond" id="suPrec" aria-label="Semaine précédente"><svg class="ic"><use href="#i-left"/></svg></button>
+            <button class="btn-rond" id="suSuiv" aria-label="Semaine suivante"><svg class="ic"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <div class="segments" id="filtreSuivi" role="tablist" hidden>
+          <button type="button" role="tab" data-filtre="assemblee" aria-selected="true">Toute l'assemblée</button>
+          <button type="button" role="tab" data-filtre="disciples" aria-selected="false">Mes disciples</button>
+        </div>
+        <div class="tuiles" id="suTuiles"></div>
+        <p class="msg" id="msgSuivi" role="status"></p>
+        <div class="carte" id="carteCodeSuivi" hidden>
+          <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-mail"/></svg></span><div><h2>Inviter des membres</h2><p class="aide">Chaque membre crée son compte puis saisit ce code.</p></div></div>
+          <div class="code-affiche" id="codeSuivi"></div>
+          <div class="actions"><button class="btn" type="button" data-copier="codeSuivi"><svg class="ic"><use href="#i-copy"/></svg>Copier le code</button></div>
+        </div>
+        <div class="personnes" id="listeSuivi"></div>
+      </main>
+
+      <!-- ========== Mon profil (ou inscription sans serveur) ========== -->
+      <main class="vue" id="vueProfil" hidden>
+        <div class="tete-vue"><div><h1 id="titreProfil">Inscription</h1><p class="sous" id="texteProfil"></p></div></div>
+        <form class="carte" id="formProfil" autocomplete="on">
+          <div class="panneau-titre" style="padding:0"><span class="pic ardoise"><svg class="ic"><use href="#i-user"/></svg></span><h2>Mes informations</h2></div>
+          <div class="champs">
+            <label class="champ">Nom<input type="text" id="p-nom" autocomplete="family-name" required maxlength="80"></label>
+            <label class="champ">Prénoms<input type="text" id="p-prenoms" autocomplete="given-name" required maxlength="120"></label>
+            <label class="champ">Contact (téléphone)<input type="tel" id="p-contact" autocomplete="tel" inputmode="tel" required maxlength="40"></label>
+            <label class="champ">Zone / Ville<input type="text" id="p-zone" required maxlength="120"></label>
+            <label class="champ" data-local>Assemblée<input type="text" id="p-assemblee" maxlength="120"></label>
+            <label class="champ" data-local>Faiseur de disciple<input type="text" id="p-faiseur" maxlength="120"></label>
+          </div>
+          <div class="actions"><button class="btn vert" type="submit" id="btnProfil">S'inscrire</button><span class="msg" id="msgProfil" role="status"></span></div>
+        </form>
+
+        <div class="grille-2" data-enligne hidden>
+          <div class="carte" id="carteFaiseur">
+            <div class="panneau-titre" style="padding:0"><span class="pic violet"><svg class="ic"><use href="#i-user-check"/></svg></span><div><h2>Mon faiseur de disciple</h2><p class="aide" id="faiseurActuel"></p></div></div>
+            <label class="champ">Changer<select id="pf-choix"></select></label>
+            <label class="champ" id="pf-libreBloc" hidden>Nom de votre faiseur de disciple<input type="text" id="pf-libre" maxlength="120"></label>
+            <div class="actions"><button class="btn" type="button" id="btnFaiseurProfil">Enregistrer</button><span class="msg" id="msgFaiseurProfil" role="status"></span></div>
+          </div>
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic bleu"><svg class="ic"><use href="#i-home"/></svg></span><div><h2>Mon assemblée</h2><p class="aide" id="assembleeActuelle"></p></div></div>
+            <div id="blocCode" hidden class="vue" style="gap:10px">
+              <p class="aide">Code à donner aux membres :</p>
+              <div class="code-affiche" id="codeProfil"></div>
+              <div class="actions"><button class="btn" type="button" data-copier="codeProfil"><svg class="ic"><use href="#i-copy"/></svg>Copier</button><button class="lien" type="button" id="nouveauCode">Remplacer le code</button></div>
+            </div>
+            <form id="formChangerAssemblee" class="vue" style="gap:10px">
+              <label class="champ">Rejoindre une autre assemblée (code)<input class="code" type="text" id="pa-code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+              <div class="actions"><button class="btn" type="submit">Rejoindre</button><button class="lien danger" type="button" id="quitterAssemblee">Quitter l'assemblée</button></div>
+            </form>
+            <span class="msg" id="msgAssemblee" role="status"></span>
+          </div>
+        </div>
+
+        <div class="carte" id="carteRappel">
+          <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-bell"/></svg></span><div><h2>Rappels</h2><p class="aide" id="rappelWeb">Les rappels (toutes les 3 heures à partir de 4 h) arrivent dans l'application Android.</p></div></div>
+          <div id="rappelNatif" hidden class="vue" style="gap:12px">
+            <p class="aide">Une notification à chaque horaire, tant qu'il reste à prier, méditer ou prêcher ce jour-là.</p>
+            <div class="rangee" style="background:var(--panneau)"><span class="libelle">Rappels activés</span><label class="inter"><input type="checkbox" id="r-actif" aria-label="Rappels activés"><span></span></label></div>
+            <div class="champs">
+              <label class="champ">Premier rappel<input type="time" id="r-debut"></label>
+              <label class="champ">Puis toutes les<select id="r-pas"><option value="1">1 heure</option><option value="2">2 heures</option><option value="3">3 heures</option><option value="4">4 heures</option><option value="6">6 heures</option></select></label>
+              <label class="champ">Dernier rappel au plus tard<input type="time" id="r-fin"></label>
+            </div>
+            <p class="aide" id="r-liste"></p>
+            <div class="actions"><button class="btn vert" id="btnRappel" type="button">Enregistrer les rappels</button><span class="msg" id="msgRappel" role="status"></span></div>
+          </div>
+        </div>
+
+        <div class="carte" data-enligne hidden>
+          <div class="panneau-titre" style="padding:0"><span class="pic ardoise"><svg class="ic"><use href="#i-key"/></svg></span><div><h2>Mon compte</h2><p class="aide" id="emailCompte"></p></div></div>
+          <span class="synchro" id="etatSynchroProfil"></span>
+          <form id="formNouveauMdp" class="actions" style="align-items:flex-end">
+            <label class="champ" style="flex:1;min-width:200px">Nouveau mot de passe<input type="password" id="pm-mdp" autocomplete="new-password" minlength="8" required></label>
+            <button class="btn" type="submit">Changer</button>
+          </form>
+          <span class="msg" id="msgCompte" role="status"></span>
+          <div class="actions">
+            <button class="btn" type="button" id="btnDeconnexion"><svg class="ic"><use href="#i-logout"/></svg>Se déconnecter</button>
+            <button class="lien danger" type="button" id="btnSupprimerCompte">Supprimer mon compte</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Onglets du bas (téléphone) -->
+  <nav class="onglets-bas" aria-label="Navigation">
+    <button type="button" data-aller="jour"><span class="rond-ic"><svg class="ic"><use href="#i-sun"/></svg></span>Journée</button>
+    <button type="button" data-aller="semaine"><span class="rond-ic"><svg class="ic"><use href="#i-week"/></svg></span>Semaine</button>
+    <button type="button" data-aller="mois"><span class="rond-ic"><svg class="ic"><use href="#i-grid"/></svg></span>Mois</button>
+    <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="rond-ic"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Disciples</span></button>
+    <button type="button" data-aller="profil"><span class="rond-ic"><svg class="ic"><use href="#i-user"/></svg></span>Profil</button>
+  </nav>
+</div>
+
+<!-- Aperçu avant impression -->
+<div id="apercu" hidden>
+  <div class="apercu-barre">
+    <button class="btn" id="fermerApercu"><svg class="ic"><use href="#i-left"/></svg>Retour</button>
+    <button class="btn vert" id="btnImprimer"><svg class="ic"><use href="#i-printer"/></svg>Imprimer / Enregistrer en PDF</button>
+    <span class="msg" id="msgApercu">Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » ou votre imprimante.</span>
+  </div>
+  <div id="cadre"><div id="feuille"></div></div>
+</div>
+
+<!-- Fenêtre de confirmation -->
+<dialog id="dialogue">
+  <form method="dialog" class="vue" style="gap:14px">
+    <h2 id="dialogueTitre"></h2>
+    <p id="dialogueTexte" class="aide" style="font-size:.95rem"></p>
+    <div class="actions" style="justify-content:flex-end">
+      <button class="btn" value="non">Annuler</button>
+      <button class="btn vert" value="oui" id="dialogueOui">Confirmer</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="jszip.min.js"></script>
+<script src="modele.js"></script>
+<script src="xl.js"></script>
+<script src="rapport.js"></script>
+<script src="config.js"></script>
+<script src="compte.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
