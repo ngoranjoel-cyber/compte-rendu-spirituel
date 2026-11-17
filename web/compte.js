@@ -36,7 +36,7 @@
       email_not_confirmed: "Confirmez d'abord votre adresse e-mail avec le lien reçu.",
       user_already_exists: "Un compte existe déjà avec cet e-mail. Connectez-vous.",
       email_exists: "Un compte existe déjà avec cet e-mail. Connectez-vous.",
-      weak_password: "Mot de passe trop faible : au moins 8 caractères.",
+      weak_password: "Mot de passe trop court : au moins 4 caractères.",
       same_password: "Le nouveau mot de passe doit être différent de l'ancien.",
       email_address_invalid: "Adresse e-mail invalide.",
       validation_failed: "Vérifiez l'e-mail et le mot de passe.",
@@ -149,10 +149,21 @@
     }
 
     /* ---------- comptes ---------- */
+    /* La personne choisit un code d'au moins 4 caractères (par exemple 4 chiffres). Supabase exige au moins
+       6 caractères : l'application complète donc toujours le code de la même façon avant de l'envoyer. */
+    var MIN_MOT_DE_PASSE = 4;
+    var COMPLEMENT = "#crs-carnet";
+    function motDePasseServeur(m) { return String(m) + COMPLEMENT; }
+    function verifierLongueur(m) {
+      if (String(m || "").length < MIN_MOT_DE_PASSE) return Promise.reject(Erreur(MESSAGES.weak_password, "weak_password"));
+      return null;
+    }
     function inscrire(d) {
+      var refus = verifierLongueur(d.motDePasse);
+      if (refus) return refus;
       return requete("/auth/v1/signup", {
         methode: "POST",
-        corps: { email: d.email, password: d.motDePasse,
+        corps: { email: d.email, password: motDePasseServeur(d.motDePasse),
           data: { nom: d.nom, prenoms: d.prenoms, contact: d.contact, zone: d.zone } }
       }).then(function (r) {
         var s = depuisReponse(r);
@@ -161,11 +172,21 @@
       });
     }
     function connecter(email, motDePasse) {
-      return requete("/auth/v1/token?grant_type=password", { methode: "POST", corps: { email: email, password: motDePasse } })
+      function essai(m) { return requete("/auth/v1/token?grant_type=password", { methode: "POST", corps: { email: email, password: m } }); }
+      var ancien = false;
+      return essai(motDePasseServeur(motDePasse))
+        .catch(function (e) {
+          /* Compte créé avant ce réglage, avec le mot de passe tel quel : on réessaie une fois. */
+          if (e.code !== "invalid_credentials" || String(motDePasse).length < 6) throw e;
+          ancien = true;
+          return essai(motDePasse);
+        })
         .then(function (r) {
           var s = depuisReponse(r);
           if (!s) throw Erreur("Connexion impossible.", "session");
           garderSession(s); emettre("connecte");
+          /* Ancien compte : on enregistre le mot de passe sous la nouvelle forme, pour les prochaines fois. */
+          if (ancien) changerMotDePasse(motDePasse).catch(function () {});
           return utilisateur();
         });
     }
@@ -179,7 +200,9 @@
       return requete(chemin, { methode: "POST", corps: { email: email } }).then(function () { return true; });
     }
     function changerMotDePasse(nouveau) {
-      return api("/auth/v1/user", { methode: "PUT", corps: { password: nouveau } }).then(function () { return true; });
+      var refus = verifierLongueur(nouveau);
+      if (refus) return refus;
+      return api("/auth/v1/user", { methode: "PUT", corps: { password: motDePasseServeur(nouveau) } }).then(function () { return true; });
     }
     /* Lien reçu par e-mail (confirmation ou mot de passe oublié) : la session arrive dans l'adresse. */
     function lireLienEmail(hash) {
@@ -327,6 +350,7 @@
 
     return {
       actif: !!(url && cle),
+      MIN_MOT_DE_PASSE: MIN_MOT_DE_PASSE,
       urlSite: urlSite,
       session: utilisateur,
       ecouter: function (f) { ecouteurs.push(f); },

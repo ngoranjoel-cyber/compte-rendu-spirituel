@@ -1,8 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#2fb35a"/>
-  <g fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M110 186h92a54 54 0 0 1 54 54v158a46 46 0 0 0-46-46h-100z"/>
-    <path d="M402 186h-92a54 54 0 0 0-54 54v158a46 46 0 0 1 46-46h100z"/>
-    <path d="M256 70v82M218 104h76"/>
+  <defs>
+    <linearGradient id="crs-fond" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#3a9be8"/>
+      <stop offset="0.55" stop-color="#1764c0"/>
+      <stop offset="1" stop-color="#0b3d86"/>
+    </linearGradient>
+    <radialGradient id="crs-lumiere" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="crs-or" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe6a6"/>
+      <stop offset="1" stop-color="#f2b84b"/>
+    </linearGradient>
+  </defs>
+  <!-- Médaillon -->
+  <circle cx="256" cy="256" r="246" fill="url(#crs-fond)"/>
+  <circle cx="256" cy="256" r="246" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="6"/>
+  <circle cx="256" cy="214" r="190" fill="url(#crs-lumiere)"/>
+  <!-- Rayons de lumière derrière la croix -->
+  <g stroke="#ffffff" stroke-opacity="0.32" stroke-width="7" stroke-linecap="round">
+    <path d="M256 70V40M178 92 160 66M334 92 352 66M128 146 100 130M384 146 412 130M110 212H80M402 212H432"/>
   </g>
+  <!-- Arc du monde (inspiré du croissant du logo de l'assemblée) -->
+  <path d="M74 286c22 104 112 170 214 160 66-7 120-42 150-94-40 38-96 58-156 52C190 396 112 352 74 286z" fill="#ffffff" fill-opacity="0.92"/>
+  <!-- Croix dorée -->
+  <rect x="236" y="92" width="40" height="214" rx="9" fill="url(#crs-or)"/>
+  <rect x="186" y="146" width="140" height="38" rx="9" fill="url(#crs-or)"/>
+  <!-- Bible ouverte -->
+  <path d="M132 300c46-20 88-16 120 12v86c-32-24-74-30-120-12z" fill="#ffffff"/>
+  <path d="M380 300c-46-20-88-16-120 12v86c32-24 74-30 120-12z" fill="#ffffff"/>
+  <g stroke="#1764c0" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M154 322c28-9 52-6 76 6M154 344c28-9 52-6 76 6M154 366c28-9 52-6 76 6"/>
+    <path d="M358 322c-28-9-52-6-76 6M358 344c-28-9-52-6-76 6M358 366c-28-9-52-6-76 6"/>
+  </g>
+  <path d="M256 314v90" stroke="#0b3d86" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round"/>
 </svg>

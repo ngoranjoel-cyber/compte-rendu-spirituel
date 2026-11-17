@@ -187,21 +187,100 @@ function montrerFormConnexion(quel){
   $("formConnexion").hidden=quel!=="connexion";$("formOubli").hidden=quel!=="oubli";$("formInscription").hidden=quel!=="inscription";
   $("ongletConnexion").setAttribute("aria-selected",String(quel!=="inscription"));
   $("ongletInscription").setAttribute("aria-selected",String(quel==="inscription"));
+  $("onglets2").setAttribute("data-actif",quel==="inscription"?"inscription":"connexion");
+}
+var MIN_MDP=C.MIN_MOT_DE_PASSE||4;
+function memoriserConnexion(){
+  try{
+    localStorage.setItem("crs:dejaConnecte","1");
+    if($("c-rester").checked)localStorage.removeItem("crs:sessionTemporaire");
+    else{localStorage.setItem("crs:sessionTemporaire","1");sessionStorage.setItem("crs:ouvert","1");}
+  }catch(e){}
+}
+/* Jauge du mot de passe : 4 caractères suffisent, plus long et varié c'est mieux. */
+function majForceMdp(v){
+  var n=v.length,score=0,lettres=/[a-zA-Z]/.test(v),chiffres=/\d/.test(v),autres=/[^A-Za-z0-9]/.test(v)||(/[a-z]/.test(v)&&/[A-Z]/.test(v));
+  if(n>0)score=n<MIN_MDP?1:2;
+  if(n>=6&&lettres&&chiffres)score=3;
+  if(n>=8&&lettres&&chiffres&&autres)score=4;
+  var niveaux=[["","#8e8b82",""],["Trop court","#b45309","#d97706"],["Correct","#b45309","#f59e0b"],["Bon","#047857","#059669"],["Excellent","#14532d","#14532d"]];
+  $("forceMdp").textContent=niveaux[score][0];$("forceMdp").style.color=niveaux[score][1];
+  Array.prototype.forEach.call($("jaugeMdp").children,function(b,i){b.style.background=i<score?niveaux[score][2]:"";});
+}
+
+/* Colonne photo des pages de connexion : trois piliers qui défilent toutes les 7 secondes. */
+var PILIERS=[
+  {kicker:"Discipline quotidienne",vignette:"Notez votre journée en quelques gestes",
+   texte:"Notez votre journée en quelques gestes : temps de prière, méditation biblique et évangélisation enregistrés instantanément.",
+   photo:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85",
+   mini:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=400&q=80"},
+  {kicker:"Archivage et édition",vignette:"Imprimez la semaine et le mois en PDF",
+   texte:"Imprimez la semaine et le mois en PDF : des bilans clairs, mis en page avec soin pour vos temps de retraite et de partage.",
+   photo:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=85",
+   mini:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=400&q=80"},
+  {kicker:"Accompagnement fraternel",vignette:"Votre faiseur de disciple suit vos progrès",
+   texte:"Votre faiseur de disciple suit vos progrès semaine après semaine et vous aide à grandir dans la régularité.",
+   photo:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85",
+   mini:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"}
+];
+var pilier=0,minuteriePiliers=null;
+function cacherSiErreur(img){img.addEventListener("error",function(){img.style.visibility="hidden";});}
+function construireHeros(){
+  Array.prototype.forEach.call(document.querySelectorAll(".auth2-hero"),function(h){
+    var img=el("img",{"class":"hero-img zoom",alt:"",src:PILIERS[0].photo});cacherSiErreur(img);h.appendChild(img);
+    h.appendChild(el("div",{"class":"hero-voile"}));
+    var haut=el("div",{"class":"hero-haut"}),badge=el("div",{"class":"hero-badge"});
+    var lg=document.createElementNS(SVG,"svg");lg.setAttribute("aria-hidden","true");var u=document.createElementNS(SVG,"use");u.setAttribute("href","#logo-crs");lg.appendChild(u);
+    badge.appendChild(lg);badge.appendChild(el("span",{},"Compte rendu spirituel"));haut.appendChild(badge);
+    haut.appendChild(el("span",{"class":"hero-compteur"},"01 / 03"));h.appendChild(haut);
+    var bas=el("div",{"class":"hero-bas"});
+    bas.appendChild(el("p",{"class":"hero-kicker"},PILIERS[0].kicker));
+    var t=el("h1",{"class":"hero-titre"});t.appendChild(document.createTextNode("Votre vie de prière, "));t.appendChild(el("em",{},"jour après jour,"));t.appendChild(document.createTextNode(" sur tous vos appareils."));
+    bas.appendChild(t);bas.appendChild(el("p",{"class":"hero-desc"},PILIERS[0].texte));
+    var v=el("div",{"class":"vignettes",role:"tablist","aria-label":"Ce que permet l'application"});
+    PILIERS.forEach(function(p,i){
+      var b=el("button",{type:"button","class":"vignette"+(i===0?" active":""),"data-pilier":String(i),role:"tab","aria-selected":String(i===0)});
+      var cadre=el("div",{"class":"vimg"}),mi=el("img",{src:p.mini,alt:"",loading:"lazy"});cacherSiErreur(mi);cadre.appendChild(mi);b.appendChild(cadre);
+      b.appendChild(el("p",{},p.vignette));var piste=el("span",{"class":"piste"});piste.appendChild(el("i"));b.appendChild(piste);
+      b.addEventListener("click",function(){activerPilier(i);});
+      v.appendChild(b);
+    });
+    bas.appendChild(v);h.appendChild(bas);
+  });
+  relancerPiliers();
+}
+function activerPilier(i){
+  pilier=i;var p=PILIERS[i];
+  Array.prototype.forEach.call(document.querySelectorAll(".auth2-hero"),function(h){
+    var img=h.querySelector(".hero-img");img.style.opacity="0.25";img.classList.remove("zoom");
+    setTimeout(function(){img.style.visibility="";img.src=p.photo;img.style.opacity="1";void img.offsetWidth;img.classList.add("zoom");},180);
+    h.querySelector(".hero-kicker").textContent=p.kicker;h.querySelector(".hero-desc").textContent=p.texte;
+    h.querySelector(".hero-compteur").textContent="0"+(i+1)+" / 03";
+    Array.prototype.forEach.call(h.querySelectorAll(".vignette"),function(b,j){
+      var actif=j===i;b.setAttribute("aria-selected",String(actif));
+      var barre=b.querySelector(".piste i");b.classList.remove("active");void barre.offsetWidth;if(actif)b.classList.add("active");
+    });
+  });
+  relancerPiliers();
+}
+function relancerPiliers(){
+  clearInterval(minuteriePiliers);
+  minuteriePiliers=setInterval(function(){if(document.body.classList.contains("auth")&&document.visibilityState==="visible")activerPilier((pilier+1)%PILIERS.length);},7000);
 }
 function seConnecter(){
   dire("msgConnexion","Connexion…");
   occuper($("btnConnexion"),C.connecter($("c-email").value.trim(),$("c-mdp").value)).then(function(){
-    $("c-mdp").value="";dire("msgConnexion","");location.hash="#jour";demarrerSession();
+    memoriserConnexion();$("c-mdp").value="";dire("msgConnexion","");location.hash="#jour";demarrerSession();
   },function(e){dire("msgConnexion",e.message,"err");});
 }
 function creerCompte(){
   var d={nom:$("i-nom").value.trim(),prenoms:$("i-prenoms").value.trim(),contact:$("i-contact").value.trim(),zone:$("i-zone").value.trim(),
     email:$("i-email").value.trim(),motDePasse:$("i-mdp").value};
-  if(d.motDePasse.length<8){dire("msgInscription","Le mot de passe doit faire 8 caractères au moins.","err");return;}
+  if(d.motDePasse.length<MIN_MDP){dire("msgInscription","Le mot de passe doit faire "+MIN_MDP+" caractères au moins.","err");$("i-mdp").focus();return;}
   dire("msgInscription","Création du compte…");
   occuper($("btnInscription"),C.inscrire(d)).then(function(r){
-    $("i-mdp").value="";
-    if(r.connecte){dire("msgInscription","");location.hash="#jour";demarrerSession();return;}
+    $("i-mdp").value="";majForceMdp("");
+    if(r.connecte){memoriserConnexion();dire("msgInscription","");location.hash="#jour";demarrerSession();return;}
     montrerFormConnexion("connexion");$("c-email").value=d.email;
     dire("msgConnexion","Compte créé. Ouvrez le lien envoyé à "+d.email+" pour confirmer votre adresse, puis connectez-vous.","ok");
   },function(e){dire("msgInscription",e.message,"err");});
@@ -214,7 +293,7 @@ function demanderLien(){
 }
 function enregistrerNouveauMdp(){
   var m=$("n-mdp").value;
-  if(m.length<8){dire("msgMdp","Le mot de passe doit faire 8 caractères au moins.","err");return;}
+  if(m.length<MIN_MDP){dire("msgMdp","Le mot de passe doit faire "+MIN_MDP+" caractères au moins.","err");return;}
   C.changerMotDePasse(m).then(function(){
     $("n-mdp").value="";lienRecuperation=false;location.hash="#jour";demarrerSession();
   },function(e){dire("msgMdp",e.message,"err");});
@@ -236,14 +315,33 @@ function lireChoixFaiseur(selectId,libreId){
   if(v==="libre"){var t=$(libreId).value.trim();return t?{faiseur_id:null,faiseur_nom:t}:null;}
   return v?{faiseur_id:v,faiseur_nom:""}:null;
 }
+var choixFaiseurAccueil="";
 function afficherAccueil(etape){
   titres("Bienvenue","");
-  $("titreAccueil").textContent=etape==="faiseur"?"Votre faiseur de disciple":"Bonjour "+(profil.prenoms||"")+" !";
-  $("texteAccueil").textContent=etape==="faiseur"
-    ?"Vous êtes membre de « "+profil.assemblee+" ». Choisissez votre faiseur de disciple."
-    :"Reliez votre compte à votre assemblée.";
-  $("etapeAssemblee").hidden=etape!=="assemblee";$("etapeFaiseur").hidden=etape!=="faiseur";
-  if(etape==="faiseur")choixFaiseur("f-choix","f-libreBloc","f-libre");
+  var f=etape==="faiseur";
+  $("kickerAccueil").textContent=f?"Étape 3 sur 3 · Accompagnement":"Étape 2 sur 3 · Assemblée";
+  $("titreAccueil").textContent=f?"Votre faiseur de disciple":"Bienvenue, "+(profil.prenoms||"");
+  $("texteAccueil").textContent=f
+    ?"Vous êtes membre de « "+profil.assemblee+" ». Choisissez la personne qui vous accompagne : elle verra vos comptes rendus, comme le responsable de l'assemblée."
+    :"Reliez votre compte à votre assemblée locale.";
+  $("etapeAssemblee").hidden=f;$("etapeFaiseur").hidden=!f;
+  if(f){choixFaiseurAccueil=profil.faiseurId||(profil.faiseur?"libre":"");$("f-libre").value=profil.faiseurId?"":(profil.faiseur||"");dessinerFaiseurs();}
+}
+/* Liste des membres de l'assemblée, à choisir d'un geste (rond coché). */
+function dessinerFaiseurs(){
+  var boite=$("listeFaiseurs");boite.textContent="";
+  var gens=serveur.membres.filter(function(m){return m.id!==profil.id;});
+  gens.concat([{id:"libre"}]).forEach(function(m){
+    var libre=m.id==="libre",b=el("button",{type:"button","class":"mentor",role:"radio","aria-checked":String(choixFaiseurAccueil===m.id),"data-id":m.id});
+    b.appendChild(el("span",{"class":"av "+(libre?"libre":couleurDe(nomComplet(m)))},libre?"+":initiales(m)));
+    var t=el("span",{"class":"txt"});
+    t.appendChild(el("span",{"class":"nom"},libre?"Mon faiseur n'est pas encore inscrit":nomComplet(m)));
+    t.appendChild(el("span",{"class":"role"},libre?"Saisir son nom":(m.role==="responsable"?"Responsable de l'assemblée":"Membre de l'assemblée")));
+    b.appendChild(t);b.appendChild(el("span",{"class":"radio","aria-hidden":"true"}));
+    b.addEventListener("click",function(){choixFaiseurAccueil=m.id;dessinerFaiseurs();if(libre)$("f-libre").focus();});
+    boite.appendChild(b);
+  });
+  $("f-libreBloc").hidden=choixFaiseurAccueil!=="libre";
 }
 function apresAssemblee(promesse,msgId){
   dire(msgId,"Un instant…");
@@ -862,9 +960,16 @@ $("formConnexion").addEventListener("submit",function(e){e.preventDefault();seCo
 $("formInscription").addEventListener("submit",function(e){e.preventDefault();creerCompte();});
 $("formOubli").addEventListener("submit",function(e){e.preventDefault();demanderLien();});
 $("formMdp").addEventListener("submit",function(e){e.preventDefault();enregistrerNouveauMdp();});
-Array.prototype.forEach.call(document.querySelectorAll("[data-montrer]"),function(c){
-  c.addEventListener("change",function(){$(c.getAttribute("data-montrer")).type=c.checked?"text":"password";});
+Array.prototype.forEach.call(document.querySelectorAll("[data-oeil]"),function(b){
+  b.addEventListener("click",function(){
+    var i=$(b.getAttribute("data-oeil")),voir=i.type==="password";i.type=voir?"text":"password";
+    b.querySelector("use").setAttribute("href",voir?"#i-oeil-barre":"#i-oeil");
+    b.setAttribute("aria-label",voir?"Masquer le mot de passe":"Afficher le mot de passe");
+  });
 });
+$("i-mdp").addEventListener("input",function(){majForceMdp(this.value);});
+construireHeros();
+try{montrerFormConnexion(localStorage.getItem("crs:dejaConnecte")?"connexion":"inscription");}catch(e){montrerFormConnexion("inscription");}
 Array.prototype.forEach.call(document.querySelectorAll("[data-copier]"),function(b){
   b.addEventListener("click",function(){
     var t=$(b.getAttribute("data-copier")).textContent,fait=function(){var ancien=b.lastChild.textContent;b.lastChild.textContent="Copié ✓";setTimeout(function(){b.lastChild.textContent=ancien;},1800);};
@@ -877,7 +982,8 @@ $("formRejoindre").addEventListener("submit",function(e){e.preventDefault();apre
 $("formCreerAssemblee").addEventListener("submit",function(e){e.preventDefault();apresAssemblee(C.assemblee.creer($("a-nom").value.trim(),$("a-zone").value.trim()),"msgCreerAssemblee").then(function(){if(profil.code)location.hash="#suivi";});});
 $("formSansAssemblee").addEventListener("submit",function(e){e.preventDefault();var n=$("a-nomLibre").value.trim();if(!n)return;
   apresAssemblee(C.majProfil({assemblee_nom:n}),"msgSansAssemblee");});
-$("etapeFaiseur").addEventListener("submit",function(e){e.preventDefault();var c=lireChoixFaiseur("f-choix","f-libre");
+$("etapeFaiseur").addEventListener("submit",function(e){e.preventDefault();
+  var c=choixFaiseurAccueil==="libre"?($("f-libre").value.trim()?{faiseur_id:null,faiseur_nom:$("f-libre").value.trim()}:null):(choixFaiseurAccueil?{faiseur_id:choixFaiseurAccueil,faiseur_nom:""}:null);
   if(!c){dire("msgFaiseur","Choisissez votre faiseur de disciple, ou « Plus tard ».","err");return;}
   apresAssemblee(C.majProfil(c),"msgFaiseur");});
 $("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#jour";route();};
@@ -893,7 +999,7 @@ $("quitterAssemblee").onclick=function(){confirmer("Quitter l'assemblée","Votre
 $("nouveauCode").onclick=function(){confirmer("Remplacer le code","L'ancien code ne fonctionnera plus. Les membres déjà inscrits restent dans l'assemblée.","Remplacer").then(function(ok){
   if(ok)apresAssemblee(C.assemblee.changerCode(),"msgAssemblee");});};
 $("formNouveauMdp").addEventListener("submit",function(e){e.preventDefault();var m=$("pm-mdp").value;
-  if(m.length<8){dire("msgCompte","Le mot de passe doit faire 8 caractères au moins.","err");return;}
+  if(m.length<MIN_MDP){dire("msgCompte","Le mot de passe doit faire "+MIN_MDP+" caractères au moins.","err");return;}
   C.changerMotDePasse(m).then(function(){$("pm-mdp").value="";dire("msgCompte","Mot de passe changé","ok");},function(e2){dire("msgCompte",e2.message,"err");});});
 $("btnDeconnexion").onclick=function(){
   var n=C.enAttente();
@@ -967,6 +1073,8 @@ document.addEventListener("visibilitychange",function(){if(document.visibilitySt
 /* ---------- Démarrage ---------- */
 if(natif)initRappels();
 if(enLigne){
+  /* « Rester connecté » décoché : la session se ferme quand l'application ou le navigateur est fermé. */
+  try{if(C.session()&&localStorage.getItem("crs:sessionTemporaire")&&!sessionStorage.getItem("crs:ouvert"))C.deconnecter();}catch(e){}
   C.ecouter(function(evt){
     if(evt==="deconnecte"){profil=null;serveur={profil:null,assemblee:null,membres:[],charge:false};
       montrerFormConnexion("connexion");dire("msgConnexion","Vous êtes déconnecté.");location.hash="#connexion";route();}

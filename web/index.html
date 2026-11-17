@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="icone-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 <style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
 </head>
@@ -22,7 +22,46 @@
 
 <!-- Icônes (traits, 24 x 24) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-crs" viewBox="0 0 512 512"><defs>
+    <linearGradient id="crs-fond" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#3a9be8"/>
+      <stop offset="0.55" stop-color="#1764c0"/>
+      <stop offset="1" stop-color="#0b3d86"/>
+    </linearGradient>
+    <radialGradient id="crs-lumiere" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="crs-or" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe6a6"/>
+      <stop offset="1" stop-color="#f2b84b"/>
+    </linearGradient>
+  </defs>
+  <!-- Médaillon -->
+  <circle cx="256" cy="256" r="246" fill="url(#crs-fond)"/>
+  <circle cx="256" cy="256" r="246" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="6"/>
+  <circle cx="256" cy="214" r="190" fill="url(#crs-lumiere)"/>
+  <!-- Rayons de lumière derrière la croix -->
+  <g stroke="#ffffff" stroke-opacity="0.32" stroke-width="7" stroke-linecap="round">
+    <path d="M256 70V40M178 92 160 66M334 92 352 66M128 146 100 130M384 146 412 130M110 212H80M402 212H432"/>
+  </g>
+  <!-- Arc du monde (inspiré du croissant du logo de l'assemblée) -->
+  <path d="M74 286c22 104 112 170 214 160 66-7 120-42 150-94-40 38-96 58-156 52C190 396 112 352 74 286z" fill="#ffffff" fill-opacity="0.92"/>
+  <!-- Croix dorée -->
+  <rect x="236" y="92" width="40" height="214" rx="9" fill="url(#crs-or)"/>
+  <rect x="186" y="146" width="140" height="38" rx="9" fill="url(#crs-or)"/>
+  <!-- Bible ouverte -->
+  <path d="M132 300c46-20 88-16 120 12v86c-32-24-74-30-120-12z" fill="#ffffff"/>
+  <path d="M380 300c-46-20-88-16-120 12v86c32-24 74-30 120-12z" fill="#ffffff"/>
+  <g stroke="#1764c0" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M154 322c28-9 52-6 76 6M154 344c28-9 52-6 76 6M154 366c28-9 52-6 76 6"/>
+    <path d="M358 322c-28-9-52-6-76 6M358 344c-28-9-52-6-76 6M358 366c-28-9-52-6-76 6"/>
+  </g>
+  <path d="M256 314v90" stroke="#0b3d86" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round"/></symbol>
   <symbol id="i-logo" viewBox="0 0 24 24"><path d="M3 6.5h5.5A3.5 3.5 0 0 1 12 10v10a3 3 0 0 0-3-3H3z"/><path d="M21 6.5h-5.5A3.5 3.5 0 0 0 12 10v10a3 3 0 0 1 3-3h6z"/><path d="M12 1.5v5M9.5 3.5h5"/></symbol>
+  <symbol id="i-oeil" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-oeil-barre" viewBox="0 0 24 24"><path d="M9.9 9.9a3 3 0 1 0 4.2 4.2"/><path d="M10.7 5.1A10.4 10.4 0 0 1 12 5c7 0 10 7 10 7a13.2 13.2 0 0 1-1.7 2.7"/><path d="M6.6 6.6A13.5 13.5 0 0 0 2 12s3 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M2 2l20 20"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
   <symbol id="i-user-check" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 4.5 2"/><path d="M15 17l2.5 2.5L22 15"/></symbol>
@@ -67,7 +106,7 @@
 <div class="app" id="page">
   <!-- Menu latéral (ordinateur) -->
   <aside class="lateral" aria-label="Menu">
-    <div class="marque"><span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span><div><b>Compte rendu</b><span>Prier · Méditer · Prêcher</span></div></div>
+    <div class="marque"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><div><b>Compte rendu</b><span>Prier · Méditer · Prêcher</span></div></div>
     <nav>
       <button type="button" data-aller="jour"><span class="pic petit vert"><svg class="ic"><use href="#i-sun"/></svg></span>Ma journée</button>
       <button type="button" data-aller="semaine"><span class="pic petit bleu"><svg class="ic"><use href="#i-week"/></svg></span>Ma semaine</button>
@@ -84,7 +123,7 @@
   <div class="contenu">
     <!-- En-tête (téléphone) -->
     <header class="entete">
-      <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
+      <svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg>
       <div class="titre-vue"><b id="titreVue">Compte rendu</b><span id="pastille"></span></div>
       <button type="button" class="avatar" id="avatarEntete" data-aller="profil" aria-label="Mon profil">?</button>
     </header>
@@ -92,119 +131,153 @@
     <div class="page">
       <!-- ========== Connexion / création de compte ========== -->
       <main class="vue" id="vueConnexion" hidden>
-        <div class="auth-cadre">
-          <div class="auth-intro">
-            <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
-            <div><h1>Compte rendu spirituel</h1><p>Votre vie de prière, jour après jour, sur tous vos appareils.</p></div>
-            <ul>
-              <li><span class="pic vert"><svg class="ic"><use href="#i-sun"/></svg></span>Notez votre journée en quelques gestes</li>
-              <li><span class="pic bleu"><svg class="ic"><use href="#i-printer"/></svg></span>Imprimez la semaine et le mois en PDF</li>
-              <li><span class="pic violet"><svg class="ic"><use href="#i-users"/></svg></span>Votre faiseur de disciple suit vos progrès</li>
-            </ul>
-          </div>
-          <div class="auth-form">
-            <div class="segments" role="tablist">
-              <button type="button" role="tab" id="ongletConnexion" aria-selected="true">Se connecter</button>
-              <button type="button" role="tab" id="ongletInscription" aria-selected="false">Créer un compte</button>
-            </div>
-            <p class="msg" id="msgLien" role="status"></p>
-
-            <form id="formConnexion" autocomplete="on" class="vue" style="gap:14px">
-              <label class="champ">E-mail<input type="email" id="c-email" autocomplete="username" inputmode="email" required></label>
-              <label class="champ">Mot de passe<input type="password" id="c-mdp" autocomplete="current-password" required></label>
-              <label class="case"><input type="checkbox" data-montrer="c-mdp">Afficher le mot de passe</label>
-              <button class="btn vert large" type="submit" id="btnConnexion">Se connecter</button>
-              <span class="msg" id="msgConnexion" role="status"></span>
-              <button class="lien" type="button" id="versOubli">Mot de passe oublié ?</button>
-            </form>
-
-            <form id="formOubli" autocomplete="on" class="vue" style="gap:14px" hidden>
-              <p class="aide">Saisissez votre e-mail : vous recevrez un lien pour choisir un nouveau mot de passe.</p>
-              <label class="champ">E-mail<input type="email" id="o-email" autocomplete="username" inputmode="email" required></label>
-              <button class="btn vert large" type="submit" id="btnOubli">Recevoir le lien</button>
-              <span class="msg" id="msgOubli" role="status"></span>
-              <button class="lien" type="button" id="retourConnexion">‹ Retour à la connexion</button>
-            </form>
-
-            <form id="formInscription" autocomplete="on" class="vue" style="gap:14px" hidden>
-              <div class="champs">
-                <label class="champ">Nom<input type="text" id="i-nom" autocomplete="family-name" required maxlength="80"></label>
-                <label class="champ">Prénoms<input type="text" id="i-prenoms" autocomplete="given-name" required maxlength="120"></label>
-                <label class="champ">Contact (téléphone)<input type="tel" id="i-contact" autocomplete="tel" inputmode="tel" required maxlength="40"></label>
-                <label class="champ">Zone / Ville<input type="text" id="i-zone" autocomplete="address-level2" required maxlength="120"></label>
-                <label class="champ large">E-mail<input type="email" id="i-email" autocomplete="username" inputmode="email" required></label>
-                <label class="champ large">Mot de passe (8 caractères au moins)<input type="password" id="i-mdp" autocomplete="new-password" minlength="8" required></label>
+        <div class="auth2">
+          <section class="auth2-hero" aria-label="Présentation"></section>
+          <section class="auth2-droite">
+            <div class="auth2-contenu">
+              <div class="onglets2" id="onglets2" data-actif="inscription" role="tablist">
+                <span class="pilule" aria-hidden="true"></span>
+                <button type="button" role="tab" id="ongletConnexion" aria-selected="false">Se connecter</button>
+                <button type="button" role="tab" id="ongletInscription" aria-selected="true">Créer un compte</button>
               </div>
-              <label class="case"><input type="checkbox" data-montrer="i-mdp">Afficher le mot de passe</label>
-              <p class="aide">Votre assemblée et votre faiseur de disciple se choisissent à l'étape suivante.</p>
-              <button class="btn vert large" type="submit" id="btnInscription">Créer mon compte</button>
-              <span class="msg" id="msgInscription" role="status"></span>
-            </form>
-          </div>
+              <p class="msg bandeau2" id="msgLien" role="status"></p>
+
+              <form id="formInscription" autocomplete="on" class="form2 apparition">
+                <div><h2 class="titre-auth">Commencez votre carnet</h2><p class="sous-auth">Créez votre accès personnel en moins d'une minute.</p></div>
+                <div class="ligne2">
+                  <div><label class="etiquette2" for="i-nom">Nom</label><input class="saisie2" type="text" id="i-nom" autocomplete="family-name" required maxlength="80" placeholder="Kouassi"></div>
+                  <div><label class="etiquette2" for="i-prenoms">Prénoms</label><input class="saisie2" type="text" id="i-prenoms" autocomplete="given-name" required maxlength="120" placeholder="Jean-Marc"></div>
+                </div>
+                <div class="ligne2">
+                  <div><label class="etiquette2" for="i-contact">Contact (téléphone)</label><input class="saisie2" type="tel" id="i-contact" autocomplete="tel" inputmode="tel" required maxlength="40" placeholder="+225 07 00 00 00 00"></div>
+                  <div><label class="etiquette2" for="i-zone">Zone / Ville</label><input class="saisie2" type="text" id="i-zone" autocomplete="address-level2" required maxlength="120" placeholder="Abidjan, Marcory"></div>
+                </div>
+                <div><label class="etiquette2" for="i-email">E-mail</label><input class="saisie2" type="email" id="i-email" autocomplete="email" inputmode="email" required placeholder="jean-marc.kouassi@exemple.com"></div>
+                <div>
+                  <div class="entre2"><label class="etiquette2" for="i-mdp" style="margin:0">Mot de passe <span class="leger">(4 caractères au moins, par exemple 4 chiffres)</span></label><span class="force" id="forceMdp"></span></div>
+                  <div class="mdp2"><input class="saisie2" type="password" id="i-mdp" autocomplete="new-password" minlength="4" required placeholder="••••"><button type="button" class="oeil" data-oeil="i-mdp" aria-label="Afficher ou masquer le mot de passe"><svg><use href="#i-oeil"/></svg></button></div>
+                  <div class="jauge2" id="jaugeMdp" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                </div>
+                <p class="note2">Votre assemblée et votre faiseur de disciple se choisissent à l'étape suivante.</p>
+                <button class="btn-foret" type="submit" id="btnInscription"><span>Créer mon compte</span><span class="fl" aria-hidden="true">→</span></button>
+                <span class="msg" id="msgInscription" role="status"></span>
+              </form>
+
+              <form id="formConnexion" autocomplete="on" class="form2 apparition" hidden>
+                <div><h2 class="titre-auth">Bon retour parmi nous</h2><p class="sous-auth">Connectez-vous pour poursuivre votre suivi spirituel quotidien.</p></div>
+                <div><label class="etiquette2" for="c-email">E-mail</label><input class="saisie2" type="email" id="c-email" autocomplete="username" inputmode="email" required placeholder="jean-marc.kouassi@exemple.com"></div>
+                <div>
+                  <div class="entre2"><label class="etiquette2" for="c-mdp" style="margin:0">Mot de passe</label><button class="lien2" type="button" id="versOubli">Mot de passe oublié ?</button></div>
+                  <div class="mdp2"><input class="saisie2" type="password" id="c-mdp" autocomplete="current-password" required placeholder="••••"><button type="button" class="oeil" data-oeil="c-mdp" aria-label="Afficher ou masquer le mot de passe"><svg><use href="#i-oeil"/></svg></button></div>
+                </div>
+                <label class="case2"><input type="checkbox" id="c-rester" checked>Rester connecté sur cet appareil</label>
+                <button class="btn-foret" type="submit" id="btnConnexion"><span>Se connecter</span><span class="fl" aria-hidden="true">→</span></button>
+                <span class="msg" id="msgConnexion" role="status"></span>
+              </form>
+
+              <form id="formOubli" autocomplete="on" class="form2 apparition" hidden>
+                <div><h2 class="titre-auth">Mot de passe oublié</h2><p class="sous-auth">Saisissez votre e-mail : vous recevrez un lien pour choisir un nouveau mot de passe.</p></div>
+                <div><label class="etiquette2" for="o-email">E-mail</label><input class="saisie2" type="email" id="o-email" autocomplete="username" inputmode="email" required></div>
+                <button class="btn-foret" type="submit" id="btnOubli"><span>Recevoir le lien</span><span class="fl" aria-hidden="true">→</span></button>
+                <span class="msg" id="msgOubli" role="status"></span>
+                <button class="lien2" type="button" id="retourConnexion">← Retour à la connexion</button>
+              </form>
+            </div>
+            <footer class="pied2"><span>Synchronisation multi-appareils sécurisée</span><span>Compte rendu spirituel</span></footer>
+          </section>
         </div>
       </main>
 
       <!-- ========== Nouveau mot de passe ========== -->
       <main class="vue" id="vueMdp" hidden>
-        <form class="carte" id="formMdp" style="max-width:480px;margin:6vh auto 0;width:100%">
-          <span class="pic bleu"><svg class="ic"><use href="#i-key"/></svg></span>
-          <h2>Nouveau mot de passe</h2>
-          <label class="champ">Nouveau mot de passe (8 caractères au moins)<input type="password" id="n-mdp" autocomplete="new-password" minlength="8" required></label>
-          <label class="case"><input type="checkbox" data-montrer="n-mdp">Afficher le mot de passe</label>
-          <button class="btn vert large" type="submit">Enregistrer le mot de passe</button>
-          <span class="msg" id="msgMdp" role="status"></span>
-        </form>
+        <div class="auth2">
+          <section class="auth2-hero" aria-label="Présentation"></section>
+          <section class="auth2-droite">
+            <form class="auth2-contenu form2 apparition" id="formMdp">
+              <div><h2 class="titre-auth">Nouveau mot de passe</h2><p class="sous-auth">Choisissez un mot de passe d'au moins 4 caractères.</p></div>
+              <div><label class="etiquette2" for="n-mdp">Nouveau mot de passe</label>
+                <div class="mdp2"><input class="saisie2" type="password" id="n-mdp" autocomplete="new-password" minlength="4" required><button type="button" class="oeil" data-oeil="n-mdp" aria-label="Afficher ou masquer le mot de passe"><svg><use href="#i-oeil"/></svg></button></div></div>
+              <button class="btn-foret" type="submit"><span>Enregistrer le mot de passe</span><span class="fl" aria-hidden="true">→</span></button>
+              <span class="msg" id="msgMdp" role="status"></span>
+            </form>
+            <footer class="pied2"><span>Synchronisation multi-appareils sécurisée</span><span>Compte rendu spirituel</span></footer>
+          </section>
+        </div>
       </main>
 
       <!-- ========== Chargement du compte ========== -->
       <main class="vue" id="vueChargement" hidden>
-        <div class="carte" style="max-width:480px;margin:6vh auto 0;width:100%">
-          <span class="pic bleu"><svg class="ic"><use href="#i-cloud"/></svg></span>
-          <h2>Ouverture de votre compte…</h2>
-          <p class="msg" id="msgChargement" role="status">Récupération de votre profil.</p>
-          <div class="actions"><button class="btn" id="reessayerChargement" hidden>Réessayer</button><button class="lien" id="deconnexionChargement">Se déconnecter</button></div>
+        <div class="auth2">
+          <section class="auth2-hero" aria-label="Présentation"></section>
+          <section class="auth2-droite">
+            <div class="auth2-contenu form2">
+              <div><h2 class="titre-auth">Ouverture de votre carnet…</h2><p class="msg sous-auth" id="msgChargement" role="status">Récupération de votre profil.</p></div>
+              <div class="actions"><button class="btn-clair" id="reessayerChargement" hidden>Réessayer</button><button class="lien2" id="deconnexionChargement">Se déconnecter</button></div>
+            </div>
+            <footer class="pied2"><span>Synchronisation multi-appareils sécurisée</span><span>Compte rendu spirituel</span></footer>
+          </section>
         </div>
       </main>
 
       <!-- ========== Premiers pas : assemblée puis faiseur ========== -->
       <main class="vue" id="vueAccueil" hidden>
-        <div class="tete-vue"><div><h1 id="titreAccueil">Bienvenue</h1><p class="sous" id="texteAccueil"></p></div></div>
-        <div id="etapeAssemblee" class="vue">
-          <div class="etape-cartes">
-            <form class="carte" id="formRejoindre">
-              <span class="pic bleu"><svg class="ic"><use href="#i-home"/></svg></span>
-              <h2>Rejoindre mon assemblée</h2>
-              <p class="aide">Le responsable de votre assemblée vous donne un code de 8 caractères.</p>
-              <label class="champ">Code de l'assemblée<input class="code" type="text" id="a-code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
-              <button class="btn vert" type="submit">Rejoindre</button>
-              <span class="msg" id="msgRejoindre" role="status"></span>
-            </form>
-            <form class="carte" id="formCreerAssemblee">
-              <span class="pic orange"><svg class="ic"><use href="#i-shield"/></svg></span>
-              <h2>Je suis responsable d'assemblée</h2>
-              <p class="aide">Créez l'assemblée : vous recevrez le code à donner aux membres et vous verrez leurs comptes rendus.</p>
-              <label class="champ">Nom de l'assemblée<input type="text" id="a-nom" maxlength="120" required placeholder="Chez les …"></label>
-              <label class="champ">Zone / Ville<input type="text" id="a-zone" maxlength="120"></label>
-              <button class="btn sombre" type="submit">Créer l'assemblée</button>
-              <span class="msg" id="msgCreerAssemblee" role="status"></span>
-            </form>
-          </div>
-          <form class="carte" id="formSansAssemblee">
-            <h2>Mon assemblée n'est pas encore sur l'application</h2>
-            <p class="aide">Indiquez son nom pour vos comptes rendus. Vous pourrez la rejoindre plus tard avec un code.</p>
-            <div class="actions" style="align-items:flex-end"><label class="champ" style="flex:1;min-width:200px">Nom de l'assemblée<input type="text" id="a-nomLibre" maxlength="120" required></label><button class="btn" type="submit">Continuer</button></div>
-            <span class="msg" id="msgSansAssemblee" role="status"></span>
-          </form>
+        <div class="auth2">
+          <section class="auth2-hero" aria-label="Présentation"></section>
+          <section class="auth2-droite">
+            <div class="auth2-contenu form2">
+              <div class="entete-etape">
+                <div><span class="etape-kicker" id="kickerAccueil">Étape 2 sur 3 · Assemblée</span><h2 class="titre-auth" id="titreAccueil">Bienvenue</h2></div>
+                <span class="pret">Compte prêt</span>
+              </div>
+              <p class="sous-auth" id="texteAccueil"></p>
+
+              <div id="etapeAssemblee" class="form2 apparition">
+                <form id="formRejoindre" class="form2">
+                  <div><label class="etiquette2" for="a-code">Code de votre assemblée</label>
+                    <input class="saisie2 code2" type="text" id="a-code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="ABCD2345">
+                    <p class="leger" style="margin-top:6px">Le responsable de votre assemblée vous donne ce code de 8 caractères.</p></div>
+                  <button class="btn-foret" type="submit"><span>Rejoindre mon assemblée</span><span class="fl" aria-hidden="true">→</span></button>
+                  <span class="msg" id="msgRejoindre" role="status"></span>
+                </form>
+                <div class="ou">ou</div>
+                <details class="volet2">
+                  <summary>Je suis responsable d'assemblée</summary>
+                  <form id="formCreerAssemblee" class="form2">
+                    <p class="leger">Vous recevrez le code à donner aux membres et vous verrez leurs comptes rendus.</p>
+                    <div class="ligne2">
+                      <div><label class="etiquette2" for="a-nom">Nom de l'assemblée</label><input class="saisie2" type="text" id="a-nom" maxlength="120" required placeholder="Chez les …"></div>
+                      <div><label class="etiquette2" for="a-zone">Zone / Ville</label><input class="saisie2" type="text" id="a-zone" maxlength="120" placeholder="Abidjan, Marcory"></div>
+                    </div>
+                    <button class="btn-foret" type="submit"><span>Créer l'assemblée</span><span class="fl" aria-hidden="true">→</span></button>
+                    <span class="msg" id="msgCreerAssemblee" role="status"></span>
+                  </form>
+                </details>
+                <details class="volet2">
+                  <summary>Mon assemblée n'est pas encore sur l'application</summary>
+                  <form id="formSansAssemblee" class="form2">
+                    <div><label class="etiquette2" for="a-nomLibre">Nom de l'assemblée</label><input class="saisie2" type="text" id="a-nomLibre" maxlength="120" required></div>
+                    <button class="btn-clair" type="submit">Continuer</button>
+                    <span class="msg" id="msgSansAssemblee" role="status"></span>
+                  </form>
+                </details>
+              </div>
+
+              <form id="etapeFaiseur" class="form2 apparition" hidden>
+                <div>
+                  <div class="entre2"><span class="etiquette2" style="margin:0">Votre faiseur de disciple</span><span class="leger">Il verra vos comptes rendus</span></div>
+                  <div class="mentors" id="listeFaiseurs" role="radiogroup" aria-label="Votre faiseur de disciple"></div>
+                </div>
+                <div id="f-libreBloc" hidden><label class="etiquette2" for="f-libre">Nom de votre faiseur de disciple</label><input class="saisie2" type="text" id="f-libre" maxlength="120"></div>
+                <div class="actions" style="gap:12px">
+                  <button class="btn-clair" type="button" id="faiseurPlusTard">Plus tard</button>
+                  <button class="btn-foret" type="submit" style="flex:1;width:auto"><span>Finaliser mon inscription</span></button>
+                </div>
+                <span class="msg" id="msgFaiseur" role="status"></span>
+              </form>
+            </div>
+            <footer class="pied2"><span>Synchronisation multi-appareils sécurisée</span><span>Compte rendu spirituel</span></footer>
+          </section>
         </div>
-        <form class="carte" id="etapeFaiseur" hidden>
-          <span class="pic violet"><svg class="ic"><use href="#i-user-check"/></svg></span>
-          <h2>Mon faiseur de disciple</h2>
-          <p class="aide">Il verra vos comptes rendus. Le responsable de l'assemblée les voit aussi.</p>
-          <label class="champ">Choisir dans l'assemblée<select id="f-choix"></select></label>
-          <label class="champ" id="f-libreBloc" hidden>Nom de votre faiseur de disciple<input type="text" id="f-libre" maxlength="120"></label>
-          <div class="actions"><button class="btn vert" type="submit">Continuer</button><button class="lien" type="button" id="faiseurPlusTard">Plus tard</button></div>
-          <span class="msg" id="msgFaiseur" role="status"></span>
-        </form>
       </main>
 
       <!-- ========== Ma journée ========== -->
@@ -424,7 +497,7 @@
           <div class="panneau-titre" style="padding:0"><span class="pic ardoise"><svg class="ic"><use href="#i-key"/></svg></span><div><h2>Mon compte</h2><p class="aide" id="emailCompte"></p></div></div>
           <span class="synchro" id="etatSynchroProfil"></span>
           <form id="formNouveauMdp" class="actions" style="align-items:flex-end">
-            <label class="champ" style="flex:1;min-width:200px">Nouveau mot de passe<input type="password" id="pm-mdp" autocomplete="new-password" minlength="8" required></label>
+            <label class="champ" style="flex:1;min-width:200px">Nouveau mot de passe<input type="password" id="pm-mdp" autocomplete="new-password" minlength="4" required placeholder="4 caractères au moins"></label>
             <button class="btn" type="submit">Changer</button>
           </form>
           <span class="msg" id="msgCompte" role="status"></span>
