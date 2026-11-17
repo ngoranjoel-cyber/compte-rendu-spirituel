@@ -25,7 +25,7 @@ async function texte(p,sel){return (await p.textContent(sel)).trim();}
   await inscrire(R.p,{nom:'KOFFI',prenoms:'Rita',contact:'07 11 11 11 11',zone:'Abidjan',email:'rita@test.ci',mdp:'motdepasse1'});
   console.log('après inscription R :', await R.p.isVisible('#vueAccueil'), await texte(R.p,'#texteAccueil'));
   await R.p.screenshot({path:IMAGES+'/02-assemblee.png',fullPage:true});
-  await R.p.fill('#a-nom','Chez les Kouadio');await R.p.fill('#a-zone','Marcory');
+  await R.p.click('summary:has-text("responsable")');await R.p.fill('#a-nom','Chez les Kouadio');await R.p.fill('#a-zone','Marcory');
   await R.p.click('#formCreerAssemblee button[type=submit]');await R.p.waitForTimeout(1500);
   const code=await texte(R.p,'#codeSuivi');
   console.log('R arrive sur :', R.p.url().split('#')[1], '| code :', code, '| titre :', await texte(R.p,'#titreSuivi'), '|', await texte(R.p,'#msgSuivi'));
@@ -36,17 +36,17 @@ async function texte(p,sel){return (await p.textContent(sel)).trim();}
   await inscrire(F.p,{nom:'YAO',prenoms:'Fred',contact:'07 22 22 22 22',zone:'Marcory',email:'fred@test.ci',mdp:'motdepasse2'});
   await F.p.fill('#a-code',code.toLowerCase());await F.p.click('#formRejoindre button[type=submit]');await F.p.waitForTimeout(1500);
   console.log('F étape faiseur :', await F.p.isVisible('#etapeFaiseur'), await texte(F.p,'#texteAccueil'));
-  console.log('choix proposés à F :', await F.p.$$eval('#f-choix option',o=>o.map(x=>x.textContent).join(' | ')));
-  await F.p.selectOption('#f-choix',{label:'KOFFI Rita (responsable)'});
+  console.log('choix proposés à F :', await F.p.$$eval('#listeFaiseurs .mentor .nom',o=>o.map(x=>x.textContent).join(' | ')));
+  await F.p.click('#listeFaiseurs .mentor:has-text("KOFFI Rita")');
   await F.p.click('#etapeFaiseur button[type=submit]');await F.p.waitForTimeout(1500);
   console.log('F sur Ma journée :', await F.p.isVisible('#vueJour'), '|', await texte(F.p,'#quiSuisJe'));
 
   // 3. Le disciple rejoint, choisit F, remplit sa journée
   const D=await nouvelle(b,'D');
-  await inscrire(D.p,{nom:'KONAN',prenoms:'Aya',contact:'07 33 33 33 33',zone:'Marcory',email:'aya@test.ci',mdp:'motdepasse3'});
+  await inscrire(D.p,{nom:'KONAN',prenoms:'Aya',contact:'07 33 33 33 33',zone:'Marcory',email:'aya@test.ci',mdp:'2580'});
   await D.p.fill('#a-code',code);await D.p.click('#formRejoindre button[type=submit]');await D.p.waitForTimeout(1500);
   await D.p.screenshot({path:IMAGES+'/04-faiseur.png',fullPage:true});
-  await D.p.selectOption('#f-choix',{label:'YAO Fred'});await D.p.click('#etapeFaiseur button[type=submit]');await D.p.waitForTimeout(1500);
+  await D.p.click('#listeFaiseurs .mentor:has-text("YAO Fred")');await D.p.click('#etapeFaiseur button[type=submit]');await D.p.waitForTimeout(1500);
   await D.p.fill('#f-faiseur','15');await D.p.fill('#f-moi','45');await D.p.fill('#f-autre','20');await D.p.fill('#f-rdqd','30');await D.p.fill('#f-ev','2');await D.p.fill('#f-chapitres','4');
   await D.p.click('#btnJour');await D.p.waitForTimeout(4500);
   console.log('D après enregistrement :', await texte(D.p,'#msgJour'), '|', await texte(D.p,'#etatSynchro'), '| barre suivi visible :', await D.p.isVisible('#barreSuivi'));
@@ -84,9 +84,11 @@ async function texte(p,sel){return (await p.textContent(sel)).trim();}
 
   // 6. D sur un deuxième appareil, puis hors connexion
   const D2=await nouvelle(b,'D2');
+  console.log('onglet par défaut sur un nouvel appareil :', await D2.p.getAttribute('#onglets2','data-actif'));
+  await D2.p.click('#ongletConnexion');
   await D2.p.fill('#c-email','aya@test.ci');await D2.p.fill('#c-mdp','faux-mot');await D2.p.click('#btnConnexion');await D2.p.waitForTimeout(800);
   console.log('mauvais mot de passe :', await texte(D2.p,'#msgConnexion'));
-  await D2.p.fill('#c-mdp','motdepasse3');await D2.p.click('#btnConnexion');await D2.p.waitForTimeout(2500);
+  await D2.p.fill('#c-mdp','2580');await D2.p.click('#btnConnexion');await D2.p.waitForTimeout(2500);
   console.log('2e appareil, journée retrouvée :', await D2.p.inputValue('#f-moi'), await D2.p.inputValue('#f-ev'), '|', await texte(D2.p,'#etatSynchro'));
   await D2.ctx.setOffline(true);
   await D2.p.fill('#f-pg','30');await D2.p.click('#btnJour');await D2.p.waitForTimeout(3500);
