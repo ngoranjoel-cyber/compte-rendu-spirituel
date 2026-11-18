@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="icone-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 <style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
 </head>
@@ -25,6 +25,7 @@
   <defs><linearGradient id="deg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B5BFD"/><stop offset=".55" stop-color="#7C3AED"/><stop offset="1" stop-color="#E0249A"/></linearGradient>
   <linearGradient id="deg-aire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED" stop-opacity=".28"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/></linearGradient></defs>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-bulle" viewBox="0 0 24 24"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19L4 20Z"/><path d="M9 10.5c.5 2 2.5 4 4.5 4.5l1.2-1.2 1.8.8"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
   <symbol id="logo-crs" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="#ffffff"/><image x="64" y="64" width="384" height="384" href="logo.png"/></symbol>
   <symbol id="i-logo" viewBox="0 0 24 24"><path d="M3 6.5h5.5A3.5 3.5 0 0 1 12 10v10a3 3 0 0 0-3-3H3z"/><path d="M21 6.5h-5.5A3.5 3.5 0 0 0 12 10v10a3 3 0 0 1 3-3h6z"/><path d="M12 1.5v5M9.5 3.5h5"/></symbol>
@@ -81,6 +82,7 @@
       <button type="button" data-aller="mois"><span class="pic petit violet"><svg class="ic"><use href="#i-grid"/></svg></span>Mon mois</button>
       <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="pic petit orange"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Mes disciples</span></button>
       <button type="button" data-aller="profil"><span class="pic petit ardoise"><svg class="ic"><use href="#i-user"/></svg></span>Mon profil</button>
+      <button type="button" data-aller="synthese"><span class="pic petit rose"><svg class="ic"><use href="#i-chart"/></svg></span>Synthèse</button>
     </nav>
     <div class="pied-lateral">
       <span class="synchro" id="etatSynchroLateral" hidden></span>
@@ -477,6 +479,52 @@
         </div>
       </main>
 
+      <!-- ========== Synthèse : jour, semaine, mois, année ========== -->
+      <main class="vue" id="vueSynthese" hidden>
+        <div class="tete-vue"><div><h1>Synthèse</h1><p class="sous" id="syLabel">…</p></div></div>
+        <div class="segments" id="syPeriode" role="tablist" aria-label="Période">
+          <button type="button" role="tab" data-periode="jour" aria-selected="false">Jour</button>
+          <button type="button" role="tab" data-periode="semaine" aria-selected="true">Semaine</button>
+          <button type="button" role="tab" data-periode="mois" aria-selected="false">Mois</button>
+          <button type="button" role="tab" data-periode="annee" aria-selected="false">Année</button>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit violet"><svg class="ic"><use href="#i-clock"/></svg></span><h2>Répartition du temps</h2></div>
+            <div class="sy-zone">
+              <div class="sy-coin hg"><svg class="ic"><use href="#i-heart"/></svg><b id="syPriere">0:00</b><span>Prière totale</span></div>
+              <div class="sy-coin hd"><svg class="ic"><use href="#i-sun"/></svg><b id="syRdqd">0</b><span>Jours de RDQD</span></div>
+              <div class="sy-anneau" id="syDonut"></div>
+              <div class="sy-coin bg"><svg class="ic"><use href="#i-megaphone"/></svg><b id="syEv">0</b><span>Personnes évangélisées</span></div>
+              <div class="sy-coin bd"><svg class="ic"><use href="#i-book"/></svg><b id="syChap">0</b><span>Chapitres lus</span></div>
+            </div>
+            <div class="sy-legende" id="syLegende"></div>
+          </div>
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit bleu"><svg class="ic"><use href="#i-target"/></svg></span><h2>Régularité</h2></div>
+            <div class="sy-jauges" id="syJauges"></div>
+            <div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-chart"/></svg></span><h2>Prière par période</h2><span class="aide">seul · en groupe</span></div>
+            <div class="sy-piles" id="syPiles"></div>
+          </div>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit violet"><svg class="ic"><use href="#i-heart"/></svg></span><h2>Évolution de la prière</h2><span class="aide" id="syTotal"></span></div>
+            <div class="courbe" id="syAire"></div>
+          </div>
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit orange"><svg class="ic"><use href="#i-book-open"/></svg></span><h2>Prière et méditation</h2></div>
+            <div class="courbe" id="syLignes"></div>
+            <div class="sy-cles"><span><i style="background:#e0249a"></i>Prière</span><span><i style="background:#f59e0b"></i>Méditation (RDQD + lecture)</span></div>
+          </div>
+        </div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit vert"><svg class="ic"><use href="#i-grid"/></svg></span><h2>Statistiques détaillées</h2></div>
+          <div class="sy-groupes" id="syGroupes"></div>
+          <div class="sy-cles"><span><i style="background:#5b6cf0"></i>Prière seul</span><span><i style="background:#f472b6"></i>Prière en groupe</span><span><i style="background:#fbbf24"></i>RDQD</span></div>
+        </div>
+      </main>
+
       <!-- ========== Suivi : disciples / assemblée ========== -->
       <main class="vue" id="vueSuivi" hidden>
         <div class="tete-vue tete-nav">
@@ -591,6 +639,7 @@
     <button type="button" data-aller="mois"><span class="rond-ic"><svg class="ic"><use href="#i-grid"/></svg></span>Mois</button>
     <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="rond-ic"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Disciples</span></button>
     <button type="button" data-aller="profil"><span class="rond-ic"><svg class="ic"><use href="#i-user"/></svg></span>Profil</button>
+    <button type="button" data-aller="synthese"><span class="rond-ic"><svg class="ic"><use href="#i-chart"/></svg></span>Synthèse</button>
   </nav>
 </div>
 
@@ -602,6 +651,15 @@
     <span class="msg" id="msgApercu">Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » ou votre imprimante.</span>
   </div>
   <div id="cadre"><div id="feuille"></div></div>
+  <div class="apercu-barre partage" aria-labelledby="titrePartage">
+    <div class="partage-tete"><span class="pic violet"><svg class="ic"><use href="#i-upload"/></svg></span><div><b id="titrePartage">Envoyer ou partager le PDF</b><span class="msg" id="msgPartage" role="status">Le PDF est préparé à partir de la page ci-dessus.</span></div></div>
+    <div class="partage-boutons">
+      <button class="btn vert" type="button" id="pdfPartager"><svg class="ic"><use href="#i-upload"/></svg>Partager…</button>
+      <button class="btn wa" type="button" id="pdfWhatsapp"><svg class="ic"><use href="#i-bulle"/></svg>WhatsApp</button>
+      <button class="btn" type="button" id="pdfEmail"><svg class="ic"><use href="#i-mail"/></svg>E-mail</button>
+      <button class="btn" type="button" id="pdfTelecharger"><svg class="ic"><use href="#i-download"/></svg>Télécharger</button>
+    </div>
+  </div>
 </div>
 
 <!-- Fenêtre de confirmation -->

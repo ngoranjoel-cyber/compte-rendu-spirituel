@@ -31,6 +31,8 @@ var PROFIL_LOCAL=["nom","prenoms","contact","zone","assemblee","faiseur"];
 var DONS_DEFAUT=[{nom:"Dîme",pct:10},{nom:"FMI",pct:0.5},{nom:"FMN",pct:0.5},{nom:"FE"},{nom:"FG"},{nom:"RTVC"}];
 var PASTELS=["bleu","violet","vert","orange","rose"];
 var natif=window.Android||null;
+/* Police Congenial : chargée depuis Adobe Fonts quand config.js donne le code du projet web. */
+(function(){var k=(window.CONFIG_COMPTE||{}).kitAdobe;if(k&&/^[a-z0-9]{5,12}$/i.test(k)){var l=document.createElement("link");l.rel="stylesheet";l.href="https://use.typekit.net/"+k+".css";document.head.appendChild(l);}})();
 var $=function(id){return document.getElementById(id);};
 function pad(n){return (n<10?"0":"")+n;}
 var cleJour=XL.cle;
@@ -291,7 +293,7 @@ function construireHeros(){
 function seConnecter(){
   dire("msgConnexion","Connexion…");
   occuper($("btnConnexion"),C.connecter($("c-email").value.trim(),$("c-mdp").value)).then(function(){
-    memoriserConnexion();$("c-mdp").value="";dire("msgConnexion","");location.hash="#jour";demarrerSession();
+    memoriserConnexion();$("c-mdp").value="";dire("msgConnexion","");location.hash="#synthese";demarrerSession();
   },function(e){dire("msgConnexion",e.message,"err");});
 }
 function creerCompte(){
@@ -301,7 +303,7 @@ function creerCompte(){
   dire("msgInscription","Création du compte…");
   occuper($("btnInscription"),C.inscrire(d)).then(function(r){
     $("i-mdp").value="";majForceMdp("");
-    if(r.connecte){memoriserConnexion();dire("msgInscription","");location.hash="#jour";demarrerSession();return;}
+    if(r.connecte){memoriserConnexion();dire("msgInscription","");location.hash="#synthese";demarrerSession();return;}
     montrerFormConnexion("connexion");$("c-email").value=d.email;
     dire("msgConnexion","Compte créé. Ouvrez le lien envoyé à "+d.email+" pour confirmer votre adresse, puis connectez-vous.","ok");
   },function(e){dire("msgInscription",e.message,"err");});
@@ -749,6 +751,92 @@ function enregistrerInfos(){
   },"Infos du mois enregistrées");
 }
 
+/* ---------- Vue : synthèse (jour, semaine, mois, année) ---------- */
+var synth={periode:"semaine"};
+var REPARTITION=[["faiseur","Pour mon faiseur","#7c6cf0"],["moi","Pour moi","#3b82f6"],["autre","Pour les autres","#22c3d6"],
+  ["pg","Prière en groupe","#e0249a"],["rdqd","RDQD","#f59e0b"],["lecture","Lecture biblique","#10b981"],["lc","Lecture chrétienne","#fb7185"]];
+function joursEntre(d1,d2){var l=[],d=new Date(d1.getFullYear(),d1.getMonth(),d1.getDate(),12);while(cleJour(d)<=cleJour(d2)){l.push(new Date(d));d.setDate(d.getDate()+1);}return l;}
+function periodeSynthese(){
+  var p=synth.periode,a=auj.getFullYear(),m=auj.getMonth(),s=semaineDe(auj);
+  var jourU=function(d){return {lib:JOURS[d.getDay()],jours:[d],actif:cleJour(d)===cleJour(auj)};};
+  if(p==="jour")return {jours:[auj],unites:s.jours.map(jourU),titre:JOURS_L[auj.getDay()]+" "+auj.getDate()+" "+MOIS[m]+" "+a};
+  if(p==="semaine")return {jours:s.jours,unites:s.jours.map(jourU),titre:libelleSemaine(s)};
+  if(p==="mois"){var jm=joursEntre(new Date(a,m,1),new Date(a,m+1,0));
+    return {jours:jm,unites:jm.map(function(d){return {lib:String(d.getDate()),jours:[d],actif:cleJour(d)===cleJour(auj)};}),titre:maj(MOIS[m])+" "+a};}
+  var ja=joursEntre(new Date(a,0,1),new Date(a,11,31));
+  return {jours:ja,unites:MOIS_C.map(function(lib,i){return {lib:maj(lib).replace(".",""),jours:ja.filter(function(d){return d.getMonth()===i;}),actif:i===m};}),titre:"Année "+a};
+}
+function donut(boite,parts,total){
+  var R=74,C=2*Math.PI*R,somme=parts.reduce(function(x,p){return x+p.v;},0),vis=parts.filter(function(p){return p.v>0;}),off=0;
+  var s='<svg viewBox="0 0 200 200" role="img" aria-label="Répartition du temps : '+total+' au total"><circle cx="100" cy="100" r="'+R+'" fill="none" stroke="#e4ecf9" stroke-width="18"/>';
+  vis.forEach(function(p){
+    var L=C*p.v/somme,g=vis.length>1?3:0;
+    s+='<circle cx="100" cy="100" r="'+R+'" fill="none" stroke="'+p.c+'" stroke-width="18" stroke-dasharray="'+Math.max(.5,L-g).toFixed(2)+' '+C.toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 100 100)"/>';
+    off+=L;
+  });
+  s+='<text x="100" y="100" class="sy-total">'+total+'</text><text x="100" y="124" class="sy-sous">temps total</text></svg>';
+  boite.innerHTML=s;
+}
+function jauge(titre,pct,detail,couleur){
+  var v=Math.round(Math.max(0,Math.min(1,pct))*100),d=el("div",{"class":"sy-jauge"});
+  d.innerHTML='<svg viewBox="0 0 120 70" aria-hidden="true"><path d="M12 62 A48 48 0 0 1 108 62" pathLength="100" class="fond"/><path d="M12 62 A48 48 0 0 1 108 62" pathLength="100" stroke="'+couleur+'" stroke-dasharray="'+v+' 100" class="val"/></svg>';
+  d.appendChild(el("b",{},v+" %"));d.appendChild(el("span",{"class":"titre"},titre));d.appendChild(el("small",{},detail));
+  return d;
+}
+/* Courbes lissées (une ou plusieurs séries), aire sous la première si demandé, points marqués quand il y en a peu. */
+function graphe(boite,series,etiquettes,actif,aire){
+  var W=640,H=220,gx=26,haut=24,bas=34,n=etiquettes.length,max=0;
+  series.forEach(function(se){se.valeurs.forEach(function(v){if(v>max)max=v;});});
+  var plafond=Math.max(60,Math.ceil(max/30)*30),pas=Math.max(1,Math.ceil(n/10));
+  var X=function(i){return n===1?W/2:gx+i*(W-2*gx)/(n-1);},Y=function(v){return haut+(H-haut-bas)*(1-v/plafond);};
+  var chemin=function(p){var d="M"+p[0][0].toFixed(1)+" "+p[0][1].toFixed(1);
+    for(var i=0;i<p.length-1;i++){var a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
+      d+=" C"+(b[0]+(c[0]-a[0])/6).toFixed(1)+" "+Math.min(H-bas,b[1]+(c[1]-a[1])/6).toFixed(1)+" "+(c[0]-(e[0]-b[0])/6).toFixed(1)+" "+Math.min(H-bas,c[1]-(e[1]-b[1])/6).toFixed(1)+" "+c[0].toFixed(1)+" "+c[1].toFixed(1);}
+    return d;};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Évolution sur la période">';
+  for(var g=0;g<=3;g++){var y=haut+(H-haut-bas)*g/3;s+='<line x1="'+gx+'" y1="'+y+'" x2="'+(W-gx)+'" y2="'+y+'" class="repere"/>';}
+  series.forEach(function(se,k){
+    var p=se.valeurs.map(function(v,i){return [X(i),Y(v)];});
+    if(aire&&k===0&&max>0)s+='<path d="'+chemin(p)+' L'+p[n-1][0]+' '+(H-bas)+' L'+p[0][0]+' '+(H-bas)+'Z" fill="'+se.couleur+'" opacity=".16"/>';
+    s+='<path d="'+chemin(p)+'" fill="none" stroke="'+se.couleur+'" stroke-width="4" stroke-linecap="round"/>';
+    if(n<=16)p.forEach(function(q,i){if(!se.valeurs[i]&&i!==actif)return;
+      s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="8" fill="#fff" stroke="'+se.couleur+'" stroke-width="2.5"/><circle cx="'+q[0]+'" cy="'+q[1]+'" r="3.5" fill="'+se.couleur+'"/>';});
+  });
+  etiquettes.forEach(function(t,i){if(i%pas&&i!==n-1)return;s+='<text x="'+X(i)+'" y="'+(H-10)+'" class="jour'+(i===actif?" on":"")+'">'+t+'</text>';});
+  boite.innerHTML=s+"</svg>";
+}
+function afficherSynthese(){
+  var P=periodeSynthese(),donnees=P.jours.map(donneesJour),T=RP.totaux(donnees);
+  var ecoules=P.jours.filter(function(d){return cleJour(d)<=cleJour(auj);}),nb=Math.max(1,ecoules.length);
+  $("syLabel").textContent=P.titre;titres("Synthèse",P.titre);
+  Array.prototype.forEach.call($("syPeriode").querySelectorAll("button"),function(b){b.setAttribute("aria-selected",String(b.getAttribute("data-periode")===synth.periode));});
+  var parts=REPARTITION.map(function(r){return {v:n0(T[r[0]]),lib:r[1],c:r[2]};}),somme=parts.reduce(function(x,p){return x+p.v;},0);
+  donut($("syDonut"),parts,hm(somme));
+  $("syPriere").textContent=hm(T.seul+T.pg);$("syRdqd").textContent=String(T.nRdqd);$("syEv").textContent=String(T.ev);$("syChap").textContent=String(T.chapitres);
+  var lg=$("syLegende");lg.textContent="";
+  parts.forEach(function(p){var r=el("div",{"class":"sy-cle"}),c=el("i");c.style.background=p.c;r.appendChild(c);
+    r.appendChild(el("span",{},p.lib));r.appendChild(el("b",{},somme?Math.round(p.v/somme*100)+" %":"0 %"));lg.appendChild(r);});
+  var complets=ecoules.filter(function(d){return etat(donneesJour(d)).nb===3;}).length,remplis=ecoules.filter(function(d){return !!donneesJour(d);}).length;
+  var jg=$("syJauges");jg.textContent="";
+  jg.appendChild(jauge("Journées complètes",complets/nb,complets+" sur "+ecoules.length+" jour"+(ecoules.length>1?"s":""),"#7c6cf0"));
+  jg.appendChild(jauge("Rencontre avec Dieu",T.nRdqd/nb,T.nRdqd+" jour"+(T.nRdqd>1?"s":"")+" de RDQD","#f59e0b"));
+  jg.appendChild(jauge("Jours remplis",remplis/nb,remplis+" sur "+ecoules.length,"#22c3d6"));
+  var U=P.unites.map(function(u){var t=RP.totaux(u.jours.map(donneesJour));return {lib:u.lib,actif:u.actif,seul:t.seul,pg:t.pg,rdqd:t.rdqd,medit:t.rdqd+t.lecture+t.lc};});
+  var actif=-1;U.forEach(function(u,i){if(u.actif)actif=i;});
+  var pas=Math.max(1,Math.ceil(U.length/10)),mx=Math.max(30,Math.max.apply(null,U.map(function(u){return u.seul+u.pg;})));
+  var pi=$("syPiles");pi.textContent="";
+  U.forEach(function(u,i){var c=el("div",{"class":"sy-pile"+(u.actif?" actif":""),title:u.lib+" : "+hm(u.seul+u.pg)}),b=el("div",{"class":"sy-pile-barre"});
+    var h=el("i",{"class":"g"}),l=el("i",{"class":"s"});h.style.height=(u.pg/mx*100)+"%";l.style.height=(u.seul/mx*100)+"%";b.appendChild(h);b.appendChild(l);c.appendChild(b);
+    c.appendChild(el("span",{},i%pas&&i!==U.length-1?"":u.lib));pi.appendChild(c);});
+  var tot=U.reduce(function(x,u){return x+u.seul+u.pg;},0);$("syTotal").textContent=tot?"Total "+hm(tot):"";
+  graphe($("syAire"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#7c6cf0"}],U.map(function(u){return u.lib;}),actif,true);
+  graphe($("syLignes"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#e0249a"},{valeurs:U.map(function(u){return u.medit;}),couleur:"#f59e0b"}],U.map(function(u){return u.lib;}),actif,false);
+  var gr=$("syGroupes"),mg=Math.max(30,Math.max.apply(null,U.map(function(u){return Math.max(u.seul,u.pg,u.rdqd);})));gr.textContent="";
+  U.forEach(function(u,i){var c=el("div",{"class":"sy-groupe"+(u.actif?" actif":"")}),b=el("div",{"class":"sy-groupe-barres"});
+    [["seul","#5b6cf0"],["pg","#f472b6"],["rdqd","#fbbf24"]].forEach(function(x){var t=el("i");t.style.height=(u[x[0]]/mg*100)+"%";t.style.background=x[1];b.appendChild(t);});
+    c.appendChild(b);c.appendChild(el("span",{},i%pas&&i!==U.length-1?"":u.lib));gr.appendChild(c);});
+}
+
 /* ---------- Vue : suivi des disciples et de l'assemblée ---------- */
 var suivi={jour:new Date(auj),filtre:null,personnes:[],saisies:{},charge:null};
 function personnesSuivies(){
@@ -878,7 +966,9 @@ function montrerApercu(html,titre,paysage){
   $("formatPage").textContent="@page{size:A4 "+(paysage?"landscape":"portrait")+";margin:10mm}";
   $("feuille").innerHTML=html;
   $("page").hidden=true;$("apercu").hidden=false;dire("msgApercu","Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » ou votre imprimante.");
-  window.scrollTo(0,0);ajusterApercu();
+  window.scrollTo(0,0);ajusterApercu();dire("msgPartage","Le PDF est préparé à partir de la page ci-dessus.");
+  /* Préparé d'avance : au toucher de « Partager », le téléphone ouvre son partage tout de suite. */
+  setTimeout(function(){if(!$("apercu").hidden)preparerPdf().then(function(){dire("msgPartage","PDF prêt à envoyer.","ok");},function(){dire("msgPartage","");});},400);
 }
 function montrerApercuAutre(html,titre,paysage){apercuAutre={html:html,titre:titre,paysage:paysage};location.hash="#apercu-autre";}
 function afficherApercu(type){
@@ -904,6 +994,77 @@ function imprimer(){
   document.title=ancien;
 }
 
+
+/* ---------- PDF à partager : la page d'aperçu devient une image, posée sur une feuille A4 (pdf-lib) ---------- */
+function chargerPdfLib(){
+  if(window.PDFLib)return Promise.resolve(window.PDFLib);
+  return new Promise(function(ok,ko){var s=document.createElement("script");s.src="pdf-lib.min.js";
+    s.onload=function(){ok(window.PDFLib);};s.onerror=function(){ko(new Error("Le module PDF n'a pas pu être chargé."));};document.head.appendChild(s);});
+}
+function feuilleEnImage(){
+  var f=$("feuille"),w=f.offsetWidth,h=f.offsetHeight,echelle=2;
+  var css=Array.prototype.map.call(document.styleSheets,function(ss){try{return Array.prototype.map.call(ss.cssRules,function(r){return r.cssText;}).join("\n");}catch(e){return "";}}).join("\n");
+  var clone=f.cloneNode(true);clone.removeAttribute("id");clone.style.transform="none";clone.style.margin="0";clone.style.padding="6mm";clone.style.background="#fff";clone.style.width=w+"px";
+  var xml=new XMLSerializer().serializeToString(clone);
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'"><foreignObject x="0" y="0" width="'+w+'" height="'+h+'"><div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;background:#fff"><style><![CDATA['+css.replace(/\]\]>/g,"")+']]></style>'+xml+'</div></foreignObject></svg>';
+  return new Promise(function(ok,ko){
+    var img=new Image();
+    img.onload=function(){
+      try{var c=document.createElement("canvas");c.width=Math.round(w*echelle);c.height=Math.round(h*echelle);
+        var g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height);
+        c.toBlob(function(b){if(!b){ko(new Error("Image du compte rendu impossible."));return;}b.arrayBuffer().then(function(a){ok({png:new Uint8Array(a),w:w,h:h});});},"image/png");
+      }catch(e){ko(new Error("Ce navigateur ne permet pas de fabriquer le PDF ici : utilisez « Imprimer / Enregistrer en PDF »."));}
+    };
+    img.onerror=function(){ko(new Error("Image du compte rendu impossible."));};
+    img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+  });
+}
+function nomPdf(){return ((apercuCourant&&apercuCourant.titre)||"Compte rendu").replace(/[\\/:*?"<>|]+/g," ").replace(/\s+/g," ").trim()+".pdf";}
+function fabriquerPdf(){
+  if(!apercuCourant)return Promise.reject(new Error("Aucun compte rendu à envoyer."));
+  return Promise.all([chargerPdfLib(),feuilleEnImage()]).then(function(r){
+    var L=r[0],im=r[1];
+    return L.PDFDocument.create().then(function(doc){
+      doc.setTitle(apercuCourant.titre);doc.setCreator("Compte rendu spirituel");
+      var A4=apercuCourant.paysage?[841.89,595.28]:[595.28,841.89],marge=20;
+      return doc.embedPng(im.png).then(function(png){
+        var page=doc.addPage(A4),lw=A4[0]-2*marge,lh=A4[1]-2*marge,k=Math.min(lw/im.w,lh/im.h);
+        page.drawImage(png,{x:marge+(lw-im.w*k)/2,y:A4[1]-marge-im.h*k,width:im.w*k,height:im.h*k});
+        return doc.save();
+      });
+    });
+  }).then(function(octets){return {octets:octets,nom:nomPdf()};});
+}
+function messagePartage(){
+  var p=profil||{};
+  return (apercuCourant?apercuCourant.titre:"Compte rendu")+(nomComplet(p)?" de "+nomComplet(p):"")+" — envoyé depuis l'application Compte rendu spirituel.";
+}
+var pdfPret=null;
+function preparerPdf(){
+  dire("msgPartage","Préparation du PDF…");
+  if(pdfPret&&pdfPret.titre===(apercuCourant&&apercuCourant.titre)&&pdfPret.html===$("feuille").innerHTML)return Promise.resolve(pdfPret.pdf);
+  return fabriquerPdf().then(function(pdf){pdfPret={titre:apercuCourant.titre,html:$("feuille").innerHTML,pdf:pdf};return pdf;});
+}
+function partagerPdf(canal){
+  var b={partager:"pdfPartager",whatsapp:"pdfWhatsapp",email:"pdfEmail",telecharger:"pdfTelecharger"}[canal];
+  occuper($(b),preparerPdf().then(function(pdf){
+    var fichier=null;try{fichier=new File([pdf.octets],pdf.nom,{type:"application/pdf"});}catch(e){}
+    var texte=messagePartage();
+    /* Le partage du téléphone (WhatsApp, Gmail, Messages…) joint le PDF lui-même. */
+    if(canal!=="telecharger"&&fichier&&navigator.canShare&&navigator.canShare({files:[fichier]})){
+      return navigator.share({files:[fichier],title:pdf.nom,text:texte}).then(function(){dire("msgPartage","PDF partagé.","ok");},function(e){
+        if(e&&e.name==="AbortError"){dire("msgPartage","Partage annulé.");return;}
+        return remettreFichier(pdf.nom,pdf.octets,"application/pdf").then(function(m){dire("msgPartage",m+" Envoyez-le depuis WhatsApp ou votre messagerie.","ok");});});
+    }
+    /* Sinon : le PDF est téléchargé, puis WhatsApp ou la messagerie s'ouvre avec un message prêt ; il reste à joindre le fichier. */
+    return remettreFichier(pdf.nom,pdf.octets,"application/pdf").then(function(m){
+      if(canal==="whatsapp"){window.open("https://wa.me/?text="+encodeURIComponent(texte+" (PDF joint : "+pdf.nom+")"),"_blank");dire("msgPartage",m+" WhatsApp s'ouvre : joignez le fichier « "+pdf.nom+" ».","ok");}
+      else if(canal==="email"){location.href="mailto:?subject="+encodeURIComponent(apercuCourant.titre)+"&body="+encodeURIComponent(texte+"\n\nLe compte rendu est en pièce jointe ("+pdf.nom+").");dire("msgPartage",m+" Joignez « "+pdf.nom+" » au message.","ok");}
+      else if(canal==="partager")dire("msgPartage",m+" Le partage direct n'est pas proposé par ce navigateur : envoyez le fichier depuis WhatsApp ou votre messagerie.","ok");
+      else dire("msgPartage",m,"ok");
+    });
+  })).catch(function(e){dire("msgPartage",e.message,"err");});
+}
 /* ---------- Fichiers : Excel et sauvegarde ---------- */
 function versBase64(octets){
   var bin="";for(var i=0;i<octets.length;i+=8192)bin+=String.fromCharCode.apply(null,octets.subarray(i,i+8192));
@@ -996,14 +1157,14 @@ function initRappels(){
 }
 
 /* ---------- Navigation ---------- */
-var VUES={jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
+var VUES={synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
   connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil",bienvenue:"vueBienvenue"};
 var AUTH={connexion:1,mdp:1,chargement:1,accueil:1,bienvenue:1,inscription:1};
 var vueActuelle="";
 function titres(t,sous){$("titreVue").textContent=t;$("pastille").textContent=sous||"";}
 function route(){
   viderSaisie();
-  var h=(location.hash||"#jour").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
+  var h=(location.hash||"#synthese").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
   if(lienRecuperation&&C.session())h="mdp";
   else if(etape==="connexion"){
     /* Sans session : la page d'accueil, sauf si l'on demande un formulaire (ou qu'on est déjà venu). */
@@ -1018,10 +1179,10 @@ function route(){
   else if(etape==="profil"){h="profil";m=null;}
   else if(etape==="identite"){h="accueil";m=null;}
   else if(etape==="assemblee"||etape==="faiseur"){if(h!=="profil")h="accueil";m=null;}
-  else if(AUTH[h])h="jour";
+  else if(AUTH[h])h="synthese";
   if(h==="suivi"&&!suiviPermis())h="jour";
   if(m){afficherApercu(m[1]);return;}
-  if(!VUES[h])h="jour";
+  if(!VUES[h])h="synthese";
   var change=vueActuelle!==h;vueActuelle=h;
   $("apercu").hidden=true;$("page").hidden=false;
   document.body.classList.toggle("auth",!!AUTH[h]||etape==="profil");
@@ -1045,10 +1206,13 @@ function rafraichirVue(){
   else if(h==="bienvenue")titres("Bienvenue","");
   else if(h==="chargement"||h==="mdp")titres("Mon compte","");
   else if(h==="jour")afficherJour();
+  else if(h==="synthese")afficherSynthese();
 }
 
 /* ---------- Branchements ---------- */
 construireJour();
+["partager","whatsapp","email","telecharger"].forEach(function(c){$({partager:"pdfPartager",whatsapp:"pdfWhatsapp",email:"pdfEmail",telecharger:"pdfTelecharger"}[c]).addEventListener("click",function(){partagerPdf(c);});});
+$("syPeriode").addEventListener("click",function(e){var b=e.target.closest("[data-periode]");if(!b)return;synth.periode=b.getAttribute("data-periode");afficherSynthese();});
 ["fichierPhoto","fichierPhoto2"].forEach(function(id){$(id).addEventListener("change",function(){changerPhoto(this);});});
 $("retirerPhoto").onclick=retirerPhoto;
 $("btnModifierInfos").onclick=function(){editionInfos=true;afficherProfil();$("formProfil").scrollIntoView({behavior:"smooth",block:"start"});$("p-nom").focus({preventScroll:true});};
@@ -1111,7 +1275,7 @@ $("etapeFaiseur").addEventListener("submit",function(e){e.preventDefault();
   var c=choixFaiseurAccueil==="libre"?($("f-libre").value.trim()?{faiseur_id:null,faiseur_nom:$("f-libre").value.trim()}:null):(choixFaiseurAccueil?{faiseur_id:choixFaiseurAccueil,faiseur_nom:""}:null);
   if(!c){dire("msgFaiseur","Choisissez votre faiseur de disciple, ou « Plus tard ».","err");return;}
   apresAssemblee(C.majProfil(c),"msgFaiseur");});
-$("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#jour";route();};
+$("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#synthese";route();};
 $("formProfil").addEventListener("submit",function(e){e.preventDefault();enregistrerProfil();});
 $("btnFaiseurProfil").onclick=function(){var c=lireChoixFaiseur("pf-choix","pf-libre")||{faiseur_id:null,faiseur_nom:""};
   dire("msgFaiseurProfil","Enregistrement…");
