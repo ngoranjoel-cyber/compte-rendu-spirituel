@@ -44,6 +44,9 @@
       over_request_rate_limit: "Trop de tentatives. Patientez une minute puis réessayez.",
       email_address_not_authorized: "L'envoi d'e-mails n'est pas encore configuré pour cette application. Prévenez le responsable.",
       signup_disabled: "Les inscriptions sont fermées pour le moment.",
+      provider_disabled: "La connexion avec Google n'est pas encore activée sur le serveur.",
+      validation_failed: "La connexion avec Google n'est pas encore activée sur le serveur.",
+      email_provider_disabled: "Les inscriptions par e-mail sont désactivées sur le serveur (réglage Supabase > Authentication > Email).",
       session_not_found: "Votre session a expiré. Reconnectez-vous.",
       refresh_token_not_found: "Votre session a expiré. Reconnectez-vous.",
       refresh_token_already_used: "Votre session a expiré. Reconnectez-vous."
@@ -225,6 +228,21 @@
       garderSession(s); emettre("connecte");
       return { type: p.type === "recovery" ? "recuperation" : "confirmation" };
     }
+    /* Connexion avec Google : la page part chez Google puis revient avec la session dans l'adresse (#access_token=…). */
+    function adresseGoogle(retour) {
+      return url + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(retour);
+    }
+    /* Nom et prénoms donnés par Google, lus dans le jeton de session. */
+    function infosFournisseur() {
+      var s = session();
+      if (!s) return {};
+      try {
+        var m = JSON.parse(atobUrl(s.access_token.split(".")[1])).user_metadata || {};
+        var complet = String(m.full_name || m.name || "").trim(), prenoms = m.given_name || "", nom = m.family_name || "";
+        if (!nom && complet) { var i = complet.lastIndexOf(" "); nom = i > 0 ? complet.slice(i + 1) : complet; prenoms = prenoms || (i > 0 ? complet.slice(0, i) : ""); }
+        return { nom: String(nom).toUpperCase(), prenoms: prenoms };
+      } catch (e) { return {}; }
+    }
     function atobUrl(b) {
       b = b.replace(/-/g, "+").replace(/_/g, "/");
       while (b.length % 4) b += "=";
@@ -355,7 +373,8 @@
       session: utilisateur,
       ecouter: function (f) { ecouteurs.push(f); },
       inscrire: inscrire, connecter: connecter, deconnecter: deconnecter,
-      motDePasseOublie: motDePasseOublie, changerMotDePasse: changerMotDePasse,
+      motDePasseOublie: motDePasseOublie,
+      adresseGoogle: adresseGoogle, infosFournisseur: infosFournisseur, changerMotDePasse: changerMotDePasse,
       lireLienEmail: lireLienEmail, supprimerCompte: supprimerCompte,
       monProfil: monProfil, majProfil: majProfil, assemblee: assemblee,
       profilsVisibles: profilsVisibles, saisiesDe: saisiesDe,

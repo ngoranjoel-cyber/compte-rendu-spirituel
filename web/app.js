@@ -159,6 +159,7 @@ function etapeAccueil(){
   if(!enLigne)return inscrit()?null:"profil";
   if(!C.session())return "connexion";
   if(!profil||!profil.id)return "chargement";
+  if(!profil.nom||!profil.contact)return "identite";
   if(!profil.assemblee)return "assemblee";
   if(profil.assembleeLiee&&!profil.faiseur&&profil.role!=="responsable"&&!lire("reglages/faiseurPlusTard"))return "faiseur";
   return null;
@@ -318,7 +319,20 @@ function lireChoixFaiseur(selectId,libreId){
 var choixFaiseurAccueil="";
 function afficherAccueil(etape){
   titres("Bienvenue","");
-  var f=etape==="faiseur";
+  var f=etape==="faiseur",id=etape==="identite";
+  $("etapeIdentite").hidden=!id;
+  if(id){
+    $("kickerAccueil").textContent="Étape 1 sur 3 · Vos informations";
+    $("titreAccueil").textContent="Complétez votre profil";
+    $("texteAccueil").textContent="Votre compte Google est bien relié. Il reste votre contact et votre zone pour figurer sur vos comptes rendus.";
+    var g=C.infosFournisseur();
+    if(!$("g-nom").value)$("g-nom").value=profil.nom||g.nom||"";
+    if(!$("g-prenoms").value)$("g-prenoms").value=profil.prenoms||g.prenoms||"";
+    if(!$("g-contact").value)$("g-contact").value=profil.contact||"";
+    if(!$("g-zone").value)$("g-zone").value=profil.zone||"";
+    $("etapeAssemblee").hidden=true;$("etapeFaiseur").hidden=true;
+    return;
+  }
   $("kickerAccueil").textContent=f?"Étape 3 sur 3 · Accompagnement":"Étape 2 sur 3 · Assemblée";
   $("titreAccueil").textContent=f?"Votre faiseur de disciple":"Bienvenue, "+(profil.prenoms||"");
   $("texteAccueil").textContent=f
@@ -921,6 +935,7 @@ function route(){
   if(lienRecuperation&&C.session())h="mdp";
   else if(etape==="connexion"||etape==="chargement"){h=etape;m=null;}
   else if(etape==="profil"){h="profil";m=null;}
+  else if(etape==="identite"){h="accueil";m=null;}
   else if(etape==="assemblee"||etape==="faiseur"){if(h!=="profil")h="accueil";m=null;}
   else if(AUTH[h])h="jour";
   if(h==="suivi"&&!suiviPermis())h="jour";
@@ -968,6 +983,24 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-oeil]"),function(b
   });
 });
 $("i-mdp").addEventListener("input",function(){majForceMdp(this.value);});
+/* Google : sur Android, la page s'ouvre dans le navigateur du téléphone (Google refuse les vues intégrées)
+   puis revient dans l'application par l'adresse ci.compterendu.spirituel://connexion. */
+var RETOUR_ANDROID="ci.compterendu.spirituel://connexion";
+function avecGoogle(msgId){
+  if(!C.actif){dire(msgId,"L'application n'est pas reliée à un serveur.","err");return;}
+  try{localStorage.setItem("crs:dejaConnecte","1");localStorage.removeItem("crs:sessionTemporaire");}catch(e){}
+  var retour=natif?RETOUR_ANDROID:(C.urlSite||(location.origin+location.pathname));
+  dire(msgId,"Ouverture de Google…");
+  location.href=C.adresseGoogle(retour);
+}
+$("googleInscription").addEventListener("click",function(){avecGoogle("msgInscription");});
+$("googleConnexion").addEventListener("click",function(){avecGoogle("msgConnexion");});
+$("etapeIdentite").addEventListener("submit",function(e){e.preventDefault();
+  var d={nom:$("g-nom").value.trim().toUpperCase(),prenoms:$("g-prenoms").value.trim(),contact:$("g-contact").value.trim(),zone:$("g-zone").value.trim()};
+  if(!d.nom||!d.prenoms||!d.contact||!d.zone){dire("msgIdentite","Remplissez les quatre champs.","err");return;}
+  var b=this.querySelector("button[type=submit]");
+  occuper(b,C.majProfil(d).then(function(){return chargerCompte();})).then(function(){dire("msgIdentite","");route();},function(err){dire("msgIdentite",err.message,"err");});
+});
 construireHeros();
 try{montrerFormConnexion(localStorage.getItem("crs:dejaConnecte")?"connexion":"inscription");}catch(e){montrerFormConnexion("inscription");}
 Array.prototype.forEach.call(document.querySelectorAll("[data-copier]"),function(b){

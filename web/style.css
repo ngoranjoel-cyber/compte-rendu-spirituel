@@ -494,3 +494,10 @@ body.auth .page > .vue{width:100%}
   @keyframes apparition{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 }
 @media (prefers-reduced-motion:reduce){.hero-img,.vignette.active .piste i{transition:none;animation:none}}
+
+.btn-google{width:100%;padding:12px 20px;border-radius:12px;border:1.5px solid #e2ddd5;background:#fff;color:#18181b;font-weight:600;font-size:14px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:all .2s}
+.btn-google:hover{background:#faf8f4;border-color:#c7c0b4}
+.btn-google svg{width:20px;height:20px;flex:none}
+.btn-google:disabled{opacity:.6;cursor:default}
+
+.pied2 a,.note2 a{color:#14532d;text-decoration:none}.pied2 a:hover,.note2 a:hover{text-decoration:underline}
