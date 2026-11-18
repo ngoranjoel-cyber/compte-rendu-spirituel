@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" href="icone-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 <style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
 </head>
@@ -22,6 +22,10 @@
 
 <!-- Icônes (traits, 24 x 24) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="deg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B5BFD"/><stop offset=".55" stop-color="#7C3AED"/><stop offset="1" stop-color="#E0249A"/></linearGradient>
+  <linearGradient id="deg-aire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED" stop-opacity=".28"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/></linearGradient></defs>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
   <symbol id="logo-crs" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="#ffffff"/><image x="64" y="64" width="384" height="384" href="logo.png"/></symbol>
   <symbol id="i-logo" viewBox="0 0 24 24"><path d="M3 6.5h5.5A3.5 3.5 0 0 1 12 10v10a3 3 0 0 0-3-3H3z"/><path d="M21 6.5h-5.5A3.5 3.5 0 0 0 12 10v10a3 3 0 0 1 3-3h6z"/><path d="M12 1.5v5M9.5 3.5h5"/></symbol>
   <symbol id="i-oeil" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
@@ -70,7 +74,7 @@
 <div class="app" id="page">
   <!-- Menu latéral (ordinateur) -->
   <aside class="lateral" aria-label="Menu">
-    <div class="marque"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><div><b>Compte rendu</b><span>Prier · Méditer · Prêcher</span></div></div>
+    <div class="marque"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><div><b>Compte rendu</b><span>Prière · Méditation · Prêcher</span></div></div>
     <nav>
       <button type="button" data-aller="jour"><span class="pic petit vert"><svg class="ic"><use href="#i-sun"/></svg></span>Ma journée</button>
       <button type="button" data-aller="semaine"><span class="pic petit bleu"><svg class="ic"><use href="#i-week"/></svg></span>Ma semaine</button>
@@ -93,6 +97,70 @@
     </header>
 
     <div class="page">
+      <!-- ========== Page d'accueil publique ========== -->
+      <main class="vue" id="vueBienvenue" hidden>
+        <div class="bv">
+          <span class="bv-sphere rose" aria-hidden="true"></span><span class="bv-sphere menthe" aria-hidden="true"></span><span class="bv-sphere or" aria-hidden="true"></span><span class="bv-sphere perle" aria-hidden="true"></span>
+          <div class="bv-cadre">
+            <nav class="bv-nav" aria-label="Accueil">
+              <div class="bv-marque"><span class="bv-logo"><img src="logo.png" alt=""></span><div><b>Compte rendu spirituel</b><span>Prière · Méditation · Prêcher</span></div></div>
+              <div class="bv-liens"><a href="#bv-gestes" data-defiler>Comment ça marche</a><a href="#bv-suivi" data-defiler>Pour les faiseurs et dirigeants</a><a class="bv-btn-clair" href="#connexion" id="bvConnexion">Se connecter</a></div>
+            </nav>
+
+            <section class="bv-hero">
+              <div class="bv-texte">
+                <span class="bv-etiquette">Pour les disciples de notre assemblée</span>
+                <h1>Chaque jour,<br><em>un pas de plus</em><br>avec Dieu.</h1>
+                <p>Votre carnet de prière, de méditation et d'évangélisation. Quelques gestes chaque jour, et votre compte rendu de la semaine et du mois est prêt à imprimer.</p>
+                <div class="bv-actions"><a class="bv-btn" href="#inscription" id="bvCommencer">Commencer mon carnet<svg class="ic"><use href="#i-right"/></svg></a><span>Gratuit · Android, iPhone et ordinateur</span></div>
+              </div>
+              <div class="bv-vitrine" aria-hidden="true">
+                <div class="bv-tel">
+                  <div class="bv-tel-haut"><b>Ma semaine</b><span>Du 16 au 22 novembre</span></div>
+                  <div class="bv-tel-score"><span>Score de la semaine</span><b>86 %</b><i><u style="width:86%"></u></i></div>
+                  <div class="bv-ligne"><span class="bv-tag mauve">PRIÈRE</span><span>Seul</span><b>06:40</b></div>
+                  <div class="bv-ligne"><span class="bv-tag menthe">RDQD</span><span>Méditation</span><b>7 / 7</b></div>
+                  <div class="bv-ligne"><span class="bv-tag peche">PRÊCHER</span><span>Personnes</span><b>5</b></div>
+                </div>
+                <div class="bv-carte mauve"><svg viewBox="0 0 140 46"><path d="M2 34 C 20 34, 26 30, 36 30 S 48 4, 56 4 S 66 38, 76 36 S 96 26, 108 28 S 126 18, 138 14"/></svg><span>Prière du jour</span><b>01:25</b></div>
+                <div class="bv-carte menthe"><svg viewBox="0 0 140 46"><path d="M2 36 C 12 22, 20 22, 30 30 S 44 38, 52 34 S 62 8, 72 8 S 84 30, 96 28 S 116 18, 124 26 S 134 36, 138 38"/></svg><span>Méditation · RDQD</span><b>00:30</b></div>
+                <div class="bv-graph"><div class="bv-graph-tete"><b>Novembre</b><span>Prière par jour</span></div><em>02:15</em><div class="bv-barres"><span class="v" style="height:30%"></span><span class="m" style="height:52%"></span><span class="r" style="height:96%"></span><span class="v" style="height:40%"></span><span class="m" style="height:58%"></span><span class="v" style="height:46%"></span><span class="r" style="height:26%"></span><span class="v" style="height:36%"></span><span class="r" style="height:80%"></span><span class="m" style="height:66%"></span><span class="v" style="height:34%"></span><span class="m" style="height:70%"></span></div></div>
+              </div>
+            </section>
+
+            <p class="bv-verset"><svg class="ic"><use href="#i-book-open"/></svg>« Priez sans cesse. » <span>1 Thessaloniciens 5.17</span></p>
+
+            <section class="bv-section" id="bv-gestes">
+              <h2>Trois gestes, <em>un compte rendu.</em></h2>
+              <p class="bv-intro">Les temps se notent en heures et minutes, les rappels vous accompagnent, et tout se retrouve sur vos appareils.</p>
+              <div class="bv-trois">
+                <div class="bv-geste mauve"><span class="bv-ic"><svg class="ic"><use href="#i-heart"/></svg></span><h3>Prière</h3><p>Pour votre faiseur de disciple, pour vous, pour les autres, et la prière en groupe.</p></div>
+                <div class="bv-geste menthe"><span class="bv-ic"><svg class="ic"><use href="#i-book-open"/></svg></span><h3>Méditation</h3><p>La Rencontre dynamique quotidienne avec Dieu, les chapitres lus et la lecture chrétienne.</p></div>
+                <div class="bv-geste sombre"><span class="bv-ic"><svg class="ic"><use href="#i-megaphone"/></svg></span><h3>Prêcher</h3><p>Les personnes évangélisées chaque jour, et les âmes gagnées dans le mois.</p></div>
+              </div>
+            </section>
+
+            <section class="bv-suivi" id="bv-suivi">
+              <div class="bv-suivi-texte"><h2>On ne marche <em>jamais seul.</em></h2><p>Votre faiseur de disciple et le dirigeant de votre assemblée voient vos comptes rendus, ouvrent vos PDF de la semaine et du mois, et peuvent prier pour vous au bon moment.</p></div>
+              <div class="bv-liste" aria-hidden="true">
+                <div class="bv-liste-tete"><span>Disciple</span><span>Cette semaine</span></div>
+                <div class="bv-pers"><span class="bv-ini mauve">AK</span><span>Disciple 1</span><b class="n-menthe">92 %</b></div>
+                <div class="bv-pers clair"><span class="bv-ini menthe">FY</span><span>Disciple 2</span><b>78 %</b></div>
+                <div class="bv-pers"><span class="bv-ini peche">RK</span><span>Disciple 3</span><b class="n-rose">64 %</b></div>
+              </div>
+            </section>
+
+            <section class="bv-fin">
+              <p class="bv-citation">« Approchez-vous de Dieu, et il s'approchera de vous. »</p>
+              <span class="bv-ref">JACQUES 4.8</span>
+              <a class="bv-btn" href="#inscription">Créer mon compte gratuitement</a>
+            </section>
+
+            <footer class="bv-pied"><span>Compte rendu spirituel · Prière · Méditation · Prêcher</span><span><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions</a></span></footer>
+          </div>
+        </div>
+      </main>
+
       <!-- ========== Connexion / création de compte ========== -->
       <main class="vue" id="vueConnexion" hidden>
         <div class="auth2">
@@ -216,13 +284,13 @@
                 <form id="formRejoindre" class="form2">
                   <div><label class="etiquette2" for="a-code">Code de votre assemblée</label>
                     <input class="saisie2 code2" type="text" id="a-code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="ABCD2345">
-                    <p class="leger" style="margin-top:6px">Le responsable de votre assemblée vous donne ce code de 8 caractères.</p></div>
+                    <p class="leger" style="margin-top:6px">Le dirigeant de votre assemblée vous donne ce code de 8 caractères.</p></div>
                   <button class="btn-foret" type="submit"><span>Rejoindre mon assemblée</span><span class="fl" aria-hidden="true">→</span></button>
                   <span class="msg" id="msgRejoindre" role="status"></span>
                 </form>
                 <div class="ou">ou</div>
                 <details class="volet2">
-                  <summary>Je suis responsable d'assemblée</summary>
+                  <summary>Je suis dirigeant d'assemblée</summary>
                   <form id="formCreerAssemblee" class="form2">
                     <p class="leger">Vous recevrez le code à donner aux membres et vous verrez leurs comptes rendus.</p>
                     <div class="ligne2">
@@ -283,9 +351,15 @@
           </div>
         </div>
 
+        <div class="carte hero-jour" id="heroJour">
+          <div class="bulle-cadre">
+            <svg class="arc" viewBox="0 0 220 220" aria-hidden="true"><circle class="arc-fond" cx="110" cy="110" r="100"/><circle class="arc-val" id="jArc" cx="110" cy="110" r="100" stroke-dasharray="628.3" stroke-dashoffset="628.3"/></svg>
+            <div class="bulle"><span>Prière du jour</span><b id="jTotal">0 min</b><small id="jEtapes">0 sur 3</small></div>
+          </div>
+        </div>
         <div class="trio" aria-live="polite">
-          <button type="button" class="trio-item" id="tPrier" data-vers="sec-prier"><span class="pic rose"><svg class="ic"><use href="#i-heart"/></svg></span><b>Prier</b><span id="ePrier">à faire</span></button>
-          <button type="button" class="trio-item" id="tMediter" data-vers="sec-mediter"><span class="pic bleu"><svg class="ic"><use href="#i-book-open"/></svg></span><b>Méditer</b><span id="eMediter">à faire</span></button>
+          <button type="button" class="trio-item" id="tPrier" data-vers="sec-prier"><span class="pic rose"><svg class="ic"><use href="#i-heart"/></svg></span><b>Prière</b><span id="ePrier">à faire</span></button>
+          <button type="button" class="trio-item" id="tMediter" data-vers="sec-mediter"><span class="pic bleu"><svg class="ic"><use href="#i-book-open"/></svg></span><b>Méditation</b><span id="eMediter">à faire</span></button>
           <button type="button" class="trio-item" id="tPrecher" data-vers="sec-precher"><span class="pic vert"><svg class="ic"><use href="#i-megaphone"/></svg></span><b>Prêcher</b><span id="ePrecher">à faire</span></button>
         </div>
 
@@ -326,8 +400,12 @@
             <div class="vue" style="gap:8px" id="sBilan"></div>
           </div>
         </div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit violet"><svg class="ic"><use href="#i-heart"/></svg></span><h2>Prière de la semaine</h2><span class="aide" id="sTotalPriere"></span></div>
+          <div class="courbe" id="sCourbe"></div>
+        </div>
         <div class="panneau">
-          <div class="panneau-titre"><span class="pic petit bleu"><svg class="ic"><use href="#i-calendar"/></svg></span><h2>Jour par jour</h2><span class="aide">Prier · Méditer · Prêcher</span></div>
+          <div class="panneau-titre"><span class="pic petit bleu"><svg class="ic"><use href="#i-calendar"/></svg></span><h2>Jour par jour</h2><span class="aide">Prière · Méditation · Prêcher</span></div>
           <div class="vue" style="gap:8px" id="listeSemaine"></div>
         </div>
         <form class="carte" id="formSemaine" autocomplete="off">
@@ -354,10 +432,11 @@
         <div class="grille-2">
           <div class="carte">
             <div class="calendrier" id="calMois"></div>
-            <div class="legende"><span><i style="background:var(--vert)"></i>Prier, méditer et prêcher</span><span><i style="background:var(--orange)"></i>En partie</span><span><i style="background:var(--trait-fort)"></i>Rien</span></div>
+            <div class="legende"><span><i style="background:var(--degrade)"></i>Journée complète</span><span><i style="background:#fdba74"></i>En partie</span><span><i style="background:var(--trait-fort)"></i>Rien</span></div>
           </div>
           <div class="carte">
             <h2>Le mois en chiffres</h2>
+            <div class="barres" id="mBarres" aria-label="Minutes de prière par jour"></div>
             <div class="tuiles" id="tuiles"></div>
           </div>
         </div>
@@ -424,8 +503,22 @@
       <!-- ========== Mon profil (ou inscription sans serveur) ========== -->
       <main class="vue" id="vueProfil" hidden>
         <div class="tete-vue"><div><h1 id="titreProfil">Inscription</h1><p class="sous" id="texteProfil"></p></div></div>
+        <div class="carte carte-moi" id="carteMoi">
+          <div class="photo-cadre">
+            <span class="avatar geant" id="avatarProfil">?</span>
+            <label class="btn-photo" aria-label="Changer la photo de profil"><svg class="ic"><use href="#i-camera"/></svg><input type="file" id="fichierPhoto" accept="image/*" hidden></label>
+          </div>
+          <div class="moi-texte"><b id="moiNom"></b><span id="moiSous"></span></div>
+          <div class="moi-infos" id="moiInfos"></div>
+          <div class="actions" style="justify-content:center">
+            <label class="btn vert" style="cursor:pointer"><svg class="ic"><use href="#i-camera"/></svg>Changer la photo<input type="file" id="fichierPhoto2" accept="image/*" hidden></label>
+            <button class="btn" type="button" id="btnModifierInfos" aria-controls="formProfil"><svg class="ic"><use href="#i-user"/></svg>Modifier mes informations</button>
+            <button class="lien danger" type="button" id="retirerPhoto" hidden>Retirer la photo</button>
+          </div>
+          <span class="msg" id="msgPhoto" role="status"></span>
+        </div>
         <form class="carte" id="formProfil" autocomplete="on">
-          <div class="panneau-titre" style="padding:0"><span class="pic ardoise"><svg class="ic"><use href="#i-user"/></svg></span><h2>Mes informations</h2></div>
+          <div class="panneau-titre" style="padding:0"><span class="pic ardoise"><svg class="ic"><use href="#i-user"/></svg></span><h2 id="titreInfos">Mes informations</h2></div>
           <div class="champs">
             <label class="champ">Nom<input type="text" id="p-nom" autocomplete="family-name" required maxlength="80"></label>
             <label class="champ">Prénoms<input type="text" id="p-prenoms" autocomplete="given-name" required maxlength="120"></label>
@@ -434,7 +527,7 @@
             <label class="champ" data-local>Assemblée<input type="text" id="p-assemblee" maxlength="120"></label>
             <label class="champ" data-local>Faiseur de disciple<input type="text" id="p-faiseur" maxlength="120"></label>
           </div>
-          <div class="actions"><button class="btn vert" type="submit" id="btnProfil">S'inscrire</button><span class="msg" id="msgProfil" role="status"></span></div>
+          <div class="actions"><button class="btn vert" type="submit" id="btnProfil">S'inscrire</button><button class="lien" type="button" id="annulerInfos" hidden>Annuler</button><span class="msg" id="msgProfil" role="status"></span></div>
         </form>
 
         <div class="grille-2" data-enligne hidden>
@@ -462,7 +555,7 @@
         <div class="carte" id="carteRappel">
           <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-bell"/></svg></span><div><h2>Rappels</h2><p class="aide" id="rappelWeb">Les rappels (toutes les 3 heures à partir de 4 h) arrivent dans l'application Android.</p></div></div>
           <div id="rappelNatif" hidden class="vue" style="gap:12px">
-            <p class="aide">Une notification à chaque horaire, tant qu'il reste à prier, méditer ou prêcher ce jour-là.</p>
+            <p class="aide">Une notification à chaque horaire, tant que la journée n'est pas complète (prière, méditation, prêcher).</p>
             <div class="rangee" style="background:var(--panneau)"><span class="libelle">Rappels activés</span><label class="inter"><input type="checkbox" id="r-actif" aria-label="Rappels activés"><span></span></label></div>
             <div class="champs">
               <label class="champ">Premier rappel<input type="time" id="r-debut"></label>

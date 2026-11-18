@@ -8,13 +8,13 @@ var JOURS=["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"];
 var JOURS_L=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
 /* Les rangées de « Ma journée » : champ, libellé, icône, couleur, type (min, n, b, h), unité, sigle */
 var SECTIONS_JOUR=[
-  {id:"sec-prier",titre:"Prier",icone:"heart",couleur:"rose",aide:"en minutes",lignes:[
+  {id:"sec-prier",titre:"Prière",icone:"heart",couleur:"rose",aide:"en heures : minutes",lignes:[
     ["faiseur","Pour mon faiseur","user-check","violet","min","min","de disciple"],
     ["moi","Pour moi","user","bleu","min","min",""],
     ["autre","Pour les autres","users","vert","min","min",""],
-    ["pg","Prière de groupe","group","orange","min","min","PG"]]},
-  {id:"sec-mediter",titre:"Méditer",icone:"book-open",couleur:"bleu",aide:"",lignes:[
-    ["rdqd","Rendez-vous avec Dieu","sun","bleu","min","min","RDQD"],
+    ["pg","Prière en groupe","group","orange","min","min","PG"]]},
+  {id:"sec-mediter",titre:"Méditation",icone:"book-open",couleur:"bleu",aide:"",lignes:[
+    ["rdqd","Rencontre dynamique quotidienne avec Dieu","sun","bleu","min","min","RDQD"],
     ["chapitres","Chapitres lus","book","violet","n","chap.","Bible"],
     ["lectureMin","Lecture biblique","book-open","vert","min","min","temps"],
     ["lc","Lecture chrétienne","bookmark","orange","min","min","LC"]]},
@@ -169,13 +169,73 @@ function demarrerSession(){
   route();
   chargerCompte().then(function(){route();},function(e){
     if(!profil||!profil.id){dire("msgChargement",e.message,"err");$("reessayerChargement").hidden=false;}
-  }).then(function(){return synchroniser();});
+  }).then(function(){return synchroniser();}).then(function(){majIdentite();if(lire("reglages/photoEnAttente"))return envoyerPhoto().then(function(){},function(){});});
 }
 function suiviPermis(){return !!(enLigne&&profil&&(profil.role==="responsable"||profil.disciples>0));}
+/* ---------- Photo de profil : petit carré JPEG gardé avec le compte et visible du faiseur.
+   Elle part par un envoi à part, hors de la file des saisies : un refus du serveur ne bloque jamais les comptes rendus. ---------- */
+var CLE_PHOTO="profil/photo",editionInfos=false;
+function maPhoto(){var p=lire(CLE_PHOTO);return p&&p.img||"";}
+function poserAvatar(e,p,photo){
+  e.classList.toggle("photo",!!photo);
+  e.style.backgroundImage=photo?"url("+photo+")":"";
+  e.textContent=photo?"":initiales(p);
+}
+function reduirePhoto(fichier){
+  return new Promise(function(ok,ko){
+    if(!fichier||!/^image\//.test(fichier.type||"")){ko(new Error("Choisissez une image (photo JPEG ou PNG)."));return;}
+    var url=URL.createObjectURL(fichier),img=new Image();
+    img.onload=function(){
+      /* Le serveur limite chaque entrée à 16 ko : on réduit jusqu'à tenir sous 11 000 caractères. */
+      var c=Math.min(img.naturalWidth,img.naturalHeight),essais=[[220,.82],[220,.7],[200,.6],[170,.6],[150,.5],[120,.5]],r="";
+      for(var i=0;i<essais.length;i++){
+        var T=essais[i][0],cv=document.createElement("canvas");cv.width=cv.height=T;
+        var g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,T,T);
+        g.drawImage(img,(img.naturalWidth-c)/2,(img.naturalHeight-c)/2,c,c,0,0,T,T);
+        r=cv.toDataURL("image/jpeg",essais[i][1]);if(r.length<11000)break;
+      }
+      URL.revokeObjectURL(url);ok(r);
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);ko(new Error("Cette image ne peut pas être lue."));};
+    img.src=url;
+  });
+}
+function envoyerPhoto(){
+  if(!(enLigne&&C.session()))return Promise.resolve();
+  var v=lire(CLE_PHOTO);if(!v)return Promise.resolve();
+  return C.envoyerEntree(CLE_PHOTO,v).then(function(){ecrireLocal("reglages/photoEnAttente",false);},function(e){ecrireLocal("reglages/photoEnAttente",true);throw e;});
+}
+function changerPhoto(entree){
+  var f=entree.files&&entree.files[0];entree.value="";if(!f)return;
+  dire("msgPhoto","Préparation de la photo…");
+  reduirePhoto(f).then(function(img){
+    if(!essayer("msgPhoto",function(){ecrireLocal(CLE_PHOTO,{img:img,maj:new Date().toISOString()});}))return;
+    majIdentite();afficherCarteMoi();
+    if(!(enLigne&&C.session())){dire("msgPhoto","Photo enregistrée","ok");return;}
+    dire("msgPhoto","Envoi de la photo…");
+    envoyerPhoto().then(function(){dire("msgPhoto","Photo enregistrée","ok");},function(){dire("msgPhoto","Photo gardée sur cet appareil : elle sera envoyée dès que le serveur l'acceptera.");});
+  },function(e){dire("msgPhoto",e.message,"err");});
+}
+function retirerPhoto(){
+  if(essayer("msgPhoto",function(){ecrireLocal(CLE_PHOTO,{img:"",maj:new Date().toISOString()});},"Photo retirée")){majIdentite();afficherCarteMoi();envoyerPhoto().catch(function(){});}
+}
+function afficherCarteMoi(){
+  var p=profil||{},ph=maPhoto();
+  $("avatarProfil").className="avatar geant "+couleurDe(nomComplet(p));poserAvatar($("avatarProfil"),p,ph);
+  $("moiNom").textContent=nomComplet(p)||"Mon profil";
+  $("moiSous").textContent=[p.role==="responsable"?"Dirigeant d'assemblée":(p.disciples?"Faiseur de disciple":"Membre"),p.assemblee].filter(Boolean).join(" · ");
+  $("retirerPhoto").hidden=!ph;
+  $("carteMoi").hidden=!inscrit();
+  var inf=$("moiInfos");inf.textContent="";
+  [["phone",p.contact],["home",p.zone],["user-check",p.faiseur?"Faiseur : "+p.faiseur:""]].forEach(function(x){
+    if(!x[1])return;var pu=el("span",{"class":"puce"});pu.appendChild(icone(x[0]));pu.appendChild(document.createTextNode(x[1]));inf.appendChild(pu);});
+}
+
 /* Nom, initiales, assemblée et entrée « disciples » dans les menus. */
 function majIdentite(){
   var p=profil||{},ini=initiales(p),coul=couleurDe(nomComplet(p));
-  ["avatarEntete","avatarLateral"].forEach(function(id){$(id).textContent=ini;$(id).className="avatar"+(id==="avatarLateral"?" petit ":" ")+coul;});
+  var ph=maPhoto();
+  ["avatarEntete","avatarLateral"].forEach(function(id){$(id).className="avatar"+(id==="avatarLateral"?" petit ":" ")+coul;poserAvatar($(id),p,ph);});
   $("nomLateral").textContent=nomComplet(p)||"Mon profil";
   $("assembleeLaterale").textContent=p.assemblee||"";
   var s=suiviPermis(),titre=p.role==="responsable"?"Mon assemblée":"Mes disciples";
@@ -209,64 +269,24 @@ function majForceMdp(v){
   Array.prototype.forEach.call($("jaugeMdp").children,function(b,i){b.style.background=i<score?niveaux[score][2]:"";});
 }
 
-/* Colonne photo des pages de connexion : trois piliers qui défilent toutes les 7 secondes. */
-var PILIERS=[
-  {kicker:"Discipline quotidienne",vignette:"Notez votre journée en quelques gestes",
-   texte:"Notez votre journée en quelques gestes : temps de prière, méditation biblique et évangélisation enregistrés instantanément.",
-   photo:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85",
-   mini:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=400&q=80"},
-  {kicker:"Archivage et édition",vignette:"Imprimez la semaine et le mois en PDF",
-   texte:"Imprimez la semaine et le mois en PDF : des bilans clairs, mis en page avec soin pour vos temps de retraite et de partage.",
-   photo:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=85",
-   mini:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=400&q=80"},
-  {kicker:"Accompagnement fraternel",vignette:"Votre faiseur de disciple suit vos progrès",
-   texte:"Votre faiseur de disciple suit vos progrès semaine après semaine et vous aide à grandir dans la régularité.",
-   photo:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85",
-   mini:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"}
-];
-var pilier=0,minuteriePiliers=null;
-function cacherSiErreur(img){img.addEventListener("error",function(){img.style.visibility="hidden";});}
+/* Colonne de gauche des pages de connexion : composition pastel (cartes, sphères), sans photo. */
 function construireHeros(){
   Array.prototype.forEach.call(document.querySelectorAll(".auth2-hero"),function(h){
-    var img=el("img",{"class":"hero-img zoom",alt:"",src:PILIERS[0].photo});cacherSiErreur(img);h.appendChild(img);
-    h.appendChild(el("div",{"class":"hero-voile"}));
-    var haut=el("div",{"class":"hero-haut"}),badge=el("div",{"class":"hero-badge"});
-    var lg=document.createElementNS(SVG,"svg");lg.setAttribute("aria-hidden","true");var u=document.createElementNS(SVG,"use");u.setAttribute("href","#logo-crs");lg.appendChild(u);
-    badge.appendChild(lg);badge.appendChild(el("span",{},"Compte rendu spirituel"));haut.appendChild(badge);
-    haut.appendChild(el("span",{"class":"hero-compteur"},"01 / 03"));h.appendChild(haut);
+    ["rose","menthe","or"].forEach(function(c){h.appendChild(el("span",{"class":"bv-sphere "+c,"aria-hidden":"true"}));});
+    var haut=el("div",{"class":"hero-haut"}),badge=el("a",{"class":"hero-badge",href:"#bienvenue","aria-label":"Retour à l'accueil"});
+    var lg=el("img",{src:"logo.png",alt:""});
+    badge.appendChild(lg);var nomBadge=el("span",{"class":"badge-nom"});nomBadge.appendChild(el("b",{},"Compte rendu spirituel"));nomBadge.appendChild(el("small",{},"Prière · Méditation · Prêcher"));badge.appendChild(nomBadge);haut.appendChild(badge);
+    h.appendChild(haut);
     var bas=el("div",{"class":"hero-bas"});
-    bas.appendChild(el("p",{"class":"hero-kicker"},PILIERS[0].kicker));
-    var t=el("h1",{"class":"hero-titre"});t.appendChild(document.createTextNode("Votre vie de prière, "));t.appendChild(el("em",{},"jour après jour,"));t.appendChild(document.createTextNode(" sur tous vos appareils."));
-    bas.appendChild(t);bas.appendChild(el("p",{"class":"hero-desc"},PILIERS[0].texte));
-    var v=el("div",{"class":"vignettes",role:"tablist","aria-label":"Ce que permet l'application"});
-    PILIERS.forEach(function(p,i){
-      var b=el("button",{type:"button","class":"vignette"+(i===0?" active":""),"data-pilier":String(i),role:"tab","aria-selected":String(i===0)});
-      var cadre=el("div",{"class":"vimg"}),mi=el("img",{src:p.mini,alt:"",loading:"lazy"});cacherSiErreur(mi);cadre.appendChild(mi);b.appendChild(cadre);
-      b.appendChild(el("p",{},p.vignette));var piste=el("span",{"class":"piste"});piste.appendChild(el("i"));b.appendChild(piste);
-      b.addEventListener("click",function(){activerPilier(i);});
-      v.appendChild(b);
-    });
-    bas.appendChild(v);h.appendChild(bas);
+    var t=el("h1",{"class":"hero-titre"});t.appendChild(document.createTextNode("Chaque jour, "));t.appendChild(el("em",{},"un pas de plus"));t.appendChild(document.createTextNode(" avec Dieu."));
+    bas.appendChild(t);bas.appendChild(el("p",{"class":"hero-desc"},"Prière, méditation et évangélisation : notez votre journée en quelques gestes, en heures et minutes."));
+    var cartes=el("div",{"class":"hero-cartes","aria-hidden":"true"});
+    [["mauve","Prière du jour","01:25"],["menthe","Méditation · RDQD","00:30"]].forEach(function(c){
+      var d=el("div",{"class":"bv-carte "+c[0]});d.appendChild(el("span",{},c[1]));d.appendChild(el("b",{},c[2]));cartes.appendChild(d);});
+    bas.appendChild(cartes);
+    bas.appendChild(el("p",{"class":"hero-verset"},"« Priez sans cesse. » 1 Thessaloniciens 5.17"));
+    h.appendChild(bas);
   });
-  relancerPiliers();
-}
-function activerPilier(i){
-  pilier=i;var p=PILIERS[i];
-  Array.prototype.forEach.call(document.querySelectorAll(".auth2-hero"),function(h){
-    var img=h.querySelector(".hero-img");img.style.opacity="0.25";img.classList.remove("zoom");
-    setTimeout(function(){img.style.visibility="";img.src=p.photo;img.style.opacity="1";void img.offsetWidth;img.classList.add("zoom");},180);
-    h.querySelector(".hero-kicker").textContent=p.kicker;h.querySelector(".hero-desc").textContent=p.texte;
-    h.querySelector(".hero-compteur").textContent="0"+(i+1)+" / 03";
-    Array.prototype.forEach.call(h.querySelectorAll(".vignette"),function(b,j){
-      var actif=j===i;b.setAttribute("aria-selected",String(actif));
-      var barre=b.querySelector(".piste i");b.classList.remove("active");void barre.offsetWidth;if(actif)b.classList.add("active");
-    });
-  });
-  relancerPiliers();
-}
-function relancerPiliers(){
-  clearInterval(minuteriePiliers);
-  minuteriePiliers=setInterval(function(){if(document.body.classList.contains("auth")&&document.visibilityState==="visible")activerPilier((pilier+1)%PILIERS.length);},7000);
 }
 function seConnecter(){
   dire("msgConnexion","Connexion…");
@@ -304,7 +324,7 @@ function enregistrerNouveauMdp(){
 function choixFaiseur(selectId,libreBlocId,libreId){
   var s=$(selectId);s.textContent="";
   s.appendChild(el("option",{value:""},"— Choisir —"));
-  serveur.membres.forEach(function(m){if(m.id!==profil.id)s.appendChild(el("option",{value:m.id},nomComplet(m)+(m.role==="responsable"?" (responsable)":"")));});
+  serveur.membres.forEach(function(m){if(m.id!==profil.id)s.appendChild(el("option",{value:m.id},nomComplet(m)+(m.role==="responsable"?" (dirigeant)":"")));});
   s.appendChild(el("option",{value:"libre"},"Mon faiseur n'est pas encore inscrit"));
   s.value=profil.faiseurId||(profil.faiseur?"libre":"");
   $(libreId).value=profil.faiseurId?"":(profil.faiseur||"");
@@ -336,7 +356,7 @@ function afficherAccueil(etape){
   $("kickerAccueil").textContent=f?"Étape 3 sur 3 · Accompagnement":"Étape 2 sur 3 · Assemblée";
   $("titreAccueil").textContent=f?"Votre faiseur de disciple":"Bienvenue, "+(profil.prenoms||"");
   $("texteAccueil").textContent=f
-    ?"Vous êtes membre de « "+profil.assemblee+" ». Choisissez la personne qui vous accompagne : elle verra vos comptes rendus, comme le responsable de l'assemblée."
+    ?"Vous êtes membre de « "+profil.assemblee+" ». Choisissez la personne qui vous accompagne : elle verra vos comptes rendus, comme le dirigeant de l'assemblée."
     :"Reliez votre compte à votre assemblée locale.";
   $("etapeAssemblee").hidden=f;$("etapeFaiseur").hidden=!f;
   if(f){choixFaiseurAccueil=profil.faiseurId||(profil.faiseur?"libre":"");$("f-libre").value=profil.faiseurId?"":(profil.faiseur||"");dessinerFaiseurs();}
@@ -350,7 +370,7 @@ function dessinerFaiseurs(){
     b.appendChild(el("span",{"class":"av "+(libre?"libre":couleurDe(nomComplet(m)))},libre?"+":initiales(m)));
     var t=el("span",{"class":"txt"});
     t.appendChild(el("span",{"class":"nom"},libre?"Mon faiseur n'est pas encore inscrit":nomComplet(m)));
-    t.appendChild(el("span",{"class":"role"},libre?"Saisir son nom":(m.role==="responsable"?"Responsable de l'assemblée":"Membre de l'assemblée")));
+    t.appendChild(el("span",{"class":"role"},libre?"Saisir son nom":(m.role==="responsable"?"Dirigeant de l'assemblée":"Membre de l'assemblée")));
     b.appendChild(t);b.appendChild(el("span",{"class":"radio","aria-hidden":"true"}));
     b.addEventListener("click",function(){choixFaiseurAccueil=m.id;dessinerFaiseurs();if(libre)$("f-libre").focus();});
     boite.appendChild(b);
@@ -367,21 +387,26 @@ function afficherProfil(){
   var deja=inscrit();
   titres(deja?"Mon profil":"Inscription",deja?nomComplet(profil):"");
   $("titreProfil").textContent=deja?"Mon profil":"Bienvenue";
-  $("texteProfil").textContent=enLigne?"Votre faiseur de disciple et le responsable de l'assemblée voient ces informations."
+  $("texteProfil").textContent=enLigne?"Votre faiseur de disciple et le dirigeant de l'assemblée voient ces informations."
     :(deja?"Ces informations figurent en tête de vos comptes rendus.":"Ces informations figurent en tête de vos comptes rendus. Elles restent sur cet appareil.");
   $("btnProfil").textContent=deja?"Enregistrer":"Commencer";
+  /* Compte en ligne déjà rempli : les informations se modifient en ouvrant le formulaire. */
+  var replie=enLigne&&deja&&!editionInfos;
+  $("formProfil").hidden=replie;$("annulerInfos").hidden=!(enLigne&&deja);
+  $("titreInfos").textContent=deja?"Modifier mes informations":"Mes informations";
+  $("btnModifierInfos").hidden=!(enLigne&&deja)||editionInfos;
   PROFIL_LOCAL.forEach(function(c){$("p-"+c).value=(profil&&profil[c])||"";});
   Array.prototype.forEach.call(document.querySelectorAll("[data-local]"),function(e){e.hidden=enLigne;e.querySelector("input").required=!enLigne;});
   Array.prototype.forEach.call(document.querySelectorAll("[data-enligne]"),function(e){e.hidden=!enLigne;});
   $("carteRappel").hidden=!deja;
-  dire("msgProfil","");
+  dire("msgProfil","");afficherCarteMoi();
   if(!enLigne)return;
   var s=C.session();
   $("emailCompte").textContent="Connecté avec "+(s&&s.email||"");
   majEtatSynchro();
   $("faiseurActuel").textContent=profil.faiseur?"Actuellement : "+profil.faiseur+(profil.faiseurId?"":" (pas encore inscrit)"):"Aucun faiseur de disciple choisi.";
   var r=profil.role==="responsable";
-  $("assembleeActuelle").textContent=profil.assembleeLiee?"« "+profil.assemblee+" »"+(r?" · vous en êtes responsable":""):(profil.assemblee?"« "+profil.assemblee+" » (pas encore sur l'application)":"Aucune assemblée");
+  $("assembleeActuelle").textContent=profil.assembleeLiee?"« "+profil.assemblee+" »"+(r?" · vous en êtes le dirigeant":""):(profil.assemblee?"« "+profil.assemblee+" » (pas encore sur l'application)":"Aucune assemblée");
   $("blocCode").hidden=!(r&&profil.code);$("codeProfil").textContent=profil.code||"";
   $("quitterAssemblee").hidden=!profil.assembleeLiee;
   dire("msgAssemblee","");dire("msgCompte","");dire("msgFaiseurProfil","");
@@ -400,7 +425,7 @@ function enregistrerProfil(){
   var champs={nom:$("p-nom").value.trim(),prenoms:$("p-prenoms").value.trim(),contact:$("p-contact").value.trim(),zone:$("p-zone").value.trim()};
   if(!champs.nom||!champs.prenoms){dire("msgProfil","Le nom et les prénoms sont obligatoires.","err");return;}
   dire("msgProfil","Enregistrement…");
-  occuper($("btnProfil"),C.majProfil(champs)).then(function(p){serveur.profil=p;construireProfil();majIdentite();dire("msgProfil","Profil enregistré","ok");},
+  occuper($("btnProfil"),C.majProfil(champs)).then(function(p){serveur.profil=p;construireProfil();majIdentite();editionInfos=false;afficherProfil();dire("msgPhoto","Informations enregistrées","ok");},
     function(e){dire("msgProfil",e.message,"err");});
 }
 
@@ -425,20 +450,31 @@ function construireJour(){
         var pas=l[4]==="min"?5:1,b=el("div",{"class":"pas"});
         var moins=el("button",{type:"button","data-pas":String(-pas),"aria-label":"Moins "+pas+" pour "+l[1]});moins.appendChild(icone("minus"));
         var plus=el("button",{type:"button","data-pas":String(pas),"aria-label":"Plus "+pas+" pour "+l[1]});plus.appendChild(icone("plus"));
-        b.appendChild(moins);b.appendChild(el("input",{type:"number",id:"f-"+l[0],min:"0",step:"1",inputmode:"numeric",placeholder:"0"}));b.appendChild(plus);
-        r.appendChild(b);r.appendChild(el("span",{"class":"unite"},l[5]));
+        var champ=l[4]==="min"
+          ?el("input",{type:"text","class":"duree",id:"f-"+l[0],inputmode:"numeric",placeholder:"00:00",maxlength:"5",autocomplete:"off","aria-label":l[1]+" (heures : minutes)"})
+          :el("input",{type:"number",id:"f-"+l[0],min:"0",step:"1",inputmode:"numeric",placeholder:"0"});
+        b.appendChild(moins);b.appendChild(champ);b.appendChild(plus);
+        r.appendChild(b);if(l[4]!=="min")r.appendChild(el("span",{"class":"unite"},l[5]));
       }
       p.appendChild(r);
     });
     boite.appendChild(p);
   });
 }
+/* Durées saisies en hh:mm (« 1:20 », « 01:20 », « 1h20 ») ; un nombre seul compte en minutes (« 45 »). */
+function versMinutes(v){
+  v=String(v||"").trim();if(!v)return null;
+  var m=/^(\d{1,2})\s*[:hH.]\s*(\d{0,2})$/.exec(v);if(m)return Number(m[1])*60+Number(m[2]||0);
+  return /^\d+$/.test(v)?Number(v):NaN;
+}
+function enHhmm(min){min=Math.max(0,Math.round(n0(min)));return pad(Math.floor(min/60))+":"+pad(min%60);}
 function lireForm(){
   var d={};
   CHAMPS.forEach(function(c){
     var i=$("f-"+c[0]);
     if(c[1]==="b"){if(i.checked)d[c[0]]=true;}
     else if(c[1]==="h"){if(i.value)d[c[0]]=i.value;}
+    else if(c[1]==="min"){var mn=versMinutes(i.value);if(mn!==null&&isFinite(mn))d[c[0]]=mn;}
     else if(i.value!==""&&isFinite(Number(i.value))&&Number(i.value)>=0)d[c[0]]=Number(i.value);
   });
   return d;
@@ -448,6 +484,7 @@ function remplirForm(d){
   CHAMPS.forEach(function(c){
     var i=$("f-"+c[0]);
     if(c[1]==="b")i.checked=!!d[c[0]];
+    else if(c[1]==="min")i.value=(d[c[0]]===undefined||d[c[0]]===null||d[c[0]]==="")?"":enHhmm(d[c[0]]);
     else i.value=(d[c[0]]===undefined||d[c[0]]===null)?"":d[c[0]];
   });
 }
@@ -456,6 +493,10 @@ function majBarres(d){
   $("ePrier").textContent=e.prier?hm(e.priere):"à faire";
   $("eMediter").textContent=e.mediter?hm(d.rdqd):"à faire";
   $("ePrecher").textContent=e.precher?d.ev+" pers.":"à faire";
+  $("jTotal").textContent=e.priere?hm(e.priere):"0 min";
+  $("jEtapes").textContent=e.nb===3?"Journée complète":e.nb+" sur 3 · prière, méditation, prêcher";
+  var l=2*Math.PI*100;$("jArc").setAttribute("stroke-dashoffset",(l*(1-e.nb/3)).toFixed(1));
+  $("heroJour").classList.toggle("complet",e.nb===3);
   $("tPrier").classList.toggle("fait",e.prier);$("tMediter").classList.toggle("fait",e.mediter);$("tPrecher").classList.toggle("fait",e.precher);
 }
 function dessinerBande(){
@@ -554,6 +595,9 @@ function afficherSemaine(){
   var b=RP.bilanSemaine(s.jours.map(donneesJour));
   $("sScore").textContent=Math.round(b.score*100)+" %";$("sMessage").textContent=b.message;anneau("sAnneau",b.score);
   remplirBilan($("sBilan"),b);
+  var minutes=s.jours.map(function(dt){return etat(donneesJour(dt)).priere||0;}),somme=minutes.reduce(function(x,y){return x+y;},0);
+  $("sTotalPriere").textContent=somme?"Total "+hm(somme):"";
+  courbe($("sCourbe"),minutes,s.jours.map(function(dt){return JOURS[dt.getDay()];}),s.jours.map(cleJour).indexOf(cleJour(auj)));
   var liste=$("listeSemaine");liste.textContent="";
   s.jours.forEach(function(dt){
     var d=donneesJour(dt),e=etat(d),k=cleJour(dt);
@@ -570,6 +614,28 @@ function afficherSemaine(){
   $("s-parole").value=notes.parole||"";
   for(var k=0;k<3;k++)$("s-sujet"+k).value=(notes.sujets||[])[k]||"";
   dire("msgSemaine","");
+}
+/* Courbe lissée des minutes de prière, avec l'aire en dégradé et le jour courant mis en avant. */
+function courbe(boite,valeurs,etiquettes,actif){
+  var W=640,H=210,gx=34,haut=30,bas=36,n=valeurs.length,max=Math.max.apply(null,valeurs),plafond=Math.max(60,Math.ceil(max/30)*30);
+  var X=function(i){return gx+i*(W-2*gx)/(n-1);},Y=function(v){return haut+(H-haut-bas)*(1-v/plafond);};
+  var p=valeurs.map(function(v,i){return [X(i),Y(v)];}),d="M"+p[0][0]+" "+p[0][1];
+  for(var i=0;i<n-1;i++){var a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
+    var y1=Math.min(H-bas,b[1]+(c[1]-a[1])/6),y2=Math.min(H-bas,c[1]-(e[1]-b[1])/6);
+    d+=" C"+(b[0]+(c[0]-a[0])/6).toFixed(1)+" "+y1.toFixed(1)+" "+(c[0]-(e[0]-b[0])/6).toFixed(1)+" "+y2.toFixed(1)+" "+c[0].toFixed(1)+" "+c[1].toFixed(1);}
+  var plat=max===0,trait=plat?"#b8c2e0":"url(#deg)";
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Minutes de prière par jour">';
+  p.forEach(function(q){s+='<line x1="'+q[0]+'" y1="'+haut+'" x2="'+q[0]+'" y2="'+(H-bas)+'" class="repere"/>';});
+  if(!plat)s+='<path d="'+d+' L'+p[n-1][0]+' '+(H-bas)+' L'+p[0][0]+' '+(H-bas)+'Z" fill="url(#deg-aire)"/>';
+  s+='<path d="'+d+'" fill="none" stroke="'+trait+'" stroke-width="5" stroke-linecap="round" class="trait"/>';
+  p.forEach(function(q,i){
+    var on=i===actif;
+    if(on)s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="15" fill="#7C3AED" opacity=".15"/>';
+    s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(on?8:5)+'" fill="'+(on?"#7C3AED":"#fff")+'" stroke="'+(on?"#fff":plat?"#b8c2e0":"#7C3AED")+'" stroke-width="3"/>';
+    if(valeurs[i])s+='<text x="'+q[0]+'" y="'+(q[1]-15)+'" class="val'+(on?" on":"")+'">'+valeurs[i]+'</text>';
+    s+='<text x="'+q[0]+'" y="'+(H-12)+'" class="jour'+(on?" on":"")+'">'+etiquettes[i]+'</text>';
+  });
+  boite.innerHTML=s+"</svg>";
 }
 function enregistrerSemaine(){
   var s=semaineDe(jour),notes={parole:$("s-parole").value.trim(),sujets:[0,1,2].map(function(k){return $("s-sujet"+k).value.trim();})},
@@ -604,10 +670,16 @@ function afficherMois(){
     var c=el("button",{type:"button","class":"case-cal "+niveau(d)+(k===cleJour(auj)?" auj":""),"data-date":k,"aria-label":j+" "+MOIS[m-1]});
     c.appendChild(el("span",{},String(j)));c.appendChild(el("i"));cal.appendChild(c);
   }
+  var bo=$("mBarres"),mins=donnees.map(function(d){return etat(d).priere||0;}),mx=Math.max(60,Math.max.apply(null,mins));bo.textContent="";
+  mins.forEach(function(v,i){
+    var k=cleMois(a,m)+"-"+pad(i+1),c=el("button",{type:"button","class":"barre"+(k===cleJour(auj)?" auj":""),"data-date":k,title:(i+1)+" "+MOIS[m-1]+" : "+(v?hm(v):"rien")});
+    var f=el("i");f.style.height=(v?Math.max(6,v/mx*100):0)+"%";c.appendChild(f);
+    c.appendChild(el("span",{},i===0||(i+1)%5===0?String(i+1):""));bo.appendChild(c);
+  });
   var T=RP.totaux(donnees),tu=$("tuiles");tu.textContent="";
   tuile(tu,"calendar","vert",T.remplis+" / "+nb,"jours remplis");
   tuile(tu,"user","bleu",hm(T.seul,1),"prière seul · "+Math.round(T.seul/nb)+" min/jour");
-  tuile(tu,"group","orange",hm(T.pg,1),"prière de groupe");
+  tuile(tu,"group","orange",hm(T.pg,1),"prière en groupe");
   tuile(tu,"sun","bleu",String(T.nRdqd),"RDQD · "+(T.nRdqd?Math.round(T.rdqd/T.nRdqd):0)+" min en moyenne");
   tuile(tu,"megaphone","rose",String(T.ev),"personnes évangélisées");
   tuile(tu,"book","violet",String(T.chapitres),"chapitres lus");
@@ -705,7 +777,7 @@ function afficherSuivi(){
   C.profilsVisibles().then(function(l){
     suivi.personnes=l;
     var ids=personnesSuivies().map(function(p){return p.id;});
-    return C.saisiesDe(ids,cleJour(deb),cleJour(fin),["semaines/"+cleJour(s.lundi)]);
+    return C.saisiesDe(ids,cleJour(deb),cleJour(fin),["semaines/"+cleJour(s.lundi),CLE_PHOTO]);
   }).then(function(lignes){
     if(suivi.charge!==cle)return;
     suivi.saisies={};
@@ -723,9 +795,9 @@ function dessinerSuivi(s){
     if(sa["jours/"+cleJour(auj)])aJour++;
     var carte=el("article",{"class":"personne"});
     var tete=el("div",{"class":"tete"});
-    tete.appendChild(el("span",{"class":"avatar "+couleurDe(nomComplet(p))},initiales(p)));
+    var av=el("span",{"class":"avatar "+couleurDe(nomComplet(p))});poserAvatar(av,p,(sa[CLE_PHOTO]||{}).img||"");tete.appendChild(av);
     var id=el("div",{"class":"ident"}),nom=el("div",{"class":"nom"},nomComplet(p));
-    if(p.role==="responsable")nom.appendChild(el("span",{"class":"badge"},"Responsable"));
+    if(p.role==="responsable")nom.appendChild(el("span",{"class":"badge"},"Dirigeant"));
     id.appendChild(nom);
     var sous=[];if(p.contact)sous.push(p.contact);
     if(r&&suivi.filtre==="assemblee"){var f=profilPdf(p).faiseur;sous.push(f?"Faiseur : "+f:"Pas de faiseur choisi");}
@@ -758,15 +830,15 @@ function dessinerSuivi(s){
 function gestionMembre(p){
   var d=el("details"),sm=el("summary",{},"Gérer"),act=el("div",{"class":"actions"});d.appendChild(sm);
   var resp=p.role==="responsable";
-  var b1=el("button",{"class":"btn",type:"button"},resp?"Retirer le rôle de responsable":"Nommer responsable");
+  var b1=el("button",{"class":"btn",type:"button"},resp?"Retirer le rôle de dirigeant":"Nommer dirigeant");
   var b2=el("button",{"class":"lien danger",type:"button"},"Retirer de l'assemblée");
   b1.onclick=function(){
-    confirmer(resp?"Retirer le rôle de responsable":"Nommer responsable",
+    confirmer(resp?"Retirer le rôle de dirigeant":"Nommer dirigeant",
       resp?nomComplet(p)+" ne verra plus que ses propres disciples.":nomComplet(p)+" verra les comptes rendus de toute l'assemblée et pourra gérer les membres.",resp?"Retirer le rôle":"Nommer")
     .then(function(ok){if(ok)occuper(b1,C.assemblee.definirResponsable(p.id,!resp)).then(afficherSuivi,function(e){dire("msgSuivi",e.message,"err");});});
   };
   b2.onclick=function(){
-    confirmer("Retirer de l'assemblée",nomComplet(p)+" quittera l'assemblée : ni son faiseur de disciple ni les responsables ne verront plus ses comptes rendus. Ses saisies restent dans son compte.","Retirer")
+    confirmer("Retirer de l'assemblée",nomComplet(p)+" quittera l'assemblée : ni son faiseur de disciple ni les dirigeants ne verront plus ses comptes rendus. Ses saisies restent dans son compte.","Retirer")
     .then(function(ok){if(ok)occuper(b2,C.assemblee.retirer(p.id)).then(function(){return chargerCompte();}).then(afficherSuivi,function(e){dire("msgSuivi",e.message,"err");});});
   };
   act.appendChild(b1);act.appendChild(b2);d.appendChild(act);
@@ -906,7 +978,7 @@ function horaires(){
 }
 function majListeRappels(){var l=horaires();$("r-liste").textContent=l.length?"Rappels à "+l.join(", ")+".":"";}
 function initRappels(){
-  $("rappelNatif").hidden=false;$("rappelWeb").textContent="Pour ne pas oublier de prier, méditer et prêcher.";
+  $("rappelNatif").hidden=false;$("rappelWeb").textContent="Pour ne pas oublier la prière, la méditation et prêcher.";
   var r={actif:true,debut:240,pas:3,fin:1320,autorise:true};
   try{var lu=JSON.parse(natif.lireRappel());for(var k in lu)r[k]=lu[k];}catch(e){}
   $("r-actif").checked=!!r.actif;$("r-debut").value=enHeure(r.debut);$("r-pas").value=String(r.pas);$("r-fin").value=enHeure(r.fin);
@@ -925,15 +997,24 @@ function initRappels(){
 
 /* ---------- Navigation ---------- */
 var VUES={jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
-  connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil"};
-var AUTH={connexion:1,mdp:1,chargement:1,accueil:1};
+  connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil",bienvenue:"vueBienvenue"};
+var AUTH={connexion:1,mdp:1,chargement:1,accueil:1,bienvenue:1,inscription:1};
 var vueActuelle="";
 function titres(t,sous){$("titreVue").textContent=t;$("pastille").textContent=sous||"";}
 function route(){
   viderSaisie();
   var h=(location.hash||"#jour").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
   if(lienRecuperation&&C.session())h="mdp";
-  else if(etape==="connexion"||etape==="chargement"){h=etape;m=null;}
+  else if(etape==="connexion"){
+    /* Sans session : la page d'accueil, sauf si l'on demande un formulaire (ou qu'on est déjà venu). */
+    var deja=false;try{deja=!!localStorage.getItem("crs:dejaConnecte");}catch(e){}
+    if(h==="inscription"){montrerFormConnexion("inscription");h="connexion";}
+    else if(h==="connexion"){if(vueActuelle!=="connexion")montrerFormConnexion("connexion");}
+    else if(h==="bienvenue"||!deja){h="bienvenue";}
+    else h="connexion";
+    m=null;
+  }
+  else if(etape==="chargement"){h=etape;m=null;}
   else if(etape==="profil"){h="profil";m=null;}
   else if(etape==="identite"){h="accueil";m=null;}
   else if(etape==="assemblee"||etape==="faiseur"){if(h!=="profil")h="accueil";m=null;}
@@ -944,6 +1025,7 @@ function route(){
   var change=vueActuelle!==h;vueActuelle=h;
   $("apercu").hidden=true;$("page").hidden=false;
   document.body.classList.toggle("auth",!!AUTH[h]||etape==="profil");
+  document.body.classList.toggle("bienvenue",h==="bienvenue");
   Object.keys(VUES).forEach(function(k){$(VUES[k]).hidden=k!==h;});
   Array.prototype.forEach.call(document.querySelectorAll("[data-aller]"),function(b){
     if(b.closest(".lateral nav,.onglets-bas")){if(b.getAttribute("data-aller")===h)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");}
@@ -960,12 +1042,18 @@ function rafraichirVue(){
   else if(h==="suivi")afficherSuivi();
   else if(h==="accueil")afficherAccueil(etapeAccueil());
   else if(h==="connexion")titres("Connexion","");
+  else if(h==="bienvenue")titres("Bienvenue","");
   else if(h==="chargement"||h==="mdp")titres("Mon compte","");
   else if(h==="jour")afficherJour();
 }
 
 /* ---------- Branchements ---------- */
 construireJour();
+["fichierPhoto","fichierPhoto2"].forEach(function(id){$(id).addEventListener("change",function(){changerPhoto(this);});});
+$("retirerPhoto").onclick=retirerPhoto;
+$("btnModifierInfos").onclick=function(){editionInfos=true;afficherProfil();$("formProfil").scrollIntoView({behavior:"smooth",block:"start"});$("p-nom").focus({preventScroll:true});};
+$("annulerInfos").onclick=function(){editionInfos=false;afficherProfil();};
+$("mBarres").addEventListener("click",ouvrirJour);
 listeChamps("livres","l-",4,"input","Livre");listeChamps("besoins","b-",5,"textarea","Besoin");
 $("ongletConnexion").onclick=function(){montrerFormConnexion("connexion");};
 $("ongletInscription").onclick=function(){montrerFormConnexion("inscription");};
@@ -1002,6 +1090,10 @@ $("etapeIdentite").addEventListener("submit",function(e){e.preventDefault();
   occuper(b,C.majProfil(d).then(function(){return chargerCompte();})).then(function(){dire("msgIdentite","");route();},function(err){dire("msgIdentite",err.message,"err");});
 });
 construireHeros();
+/* Liens internes de la page d'accueil : défilement doux, sans changer de vue. */
+Array.prototype.forEach.call(document.querySelectorAll("[data-defiler]"),function(a){
+  a.addEventListener("click",function(e){e.preventDefault();var c=document.querySelector(a.getAttribute("href"));if(c)c.scrollIntoView({behavior:"smooth",block:"start"});});
+});
 try{montrerFormConnexion(localStorage.getItem("crs:dejaConnecte")?"connexion":"inscription");}catch(e){montrerFormConnexion("inscription");}
 Array.prototype.forEach.call(document.querySelectorAll("[data-copier]"),function(b){
   b.addEventListener("click",function(){
@@ -1027,7 +1119,7 @@ $("btnFaiseurProfil").onclick=function(){var c=lireChoixFaiseur("pf-choix","pf-l
 $("formChangerAssemblee").addEventListener("submit",function(e){e.preventDefault();var code=$("pa-code").value.trim().toUpperCase();if(code.length<8){dire("msgAssemblee","Le code compte 8 caractères.","err");return;}
   confirmer("Changer d'assemblée","Votre faiseur de disciple actuel ne verra plus vos comptes rendus. Vous en choisirez un dans la nouvelle assemblée.","Rejoindre").then(function(ok){
     if(ok)apresAssemblee(C.assemblee.rejoindre(code),"msgAssemblee").then(function(){$("pa-code").value="";});});});
-$("quitterAssemblee").onclick=function(){confirmer("Quitter l'assemblée","Votre faiseur de disciple et les responsables ne verront plus vos comptes rendus.","Quitter").then(function(ok){
+$("quitterAssemblee").onclick=function(){confirmer("Quitter l'assemblée","Votre faiseur de disciple et les dirigeants ne verront plus vos comptes rendus.","Quitter").then(function(ok){
   if(ok)apresAssemblee(C.assemblee.quitter(),"msgAssemblee");});};
 $("nouveauCode").onclick=function(){confirmer("Remplacer le code","L'ancien code ne fonctionnera plus. Les membres déjà inscrits restent dans l'assemblée.","Remplacer").then(function(ok){
   if(ok)apresAssemblee(C.assemblee.changerCode(),"msgAssemblee");});};
@@ -1054,12 +1146,22 @@ $("btnIgnorerImport").onclick=function(){ecrireLocal("reglages/importTraite",{le
 /* Saisie de la journée : boutons − / + et enregistrement automatique après une courte pause. */
 $("formJour").addEventListener("click",function(e){
   var b=e.target.closest("button[data-pas]");if(!b)return;
-  var i=b.parentNode.querySelector("input");i.value=String(Math.max(0,(Number(i.value)||0)+Number(b.getAttribute("data-pas"))));
+  var i=b.parentNode.querySelector("input"),pas=Number(b.getAttribute("data-pas"));
+  if(i.classList.contains("duree")){var mn=versMinutes(i.value);i.value=enHhmm((isFinite(mn)&&mn?mn:0)+pas);}
+  else i.value=String(Math.max(0,(Number(i.value)||0)+pas));
   i.dispatchEvent(new Event("input",{bubbles:true}));
 });
 $("formJour").addEventListener("input",function(){
   formSale=true;majBarres(lireForm());dessinerBande();dire("msgJour","Enregistrement…");
   clearTimeout(minuterieJour);minuterieJour=setTimeout(enregistrerJour,1200);
+});
+/* En quittant un champ de durée, on l'écrit au propre en hh:mm (ou on le signale s'il est illisible). */
+$("formJour").addEventListener("focusout",function(e){
+  var i=e.target;if(!i.classList||!i.classList.contains("duree"))return;
+  var mn=versMinutes(i.value);
+  if(mn===null){i.classList.remove("faux");return;}
+  if(!isFinite(mn)){i.classList.add("faux");dire("msgJour","Écrivez la durée en heures:minutes, par exemple 01:30.","err");return;}
+  i.classList.remove("faux");i.value=enHhmm(mn);
 });
 $("formJour").addEventListener("change",function(e){if(e.target.type==="checkbox"||e.target.type==="time"){clearTimeout(minuterieJour);minuterieJour=setTimeout(enregistrerJour,300);}});
 $("formJour").addEventListener("submit",function(e){e.preventDefault();enregistrerJour();});
@@ -1116,7 +1218,7 @@ if(enLigne){
   var lien=C.lireLienEmail(location.hash);
   if(lien){
     history.replaceState(null,"",location.pathname+location.search+"#jour");
-    if(lien.type==="erreur"){dire("msgLien",lien.message,"err");}
+    if(lien.type==="erreur"){dire("msgLien",lien.message,"err");history.replaceState(null,"",location.pathname+location.search+"#connexion");}
     else if(lien.type==="recuperation")lienRecuperation=true;
   }
   window.addEventListener("online",function(){synchroniser();});

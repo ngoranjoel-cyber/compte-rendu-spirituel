@@ -42,7 +42,7 @@
       validation_failed: "Vérifiez l'e-mail et le mot de passe.",
       over_email_send_rate_limit: "Trop d'e-mails envoyés pour le moment. Réessayez dans une heure.",
       over_request_rate_limit: "Trop de tentatives. Patientez une minute puis réessayez.",
-      email_address_not_authorized: "L'envoi d'e-mails n'est pas encore configuré pour cette application. Prévenez le responsable.",
+      email_address_not_authorized: "L'envoi d'e-mails n'est pas encore configuré pour cette application. Prévenez le dirigeant de votre assemblée.",
       signup_disabled: "Les inscriptions sont fermées pour le moment.",
       provider_disabled: "La connexion avec Google n'est pas encore activée sur le serveur.",
       validation_failed: "La connexion avec Google n'est pas encore activée sur le serveur.",
@@ -363,6 +363,12 @@
         if (l.length === 500) return tirer(u, magasin, bilan);
       });
     }
+    /* Une entrée envoyée à part (la photo de profil) : un refus du serveur ne bloque pas les saisies. */
+    function envoyerEntree(k, donnees) {
+      var u = utilisateur();
+      if (!u) return Promise.reject(Erreur("Non connecté.", "session"));
+      return api("/rest/v1/entrees?on_conflict=user_id,cle", { methode: "POST", corps: [{ user_id: u.id, cle: k, donnees: donnees }], prefer: "resolution=merge-duplicates,return=minimal" });
+    }
     function derniereSynchro() { return lireJson(cleUtilisateur("_derniere")); }
     function oublierCurseur() { stock.removeItem(cleUtilisateur("_curseur")); }
 
@@ -377,7 +383,7 @@
       adresseGoogle: adresseGoogle, infosFournisseur: infosFournisseur, changerMotDePasse: changerMotDePasse,
       lireLienEmail: lireLienEmail, supprimerCompte: supprimerCompte,
       monProfil: monProfil, majProfil: majProfil, assemblee: assemblee,
-      profilsVisibles: profilsVisibles, saisiesDe: saisiesDe,
+      profilsVisibles: profilsVisibles, saisiesDe: saisiesDe, envoyerEntree: envoyerEntree,
       noter: noter, synchroniser: synchroniser, enAttente: function () { return Object.keys(enAttente()).length; },
       derniereSynchro: derniereSynchro, oublierCurseur: oublierCurseur,
       _rafraichir: rafraichir

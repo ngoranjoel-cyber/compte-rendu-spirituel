@@ -41,7 +41,7 @@
       ["Prière seul (h:mm)", t.seul, o.priereParJour * 7, hm],
       ["Lecture biblique (chapitres)", t.chapitres, o.chapitresParJour * 7, String],
       ["RDQD (nombre de jours)", t.nRdqd, o.rdqdParSemaine, String],
-      ["Prière de groupe (h:mm)", t.pg, o.groupeParSemaine, hm],
+      ["Prière en groupe (h:mm)", t.pg, o.groupeParSemaine, hm],
       ["Jeûne (jours JC + JP)", t.jc + t.jp, o.jeuneParSemaine, String]
     ].map(function (l) {
       var p = l[2] > 0 ? l[1] / l[2] : 0;
@@ -82,7 +82,7 @@
       l("ZONE / VILLE :", p.zone) + "</table>";
   }
   function logo(src) { return src ? '<img class="r-logo" alt="" src="' + esc(src) + '">' : ""; }
-  var LEGENDE = "EV : évangélisation • RDQD : rendez-vous quotidien avec Dieu • PG : prière de groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne";
+  var LEGENDE = "EV : évangélisation • RDQD : rencontre dynamique quotidienne avec Dieu • PG : prière en groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne";
 
   /* d = { annee, mois, numero, jours:[{date, dansMois, donnees}], profil, notes:{parole, sujets[]}, logo } */
   function semaine(d) {
@@ -137,7 +137,7 @@
     var livres = (inf.livres || []).filter(function (x) { return x && String(x).trim(); });
     h += '<table class="r-grille r-synthese"><tr><th class="r-vert" colspan="6">SYNTHÈSE DU MOIS</th></tr>' +
       '<tr><td class="r-lib">Total prière seul</td><td class="r-gras">' + hm(t.seul, 1) + "</td><td>" + hm(t.seul / nb, 1) + ' par jour</td><td class="r-lib">Nombre de RDQD</td><td class="r-gras">' + t.nRdqd + "</td><td></td></tr>" +
-      '<tr><td class="r-lib">Prière de groupe</td><td class="r-gras">' + hm(t.pg, 1) + "</td><td>" + hm(t.pg / nb, 1) + ' par jour</td><td class="r-lib">Temps de RDQD</td><td class="r-gras">' + hm(t.rdqd, 1) + "</td><td>" + hm(t.nRdqd ? t.rdqd / t.nRdqd : 0, 1) + " par RDQD</td></tr>" +
+      '<tr><td class="r-lib">Prière en groupe</td><td class="r-gras">' + hm(t.pg, 1) + "</td><td>" + hm(t.pg / nb, 1) + ' par jour</td><td class="r-lib">Temps de RDQD</td><td class="r-gras">' + hm(t.rdqd, 1) + "</td><td>" + hm(t.nRdqd ? t.rdqd / t.nRdqd : 0, 1) + " par RDQD</td></tr>" +
       '<tr><td class="r-lib">Lecture biblique (chapitres)</td><td class="r-gras">' + t.chapitres + "</td><td>" + (Math.round(t.chapitres / nb * 10) / 10).toLocaleString("fr-FR") + ' chap. par jour</td><td class="r-lib">Âmes gagnées et intégrées</td><td class="r-gras">' + n0(inf.ames) + "</td><td></td></tr>" +
       '<tr><td class="r-lib">Jours de jeûne (JC + JP)</td><td class="r-gras">' + (t.jc + t.jp) + "</td><td>" + t.jc + " JC • " + t.jp + ' JP</td><td class="r-lib">Livres lus</td><td class="r-gras">' + livres.length + "</td><td></td></tr></table>";
     h += '<div class="r-bas"><div class="r-bloc"><div class="r-bandeau">LIVRES LUS</div><table class="r-liste">';
