@@ -500,6 +500,7 @@ function construireJour(){
           ?el("input",{type:"text","class":"duree",id:"f-"+l[0],inputmode:"numeric",placeholder:"00:00",maxlength:"5",autocomplete:"off","aria-label":l[1]+" (heures : minutes)"})
           :el("input",{type:"number",id:"f-"+l[0],min:"0",step:"1",inputmode:"numeric",placeholder:"0"});
         b.appendChild(moins);b.appendChild(champ);b.appendChild(plus);
+        if(l[4]==="min"){var ch=el("button",{type:"button","class":"chrono","data-chrono":l[0],"data-nom":l[1],"aria-label":"Chronométrer « "+l[1]+" »"});ch.appendChild(icone("chrono"));ch.appendChild(el("span",{"class":"chrono-t"},""));r.appendChild(ch);}
         r.appendChild(b);if(l[4]!=="min")r.appendChild(el("span",{"class":"unite"},l[5]));
       }
       if(edition){var x=el("button",{type:"button","class":"retirer","data-retirer":l[0],"data-section":sec.id,"aria-label":"Retirer la rubrique "+l[1]});x.appendChild(icone("trash"));r.appendChild(x);}
@@ -516,6 +517,52 @@ function construireJour(){
     }
     boite.appendChild(p);
   });
+}
+
+/* ---------- Chronomètre : compte le temps passé à prier, puis l'ajoute à la rubrique ---------- */
+var CLE_CHRONO="chrono",minuterieChrono=null;
+function chronoEnCours(){var c=lire(CLE_CHRONO);return c&&c.champ&&c.debut?c:null;}
+function dureeTexte(sec){sec=Math.max(0,Math.floor(sec));var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return (h?h+":"+pad(m):pad(m))+":"+pad(s);}
+function demarrerChrono(champ,nom){
+  var c=chronoEnCours();
+  if(c&&c.champ===champ&&c.jour===cleJour(jour)){arreterChrono();return;}
+  if(c)arreterChrono(true);
+  ecrireLocal(CLE_CHRONO,{champ:champ,nom:nom,jour:cleJour(jour),debut:Date.now()});
+  dire("msgJour","Chronomètre lancé pour « "+nom+" ». Touchez de nouveau pour arrêter.","ok");
+  majChrono();
+}
+function arreterChrono(silence){
+  var c=chronoEnCours();if(!c)return;
+  try{localStorage.removeItem(racine()+CLE_CHRONO);}catch(e){}
+  var sec=(Date.now()-c.debut)/1000,mn=Math.round(sec/60);if(!mn&&sec>=30)mn=1;
+  var msg;
+  if(!mn)msg="Chronomètre arrêté : moins de 30 secondes, rien n'a été ajouté.";
+  else{
+    var i=$("f-"+c.champ);
+    if(c.jour===cleJour(jour)&&i&&vueActuelle==="jour"){
+      var av=versMinutes(i.value);i.value=enHhmm((isFinite(av)&&av?av:0)+mn);i.dispatchEvent(new Event("input",{bubbles:true}));enregistrerJour();
+    }else{
+      var d=lire("jours/"+c.jour)||{};d[c.champ]=n0(d[c.champ])+mn;d.maj=new Date().toISOString();ecrire("jours/"+c.jour,d);
+      if(c.jour===cleJour(jour)&&vueActuelle==="jour")afficherJour();
+    }
+    msg="+"+enHhmm(mn)+" ajouté à « "+c.nom+" »"+(c.jour===cleJour(auj)?"":" ("+c.jour.split("-").reverse().join("/")+")")+".";
+  }
+  if(!silence){dire("msgJour",msg,mn?"ok":"");$("chronoTemps").textContent=msg;}
+  majChrono();
+}
+function majChrono(){
+  var c=chronoEnCours(),sec=c?(Date.now()-c.debut)/1000:0;
+  Array.prototype.forEach.call(document.querySelectorAll("[data-chrono]"),function(b){
+    var actif=!!c&&c.champ===b.getAttribute("data-chrono")&&c.jour===cleJour(jour);
+    b.classList.toggle("actif",actif);b.closest(".rangee").classList.toggle("chronometre",actif);
+    b.querySelector(".chrono-t").textContent=actif?dureeTexte(sec):"";
+    b.setAttribute("aria-label",(actif?"Arrêter le chronomètre de « ":"Chronométrer « ")+b.getAttribute("data-nom")+" »");
+    b.setAttribute("aria-pressed",String(actif));
+  });
+  var bd=$("chronoBandeau");bd.hidden=!c||document.body.classList.contains("auth");
+  if(c){$("chronoNom").textContent="Prière en cours · "+c.nom;$("chronoTemps").textContent=dureeTexte(sec);}
+  document.body.classList.toggle("avec-chrono",!!c);
+  clearInterval(minuterieChrono);if(c)minuterieChrono=setInterval(majChrono,1000);
 }
 function reconstruireJour(){viderSaisie();construireJour();afficherJour();}
 function gererRubriques(e){
@@ -1672,7 +1719,7 @@ function route(){
   rafraichirVue();
 }
 function rafraichirVue(){
-  var h=vueActuelle;
+  var h=vueActuelle;setTimeout(majChrono,0);
   if(h==="profil")afficherProfil();
   else if(h==="semaine")afficherSemaine();
   else if(h==="mois")afficherMois();
@@ -1693,6 +1740,8 @@ function rafraichirVue(){
 
 /* ---------- Branchements ---------- */
 construireJour();
+$("chronoStop").onclick=function(){arreterChrono();};
+$("chronoAller").onclick=function(){var c=chronoEnCours();if(c){var p=c.jour.split("-");allerAuJour(new Date(+p[0],+p[1]-1,+p[2]));}location.hash="#jour";route();};
 brancherFinances();
 $("btnObjectifs").onclick=function(){remplirObjectifs();$("formObjectifs").hidden=false;$("btnObjectifs").hidden=true;dire("msgObjectifs","");$("o-priere").focus();};
 $("annulerObjectifs").onclick=function(){$("formObjectifs").hidden=true;$("btnObjectifs").hidden=false;dire("msgObjectifs","");};
@@ -1803,6 +1852,7 @@ $("btnIgnorerImport").onclick=function(){ecrireLocal("reglages/importTraite",{le
 /* Saisie de la journée : boutons − / + et enregistrement automatique après une courte pause. */
 $("formJour").addEventListener("click",function(e){
   if(gererRubriques(e))return;
+  var ch=e.target.closest("[data-chrono]");if(ch){demarrerChrono(ch.getAttribute("data-chrono"),ch.getAttribute("data-nom"));return;}
   var b=e.target.closest("button[data-pas]");if(!b)return;
   var i=b.parentNode.querySelector("input"),pas=Number(b.getAttribute("data-pas"));
   if(i.classList.contains("duree")){var mn=versMinutes(i.value);i.value=enHhmm((isFinite(mn)&&mn?mn:0)+pas);}

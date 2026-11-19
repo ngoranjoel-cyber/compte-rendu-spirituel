@@ -1270,7 +1270,7 @@ body[data-vue="finreglages"] .entete{background:var(--f-turq)}
    CUIR ET CUIVRE — accueil à deux espaces et tableau de bord des finances
    Bois, cuir surpiqué, plaques de laiton, tubes lumineux, compteur, parchemin.
    ===================================================================== */
-body[data-vue="choix"],body[data-vue="finance"]{
+body[data-vue="choix"],body.espace-finance{
   --bois:#6B3F22;--bois-f:#3E220F;--cuir:#7A4524;--cuir-f:#4E2A14;--laiton:#C99A45;--cuivre:#B87333;--parch:#F2E0B6;--encre-b:#3A2410;
   background-color:#5A341B!important;
   background-image:
@@ -1279,24 +1279,24 @@ body[data-vue="choix"],body[data-vue="finance"]{
     radial-gradient(120% 70% at 30% 10%,#8A5530 0%,#5A341B 60%,#3E220F 100%)!important;
   background-attachment:scroll!important;min-height:100vh;
 }
-body[data-vue="choix"] .page,body[data-vue="finance"] .page,body[data-vue="choix"] .contenu,body[data-vue="finance"] .contenu{background:transparent!important}
-body[data-vue="choix"] .entete,body[data-vue="finance"] .entete{background:linear-gradient(180deg,#5E3519,#43240F)!important;border-bottom:3px solid #2A160A;box-shadow:0 3px 0 #B87333,0 6px 14px rgba(0,0,0,.4)!important}
-body[data-vue="choix"] .entete .titre-vue b,body[data-vue="finance"] .entete .titre-vue b{color:#F6D894!important;font-family:"Roboto Slab",serif;letter-spacing:.02em}
-body[data-vue="choix"] .entete .titre-vue span,body[data-vue="finance"] .entete .titre-vue span{color:#E2B98A!important}
-body[data-vue="choix"] .entete .logo,body[data-vue="finance"] .entete .logo{filter:drop-shadow(0 0 0 #000)}
-body[data-vue="choix"] .entete .avatar,body[data-vue="finance"] .entete .avatar{box-shadow:0 0 0 3px #C99A45,0 0 0 5px #3E220F}
-body[data-vue="finance"] .nav-fin{background:linear-gradient(180deg,#5E3519,#3E220F)!important;border-top:3px solid #B87333!important;box-shadow:0 -6px 18px rgba(0,0,0,.35)!important}
-body[data-vue="finance"] .nav-fin button{color:#E2B98A!important}
-body[data-vue="finance"] .nav-fin [aria-current="page"]{color:#FFE7A8!important}
-body[data-vue="finance"] .nav-fin [aria-current="page"] .rond-ic{background:radial-gradient(circle at 35% 30%,#FFE7A8,#C99A45 55%,#7A5420)!important;color:#3A2410!important;box-shadow:0 0 0 2px #3E220F,0 6px 12px rgba(0,0,0,.4)!important}
+body[data-vue="choix"] .page,body.espace-finance .page,body[data-vue="choix"] .contenu,body.espace-finance .contenu{background:transparent!important}
+body[data-vue="choix"] .entete,body.espace-finance .entete{background:linear-gradient(180deg,#5E3519,#43240F)!important;border-bottom:3px solid #2A160A;box-shadow:0 3px 0 #B87333,0 6px 14px rgba(0,0,0,.4)!important}
+body[data-vue="choix"] .entete .titre-vue b,body.espace-finance .entete .titre-vue b{color:#F6D894!important;font-family:"Roboto Slab",serif;letter-spacing:.02em}
+body[data-vue="choix"] .entete .titre-vue span,body.espace-finance .entete .titre-vue span{color:#E2B98A!important}
+body[data-vue="choix"] .entete .logo,body.espace-finance .entete .logo{filter:drop-shadow(0 0 0 #000)}
+body[data-vue="choix"] .entete .avatar,body.espace-finance .entete .avatar{box-shadow:0 0 0 3px #C99A45,0 0 0 5px #3E220F}
+body.espace-finance .nav-fin{background:linear-gradient(180deg,#5E3519,#3E220F)!important;border-top:3px solid #B87333!important;box-shadow:0 -6px 18px rgba(0,0,0,.35)!important}
+body.espace-finance .nav-fin button{color:#E2B98A!important}
+body.espace-finance .nav-fin [aria-current="page"]{color:#FFE7A8!important}
+body.espace-finance .nav-fin [aria-current="page"] .rond-ic{background:radial-gradient(circle at 35% 30%,#FFE7A8,#C99A45 55%,#7A5420)!important;color:#3A2410!important;box-shadow:0 0 0 2px #3E220F,0 6px 12px rgba(0,0,0,.4)!important}
 
 /* Éléments communs */
-.sp-cuir,body[data-vue="finance"] .fin-hero{position:relative;background:
+.sp-cuir,body.espace-finance .fin-hero{position:relative;background:
     radial-gradient(130% 90% at 25% 15%,rgba(255,200,150,.18),transparent 55%),
     repeating-radial-gradient(circle at 30% 40%,rgba(0,0,0,.035) 0 2px,transparent 2px 5px),
     linear-gradient(160deg,#8C5129,#6A3A1C 60%,#4E2A14)!important;
   border-radius:20px!important;color:#F4DFC0;box-shadow:0 0 0 3px #3A1F0E,0 0 0 6px #B87333,0 0 0 8px #4A2814,0 14px 26px rgba(0,0,0,.45)!important;padding:18px!important;margin:8px}
-.sp-cuir::before,body[data-vue="finance"] .fin-hero::before{content:""!important;position:absolute!important;inset:7px!important;border:2px dashed rgba(242,205,160,.55)!important;border-radius:15px!important;pointer-events:none;background:none!important;width:auto!important;height:auto!important;right:7px!important;top:7px!important}
+.sp-cuir::before,body.espace-finance .fin-hero::before{content:""!important;position:absolute!important;inset:7px!important;border:2px dashed rgba(242,205,160,.55)!important;border-radius:15px!important;pointer-events:none;background:none!important;width:auto!important;height:auto!important;right:7px!important;top:7px!important}
 .sp-plaque{position:relative;background:linear-gradient(180deg,#FBE6A8 0%,#E2B865 40%,#B88B37 75%,#9A7228 100%);color:#3A2410!important;border-radius:6px;padding:8px 14px 7px;box-shadow:inset 0 1px 0 #FFF4CF,inset 0 -2px 0 rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.45);font-family:"Roboto Slab",serif}
 .sp-plaque::before,.sp-plaque::after{content:"";position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF0C4,#8A6420);box-shadow:0 1px 1px rgba(0,0,0,.5)}
 .sp-plaque::before{left:5px}.sp-plaque::after{right:5px}
@@ -1371,73 +1371,73 @@ body[data-vue="finance"] .nav-fin [aria-current="page"] .rond-ic{background:radi
 .vue.sp .choix-verset{display:block}
 
 /* ---------- Tableau de bord des finances ---------- */
-body[data-vue="finance"] .fin-nav-mois b{font-family:"Roboto Slab",serif;background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228);color:#3A2410!important;padding:7px 18px;border-radius:6px;box-shadow:inset 0 1px 0 #FFF4CF,0 2px 4px rgba(0,0,0,.45)}
-body[data-vue="finance"] .btn-rond{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border:0!important;border-radius:50%!important;box-shadow:0 0 0 2px #3A1F0E,0 4px 8px rgba(0,0,0,.45)!important}
-body[data-vue="finance"] .fin-hero{padding:22px 20px!important;gap:10px}
-body[data-vue="finance"] .fin-hero::after{display:none!important}
-body[data-vue="finance"] .fin-hero.negatif{background:linear-gradient(160deg,#8A2A1C,#5A1A10)!important}
-body[data-vue="finance"] .fin-hero-haut>span:first-child{font:800 .9rem "Roboto Slab",serif;background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228);color:#3A2410;padding:5px 12px;border-radius:5px;box-shadow:0 2px 3px rgba(0,0,0,.4)}
-body[data-vue="finance"] .fin-badge{background:#21120A!important;color:#FFB15C!important;font-family:"Share Tech Mono",monospace;box-shadow:0 0 0 2px #C99A45;text-shadow:0 0 6px #FF7A1A}
-body[data-vue="finance"] .fin-hero-montant{display:flex;flex-wrap:wrap;gap:3px;background:linear-gradient(180deg,#3A2010,#21120A);padding:10px;border-radius:10px;box-shadow:inset 0 2px 6px rgba(0,0,0,.7),0 0 0 3px #C99A45,0 0 0 5px #4A2814;justify-content:center;font-size:0!important}
-body[data-vue="finance"] .fin-hero-montant .roue{width:26px;height:42px;font-size:24px}
-body[data-vue="finance"] .fin-hero-sous{color:#F4DFC0!important;text-align:center;font-family:"Lora",serif;font-style:italic}
-body[data-vue="finance"] .fin-hero-barre{height:14px!important;border-radius:7px!important;background:linear-gradient(180deg,#1E1008,#3A2010)!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.7),0 0 0 2px #B87333}
-body[data-vue="finance"] .fin-hero-barre i{background:linear-gradient(180deg,#FFD08A,#F29A2E 50%,#B85A10)!important;box-shadow:0 0 8px rgba(255,160,60,.7);border-radius:7px!important}
-body[data-vue="finance"] .fin-hero-pied>span{background:linear-gradient(180deg,#FBE6A8,#D9AE58 50%,#A97A2E)!important;color:#3A2410;border-radius:8px!important;box-shadow:inset 0 1px 0 #FFF4CF,0 2px 4px rgba(0,0,0,.45)}
-body[data-vue="finance"] .fin-hero-pied small{color:#5A3A1A;opacity:1}body[data-vue="finance"] .fin-hero-pied b{color:#2A160A;font-family:"Roboto Slab",serif}
-body[data-vue="finance"] .fin-hero-pied .ic{background:#3A2010!important;color:#FFB15C!important}
-body[data-vue="finance"] .fin-tuiles{gap:14px}
-body[data-vue="finance"] .fin-tuile{position:relative;border:0!important;border-radius:14px!important;background:linear-gradient(160deg,#8C5129,#5E3319)!important;box-shadow:0 0 0 2px #3A1F0E,0 0 0 4px #B87333,0 8px 14px rgba(0,0,0,.4)!important;padding:14px 12px!important;margin:4px}
-body[data-vue="finance"] .fin-tuile::before{content:"";position:absolute;inset:5px;border:1.5px dashed rgba(242,205,160,.5);border-radius:10px;pointer-events:none}
-body[data-vue="finance"] .fin-tuile small{color:#F6D894!important;font-family:"Roboto Slab",serif;font-weight:700;opacity:1!important}
-body[data-vue="finance"] .fin-tuile b{display:block;background:linear-gradient(180deg,#3A2010,#21120A);border-radius:8px;padding:7px 8px;margin:4px 0;font:400 1.15rem "Share Tech Mono",monospace!important;color:#FFB15C!important;text-shadow:0 0 5px #FF7A1A,0 0 12px rgba(255,90,0,.6);box-shadow:inset 0 2px 5px rgba(0,0,0,.7),0 0 0 2px #C99A45}
-body[data-vue="finance"] .fin-tsous{color:#E9C891!important}
-body[data-vue="finance"] .fin-tic{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border-radius:50%!important;box-shadow:0 0 0 2px #3A1F0E}
-body[data-vue="finance"] .carte{background:
+body.espace-finance .fin-nav-mois b{font-family:"Roboto Slab",serif;background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228);color:#3A2410!important;padding:7px 18px;border-radius:6px;box-shadow:inset 0 1px 0 #FFF4CF,0 2px 4px rgba(0,0,0,.45)}
+body.espace-finance .btn-rond{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border:0!important;border-radius:50%!important;box-shadow:0 0 0 2px #3A1F0E,0 4px 8px rgba(0,0,0,.45)!important}
+body.espace-finance .fin-hero{padding:22px 20px!important;gap:10px}
+body.espace-finance .fin-hero::after{display:none!important}
+body.espace-finance .fin-hero.negatif{background:linear-gradient(160deg,#8A2A1C,#5A1A10)!important}
+body.espace-finance .fin-hero-haut>span:first-child{font:800 .9rem "Roboto Slab",serif;background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228);color:#3A2410;padding:5px 12px;border-radius:5px;box-shadow:0 2px 3px rgba(0,0,0,.4)}
+body.espace-finance .fin-badge{background:#21120A!important;color:#FFB15C!important;font-family:"Share Tech Mono",monospace;box-shadow:0 0 0 2px #C99A45;text-shadow:0 0 6px #FF7A1A}
+body.espace-finance .fin-hero-montant{display:flex;flex-wrap:wrap;gap:3px;background:linear-gradient(180deg,#3A2010,#21120A);padding:10px;border-radius:10px;box-shadow:inset 0 2px 6px rgba(0,0,0,.7),0 0 0 3px #C99A45,0 0 0 5px #4A2814;justify-content:center;font-size:0!important}
+body.espace-finance .fin-hero-montant .roue{width:26px;height:42px;font-size:24px}
+body.espace-finance .fin-hero-sous{color:#F4DFC0!important;text-align:center;font-family:"Lora",serif;font-style:italic}
+body.espace-finance .fin-hero-barre{height:14px!important;border-radius:7px!important;background:linear-gradient(180deg,#1E1008,#3A2010)!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.7),0 0 0 2px #B87333}
+body.espace-finance .fin-hero-barre i{background:linear-gradient(180deg,#FFD08A,#F29A2E 50%,#B85A10)!important;box-shadow:0 0 8px rgba(255,160,60,.7);border-radius:7px!important}
+body.espace-finance .fin-hero-pied>span{background:linear-gradient(180deg,#FBE6A8,#D9AE58 50%,#A97A2E)!important;color:#3A2410;border-radius:8px!important;box-shadow:inset 0 1px 0 #FFF4CF,0 2px 4px rgba(0,0,0,.45)}
+body.espace-finance .fin-hero-pied small{color:#5A3A1A;opacity:1}body.espace-finance .fin-hero-pied b{color:#2A160A;font-family:"Roboto Slab",serif}
+body.espace-finance .fin-hero-pied .ic{background:#3A2010!important;color:#FFB15C!important}
+body.espace-finance .fin-tuiles{gap:14px}
+body.espace-finance .fin-tuile{position:relative;border:0!important;border-radius:14px!important;background:linear-gradient(160deg,#8C5129,#5E3319)!important;box-shadow:0 0 0 2px #3A1F0E,0 0 0 4px #B87333,0 8px 14px rgba(0,0,0,.4)!important;padding:14px 12px!important;margin:4px}
+body.espace-finance .fin-tuile::before{content:"";position:absolute;inset:5px;border:1.5px dashed rgba(242,205,160,.5);border-radius:10px;pointer-events:none}
+body.espace-finance .fin-tuile small{color:#F6D894!important;font-family:"Roboto Slab",serif;font-weight:700;opacity:1!important}
+body.espace-finance .fin-tuile b{display:block;background:linear-gradient(180deg,#3A2010,#21120A);border-radius:8px;padding:7px 8px;margin:4px 0;font:400 1.15rem "Share Tech Mono",monospace!important;color:#FFB15C!important;text-shadow:0 0 5px #FF7A1A,0 0 12px rgba(255,90,0,.6);box-shadow:inset 0 2px 5px rgba(0,0,0,.7),0 0 0 2px #C99A45}
+body.espace-finance .fin-tsous{color:#E9C891!important}
+body.espace-finance .fin-tic{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border-radius:50%!important;box-shadow:0 0 0 2px #3A1F0E}
+body.espace-finance .carte{background:
    radial-gradient(130% 140% at 50% 50%,transparent 58%,rgba(150,95,40,.35) 100%),
    linear-gradient(180deg,#F6E7C1,#EAD39F)!important;border:0!important;border-radius:6px!important;color:#3A2410;box-shadow:0 0 0 2px #B98A55,0 10px 20px rgba(0,0,0,.45)!important;margin:4px 8px}
-body[data-vue="finance"] .carte .panneau-titre h2{font-family:"Roboto Slab",serif;color:#3A2410!important}
-body[data-vue="finance"] .carte .pic{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;box-shadow:0 0 0 2px #3A1F0E!important;border-radius:50%!important}
-body[data-vue="finance"] .carte .aide,body[data-vue="finance"] .carte small,body[data-vue="finance"] .fin-obj small,body[data-vue="finance"] .champ{color:#5A3A1A!important}
-body[data-vue="finance"] .champ input{background:#FFF8E6!important;border:2px solid #B98A55!important;box-shadow:inset 0 2px 3px rgba(120,70,20,.2)!important;border-radius:6px!important;color:#3A2410!important;font-family:"Roboto Mono",monospace}
-body[data-vue="finance"] .btn.vert{background:linear-gradient(180deg,#7A4524,#4E2A14)!important;color:#F6E2C0!important;border-radius:999px!important;box-shadow:0 0 0 2px #C99A45,0 0 0 4px #3A1F0E,0 6px 12px rgba(0,0,0,.35)!important;font-family:"Roboto Slab",serif;border:0!important;margin:4px}
-body[data-vue="finance"] .msg.ok{color:#2E6B12}
-body[data-vue="finance"] .fin-obj-tete{color:#3A2410;font-family:"Roboto Slab",serif}
-body[data-vue="finance"] .fin-obj-tete span{color:#8A3B12!important;font-family:"Share Tech Mono",monospace;font-size:1rem}
-body[data-vue="finance"] .fin-jauge{height:14px!important;border-radius:7px!important;background:linear-gradient(180deg,#2A160A,#4A2814)!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.7),0 0 0 2px #B87333}
-body[data-vue="finance"] .fin-jauge i{border-radius:7px!important;box-shadow:0 0 6px rgba(255,170,70,.6);background-image:linear-gradient(180deg,rgba(255,255,255,.35),transparent 60%)!important}
-body[data-vue="finance"] .sy-cle{background:rgba(255,248,230,.75)!important;border:1px solid #D9B985;color:#3A2410!important}
-body[data-vue="finance"] .sy-cle b{color:#3A2410}
-body[data-vue="finance"] .fin-donut svg circle:first-child{stroke:#E2C792}
-body[data-vue="finance"] .fin-donut .sy-total{fill:#3A2410;font-family:"Roboto Slab",serif}
-body[data-vue="finance"] .fin-donut .sy-sous{fill:#7A5430}
-body[data-vue="finance"] .fin-indic-l{border-bottom:1px solid rgba(150,100,50,.35)!important;color:#3A2410;font-family:"Lora",serif}
-body[data-vue="finance"] .fin-indic-l .ic{color:#B87333!important}
-body[data-vue="finance"] .fin-indic-l b{font-family:"Share Tech Mono",monospace;color:#8A3B12}
-body[data-vue="finance"] .fin-jour i{background:linear-gradient(90deg,#9A5427,#E9A46B,#9A5427)!important;border-radius:3px 3px 1px 1px!important}
-body[data-vue="finance"] .fin-jour.max i{background:linear-gradient(90deg,#8A1F10,#E2553A,#8A1F10)!important}
-body[data-vue="finance"] .fin-jour.auj i{background:linear-gradient(90deg,#B88B37,#FBE6A8,#B88B37)!important}
-body[data-vue="finance"] .fin-jour span{color:#7A5430}
-body[data-vue="finance"] .fin-dep{background:transparent!important;border:0!important;border-bottom:1px solid rgba(150,100,50,.35)!important;border-radius:0!important;padding:10px 4px!important;font-family:"Lora",serif}
-body[data-vue="finance"] .fin-dep-txt b{color:#3A2410!important}body[data-vue="finance"] .fin-dep-txt small{color:#7A5430!important}
-body[data-vue="finance"] .fin-dep-mt{color:#9A2A14!important;font-family:"Roboto Mono",monospace}
-body[data-vue="finance"] .lien-gerer{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;font-family:"Roboto Slab",serif;border-radius:6px!important;box-shadow:0 2px 3px rgba(0,0,0,.35)}
-body[data-vue="finance"] .fin-vide{color:#5A3A1A}
-body[data-vue="finance"] .fin-fab{background:radial-gradient(circle at 40% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border-radius:999px!important;box-shadow:0 0 0 3px #3A1F0E,0 8px 16px rgba(0,0,0,.5)!important;font-family:"Roboto Slab",serif}
+body.espace-finance .carte .panneau-titre h2{font-family:"Roboto Slab",serif;color:#3A2410!important}
+body.espace-finance .carte .pic{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;box-shadow:0 0 0 2px #3A1F0E!important;border-radius:50%!important}
+body.espace-finance .carte .aide,body.espace-finance .carte small,body.espace-finance .fin-obj small,body.espace-finance .champ{color:#5A3A1A!important}
+body.espace-finance .champ input{background:#FFF8E6!important;border:2px solid #B98A55!important;box-shadow:inset 0 2px 3px rgba(120,70,20,.2)!important;border-radius:6px!important;color:#3A2410!important;font-family:"Roboto Mono",monospace}
+body.espace-finance .btn.vert{background:linear-gradient(180deg,#7A4524,#4E2A14)!important;color:#F6E2C0!important;border-radius:999px!important;box-shadow:0 0 0 2px #C99A45,0 0 0 4px #3A1F0E,0 6px 12px rgba(0,0,0,.35)!important;font-family:"Roboto Slab",serif;border:0!important;margin:4px}
+body.espace-finance .msg.ok{color:#2E6B12}
+body.espace-finance .fin-obj-tete{color:#3A2410;font-family:"Roboto Slab",serif}
+body.espace-finance .fin-obj-tete span{color:#8A3B12!important;font-family:"Share Tech Mono",monospace;font-size:1rem}
+body.espace-finance .fin-jauge{height:14px!important;border-radius:7px!important;background:linear-gradient(180deg,#2A160A,#4A2814)!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.7),0 0 0 2px #B87333}
+body.espace-finance .fin-jauge i{border-radius:7px!important;box-shadow:0 0 6px rgba(255,170,70,.6);background-image:linear-gradient(180deg,rgba(255,255,255,.35),transparent 60%)!important}
+body.espace-finance .sy-cle{background:rgba(255,248,230,.75)!important;border:1px solid #D9B985;color:#3A2410!important}
+body.espace-finance .sy-cle b{color:#3A2410}
+body.espace-finance .fin-donut svg circle:first-child{stroke:#E2C792}
+body.espace-finance .fin-donut .sy-total{fill:#3A2410;font-family:"Roboto Slab",serif}
+body.espace-finance .fin-donut .sy-sous{fill:#7A5430}
+body.espace-finance .fin-indic-l{border-bottom:1px solid rgba(150,100,50,.35)!important;color:#3A2410;font-family:"Lora",serif}
+body.espace-finance .fin-indic-l .ic{color:#B87333!important}
+body.espace-finance .fin-indic-l b{font-family:"Share Tech Mono",monospace;color:#8A3B12}
+body.espace-finance .fin-jour i{background:linear-gradient(90deg,#9A5427,#E9A46B,#9A5427)!important;border-radius:3px 3px 1px 1px!important}
+body.espace-finance .fin-jour.max i{background:linear-gradient(90deg,#8A1F10,#E2553A,#8A1F10)!important}
+body.espace-finance .fin-jour.auj i{background:linear-gradient(90deg,#B88B37,#FBE6A8,#B88B37)!important}
+body.espace-finance .fin-jour span{color:#7A5430}
+body.espace-finance .fin-dep{background:transparent!important;border:0!important;border-bottom:1px solid rgba(150,100,50,.35)!important;border-radius:0!important;padding:10px 4px!important;font-family:"Lora",serif}
+body.espace-finance .fin-dep-txt b{color:#3A2410!important}body.espace-finance .fin-dep-txt small{color:#7A5430!important}
+body.espace-finance .fin-dep-mt{color:#9A2A14!important;font-family:"Roboto Mono",monospace}
+body.espace-finance .lien-gerer{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;font-family:"Roboto Slab",serif;border-radius:6px!important;box-shadow:0 2px 3px rgba(0,0,0,.35)}
+body.espace-finance .fin-vide{color:#5A3A1A}
+body.espace-finance .fin-fab{background:radial-gradient(circle at 40% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border-radius:999px!important;box-shadow:0 0 0 3px #3A1F0E,0 8px 16px rgba(0,0,0,.5)!important;font-family:"Roboto Slab",serif}
 @media (min-width:960px){
-  body[data-vue="choix"] .lateral,body[data-vue="finance"] .lateral{background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 30%),repeating-linear-gradient(0deg,transparent 0 140px,rgba(0,0,0,.25) 140px 143px),linear-gradient(180deg,#7A4A28,#4E2C14)!important;border-right:10px solid transparent!important;border-image:linear-gradient(180deg,#E9A46B,#9A5427,#E9A46B) 1!important;box-shadow:none!important}
-  body[data-vue="choix"] .lateral .marque div b,body[data-vue="finance"] .lateral .marque div b{color:#F6D894;font-family:"Roboto Slab",serif}
-  body[data-vue="choix"] .lateral .marque div span,body[data-vue="finance"] .lateral .marque div span,body[data-vue="choix"] .lateral .moi div span,body[data-vue="finance"] .lateral .moi div span{color:#E2B98A!important}
-  body[data-vue="choix"] .lateral .moi div b,body[data-vue="finance"] .lateral .moi div b{color:#F6D894!important}
-  body[data-vue="choix"] .lat-accueil,body[data-vue="finance"] .lat-accueil{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;font-family:"Roboto Slab",serif;border-radius:6px!important}
-  body[data-vue="finance"] .lateral nav button{color:#F4DFC0!important}
-  body[data-vue="finance"] .lateral nav button[aria-current="page"]{background:linear-gradient(180deg,#F6E7C1,#EAD39F)!important;color:#3A2410!important;font-family:"Roboto Slab",serif}
-  body[data-vue="choix"] .synchro,body[data-vue="finance"] .synchro{color:#E2B98A!important}
+  body[data-vue="choix"] .lateral,body.espace-finance .lateral{background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 30%),repeating-linear-gradient(0deg,transparent 0 140px,rgba(0,0,0,.25) 140px 143px),linear-gradient(180deg,#7A4A28,#4E2C14)!important;border-right:10px solid transparent!important;border-image:linear-gradient(180deg,#E9A46B,#9A5427,#E9A46B) 1!important;box-shadow:none!important}
+  body[data-vue="choix"] .lateral .marque div b,body.espace-finance .lateral .marque div b{color:#F6D894;font-family:"Roboto Slab",serif}
+  body[data-vue="choix"] .lateral .marque div span,body.espace-finance .lateral .marque div span,body[data-vue="choix"] .lateral .moi div span,body.espace-finance .lateral .moi div span{color:#E2B98A!important}
+  body[data-vue="choix"] .lateral .moi div b,body.espace-finance .lateral .moi div b{color:#F6D894!important}
+  body[data-vue="choix"] .lat-accueil,body.espace-finance .lat-accueil{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;font-family:"Roboto Slab",serif;border-radius:6px!important}
+  body.espace-finance .lateral nav button{color:#F4DFC0!important}
+  body.espace-finance .lateral nav button[aria-current="page"]{background:linear-gradient(180deg,#F6E7C1,#EAD39F)!important;color:#3A2410!important;font-family:"Roboto Slab",serif}
+  body[data-vue="choix"] .synchro,body.espace-finance .synchro{color:#E2B98A!important}
 }
 @media (prefers-reduced-motion:reduce){
   .sp-aiguille,.sp-bat,.sp-bourse,.tube,.sp-tige,.sp-led.orange,.sp-pousser i,.roue,.sp-cadran .seg.on{animation:none!important}
 }
-html:has(body[data-vue="choix"]),html:has(body[data-vue="finance"]){background:#3E220F}
+html:has(body[data-vue="choix"]),html:has(body.espace-finance){background:#3E220F}
 .lateral .nav-choix{display:none!important}
 @media (min-width:960px){
   body.espace-choix .lateral .nav-choix{display:flex!important;flex-direction:column;gap:12px;margin-top:10px;padding-left:14px;border-left:2px solid #B87333}
@@ -1447,3 +1447,80 @@ html:has(body[data-vue="choix"]),html:has(body[data-vue="finance"]){background:#
   .lateral .nav-choix button::before{content:"";position:absolute;left:-16px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE7A8,#9A7228)}
   body[data-vue="choix"] .lateral .moi .avatar{border-radius:6px!important;box-shadow:0 0 0 4px #C99A45,0 0 0 7px #4A2814,0 6px 12px rgba(0,0,0,.5)!important}
 }
+
+/* ---------- Chronomètre de prière ---------- */
+.chrono{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:4px;height:36px;min-width:36px;padding:0 8px;border-radius:18px;border:2px solid #12A89A;background:#E3F6F3;color:#0B7A70;cursor:pointer;font:800 .8rem Nunito,sans-serif;transition:background .2s,min-width .25s}
+.chrono .ic{width:18px;height:18px;stroke-width:2.3}
+.chrono:hover{background:#CDEFEA}
+.chrono-t:empty{display:none}
+.chrono.actif{background:#F2546A;border-color:#F2546A;color:#fff;min-width:86px;animation:chronoPouls 1.6s ease-in-out infinite;font-variant-numeric:tabular-nums}
+.chrono.actif .ic{animation:chronoTourne 2s linear infinite}
+.rangee.chronometre{box-shadow:0 0 0 2px #F2546A!important;background:#FFF4F5!important}
+@keyframes chronoPouls{0%,100%{box-shadow:0 0 0 0 rgba(242,84,106,.45)}50%{box-shadow:0 0 0 7px rgba(242,84,106,0)}}
+@keyframes chronoTourne{to{transform:rotate(360deg)}}
+@media (max-width:420px){.rangee .libelle{font-size:.88rem}.chrono{min-width:34px;height:34px;padding:0 6px}.chrono.actif{min-width:78px}}
+.chrono-bandeau{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:10px;background:#2E2A7A;color:#fff;border-radius:18px;padding:8px 8px 8px 12px;box-shadow:0 12px 26px rgba(30,25,90,.35);animation:chronoArrive .35s ease both}
+.chrono-bandeau[hidden]{display:none}
+@keyframes chronoArrive{from{transform:translateY(30px);opacity:0}}
+.chrono-ic{width:38px;height:38px;border-radius:50%;background:#F2546A;display:grid;place-items:center;flex:none;animation:chronoPouls 1.6s ease-in-out infinite}
+.chrono-ic .ic{width:20px;height:20px;animation:chronoTourne 2s linear infinite}
+.chrono-info{flex:1;min-width:0;border:0;background:none;color:#fff;text-align:left;cursor:pointer;display:flex;flex-direction:column;padding:0}
+.chrono-info b{font-size:.8rem;font-weight:700;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chrono-info span{font:800 1.25rem Nunito,sans-serif;font-variant-numeric:tabular-nums}
+.chrono-stop{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;background:#fff;color:#C9324A;font:800 .9rem Nunito,sans-serif;padding:10px 14px;cursor:pointer}
+.chrono-stop .ic{width:16px;height:16px;fill:currentColor}
+@media (min-width:960px){.chrono-bandeau{left:auto;right:28px;bottom:24px;width:380px}}
+body.avec-chrono .fin-fab{bottom:calc(160px + env(safe-area-inset-bottom))}
+body.avec-chrono .barre-enreg{margin-bottom:70px}
+@media (prefers-reduced-motion:reduce){.chrono.actif,.chrono.actif .ic,.chrono-ic,.chrono-ic .ic,.chrono-bandeau{animation:none!important}}
+
+/* ---------- Cuir et cuivre : dépenses, budgets, bilan, réglages ---------- */
+body.espace-finance .champ select,body.espace-finance .fin-cat-ligne input,body.espace-finance .fin-cat-ajout input{background:#FFF8E6!important;border:2px solid #B98A55!important;box-shadow:inset 0 2px 3px rgba(120,70,20,.2)!important;border-radius:6px!important;color:#3A2410!important}
+body.espace-finance .champ select{font-family:"Lora",serif;font-weight:500}
+body.espace-finance .fin-montant-saisie{background:linear-gradient(180deg,#3A2010,#21120A)!important;border-radius:10px!important;box-shadow:inset 0 2px 6px rgba(0,0,0,.7),0 0 0 3px #C99A45,0 0 0 5px #4A2814}
+body.espace-finance .fin-montant-saisie input{font:400 2.2rem "Share Tech Mono",monospace!important;color:#FFB15C!important;text-shadow:0 0 6px #FF7A1A,0 0 14px rgba(255,90,0,.6)}
+body.espace-finance .fin-montant-saisie input::placeholder{color:#7A4A28;text-shadow:none}
+body.espace-finance .fin-montant-saisie span{color:#F6D894!important;font-family:"Roboto Slab",serif}
+body.espace-finance .fin-ajout.edition{box-shadow:0 0 0 3px #F29A2E,0 10px 20px rgba(0,0,0,.45)!important}
+body.espace-finance .btn.clair{background:linear-gradient(180deg,#F6E7C1,#E2C792)!important;color:#3A2410!important;border:0!important;border-radius:999px!important;font-family:"Roboto Slab",serif;box-shadow:0 0 0 2px #B98A55,0 4px 8px rgba(0,0,0,.35)!important}
+body.espace-finance .fin-filtres button{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;border:0!important;border-radius:5px!important;font-family:"Roboto Slab",serif;box-shadow:inset 0 1px 0 #FFF4CF,0 2px 4px rgba(0,0,0,.45)!important}
+body.espace-finance .fin-filtres button[aria-selected="true"]{background:linear-gradient(180deg,#7A4524,#4E2A14)!important;color:#FFE7A8!important;box-shadow:0 0 0 2px #C99A45,0 2px 4px rgba(0,0,0,.45)!important}
+body.espace-finance .fin-total-liste{border-bottom:2px solid #B98A55!important}
+body.espace-finance .fin-total-liste span{color:#5A3A1A!important;font-family:"Lora",serif}
+body.espace-finance .fin-total-liste b{font:400 1.35rem "Share Tech Mono",monospace!important;color:#8A3B12!important}
+body.espace-finance .fin-jour-tete{color:#8A3B12!important;font-family:"Roboto Slab",serif;border-bottom:1px solid #C9A46E!important}
+body.espace-finance .fin-jour-tete b{font-family:"Roboto Mono",monospace}
+body.espace-finance .fin-mini{background:radial-gradient(circle at 35% 30%,#F6C08A,#B87333 55%,#6E3A1A)!important;color:#2A160A!important;border-radius:50%!important;box-shadow:0 0 0 2px #3A1F0E}
+body.espace-finance .fin-mini.rouge{background:radial-gradient(circle at 35% 30%,#F6A08A,#B8433A 55%,#6E1A1A)!important;color:#FFF0E0!important}
+body.espace-finance .fin-budget-tete b{font-family:"Roboto Slab",serif;color:#3A2410}
+body.espace-finance .fin-budget-pied{color:#5A3A1A!important;font-family:"Roboto Mono",monospace;font-size:.74rem!important}
+body.espace-finance .fin-statut{border-radius:3px!important;border:1.5px solid currentColor;background:transparent!important;font-family:"Roboto Slab",serif;text-transform:uppercase;letter-spacing:.05em;transform:rotate(-2deg)}
+body.espace-finance .fin-statut.ok{color:#2E6B12!important}body.espace-finance .fin-statut.attention{color:#9A6A00!important}
+body.espace-finance .fin-statut.depasse{color:#A4251A!important}body.espace-finance .fin-statut.encours{color:#3C3489!important}
+body.espace-finance .fin-statut.afaire,body.espace-finance .fin-statut.aucun{color:#7A5430!important}
+body.espace-finance .fin-jauge i.ok{background-color:#5FA83A!important}body.espace-finance .fin-jauge i.attention{background-color:#F2B233!important}
+body.espace-finance .fin-jauge i.depasse{background-color:#D2452B!important}body.espace-finance .fin-jauge i.encours{background-color:#E08A3A!important}
+body.espace-finance .fin-jauge i.afaire,body.espace-finance .fin-jauge i.aucun{background-color:#9A7A5A!important}
+body.espace-finance .fin-note{background:rgba(255,248,230,.8)!important;border:1px dashed #B98A55;color:#3A2410!important;font-family:"Lora",serif;font-style:italic}
+body.espace-finance .fin-lien-reglages{margin-bottom:10px}
+body.espace-finance .fin-table th,body.espace-finance .fin-table td{color:#3A2410!important;font-family:"Roboto Mono",monospace;font-size:.76rem}
+body.espace-finance .fin-table thead th{font-family:"Roboto Slab",serif!important;color:#8A3B12!important;border-bottom:2px solid #8A5A35!important}
+body.espace-finance .fin-table tbody th,body.espace-finance .fin-table tfoot th{font-family:"Roboto Slab",serif}
+body.espace-finance .fin-table tbody tr:nth-child(odd) td,body.espace-finance .fin-table tbody tr:nth-child(odd) th{background:rgba(200,160,100,.14)!important}
+body.espace-finance .fin-table tbody tr.vide td,body.espace-finance .fin-table tbody tr.vide th{color:#9A7A5A!important}
+body.espace-finance .fin-table tfoot th,body.espace-finance .fin-table tfoot td{background:linear-gradient(180deg,#FBE6A8,#D9AE58)!important;border-top:2px solid #8A5A35!important}
+body.espace-finance .fin-table td.neg{color:#A4251A!important}
+body.espace-finance .fin-mbar i.rev{background:linear-gradient(90deg,#3E7A22,#7CC24E,#3E7A22)!important}
+body.espace-finance .fin-mbar .pile i.dep{background:linear-gradient(90deg,#8A1F10,#E2553A,#8A1F10)!important}
+body.espace-finance .fin-mbar .pile i.don{background:linear-gradient(90deg,#B88B37,#FBE6A8,#B88B37)!important}
+body.espace-finance .fin-mbar .pile i.epa{background:linear-gradient(90deg,#9A5427,#E9A46B,#9A5427)!important}
+body.espace-finance .fin-mbar span{color:#7A5430}body.espace-finance .fin-mbar.actif span{color:#8A3B12}
+body.espace-finance .sy-cles span{color:#3A2410}
+body.espace-finance .fin-cat-tete{color:#3A2410;font-family:"Lora",serif}body.espace-finance .fin-cat-tete b{font-family:"Roboto Mono",monospace}
+body.espace-finance .fin-prive{background:linear-gradient(180deg,#FBE6A8,#D9AE58)!important;color:#3A2410!important;border-radius:6px!important;font-family:"Lora",serif;box-shadow:inset 0 1px 0 #FFF4CF,0 4px 8px rgba(0,0,0,.4);margin:4px 8px}
+body.espace-finance .fin-auto{color:#5A3A1A}
+body.espace-finance .fin-type{background:#3A2010!important;color:#FFB15C!important;font-family:"Share Tech Mono",monospace;border-radius:4px!important}
+body.espace-finance .fin-puce{background:linear-gradient(180deg,#FBE6A8,#C99A45 60%,#9A7228)!important;color:#3A2410!important;border-radius:5px!important;font-family:"Roboto Slab",serif;box-shadow:0 2px 3px rgba(0,0,0,.35)}
+body.espace-finance .fin-import p{color:#3A2410;font-family:"Lora",serif}
+body.espace-finance .msg{font-weight:700}
+body.espace-finance .champ input:not([inputmode]),body.espace-finance .fin-cat-ligne input:not([inputmode]),body.espace-finance .fin-cat-ajout input:not([inputmode]){font-family:"Lora",serif!important}

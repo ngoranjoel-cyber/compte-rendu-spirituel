@@ -77,6 +77,8 @@
   <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
   <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
   <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
+  <symbol id="i-chrono" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2"/><path d="M9.5 2.5h5M12 2.5v3.5M18.5 6.5l1.5-1.5"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2 20h20"/></symbol>
 </svg>
 
@@ -858,6 +860,13 @@
       </main>
 
     </div>
+  </div>
+
+  <!-- Chronomètre de prière en cours (visible sur toutes les pages) -->
+  <div class="chrono-bandeau" id="chronoBandeau" hidden role="status" aria-live="polite">
+    <span class="chrono-ic"><svg class="ic"><use href="#i-chrono"/></svg></span>
+    <button type="button" class="chrono-info" id="chronoAller" aria-label="Voir la journée"><b id="chronoNom">Chronomètre</b><span id="chronoTemps">00:00</span></button>
+    <button type="button" class="chrono-stop" id="chronoStop"><svg class="ic"><use href="#i-stop"/></svg>Arrêter</button>
   </div>
 
   <!-- Onglets du bas (téléphone) -->
