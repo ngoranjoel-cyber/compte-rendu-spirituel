@@ -1277,17 +1277,47 @@ function resumeFin(){return FIN.resume(finReglages(),finMois(finM.a,finM.m),finM
 function decalerFinMois(n){var d=new Date(finM.a,finM.m-1+n,1);finM={a:d.getFullYear(),m:d.getMonth()+1};finFiltre="";annulerEditionDepense();rafraichirVue();}
 function champMontant(id){var v=FIN.lireMontant($(id).value);return v;}
 
+/* ---------- Instruments (cuir et cuivre) ---------- */
+/* Chiffres lumineux (tubes Nixie) ou compteur mécanique : un caractère par case, le texte reste lisible tel quel. */
+function chiffres(e,texte,genre){
+  e.textContent="";e.setAttribute("aria-label",texte);
+  String(texte).split("").forEach(function(c,i){
+    var vide=/\s|\u202f|\u00a0/.test(c),sep=/[:.,%−-]/.test(c);
+    var x=el("span",{"class":(genre==="nixie"?"tube":"roue")+(vide?" vide":sep?" sep":""),"aria-hidden":"true"},vide?" ":c);
+    x.style.animationDelay=(i*0.06)+"s";e.appendChild(x);
+  });
+}
+/* Cadran en arc : segments rouges → verts, allumés jusqu'à la valeur. */
+function cadran(e,v){
+  var n=22,s='<svg viewBox="0 0 120 70"><path d="M10 64 A50 50 0 0 1 110 64" fill="none" stroke="#1A0F08" stroke-width="16" stroke-linecap="round"/>',allumes=Math.round(Math.max(0,Math.min(1,v))*n);
+  for(var i=0;i<n;i++){
+    var a=Math.PI*(1-(i+.5)/n),r1=42,r2=54,x1=60+r1*Math.cos(a),y1=64-r1*Math.sin(a),x2=60+r2*Math.cos(a),y2=64-r2*Math.sin(a);
+    var h=Math.round(8+i/(n-1)*112),c="hsl("+h+",85%,52%)";
+    s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="'+c+'" stroke-width="4.2" stroke-linecap="round" class="seg'+(i<allumes?" on":"")+'" style="animation-delay:'+(i*0.04)+'s"/>';
+  }
+  e.innerHTML=s+'</svg>';
+}
+var VERSETS=[["« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus. »","Matthieu 6.33"],
+  ["« Priez sans cesse. »","1 Thessaloniciens 5.17"],["« Approchez-vous de Dieu, et il s'approchera de vous. »","Jacques 4.8"],
+  ["« Ta parole est une lampe à mes pieds, et une lumière sur mon sentier. »","Psaume 119.105"],
+  ["« Honore l'Éternel avec tes biens, et avec les prémices de tout ton revenu. »","Proverbes 3.9"]],numVerset=0,minuterieVerset=null;
+function tournerVerset(){
+  var c=$("chVerset"),r=$("chVersetRef");if(!c)return;
+  c.classList.add("efface");setTimeout(function(){numVerset=(numVerset+1)%VERSETS.length;c.textContent=VERSETS[numVerset][0];r.textContent=VERSETS[numVerset][1];c.classList.remove("efface");},500);
+}
 function afficherChoix(){
   titres("Accueil","Choisissez votre espace");
   var p=profil||{},pr=(p.prenoms||"").split(" ")[0]||"",h=new Date().getHours();
-  $("chSalut").textContent=(h<12?"Bonjour":h<18?"Bon après-midi":"Bonsoir")+(pr?" "+pr:"")+" 👋";
+  $("chSalut").textContent=(h<12?"Bonjour":h<18?"Bon après-midi":"Bonsoir")+(pr?" "+pr.toUpperCase():"")+" 👋";
   var d=donneesJour(auj),t=RP.totaux([d]);
-  var mp=t.seul+t.pg+minutesAjoutees(d,"prier");$("chPriere").textContent=mp?hm(mp):"0:00";
+  var mp=t.seul+t.pg+minutesAjoutees(d,"prier");chiffres($("chPriere"),mp?hm(mp):"0:00","nixie");
   var b=RP.bilanSemaine(semaineDe(auj).jours.map(donneesJour),lire("reglages/objectifs"));
-  $("chScore").textContent=Math.round(b.score*100)+" %";
+  $("chScore").textContent=Math.round(b.score*100)+" %";cadran($("chJauge"),b.score);
+  $("chLed").className="sp-led"+(etat(d).nb===3?" vert":" orange");
   var R=finReglages(),r=FIN.resume(R,finMois(auj.getFullYear(),auj.getMonth()+1),auj.getFullYear(),auj.getMonth()+1,auj);
-  $("chReste").textContent=r.revenus?argent(r.reste,true,R):"À saisir";
-  $("chDepenses").textContent=argent(r.depensesMois,true,R);
+  chiffres($("chReste"),r.revenus?argent(r.reste,true,R):"À saisir","compteur");
+  chiffres($("chDepenses"),argent(r.depensesMois,true,R),"compteur");
+  clearInterval(minuterieVerset);minuterieVerset=setInterval(function(){if(vueActuelle==="choix")tournerVerset();},9000);
 }
 
 /* ---------- Tableau de bord ---------- */
@@ -1324,7 +1354,7 @@ function afficherFinance(){
   titres("Mes finances",nomMoisFin());
   Array.prototype.forEach.call(document.querySelectorAll(".fin-mois-nom"),function(b){b.textContent=nomMoisFin();});
   $("fHero").classList.toggle("negatif",r.revenus>0&&r.reste<0);
-  $("fReste").textContent=r.revenus?argent(r.reste,false,R):"Saisissez vos revenus";
+  chiffres($("fReste"),r.revenus?argent(r.reste,true,R):"À saisir","compteur");
   $("fResteSous").textContent=r.revenus?(r.reste<0?"Vous avez dépensé plus que vos revenus ce mois-ci.":"disponibles sur "+argent(r.revenus,false,R)+" de revenus"):"Indiquez votre salaire plus bas pour voir ce qu'il vous reste.";
   $("fRatio").textContent=r.revenus?Math.round(r.totalSorties/r.revenus*100)+" % utilisés":nomMoisFin();
   $("fBarreSorties").style.width=(r.revenus?Math.min(100,r.totalSorties/r.revenus*100):0)+"%";

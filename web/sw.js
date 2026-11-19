@@ -1,5 +1,5 @@
 /* Garde le site utilisable hors connexion (site web uniquement ; l'application Android a ses fichiers). */
-var CACHE = "compte-rendu-v18";
+var CACHE = "compte-rendu-v21";
 var FICHIERS = ["./", "index.html", "style.css", "app.js", "xl.js", "rapport.js", "finance.js", "compte.js", "config.js", "modele.js", "jszip.min.js", "confidentialite.html", "conditions.html",
   "manifest.webmanifest", "icone.svg", "logo.png", "pdf-lib.min.js", "icone-192.png", "icone-512.png", "icone-maskable.png"];
 
