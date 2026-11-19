@@ -716,7 +716,7 @@ function courbe(boite,valeurs,etiquettes,actif){
   s+='<path d="'+d+'" fill="none" stroke="'+trait+'" stroke-width="5" stroke-linecap="round" class="trait"/>';
   p.forEach(function(q,i){
     var on=i===actif;
-    if(on)s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="15" fill="#7C3AED" opacity=".15"/>';
+    if(on)s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="15" fill="#5A4FCF" opacity=".15"/>';
     s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(on?8:5)+'" fill="'+(on?"#7C3AED":"#fff")+'" stroke="'+(on?"#fff":plat?"#b8c2e0":"#7C3AED")+'" stroke-width="3"/>';
     if(valeurs[i])s+='<text x="'+q[0]+'" y="'+(q[1]-15)+'" class="val'+(on?" on":"")+'">'+valeurs[i]+'</text>';
     s+='<text x="'+q[0]+'" y="'+(H-12)+'" class="jour'+(on?" on":"")+'">'+etiquettes[i]+'</text>';
@@ -850,8 +850,8 @@ function enregistrerInfos(){
 
 /* ---------- Vue : synthèse (jour, semaine, mois, année) ---------- */
 var synth={periode:"semaine"};
-var REPARTITION=[["faiseur","Pour mon faiseur","#7c6cf0"],["moi","Pour moi","#3b82f6"],["autre","Pour les autres","#22c3d6"],
-  ["pg","Prière en groupe","#e0249a"],["rdqd","RDQD","#f59e0b"],["lecture","Lecture biblique","#10b981"],["lc","Lecture chrétienne","#fb7185"]];
+var REPARTITION=[["faiseur","Pour mon faiseur","#5A4FCF"],["moi","Pour moi","#12A89A"],["autre","Pour les autres","#6FD3C9"],
+  ["pg","Prière en groupe","#F2546A"],["rdqd","RDQD","#FFC21A"],["lecture","Lecture biblique","#2FB866"],["lc","Lecture chrétienne","#F29A2E"]];
 function joursEntre(d1,d2){var l=[],d=new Date(d1.getFullYear(),d1.getMonth(),d1.getDate(),12);while(cleJour(d)<=cleJour(d2)){l.push(new Date(d));d.setDate(d.getDate()+1);}return l;}
 function periodeSynthese(){
   var p=synth.periode,a=auj.getFullYear(),m=auj.getMonth(),s=semaineDe(auj);
@@ -909,7 +909,7 @@ function afficherSynthese(){
   Array.prototype.forEach.call($("syPeriode").querySelectorAll("button"),function(b){b.setAttribute("aria-selected",String(b.getAttribute("data-periode")===synth.periode));});
   var parts=REPARTITION.map(function(r){return {v:n0(T[r[0]]),lib:r[1],c:r[2]};});
   var ajPriere=donnees.reduce(function(x,d){return x+minutesAjoutees(d,"prier");},0),ajAutres=donnees.reduce(function(x,d){return x+minutesAjoutees(d,"mediter")+minutesAjoutees(d,"autres");},0);
-  if(ajPriere+ajAutres>0)parts.push({v:ajPriere+ajAutres,lib:"Rubriques ajoutées",c:"#a78bfa"});
+  if(ajPriere+ajAutres>0)parts.push({v:ajPriere+ajAutres,lib:"Rubriques ajoutées",c:"#9B93E8"});
   var somme=parts.reduce(function(x,p){return x+p.v;},0);
   donut($("syDonut"),parts,hm(somme));
   $("syPriere").textContent=hm(T.seul+T.pg+ajPriere);$("syRdqd").textContent=String(T.nRdqd);$("syEv").textContent=String(T.ev);$("syChap").textContent=String(T.chapitres);
@@ -918,9 +918,9 @@ function afficherSynthese(){
     r.appendChild(el("span",{},p.lib));r.appendChild(el("b",{},somme?Math.round(p.v/somme*100)+" %":"0 %"));lg.appendChild(r);});
   var complets=ecoules.filter(function(d){return etat(donneesJour(d)).nb===3;}).length,remplis=ecoules.filter(function(d){return !!donneesJour(d);}).length;
   var jg=$("syJauges");jg.textContent="";
-  jg.appendChild(jauge("Journées complètes",complets/nb,complets+" sur "+ecoules.length+" jour"+(ecoules.length>1?"s":""),"#7c6cf0"));
-  jg.appendChild(jauge("Rencontre avec Dieu",T.nRdqd/nb,T.nRdqd+" jour"+(T.nRdqd>1?"s":"")+" de RDQD","#f59e0b"));
-  jg.appendChild(jauge("Jours remplis",remplis/nb,remplis+" sur "+ecoules.length,"#22c3d6"));
+  jg.appendChild(jauge("Journées complètes",complets/nb,complets+" sur "+ecoules.length+" jour"+(ecoules.length>1?"s":""),"#5A4FCF"));
+  jg.appendChild(jauge("Rencontre avec Dieu",T.nRdqd/nb,T.nRdqd+" jour"+(T.nRdqd>1?"s":"")+" de RDQD","#FFC21A"));
+  jg.appendChild(jauge("Jours remplis",remplis/nb,remplis+" sur "+ecoules.length,"#12A89A"));
   var U=P.unites.map(function(u){var t=RP.totaux(u.jours.map(donneesJour));return {lib:u.lib,actif:u.actif,seul:t.seul,pg:t.pg,rdqd:t.rdqd,medit:t.rdqd+t.lecture+t.lc};});
   var actif=-1;U.forEach(function(u,i){if(u.actif)actif=i;});
   var pas=Math.max(1,Math.ceil(U.length/10)),mx=Math.max(30,Math.max.apply(null,U.map(function(u){return u.seul+u.pg;})));
@@ -929,11 +929,11 @@ function afficherSynthese(){
     var h=el("i",{"class":"g"}),l=el("i",{"class":"s"});h.style.height=(u.pg/mx*100)+"%";l.style.height=(u.seul/mx*100)+"%";b.appendChild(h);b.appendChild(l);c.appendChild(b);
     c.appendChild(el("span",{},i%pas&&i!==U.length-1?"":u.lib));pi.appendChild(c);});
   var tot=U.reduce(function(x,u){return x+u.seul+u.pg;},0);$("syTotal").textContent=tot?"Total "+hm(tot):"";
-  graphe($("syAire"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#7c6cf0"}],U.map(function(u){return u.lib;}),actif,true);
-  graphe($("syLignes"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#e0249a"},{valeurs:U.map(function(u){return u.medit;}),couleur:"#f59e0b"}],U.map(function(u){return u.lib;}),actif,false);
+  graphe($("syAire"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#5A4FCF"}],U.map(function(u){return u.lib;}),actif,true);
+  graphe($("syLignes"),[{valeurs:U.map(function(u){return u.seul+u.pg;}),couleur:"#5A4FCF"},{valeurs:U.map(function(u){return u.medit;}),couleur:"#12A89A"}],U.map(function(u){return u.lib;}),actif,false);
   var gr=$("syGroupes"),mg=Math.max(30,Math.max.apply(null,U.map(function(u){return Math.max(u.seul,u.pg,u.rdqd);})));gr.textContent="";
   U.forEach(function(u,i){var c=el("div",{"class":"sy-groupe"+(u.actif?" actif":"")}),b=el("div",{"class":"sy-groupe-barres"});
-    [["seul","#5b6cf0"],["pg","#f472b6"],["rdqd","#fbbf24"]].forEach(function(x){var t=el("i");t.style.height=(u[x[0]]/mg*100)+"%";t.style.background=x[1];b.appendChild(t);});
+    [["seul","#5A4FCF"],["pg","#F2546A"],["rdqd","#FFC21A"]].forEach(function(x){var t=el("i");t.style.height=(u[x[0]]/mg*100)+"%";t.style.background=x[1];b.appendChild(t);});
     c.appendChild(b);c.appendChild(el("span",{},i%pas&&i!==U.length-1?"":u.lib));gr.appendChild(c);});
 }
 
@@ -1292,6 +1292,7 @@ function route(){
   $("apercu").hidden=true;$("page").hidden=false;
   document.body.classList.toggle("auth",!!AUTH[h]||etape==="profil");
   document.body.classList.toggle("bienvenue",h==="bienvenue");
+  document.body.setAttribute("data-vue",h);
   Object.keys(VUES).forEach(function(k){$(VUES[k]).hidden=k!==h;});
   Array.prototype.forEach.call(document.querySelectorAll("[data-aller]"),function(b){
     if(b.closest(".lateral nav,.onglets-bas")){if(b.getAttribute("data-aller")===h)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");}
