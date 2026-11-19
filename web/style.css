@@ -957,3 +957,17 @@ body{color:var(--encre)}
 html{background:#e3ecfb}
 .bv{background:linear-gradient(165deg,#f2f7ff 0%,#e5eefc 50%,#d7e5fb 100%)}
 .bv-graph em,.bv .bv-graph em{left:auto;right:16px;top:14px;bottom:auto}
+
+/* Rubriques modifiables et objectifs */
+.panneau-titre .gerer{margin-left:auto;font-size:.85rem;padding:6px 10px;border-radius:10px;background:var(--surface);box-shadow:var(--relief-petit)}
+.panneau-titre .aide + .gerer{margin-left:10px}
+.panneau.edition{outline:2px dashed rgba(124,58,237,.35);outline-offset:-4px}
+.rangee.ajoutee .libelle::after{content:"ajoutée";display:inline-block;margin-left:6px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#7c3aed;background:#efe9ff;border-radius:6px;padding:1px 6px;vertical-align:2px}
+.retirer{flex:none;width:36px;height:36px;border:0;border-radius:10px;background:#fde4ea;color:#be123c;display:grid;place-items:center;cursor:pointer}
+.retirer .ic{width:17px;height:17px}
+.ajout-rubrique{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px 2px 2px}
+.ajout-rubrique input,.ajout-rubrique select{height:44px;border:0;border-radius:12px;background:var(--panneau);box-shadow:var(--creux);padding:0 12px;font:inherit;color:var(--encre);min-width:0}
+.ajout-rubrique .btn{height:44px}
+@media (max-width:480px){.ajout-rubrique{grid-template-columns:1fr 1fr}.ajout-rubrique input{grid-column:1/-1}}
+.carte-objectifs{display:flex;flex-direction:column;gap:12px;background:var(--surface);border-radius:18px;padding:14px;box-shadow:var(--relief-petit)}
+.panneau-titre #btnObjectifs{margin-left:auto}

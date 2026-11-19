@@ -18,7 +18,7 @@ var SECTIONS_JOUR=[
     ["chapitres","Chapitres lus","book","violet","n","chap.","Bible"],
     ["lectureMin","Lecture biblique","book-open","vert","min","min","temps"],
     ["lc","Lecture chrétienne","bookmark","orange","min","min","LC"]]},
-  {id:"sec-precher",titre:"Prêcher",icone:"megaphone",couleur:"vert",aide:"",lignes:[
+  {id:"sec-precher",titre:"Évangélisation",icone:"megaphone",couleur:"vert",aide:"",lignes:[
     ["ev","Évangélisés","megaphone","rose","n","pers.","EV · personnes"]]},
   {id:"sec-autres",titre:"Jeûne et repos",icone:"moon",couleur:"violet",aide:"",lignes:[
     ["jc","Jeûne complet","flame","rose","b","","JC"],
@@ -26,7 +26,27 @@ var SECTIONS_JOUR=[
     ["rs","RS","clock","ardoise","min","min",""],
     ["sommeil","Sommeil","moon","violet","h","","heures : minutes"]]}
 ];
-var CHAMPS=[];SECTIONS_JOUR.forEach(function(s){s.lignes.forEach(function(l){CHAMPS.push([l[0],l[4]]);});});
+var CHAMPS=[];
+/* Rubriques modifiables : celles d'origine peuvent être retirées, d'autres ajoutées (réglage « reglages/rubriques »). */
+var EDITABLES={"sec-prier":"prier","sec-mediter":"mediter","sec-autres":"autres"};
+var ICONE_TYPE={min:"clock",n:"target",b:"check"},TYPES_RUBRIQUE={min:"Durée (h:mm)",n:"Nombre",b:"Oui / non"};
+var cacheRubriques=null,sectionEnEdition="",signatureRubriques="";
+function rubriques(){
+  if(cacheRubriques)return cacheRubriques;
+  var r=lire("reglages/rubriques")||{},a=r.ajoutees||{};
+  cacheRubriques={masquees:Array.isArray(r.masquees)?r.masquees:[],ajoutees:{prier:a.prier||[],mediter:a.mediter||[],autres:a.autres||[]}};
+  return cacheRubriques;
+}
+function enregistrerRubriques(r){cacheRubriques=null;ecrire("reglages/rubriques",{masquees:r.masquees,ajoutees:r.ajoutees});}
+function lignesDe(sec){
+  var r=rubriques(),cat=EDITABLES[sec.id];
+  var l=sec.lignes.filter(function(x){return !cat||r.masquees.indexOf(x[0])<0;});
+  if(cat)r.ajoutees[cat].forEach(function(a){l.push([a.id,a.nom,ICONE_TYPE[a.type]||"clock","violet",a.type,a.type==="n"?"":"min","",true]);});
+  return l;
+}
+/* Minutes des rubriques ajoutées d'une catégorie, pour une journée. */
+function minutesAjoutees(d,cat){var t=0;if(!d)return 0;rubriques().ajoutees[cat].forEach(function(a){if(a.type==="min")t+=n0(d[a.id]);});return t;}
+function valeurAjoutee(d,cat){var v=false;if(!d)return false;rubriques().ajoutees[cat].forEach(function(a){if(a.type==="b"?d[a.id]:n0(d[a.id])>0)v=true;});return v;}
 var PROFIL_LOCAL=["nom","prenoms","contact","zone","assemblee","faiseur"];
 var DONS_DEFAUT=[{nom:"Dîme",pct:10},{nom:"FMI",pct:0.5},{nom:"FMN",pct:0.5},{nom:"FE"},{nom:"FG"},{nom:"RTVC"}];
 var PASTELS=["bleu","violet","vert","orange","rose"];
@@ -63,7 +83,7 @@ function lire(k){try{var v=localStorage.getItem(racine()+k);return v?JSON.parse(
 function ecrireLocal(k,v){localStorage.setItem(racine()+k,JSON.stringify(v));}
 /* Enregistre sur l'appareil, puis programme l'envoi au serveur. */
 function ecrire(k,v){ecrireLocal(k,v);if(enLigne&&C.session()){C.noter(k);planifierSynchro(2500);}}
-var magasin={lire:lire,ecrire:function(k,v){try{ecrireLocal(k,v);}catch(e){}}};
+var magasin={lire:lire,ecrire:function(k,v){try{ecrireLocal(k,v);}catch(e){}if(k==="reglages/rubriques")cacheRubriques=null;}};
 function essayer(msgId,f,ok){
   try{f();if(ok)dire(msgId,ok,"ok");return true;}
   catch(e){dire(msgId,"L'enregistrement a échoué : la mémoire de l'appareil est pleine.","err");return false;}
@@ -82,8 +102,8 @@ var lienRecuperation=false;
 function inscrit(){return !!(profil&&profil.nom);}
 function etat(d){
   d=d||{};
-  var priere=n0(d.faiseur)+n0(d.moi)+n0(d.autre)+n0(d.pg);
-  var e={prier:priere>0,mediter:n0(d.rdqd)>0,precher:n0(d.ev)>0,priere:priere};
+  var priere=n0(d.faiseur)+n0(d.moi)+n0(d.autre)+n0(d.pg)+minutesAjoutees(d,"prier");
+  var e={prier:priere>0||valeurAjoutee(d,"prier"),mediter:n0(d.rdqd)>0||valeurAjoutee(d,"mediter"),precher:n0(d.ev)>0,priere:priere};
   e.nb=(e.prier?1:0)+(e.mediter?1:0)+(e.precher?1:0);
   return e;
 }
@@ -142,10 +162,11 @@ function majEtatSynchro(info){
 function construireProfil(){
   var p=serveur.profil||{},a=serveur.assemblee,f=null;
   serveur.membres.forEach(function(m){if(m.id===p.faiseur_id)f=m;});
-  var disciples=serveur.membres.filter(function(m){return m.faiseur_id===p.id;}).length;
+  var disciples=(serveur.visibles&&serveur.visibles.length?serveur.visibles:serveur.membres).filter(function(m){return m.faiseur_id===p.id&&m.id!==p.id;}).length;
+  var lien=(serveur.liens||{})[p.id]||{};
   profil={id:p.id,nom:p.nom||"",prenoms:p.prenoms||"",contact:p.contact||"",zone:p.zone||"",
     assemblee:(a&&a.nom)||p.assemblee_nom||"",assembleeLiee:!!p.assemblee_id,
-    faiseur:f?nomComplet(f):(p.faiseur_nom||""),faiseurId:p.faiseur_id||null,
+    faiseur:f?nomComplet(f):(lien.faiseur||p.faiseur_nom||""),faiseurId:p.faiseur_id||null,faiseurAilleurs:!!(p.faiseur_id&&!f),
     role:p.role||"membre",disciples:disciples,code:(a&&a.code)||""};
   magasin.ecrire("reglages/profil",profil);
 }
@@ -154,7 +175,15 @@ function chargerCompte(){
     serveur.profil=r[0];serveur.assemblee=r[1];
     if(!serveur.profil)throw new Error("Profil introuvable. Réessayez dans un instant.");
     return serveur.profil.assemblee_id?C.assemblee.membres():[];
-  }).then(function(m){serveur.membres=m||[];serveur.charge=true;construireProfil();majIdentite();});
+  }).then(function(m){
+    serveur.membres=m||[];
+    /* Faiseur ou disciples d'une autre assemblée : connus grâce aux profils visibles et à liens_visibles
+       (si le serveur n'a pas encore la mise à jour, on continue sans). */
+    return Promise.all([C.profilsVisibles().catch(function(){return [];}),C.liensVisibles().catch(function(){return [];})]);
+  }).then(function(r){
+    serveur.visibles=r[0];serveur.liens={};r[1].forEach(function(l){serveur.liens[l.personne]=l;});
+    serveur.charge=true;construireProfil();majIdentite();
+  });
 }
 /* Étape à afficher avant l'application : null si tout est prêt. */
 function etapeAccueil(){
@@ -277,7 +306,7 @@ function construireHeros(){
     ["rose","menthe","or"].forEach(function(c){h.appendChild(el("span",{"class":"bv-sphere "+c,"aria-hidden":"true"}));});
     var haut=el("div",{"class":"hero-haut"}),badge=el("a",{"class":"hero-badge",href:"#bienvenue","aria-label":"Retour à l'accueil"});
     var lg=el("img",{src:"logo.png",alt:""});
-    badge.appendChild(lg);var nomBadge=el("span",{"class":"badge-nom"});nomBadge.appendChild(el("b",{},"Compte rendu spirituel"));nomBadge.appendChild(el("small",{},"Prière · Méditation · Prêcher"));badge.appendChild(nomBadge);haut.appendChild(badge);
+    badge.appendChild(lg);var nomBadge=el("span",{"class":"badge-nom"});nomBadge.appendChild(el("b",{},"Compte rendu spirituel"));nomBadge.appendChild(el("small",{},"Prière · Méditation · Évangélisation"));badge.appendChild(nomBadge);haut.appendChild(badge);
     h.appendChild(haut);
     var bas=el("div",{"class":"hero-bas"});
     var t=el("h1",{"class":"hero-titre"});t.appendChild(document.createTextNode("Chaque jour, "));t.appendChild(el("em",{},"un pas de plus"));t.appendChild(document.createTextNode(" avec Dieu."));
@@ -327,6 +356,7 @@ function choixFaiseur(selectId,libreBlocId,libreId){
   var s=$(selectId);s.textContent="";
   s.appendChild(el("option",{value:""},"— Choisir —"));
   serveur.membres.forEach(function(m){if(m.id!==profil.id)s.appendChild(el("option",{value:m.id},nomComplet(m)+(m.role==="responsable"?" (dirigeant)":"")));});
+  if(profil.faiseurId&&!serveur.membres.some(function(m){return m.id===profil.faiseurId;}))s.appendChild(el("option",{value:profil.faiseurId},(profil.faiseur||"Mon faiseur")+" (autre assemblée)"));
   s.appendChild(el("option",{value:"libre"},"Mon faiseur n'est pas encore inscrit"));
   s.value=profil.faiseurId||(profil.faiseur?"libre":"");
   $(libreId).value=profil.faiseurId?"":(profil.faiseur||"");
@@ -337,6 +367,15 @@ function lireChoixFaiseur(selectId,libreId){
   var v=$(selectId).value;
   if(v==="libre"){var t=$(libreId).value.trim();return t?{faiseur_id:null,faiseur_nom:t}:null;}
   return v?{faiseur_id:v,faiseur_nom:""}:null;
+}
+/* Choisir un faiseur d'une autre assemblée avec son code personnel. */
+function choisirFaiseurParCode(champ,msgId,bouton,ensuite){
+  var code=$(champ).value.trim().toUpperCase();
+  if(code.length!==8){dire(msgId,"Le code de faiseur a 8 caractères.","err");$(champ).focus();return;}
+  dire(msgId,"Vérification du code…");
+  occuper($(bouton),C.faiseur.choisir(code).then(function(f){return chargerCompte().then(function(){return f;});})).then(function(f){
+    $(champ).value="";dire(msgId,(f?nomComplet(f):"Votre faiseur")+" est maintenant votre faiseur de disciple.","ok");if(ensuite)ensuite();
+  },function(e){dire(msgId,e.message,"err");});
 }
 var choixFaiseurAccueil="";
 function afficherAccueil(etape){
@@ -412,8 +451,10 @@ function afficherProfil(){
   $("blocCode").hidden=!(r&&profil.code);$("codeProfil").textContent=profil.code||"";
   $("quitterAssemblee").hidden=!profil.assembleeLiee;
   dire("msgAssemblee","");dire("msgCompte","");dire("msgFaiseurProfil","");
-  $("carteFaiseur").hidden=!profil.assembleeLiee;
-  if(profil.assembleeLiee)choixFaiseur("pf-choix","pf-libreBloc","pf-libre");
+  $("carteFaiseur").hidden=false;choixFaiseur("pf-choix","pf-libreBloc","pf-libre");
+  $("pf-code").value="";
+  $("carteCodeFaiseur").hidden=false;
+  C.faiseur.monCode().then(function(c){$("monCodeFaiseur").textContent=c||"…";dire("msgCodeFaiseur","");},function(e){$("monCodeFaiseur").textContent="—";dire("msgCodeFaiseur",e.message,"err");});
   if(!serveur.charge)chargerCompte().then(function(){if(vueActuelle==="profil")afficherProfil();},function(){});
 }
 function enregistrerProfil(){
@@ -433,14 +474,17 @@ function enregistrerProfil(){
 
 /* ---------- Vue : ma journée ---------- */
 function construireJour(){
-  var boite=$("sectionsJour");
+  var boite=$("sectionsJour");boite.textContent="";CHAMPS=[];cacheRubriques=null;signatureRubriques=JSON.stringify(rubriques());
   SECTIONS_JOUR.forEach(function(sec){
-    var p=el("div",{"class":"panneau",id:sec.id});
+    var cat=EDITABLES[sec.id],edition=cat&&sectionEnEdition===sec.id;
+    var p=el("div",{"class":"panneau"+(edition?" edition":""),id:sec.id});
     var t=el("div",{"class":"panneau-titre"});t.appendChild(pastille(sec.icone,sec.couleur,true));t.appendChild(el("h2",{},sec.titre));
     if(sec.aide)t.appendChild(el("span",{"class":"aide"},sec.aide));
+    if(cat){var g=el("button",{type:"button","class":"lien gerer","data-gerer":sec.id,"aria-pressed":String(!!edition)},edition?"Terminer":"Modifier");t.appendChild(g);}
     p.appendChild(t);
-    sec.lignes.forEach(function(l){
-      var r=el("div",{"class":"rangee"});r.appendChild(pastille(l[2],l[3]));
+    lignesDe(sec).forEach(function(l){
+      CHAMPS.push([l[0],l[4]]);
+      var r=el("div",{"class":"rangee"+(l[7]?" ajoutee":"")});r.appendChild(pastille(l[2],l[3]));
       var lab=el("label",{"class":"libelle","for":"f-"+l[0]},l[1]);
       if(l[6])lab.appendChild(el("small",{},l[6]));
       r.appendChild(lab);
@@ -458,10 +502,46 @@ function construireJour(){
         b.appendChild(moins);b.appendChild(champ);b.appendChild(plus);
         r.appendChild(b);if(l[4]!=="min")r.appendChild(el("span",{"class":"unite"},l[5]));
       }
+      if(edition){var x=el("button",{type:"button","class":"retirer","data-retirer":l[0],"data-section":sec.id,"aria-label":"Retirer la rubrique "+l[1]});x.appendChild(icone("trash"));r.appendChild(x);}
       p.appendChild(r);
     });
+    if(edition){
+      var aj=el("div",{"class":"ajout-rubrique"});
+      aj.appendChild(el("input",{type:"text","class":"nom-rubrique",maxlength:"40",placeholder:"Nouvelle rubrique","aria-label":"Nom de la nouvelle rubrique"}));
+      var se=el("select",{"aria-label":"Type de la rubrique"});Object.keys(TYPES_RUBRIQUE).forEach(function(k){se.appendChild(el("option",{value:k},TYPES_RUBRIQUE[k]));});aj.appendChild(se);
+      var ba=el("button",{type:"button","class":"btn vert","data-ajouter":sec.id});ba.appendChild(icone("plus"));ba.appendChild(document.createTextNode("Ajouter"));aj.appendChild(ba);
+      p.appendChild(aj);
+      var masq=sec.lignes.filter(function(x){return rubriques().masquees.indexOf(x[0])>=0;});
+      if(masq.length)p.appendChild(el("button",{type:"button","class":"lien","data-retablir":sec.id},"Rétablir les rubriques d'origine ("+masq.map(function(x){return x[1];}).join(", ")+")"));
+    }
     boite.appendChild(p);
   });
+}
+function reconstruireJour(){viderSaisie();construireJour();afficherJour();}
+function gererRubriques(e){
+  var b=e.target.closest("[data-gerer],[data-retirer],[data-ajouter],[data-retablir]");if(!b)return false;
+  var r=rubriques();
+  if(b.hasAttribute("data-gerer")){var id=b.getAttribute("data-gerer");sectionEnEdition=sectionEnEdition===id?"":id;reconstruireJour();var p=$(id);if(p)p.scrollIntoView({block:"nearest"});return true;}
+  if(b.hasAttribute("data-retablir")){
+    var sec=SECTIONS_JOUR.filter(function(s){return s.id===b.getAttribute("data-retablir");})[0];
+    r.masquees=r.masquees.filter(function(m){return !sec.lignes.some(function(x){return x[0]===m;});});
+    enregistrerRubriques(r);reconstruireJour();return true;
+  }
+  if(b.hasAttribute("data-ajouter")){
+    var cat=EDITABLES[b.getAttribute("data-ajouter")],boite=b.closest(".ajout-rubrique"),nom=boite.querySelector("input").value.trim(),type=boite.querySelector("select").value;
+    if(!nom){dire("msgJour","Donnez un nom à la nouvelle rubrique.","err");boite.querySelector("input").focus();return true;}
+    r.ajoutees[cat].push({id:"x"+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36),nom:nom,type:TYPES_RUBRIQUE[type]?type:"min"});
+    enregistrerRubriques(r);reconstruireJour();dire("msgJour","Rubrique « "+nom+" » ajoutée","ok");return true;
+  }
+  var idr=b.getAttribute("data-retirer"),catr=EDITABLES[b.getAttribute("data-section")],ajoutee=r.ajoutees[catr].some(function(a){return a.id===idr;});
+  var lib=(b.closest(".rangee").querySelector(".libelle")||{}).firstChild;lib=lib?lib.textContent:"cette rubrique";
+  confirmer("Retirer la rubrique","« "+lib+" » ne sera plus proposée dans votre journée. Ce qui a déjà été noté reste enregistré.","Retirer").then(function(ok){
+    if(!ok)return;
+    var r2=rubriques();
+    if(ajoutee)r2.ajoutees[catr]=r2.ajoutees[catr].filter(function(a){return a.id!==idr;});else if(r2.masquees.indexOf(idr)<0)r2.masquees.push(idr);
+    enregistrerRubriques(r2);reconstruireJour();
+  });
+  return true;
 }
 /* Durées saisies en hh:mm (« 1:20 », « 01:20 », « 1h20 ») ; un nombre seul compte en minutes (« 45 »). */
 function versMinutes(v){
@@ -496,7 +576,7 @@ function majBarres(d){
   $("eMediter").textContent=e.mediter?hm(d.rdqd):"à faire";
   $("ePrecher").textContent=e.precher?d.ev+" pers.":"à faire";
   $("jTotal").textContent=e.priere?hm(e.priere):"0 min";
-  $("jEtapes").textContent=e.nb===3?"Journée complète":e.nb+" sur 3 · prière, méditation, prêcher";
+  $("jEtapes").textContent=e.nb===3?"Journée complète":e.nb+" sur 3 · prière, méditation, évangélisation";
   var l=2*Math.PI*100;$("jArc").setAttribute("stroke-dashoffset",(l*(1-e.nb/3)).toFixed(1));
   $("heroJour").classList.toggle("complet",e.nb===3);
   $("tPrier").classList.toggle("fait",e.prier);$("tMediter").classList.toggle("fait",e.mediter);$("tPrecher").classList.toggle("fait",e.precher);
@@ -515,7 +595,7 @@ function majResume(){
   var a=jour.getFullYear(),m=jour.getMonth()+1,nb=new Date(a,m,0).getDate(),n=0;
   for(var j=1;j<=nb;j++)if(lire("jours/"+cleMois(a,m)+"-"+pad(j)))n++;
   $("eMois").textContent=n+" / "+nb+" jours remplis";
-  $("eSemaine").textContent="Score "+Math.round(RP.bilanSemaine(semaineDe(jour).jours.map(donneesJour)).score*100)+" %";
+  $("eSemaine").textContent="Score "+Math.round(RP.bilanSemaine(semaineDe(jour).jours.map(donneesJour),lire("reglages/objectifs")).score*100)+" %";
   var s=suiviPermis();
   $("barreSuivi").hidden=!s;
   if(s){
@@ -524,6 +604,7 @@ function majResume(){
   }
 }
 function afficherJour(){
+  cacheRubriques=null;if(JSON.stringify(rubriques())!==signatureRubriques)construireJour();
   var titre=(cleJour(jour)===cleJour(auj)?"Aujourd'hui":JOURS_L[jour.getDay()]);
   $("jLabel").textContent=titre;
   titres("Ma journée",JOURS_L[jour.getDay()]+" "+jour.getDate()+" "+MOIS[jour.getMonth()]);
@@ -538,7 +619,10 @@ function afficherJour(){
 function viderSaisie(){if(minuterieJour){clearTimeout(minuterieJour);minuterieJour=null;enregistrerJour();}}
 function enregistrerJour(){
   clearTimeout(minuterieJour);minuterieJour=null;
-  var k=cleJour(jour),d=lireForm();
+  var k=cleJour(jour),d=lireForm(),ancien=donneesJour(jour)||{},affiches={};
+  CHAMPS.forEach(function(c){affiches[c[0]]=1;});
+  /* Rubriques retirées de l'affichage : ce qui avait été noté est conservé. */
+  Object.keys(ancien).forEach(function(c){if(!affiches[c]&&c!=="maj"&&!(c in d))d[c]=ancien[c];});
   d.maj=new Date().toISOString();
   if(!essayer("msgJour",function(){ecrire("jours/"+k,d);}))return;
   formSale=false;
@@ -594,7 +678,7 @@ function afficherSemaine(){
   var s=semaineDe(jour),moisRef=jour.getMonth();
   $("sLabel").textContent=libelleSemaine(s);
   titres("Ma semaine",libelleSemaine(s));
-  var b=RP.bilanSemaine(s.jours.map(donneesJour));
+  var b=RP.bilanSemaine(s.jours.map(donneesJour),lire("reglages/objectifs"));
   $("sScore").textContent=Math.round(b.score*100)+" %";$("sMessage").textContent=b.message;anneau("sAnneau",b.score);
   remplirBilan($("sBilan"),b);
   var minutes=s.jours.map(function(dt){return etat(donneesJour(dt)).priere||0;}),somme=minutes.reduce(function(x,y){return x+y;},0);
@@ -638,6 +722,19 @@ function courbe(boite,valeurs,etiquettes,actif){
     s+='<text x="'+q[0]+'" y="'+(H-12)+'" class="jour'+(on?" on":"")+'">'+etiquettes[i]+'</text>';
   });
   boite.innerHTML=s+"</svg>";
+}
+/* Objectifs personnels : modifiables depuis « Ma semaine », enregistrés avec le compte. */
+function remplirObjectifs(){
+  var o=RP.objectifs(lire("reglages/objectifs"));
+  $("o-priere").value=enHhmm(o.priereParJour);$("o-chap").value=o.chapitresParJour;$("o-rdqd").value=o.rdqdParSemaine;
+  $("o-groupe").value=enHhmm(o.groupeParSemaine);$("o-jeune").value=o.jeuneParSemaine;
+}
+function enregistrerObjectifs(){
+  var p=versMinutes($("o-priere").value),g=versMinutes($("o-groupe").value),c=Number($("o-chap").value),r=Number($("o-rdqd").value),j=Number($("o-jeune").value);
+  if(!isFinite(p)||p===null||!isFinite(g)||g===null){dire("msgObjectifs","Écrivez les temps en heures:minutes, par exemple 01:00.","err");return;}
+  if(!(c>=0)||!(r>=0&&r<=7)||!(j>=0&&j<=7)){dire("msgObjectifs","Vérifiez les nombres (RDQD et jeûne : de 0 à 7 jours).","err");return;}
+  if(essayer("msgObjectifs",function(){ecrire("reglages/objectifs",{priereParJour:p,chapitresParJour:c,rdqdParSemaine:r,groupeParSemaine:g,jeuneParSemaine:j});},"Objectifs enregistrés")){
+    $("formObjectifs").hidden=true;$("btnObjectifs").hidden=false;afficherSemaine();dire("msgObjectifs","Objectifs enregistrés","ok");}
 }
 function enregistrerSemaine(){
   var s=semaineDe(jour),notes={parole:$("s-parole").value.trim(),sujets:[0,1,2].map(function(k){return $("s-sujet"+k).value.trim();})},
@@ -810,9 +907,12 @@ function afficherSynthese(){
   var ecoules=P.jours.filter(function(d){return cleJour(d)<=cleJour(auj);}),nb=Math.max(1,ecoules.length);
   $("syLabel").textContent=P.titre;titres("Synthèse",P.titre);
   Array.prototype.forEach.call($("syPeriode").querySelectorAll("button"),function(b){b.setAttribute("aria-selected",String(b.getAttribute("data-periode")===synth.periode));});
-  var parts=REPARTITION.map(function(r){return {v:n0(T[r[0]]),lib:r[1],c:r[2]};}),somme=parts.reduce(function(x,p){return x+p.v;},0);
+  var parts=REPARTITION.map(function(r){return {v:n0(T[r[0]]),lib:r[1],c:r[2]};});
+  var ajPriere=donnees.reduce(function(x,d){return x+minutesAjoutees(d,"prier");},0),ajAutres=donnees.reduce(function(x,d){return x+minutesAjoutees(d,"mediter")+minutesAjoutees(d,"autres");},0);
+  if(ajPriere+ajAutres>0)parts.push({v:ajPriere+ajAutres,lib:"Rubriques ajoutées",c:"#a78bfa"});
+  var somme=parts.reduce(function(x,p){return x+p.v;},0);
   donut($("syDonut"),parts,hm(somme));
-  $("syPriere").textContent=hm(T.seul+T.pg);$("syRdqd").textContent=String(T.nRdqd);$("syEv").textContent=String(T.ev);$("syChap").textContent=String(T.chapitres);
+  $("syPriere").textContent=hm(T.seul+T.pg+ajPriere);$("syRdqd").textContent=String(T.nRdqd);$("syEv").textContent=String(T.ev);$("syChap").textContent=String(T.chapitres);
   var lg=$("syLegende");lg.textContent="";
   parts.forEach(function(p){var r=el("div",{"class":"sy-cle"}),c=el("i");c.style.background=p.c;r.appendChild(c);
     r.appendChild(el("span",{},p.lib));r.appendChild(el("b",{},somme?Math.round(p.v/somme*100)+" %":"0 %"));lg.appendChild(r);});
@@ -847,8 +947,11 @@ function personnesSuivies(){
   });
 }
 function profilPdf(p){
-  var f=null;suivi.personnes.concat(serveur.membres).forEach(function(m){if(m.id===p.faiseur_id)f=m;});
-  return {nom:p.nom,prenoms:p.prenoms,contact:p.contact,zone:p.zone,assemblee:p.assemblee_id?profil.assemblee:(p.assemblee_nom||""),faiseur:f?nomComplet(f):(p.faiseur_nom||"")};
+  var f=null,l=(suivi.liens||{})[p.id]||{},mienne=serveur.profil&&serveur.profil.assemblee_id;
+  suivi.personnes.concat(serveur.membres).forEach(function(m){if(m.id===p.faiseur_id)f=m;});
+  return {nom:p.nom,prenoms:p.prenoms,contact:p.contact,zone:p.zone,
+    assemblee:l.assemblee||(p.assemblee_id&&p.assemblee_id===mienne?profil.assemblee:(p.assemblee_nom||"")),
+    faiseur:f?nomComplet(f):(l.faiseur||p.faiseur_nom||"")};
 }
 function afficherSuivi(){
   var r=profil.role==="responsable";
@@ -862,10 +965,11 @@ function afficherSuivi(){
   titres(r?"Mon assemblée":"Mes disciples",libelleSemaine(s));
   dire("msgSuivi","Chargement…");
   var cle=cleJour(s.lundi)+suivi.filtre;suivi.charge=cle;
-  C.profilsVisibles().then(function(l){
+  Promise.all([C.profilsVisibles(),C.liensVisibles().catch(function(){return [];})]).then(function(r){
+    var l=r[0];suivi.liens={};r[1].forEach(function(x){suivi.liens[x.personne]=x;});
     suivi.personnes=l;
     var ids=personnesSuivies().map(function(p){return p.id;});
-    return C.saisiesDe(ids,cleJour(deb),cleJour(fin),["semaines/"+cleJour(s.lundi),CLE_PHOTO]);
+    return C.saisiesDe(ids,cleJour(deb),cleJour(fin),["semaines/"+cleJour(s.lundi),CLE_PHOTO,"reglages/objectifs"]);
   }).then(function(lignes){
     if(suivi.charge!==cle)return;
     suivi.saisies={};
@@ -879,7 +983,7 @@ function dessinerSuivi(s){
   dire("msgSuivi",gens.length?"":(suivi.filtre==="assemblee"?"Aucun membre pour le moment : donnez-leur le code d'invitation.":"Aucun disciple ne vous a encore choisi comme faiseur de disciple."));
   gens.forEach(function(p){
     var sa=suivi.saisies[p.id]||{},jours=s.jours.map(function(d){return sa["jours/"+cleJour(d)]||null;});
-    var b=RP.bilanSemaine(jours),t=b.totaux,pct=Math.round(b.score*100),cl=b.score>=0.75?"ok":b.score>=0.5?"moyen":"bas";somme+=b.score;
+    var b=RP.bilanSemaine(jours,sa["reglages/objectifs"]),t=b.totaux,pct=Math.round(b.score*100),cl=b.score>=0.75?"ok":b.score>=0.5?"moyen":"bas";somme+=b.score;
     if(sa["jours/"+cleJour(auj)])aJour++;
     var carte=el("article",{"class":"personne"});
     var tete=el("div",{"class":"tete"});
@@ -889,6 +993,7 @@ function dessinerSuivi(s){
     id.appendChild(nom);
     var sous=[];if(p.contact)sous.push(p.contact);
     if(r&&suivi.filtre==="assemblee"){var f=profilPdf(p).faiseur;sous.push(f?"Faiseur : "+f:"Pas de faiseur choisi");}
+    else{var asm=profilPdf(p).assemblee;if(asm&&asm!==profil.assemblee)sous.push("Assemblée : "+asm);}
     id.appendChild(el("div",{"class":"sous"},sous.join(" · ")));
     tete.appendChild(id);
     var droite=el("div",{style:"text-align:right"});droite.appendChild(el("div",{"class":"score "+cl},pct+" %"));
@@ -975,7 +1080,7 @@ function afficherApercu(type){
   if(type==="autre"){if(apercuAutre)montrerApercu(apercuAutre.html,apercuAutre.titre,apercuAutre.paysage);else location.replace("#suivi");return;}
   if(type==="semaine"){
     var s=semaineDe(jour),moisRef=jour.getMonth();
-    montrerApercu(RP.semaine({annee:jour.getFullYear(),mois:moisRef+1,numero:s.numero,profil:profil,logo:logo(),notes:lire("semaines/"+cleJour(s.lundi))||{},
+    montrerApercu(RP.semaine({annee:jour.getFullYear(),mois:moisRef+1,numero:s.numero,profil:profil,logo:logo(),objectifs:lire("reglages/objectifs"),notes:lire("semaines/"+cleJour(s.lundi))||{},
       jours:s.jours.map(function(dt){return {date:dt,dansMois:dt.getMonth()===moisRef,donnees:donneesJour(dt)};})}),
       "Compte rendu semaine "+s.numero+" "+XL.MOIS[moisRef]+" "+jour.getFullYear(),true);
   }else{
@@ -1139,7 +1244,7 @@ function horaires(){
 }
 function majListeRappels(){var l=horaires();$("r-liste").textContent=l.length?"Rappels à "+l.join(", ")+".":"";}
 function initRappels(){
-  $("rappelNatif").hidden=false;$("rappelWeb").textContent="Pour ne pas oublier la prière, la méditation et prêcher.";
+  $("rappelNatif").hidden=false;$("rappelWeb").textContent="Pour ne pas oublier la prière, la méditation et l'évangélisation.";
   var r={actif:true,debut:240,pas:3,fin:1320,autorise:true};
   try{var lu=JSON.parse(natif.lireRappel());for(var k in lu)r[k]=lu[k];}catch(e){}
   $("r-actif").checked=!!r.actif;$("r-debut").value=enHeure(r.debut);$("r-pas").value=String(r.pas);$("r-fin").value=enHeure(r.fin);
@@ -1211,6 +1316,10 @@ function rafraichirVue(){
 
 /* ---------- Branchements ---------- */
 construireJour();
+$("btnObjectifs").onclick=function(){remplirObjectifs();$("formObjectifs").hidden=false;$("btnObjectifs").hidden=true;dire("msgObjectifs","");$("o-priere").focus();};
+$("annulerObjectifs").onclick=function(){$("formObjectifs").hidden=true;$("btnObjectifs").hidden=false;dire("msgObjectifs","");};
+$("objectifsDefaut").onclick=function(){var o=RP.OBJECTIFS;$("o-priere").value=enHhmm(o.priereParJour);$("o-chap").value=o.chapitresParJour;$("o-rdqd").value=o.rdqdParSemaine;$("o-groupe").value=enHhmm(o.groupeParSemaine);$("o-jeune").value=o.jeuneParSemaine;};
+$("formObjectifs").addEventListener("submit",function(e){e.preventDefault();enregistrerObjectifs();});
 ["partager","whatsapp","email","telecharger"].forEach(function(c){$({partager:"pdfPartager",whatsapp:"pdfWhatsapp",email:"pdfEmail",telecharger:"pdfTelecharger"}[c]).addEventListener("click",function(){partagerPdf(c);});});
 $("syPeriode").addEventListener("click",function(e){var b=e.target.closest("[data-periode]");if(!b)return;synth.periode=b.getAttribute("data-periode");afficherSynthese();});
 ["fichierPhoto","fichierPhoto2"].forEach(function(id){$(id).addEventListener("change",function(){changerPhoto(this);});});
@@ -1277,6 +1386,12 @@ $("etapeFaiseur").addEventListener("submit",function(e){e.preventDefault();
   apresAssemblee(C.majProfil(c),"msgFaiseur");});
 $("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#synthese";route();};
 $("formProfil").addEventListener("submit",function(e){e.preventDefault();enregistrerProfil();});
+$("btnCodeFaiseur").onclick=function(){choisirFaiseurParCode("f-code","msgFaiseur","btnCodeFaiseur",function(){location.hash="#synthese";route();});};
+$("btnCodeFaiseurProfil").onclick=function(){choisirFaiseurParCode("pf-code","msgFaiseurProfil","btnCodeFaiseurProfil",function(){afficherProfil();});};
+$("nouveauCodeFaiseur").onclick=function(){
+  confirmer("Remplacer mon code de faiseur","L'ancien code ne fonctionnera plus. Les disciples déjà liés à vous le restent.","Remplacer").then(function(ok){
+    if(!ok)return;occuper($("nouveauCodeFaiseur"),C.faiseur.changerCode()).then(function(c){$("monCodeFaiseur").textContent=c;dire("msgCodeFaiseur","Nouveau code créé.","ok");},function(e){dire("msgCodeFaiseur",e.message,"err");});});
+};
 $("btnFaiseurProfil").onclick=function(){var c=lireChoixFaiseur("pf-choix","pf-libre")||{faiseur_id:null,faiseur_nom:""};
   dire("msgFaiseurProfil","Enregistrement…");
   C.majProfil(c).then(function(){return chargerCompte();}).then(function(){afficherProfil();dire("msgFaiseurProfil","Enregistré","ok");},function(e){dire("msgFaiseurProfil",e.message,"err");});};
@@ -1309,13 +1424,18 @@ $("btnImporter").onclick=importer;
 $("btnIgnorerImport").onclick=function(){ecrireLocal("reglages/importTraite",{le:new Date().toISOString(),n:0});majImport();};
 /* Saisie de la journée : boutons − / + et enregistrement automatique après une courte pause. */
 $("formJour").addEventListener("click",function(e){
+  if(gererRubriques(e))return;
   var b=e.target.closest("button[data-pas]");if(!b)return;
   var i=b.parentNode.querySelector("input"),pas=Number(b.getAttribute("data-pas"));
   if(i.classList.contains("duree")){var mn=versMinutes(i.value);i.value=enHhmm((isFinite(mn)&&mn?mn:0)+pas);}
   else i.value=String(Math.max(0,(Number(i.value)||0)+pas));
   i.dispatchEvent(new Event("input",{bubbles:true}));
 });
-$("formJour").addEventListener("input",function(){
+$("formJour").addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&e.target.closest(".ajout-rubrique")){e.preventDefault();var b=e.target.closest(".ajout-rubrique").querySelector("[data-ajouter]");if(b)b.click();}
+});
+$("formJour").addEventListener("input",function(e){
+  if(e.target.closest(".ajout-rubrique"))return;
   formSale=true;majBarres(lireForm());dessinerBande();dire("msgJour","Enregistrement…");
   clearTimeout(minuterieJour);minuterieJour=setTimeout(enregistrerJour,1200);
 });

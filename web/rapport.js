@@ -35,8 +35,14 @@
   }
 
   /* Bilan d'une semaine par rapport aux objectifs : lignes + score (moyenne des pourcentages, plafonnés à 100 %). */
-  function bilanSemaine(jours) {
-    var t = totaux(jours), o = OBJECTIFS;
+  /* Objectifs personnels (réglages du disciple), complétés par les objectifs par défaut. */
+  function objectifs(perso) {
+    var o = {};
+    Object.keys(OBJECTIFS).forEach(function (k) { var v = perso && Number(perso[k]); o[k] = perso && isFinite(v) && v >= 0 && perso[k] !== "" && perso[k] !== null ? v : OBJECTIFS[k]; });
+    return o;
+  }
+  function bilanSemaine(jours, perso) {
+    var t = totaux(jours), o = objectifs(perso);
     var lignes = [
       ["Prière seul (h:mm)", t.seul, o.priereParJour * 7, hm],
       ["Lecture biblique (chapitres)", t.chapitres, o.chapitresParJour * 7, String],
@@ -86,7 +92,7 @@
 
   /* d = { annee, mois, numero, jours:[{date, dansMois, donnees}], profil, notes:{parole, sujets[]}, logo } */
   function semaine(d) {
-    var b = bilanSemaine(d.jours.map(function (j) { return j.donnees; }));
+    var b = bilanSemaine(d.jours.map(function (j) { return j.donnees; }), d.objectifs);
     var debut = d.jours[0].date, fin = d.jours[6].date, notes = d.notes || {};
     var h = '<div class="rapport r-paysage">';
     h += '<div class="r-titre">COMPTE RENDU SPIRITUEL &nbsp;•&nbsp; SEMAINE ' + d.numero + " &nbsp;•&nbsp; " + MOIS[d.mois - 1].toUpperCase() + " " + d.annee + "</div>";
@@ -150,7 +156,7 @@
     return h;
   }
 
-  var api = { semaine: semaine, mois: mois, totaux: totaux, bilanSemaine: bilanSemaine, hm: hm, OBJECTIFS: OBJECTIFS, MOIS: MOIS };
+  var api = { semaine: semaine, mois: mois, totaux: totaux, bilanSemaine: bilanSemaine, objectifs: objectifs, hm: hm, OBJECTIFS: OBJECTIFS, MOIS: MOIS };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.CompteRenduRapport = api;
 })(typeof self !== "undefined" ? self : this);

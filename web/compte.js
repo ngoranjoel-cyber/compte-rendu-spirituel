@@ -46,6 +46,7 @@
       signup_disabled: "Les inscriptions sont fermées pour le moment.",
       provider_disabled: "La connexion avec Google n'est pas encore activée sur le serveur.",
       validation_failed: "La connexion avec Google n'est pas encore activée sur le serveur.",
+      PGRST202: "Le serveur n'est pas encore à jour : lancez le fichier SQL « maj-faiseur-rubriques.sql » dans Supabase.",
       email_provider_disabled: "Les inscriptions par e-mail sont désactivées sur le serveur (réglage Supabase > Authentication > Email).",
       session_not_found: "Votre session a expiré. Reconnectez-vous.",
       refresh_token_not_found: "Votre session a expiré. Reconnectez-vous.",
@@ -285,6 +286,14 @@
       definirResponsable: function (id, oui) { return rpc("definir_responsable", { membre: id, responsable: !!oui }); },
       retirer: function (id) { return rpc("retirer_membre", { membre: id }); }
     };
+    /* Faiseur de disciple, même d'une autre assemblée : chacun a un code personnel à donner à ses disciples. */
+    var faiseur = {
+      monCode: function () { return rpc("mon_code_faiseur", {}); },
+      changerCode: function () { return rpc("changer_code_faiseur", {}); },
+      choisir: function (code) { return rpc("choisir_faiseur", { code: code }).then(function (l) { return (l && l[0]) || null; }); }
+    };
+    /* Nom de l'assemblée et du faiseur de chaque personne visible (même hors de mon assemblée). */
+    function liensVisibles() { return rpc("liens_visibles", {}).then(function (l) { return Array.isArray(l) ? l : []; }); }
     /* Profils que la personne peut voir : elle-même, ses disciples, l'assemblée pour un responsable. */
     function profilsVisibles() {
       return api("/rest/v1/profils?" + q({ select: CHAMPS_PROFIL, order: "nom.asc,prenoms.asc" })).then(function (l) { return l || []; });
@@ -301,7 +310,7 @@
     /* ---------- synchronisation de mes saisies ---------- */
     function cleUtilisateur(k) { var u = utilisateur(); return u ? PREFIXE + u.id + ":" + k : null; }
     function enAttente() { return lireJson(cleUtilisateur("_attente")) || {}; }
-    var SYNCHRONISABLE = /^(jours\/\d{4}-\d{2}-\d{2}|semaines\/\d{4}-\d{2}-\d{2}|mois\/\d{4}-\d{2}|reglages\/dons)$/;
+    var SYNCHRONISABLE = /^(jours\/\d{4}-\d{2}-\d{2}|semaines\/\d{4}-\d{2}-\d{2}|mois\/\d{4}-\d{2}|reglages\/(dons|rubriques|objectifs))$/;
     /* À appeler après chaque enregistrement local. */
     function noter(k) {
       if (!utilisateur() || !SYNCHRONISABLE.test(k)) return;
@@ -383,7 +392,7 @@
       adresseGoogle: adresseGoogle, infosFournisseur: infosFournisseur, changerMotDePasse: changerMotDePasse,
       lireLienEmail: lireLienEmail, supprimerCompte: supprimerCompte,
       monProfil: monProfil, majProfil: majProfil, assemblee: assemblee,
-      profilsVisibles: profilsVisibles, saisiesDe: saisiesDe, envoyerEntree: envoyerEntree,
+      profilsVisibles: profilsVisibles, saisiesDe: saisiesDe, faiseur: faiseur, liensVisibles: liensVisibles, envoyerEntree: envoyerEntree,
       noter: noter, synchroniser: synchroniser, enAttente: function () { return Object.keys(enAttente()).length; },
       derniereSynchro: derniereSynchro, oublierCurseur: oublierCurseur,
       _rafraichir: rafraichir
