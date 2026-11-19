@@ -69,6 +69,14 @@
   <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></symbol>
   <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8z"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18v3"/><path d="M3 7.5v10A2.5 2.5 0 0 0 5.5 20H20V8H5.5A2.5 2.5 0 0 1 3 5.5"/><circle cx="16" cy="14" r="1.3"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-piggy" viewBox="0 0 24 24"><path d="M5 11a7 6 0 0 1 12-3h2v3l2 1v3h-2.5a7 7 0 0 1-2.5 2.5V20h-3v-1.6a8 8 0 0 1-3 0V20H7v-2.4A6 6 0 0 1 5 13"/><path d="M5 11H3"/><circle cx="15" cy="11" r=".6"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2 20h20"/></symbol>
 </svg>
 
@@ -76,7 +84,15 @@
   <!-- Menu latéral (ordinateur) -->
   <aside class="lateral" aria-label="Menu">
     <div class="marque"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><div><b>Compte rendu</b><span>Prière · Méditation · Évangélisation</span></div></div>
-    <nav>
+    <button type="button" class="lat-accueil" data-aller="choix"><svg class="ic"><use href="#i-home"/></svg>Accueil · changer d'espace</button>
+    <nav class="nav-fin" aria-label="Finances">
+      <button type="button" data-aller="finance"><span class="pic petit vert"><svg class="ic"><use href="#i-wallet"/></svg></span>Tableau de bord</button>
+      <button type="button" data-aller="depenses"><span class="pic petit rose"><svg class="ic"><use href="#i-receipt"/></svg></span>Dépenses</button>
+      <button type="button" data-aller="budgets"><span class="pic petit orange"><svg class="ic"><use href="#i-target"/></svg></span>Budgets</button>
+      <button type="button" data-aller="bilan"><span class="pic petit bleu"><svg class="ic"><use href="#i-chart"/></svg></span>Bilan de l'année</button>
+      <button type="button" data-aller="finreglages"><span class="pic petit violet"><svg class="ic"><use href="#i-settings"/></svg></span>Réglages</button>
+    </nav>
+    <nav class="nav-dieu">
       <button type="button" data-aller="jour"><span class="pic petit vert"><svg class="ic"><use href="#i-sun"/></svg></span>Ma journée</button>
       <button type="button" data-aller="semaine"><span class="pic petit bleu"><svg class="ic"><use href="#i-week"/></svg></span>Ma semaine</button>
       <button type="button" data-aller="mois"><span class="pic petit violet"><svg class="ic"><use href="#i-grid"/></svg></span>Mon mois</button>
@@ -93,7 +109,7 @@
   <div class="contenu">
     <!-- En-tête (téléphone) -->
     <header class="entete">
-      <svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg>
+      <button type="button" class="logo-accueil" data-aller="choix" aria-label="Accueil : choisir un espace"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><span class="logo-maison" aria-hidden="true"><svg class="ic"><use href="#i-home"/></svg></span></button>
       <div class="titre-vue"><b id="titreVue">Compte rendu</b><span id="pastille"></span></div>
       <button type="button" class="avatar" id="avatarEntete" data-aller="profil" aria-label="Mon profil">?</button>
     </header>
@@ -657,11 +673,181 @@
           </div>
         </div>
       </main>
+      <!-- ===== Accueil : choisir son espace ===== -->
+      <main class="vue" id="vueChoix" hidden>
+        <div class="choix-tete">
+          <p class="choix-salut" id="chSalut">Bonjour</p>
+          <h1>Que voulez-vous suivre <em>aujourd'hui&nbsp;?</em></h1>
+        </div>
+        <div class="choix-cartes">
+          <button type="button" class="choix-carte dieu" data-aller="synthese" id="choixDieu">
+            <span class="choix-ic"><svg class="ic"><use href="#i-heart"/></svg></span>
+            <span class="choix-titre"><b>Relation avec Dieu</b><span>Prière · Méditation · Évangélisation</span></span>
+            <span class="choix-stats">
+              <span><small>Prière aujourd'hui</small><b id="chPriere">0:00</b></span>
+              <span><small>Score de la semaine</small><b id="chScore">0 %</b></span>
+            </span>
+            <span class="choix-aller">Ouvrir mon carnet<svg class="ic"><use href="#i-right"/></svg></span>
+          </button>
+          <button type="button" class="choix-carte fin" data-aller="finance" id="choixFinance">
+            <span class="choix-ic"><svg class="ic"><use href="#i-wallet"/></svg></span>
+            <span class="choix-titre"><b>Finances</b><span>Revenus · Dépenses · Dons · Épargne</span></span>
+            <span class="choix-stats">
+              <span><small>Reste du mois</small><b id="chReste">—</b></span>
+              <span><small>Dépenses du mois</small><b id="chDepenses">—</b></span>
+            </span>
+            <span class="choix-aller">Ouvrir mes finances<svg class="ic"><use href="#i-right"/></svg></span>
+          </button>
+        </div>
+        <p class="choix-verset"><svg class="ic"><use href="#i-book-open"/></svg><span>« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus. » <b>Matthieu 6.33</b></span></p>
+      </main>
+
+      <!-- ===== Finances : tableau de bord ===== -->
+      <main class="vue fin" id="vueFinance" hidden>
+        <div class="fin-nav-mois"><button type="button" class="btn-rond" data-fin-mois="-1" aria-label="Mois précédent"><svg class="ic"><use href="#i-left"/></svg></button><b class="fin-mois-nom">…</b><button type="button" class="btn-rond" data-fin-mois="1" aria-label="Mois suivant"><svg class="ic"><use href="#i-right"/></svg></button></div>
+        <section class="fin-hero" id="fHero">
+          <div class="fin-hero-haut"><span>Reste du mois</span><span class="fin-badge" id="fRatio"></span></div>
+          <b class="fin-hero-montant" id="fReste">0</b>
+          <p class="fin-hero-sous" id="fResteSous"></p>
+          <div class="fin-hero-barre" aria-hidden="true"><i id="fBarreSorties"></i></div>
+          <div class="fin-hero-pied">
+            <span><svg class="ic"><use href="#i-arrow-down"/></svg><small>Revenus</small><b id="fRevenus">0</b></span>
+            <span><svg class="ic"><use href="#i-arrow-up"/></svg><small>Toutes les sorties</small><b id="fSorties">0</b></span>
+          </div>
+        </section>
+        <div class="fin-tuiles">
+          <div class="fin-tuile corail"><span class="fin-tic"><svg class="ic"><use href="#i-receipt"/></svg></span><small>Dépenses du mois</small><b id="fDepenses">0</b><span class="fin-tsous" id="fDepensesSous"></span></div>
+          <div class="fin-tuile jaune"><span class="fin-tic"><svg class="ic"><use href="#i-heart"/></svg></span><small>Dons à Dieu</small><b id="fDons">0</b><span class="fin-tsous" id="fDonsSous"></span></div>
+          <div class="fin-tuile indigo"><span class="fin-tic"><svg class="ic"><use href="#i-piggy"/></svg></span><small>Épargne</small><b id="fEpargne">0</b><span class="fin-tsous" id="fEpargneSous"></span></div>
+          <div class="fin-tuile turquoise"><span class="fin-tic"><svg class="ic"><use href="#i-target"/></svg></span><small>Projets</small><b id="fProjets">0</b><span class="fin-tsous" id="fProjetsSous"></span></div>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit vert"><svg class="ic"><use href="#i-coins"/></svg></span><h2>Revenus du mois</h2></div>
+            <form id="formRevenus" class="fin-revenus" novalidate>
+              <label class="champ">Salaire<input type="text" id="fr-salaire" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+              <label class="champ">Autres revenus<input type="text" id="fr-autres" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+              <button type="submit" class="btn vert" id="btnRevenus"><svg class="ic"><use href="#i-check"/></svg>Enregistrer</button>
+            </form>
+            <p class="msg" id="msgRevenus" role="status"></p>
+          </div>
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit orange"><svg class="ic"><use href="#i-target"/></svg></span><h2>Objectifs du mois</h2></div>
+            <div class="fin-objectifs" id="fObjectifs"></div>
+          </div>
+        </div>
+        <div class="grille-2">
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit violet"><svg class="ic"><use href="#i-chart"/></svg></span><h2>Où va l'argent</h2><span class="aide">hors épargne et projets</span></div>
+            <div class="fin-repart"><div class="fin-donut" id="fDonut"></div><div class="fin-legende" id="fLegende"></div></div>
+          </div>
+          <div class="carte">
+            <div class="panneau-titre" style="padding:0"><span class="pic petit bleu"><svg class="ic"><use href="#i-trend"/></svg></span><h2>Indicateurs</h2></div>
+            <div class="fin-indic" id="fIndic"></div>
+            <div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-calendar"/></svg></span><h2>Dépenses par jour</h2></div>
+            <div class="fin-jours" id="fJours"></div>
+          </div>
+        </div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit vert"><svg class="ic"><use href="#i-receipt"/></svg></span><h2>Dernières dépenses</h2><button type="button" class="lien-gerer" data-aller="depenses">Tout voir</button></div>
+          <div class="fin-liste" id="fDernieres"></div>
+        </div>
+        <button type="button" class="fin-fab" id="fabDepense" aria-label="Ajouter une dépense"><svg class="ic"><use href="#i-plus"/></svg><span>Dépense</span></button>
+      </main>
+
+      <!-- ===== Finances : journal des dépenses ===== -->
+      <main class="vue fin" id="vueDepenses" hidden>
+        <div class="fin-nav-mois"><button type="button" class="btn-rond" data-fin-mois="-1" aria-label="Mois précédent"><svg class="ic"><use href="#i-left"/></svg></button><b class="fin-mois-nom">…</b><button type="button" class="btn-rond" data-fin-mois="1" aria-label="Mois suivant"><svg class="ic"><use href="#i-right"/></svg></button></div>
+        <form class="carte fin-ajout" id="formDepense" novalidate>
+          <div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-plus"/></svg></span><h2 id="titreFormDepense">Nouvelle dépense</h2></div>
+          <div class="fin-montant-saisie"><input type="text" id="d-montant" inputmode="numeric" placeholder="0" autocomplete="off" aria-label="Montant"><span id="d-devise">FCFA</span></div>
+          <div class="fin-champs">
+            <label class="champ">Description<input type="text" id="d-desc" maxlength="80" placeholder="Ex. : transport, riz, quête…" autocomplete="off"></label>
+            <label class="champ">Catégorie<select id="d-cat"></select></label>
+            <label class="champ">Jour<select id="d-jour"></select></label>
+            <label class="champ">Paiement<select id="d-paie"></select></label>
+          </div>
+          <div class="ligne-boutons">
+            <button type="submit" class="btn vert" id="btnDepense"><svg class="ic"><use href="#i-check"/></svg><span>Ajouter</span></button>
+            <button type="button" class="btn clair" id="annulerDepense" hidden>Annuler</button>
+          </div>
+          <p class="msg" id="msgDepense" role="status"></p>
+        </form>
+        <div class="fin-filtres" id="dFiltres" role="tablist" aria-label="Filtrer par catégorie"></div>
+        <div class="carte">
+          <div class="fin-total-liste"><span id="dCompte">0 dépense</span><b id="dTotal">0</b></div>
+          <div class="fin-journal" id="dJournal"></div>
+        </div>
+      </main>
+
+      <!-- ===== Finances : budgets et objectifs ===== -->
+      <main class="vue fin" id="vueBudgets" hidden>
+        <div class="fin-nav-mois"><button type="button" class="btn-rond" data-fin-mois="-1" aria-label="Mois précédent"><svg class="ic"><use href="#i-left"/></svg></button><b class="fin-mois-nom">…</b><button type="button" class="btn-rond" data-fin-mois="1" aria-label="Mois suivant"><svg class="ic"><use href="#i-right"/></svg></button></div>
+        <div class="carte"><div class="panneau-titre" style="padding:0"><span class="pic petit orange"><svg class="ic"><use href="#i-heart"/></svg></span><h2>Dons à Dieu</h2><span class="aide" id="bDonsAide"></span></div><div class="fin-budgets" id="bDons"></div><p class="fin-note" id="bDonsNote"></p></div>
+        <div class="carte"><div class="panneau-titre" style="padding:0"><span class="pic petit violet"><svg class="ic"><use href="#i-piggy"/></svg></span><h2>Épargne et projets</h2></div><div class="fin-budgets" id="bEpargne"></div><p class="fin-note" id="bEpargneNote"></p></div>
+        <div class="carte"><div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-receipt"/></svg></span><h2>Dépenses courantes</h2><span class="aide" id="bCourAide"></span></div><div class="fin-budgets" id="bCourantes"></div></div>
+        <button type="button" class="btn clair fin-lien-reglages" data-aller="finreglages"><svg class="ic"><use href="#i-settings"/></svg>Modifier les budgets</button>
+      </main>
+
+      <!-- ===== Finances : bilan de l'année ===== -->
+      <main class="vue fin" id="vueBilan" hidden>
+        <div class="fin-nav-mois"><button type="button" class="btn-rond" data-fin-an="-1" aria-label="Année précédente"><svg class="ic"><use href="#i-left"/></svg></button><b id="bAnnee">…</b><button type="button" class="btn-rond" data-fin-an="1" aria-label="Année suivante"><svg class="ic"><use href="#i-right"/></svg></button></div>
+        <div class="fin-tuiles cinq" id="bTuiles"></div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit vert"><svg class="ic"><use href="#i-chart"/></svg></span><h2>Revenus et sorties par mois</h2></div>
+          <div class="fin-barres" id="bBarres"></div>
+          <div class="sy-cles"><span><i style="background:#2FB866"></i>Revenus</span><span><i style="background:#F2546A"></i>Dépenses du mois</span><span><i style="background:#FFC21A"></i>Dons à Dieu</span><span><i style="background:#5A4FCF"></i>Épargne et projets</span></div>
+        </div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit bleu"><svg class="ic"><use href="#i-grid"/></svg></span><h2>Bilan par mois</h2></div>
+          <div class="fin-table-boite"><table class="fin-table" id="bTable"></table></div>
+        </div>
+        <div class="carte">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-receipt"/></svg></span><h2>Dépenses par catégorie</h2><span class="aide">hors épargne et projets</span></div>
+          <div class="fin-cats" id="bCats"></div>
+        </div>
+      </main>
+
+      <!-- ===== Finances : réglages ===== -->
+      <main class="vue fin" id="vueFinReglages" hidden>
+        <p class="fin-prive"><svg class="ic"><use href="#i-shield"/></svg><span>Vos finances sont <b>privées</b> : ni votre faiseur de disciple ni votre dirigeant d'assemblée ne les voient.</span></p>
+        <form class="carte" id="formFinReglages" novalidate>
+          <div class="panneau-titre" style="padding:0"><span class="pic petit orange"><svg class="ic"><use href="#i-heart"/></svg></span><h2>Dons et épargne</h2></div>
+          <div class="fin-champs">
+            <label class="champ">Part des dons au Seigneur (%)<input type="text" id="r-part" inputmode="decimal" maxlength="5"></label>
+            <label class="champ">Calculée sur<select id="r-base"><option value="total">Salaire + autres revenus</option><option value="salaire">Salaire seul</option></select></label>
+            <label class="champ">Épargne à mettre de côté chaque mois<input type="text" id="r-epargne" inputmode="numeric" autocomplete="off"></label>
+            <label class="champ">Devise<input type="text" id="r-devise" maxlength="8"></label>
+          </div>
+          <div class="panneau-titre" style="padding:0"><span class="pic petit rose"><svg class="ic"><use href="#i-receipt"/></svg></span><h2>Catégories et budgets</h2><span class="aide">budget par mois</span></div>
+          <div class="fin-cat-edit" id="rCategories"></div>
+          <div class="fin-cat-ajout"><input type="text" id="r-nouvelle" maxlength="40" placeholder="Nouvelle catégorie" aria-label="Nom de la nouvelle catégorie"><input type="text" id="r-nouvelleBudget" inputmode="numeric" placeholder="Budget" aria-label="Budget de la nouvelle catégorie"><button type="button" class="btn vert" id="btnNouvelleCat"><svg class="ic"><use href="#i-plus"/></svg>Ajouter</button></div>
+          <div class="panneau-titre" style="padding:0"><span class="pic petit bleu"><svg class="ic"><use href="#i-coins"/></svg></span><h2>Moyens de paiement</h2></div>
+          <div class="fin-puces" id="rPaiements"></div>
+          <div class="fin-cat-ajout deux"><input type="text" id="r-paiement" maxlength="30" placeholder="Ex. : Wave, Orange Money" aria-label="Nouveau moyen de paiement"><button type="button" class="btn vert" id="btnPaiement"><svg class="ic"><use href="#i-plus"/></svg>Ajouter</button></div>
+          <button type="submit" class="btn vert large" id="btnFinReglages"><svg class="ic"><use href="#i-check"/></svg>Enregistrer les réglages</button>
+          <p class="msg" id="msgFinReglages" role="status"></p>
+        </form>
+        <div class="carte fin-import">
+          <div class="panneau-titre" style="padding:0"><span class="pic petit vert"><svg class="ic"><use href="#i-upload"/></svg></span><h2>Importer mon fichier Excel</h2></div>
+          <p>Reprenez votre fichier « Dépenses journalières » : paramètres, catégories, revenus et dépenses de chaque mois.</p>
+          <label class="btn vert fichier"><svg class="ic"><use href="#i-upload"/></svg>Choisir le fichier .xlsx<input type="file" id="fichierExcel" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
+          <p class="msg" id="msgImport" role="status"></p>
+        </div>
+      </main>
+
     </div>
   </div>
 
   <!-- Onglets du bas (téléphone) -->
-  <nav class="onglets-bas" aria-label="Navigation">
+  <nav class="onglets-bas nav-fin" aria-label="Navigation des finances">
+    <button type="button" data-aller="finance"><span class="rond-ic"><svg class="ic"><use href="#i-wallet"/></svg></span>Tableau</button>
+    <button type="button" data-aller="depenses"><span class="rond-ic"><svg class="ic"><use href="#i-receipt"/></svg></span>Dépenses</button>
+    <button type="button" data-aller="budgets"><span class="rond-ic"><svg class="ic"><use href="#i-target"/></svg></span>Budgets</button>
+    <button type="button" data-aller="bilan"><span class="rond-ic"><svg class="ic"><use href="#i-chart"/></svg></span>Bilan</button>
+    <button type="button" data-aller="finreglages"><span class="rond-ic"><svg class="ic"><use href="#i-settings"/></svg></span>Réglages</button>
+  </nav>
+  <nav class="onglets-bas nav-dieu" aria-label="Navigation">
     <button type="button" data-aller="jour"><span class="rond-ic"><svg class="ic"><use href="#i-sun"/></svg></span>Journée</button>
     <button type="button" data-aller="semaine"><span class="rond-ic"><svg class="ic"><use href="#i-week"/></svg></span>Semaine</button>
     <button type="button" data-aller="mois"><span class="rond-ic"><svg class="ic"><use href="#i-grid"/></svg></span>Mois</button>
@@ -706,6 +892,7 @@
 <script src="modele.js"></script>
 <script src="xl.js"></script>
 <script src="rapport.js"></script>
+<script src="finance.js"></script>
 <script src="config.js"></script>
 <script src="compte.js"></script>
 <script src="app.js"></script>

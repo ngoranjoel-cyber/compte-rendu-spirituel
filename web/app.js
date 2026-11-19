@@ -322,7 +322,7 @@ function construireHeros(){
 function seConnecter(){
   dire("msgConnexion","Connexion…");
   occuper($("btnConnexion"),C.connecter($("c-email").value.trim(),$("c-mdp").value)).then(function(){
-    memoriserConnexion();$("c-mdp").value="";dire("msgConnexion","");location.hash="#synthese";demarrerSession();
+    memoriserConnexion();$("c-mdp").value="";dire("msgConnexion","");location.hash="#choix";demarrerSession();
   },function(e){dire("msgConnexion",e.message,"err");});
 }
 function creerCompte(){
@@ -332,7 +332,7 @@ function creerCompte(){
   dire("msgInscription","Création du compte…");
   occuper($("btnInscription"),C.inscrire(d)).then(function(r){
     $("i-mdp").value="";majForceMdp("");
-    if(r.connecte){memoriserConnexion();dire("msgInscription","");location.hash="#synthese";demarrerSession();return;}
+    if(r.connecte){memoriserConnexion();dire("msgInscription","");location.hash="#choix";demarrerSession();return;}
     montrerFormConnexion("connexion");$("c-email").value=d.email;
     dire("msgConnexion","Compte créé. Ouvrez le lien envoyé à "+d.email+" pour confirmer votre adresse, puis connectez-vous.","ok");
   },function(e){dire("msgInscription",e.message,"err");});
@@ -1262,14 +1262,351 @@ function initRappels(){
 }
 
 /* ---------- Navigation ---------- */
-var VUES={synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
+/* ================== Accueil (choix de l'espace) et Finances ================== */
+var FIN=self.Finances;
+var finM={a:auj.getFullYear(),m:auj.getMonth()+1},finAn=auj.getFullYear(),finFiltre="",depEnEdition="",reglagesEdition=null;
+var VUES_FIN={finance:1,depenses:1,budgets:1,bilan:1,finreglages:1};
+function finReglages(){return FIN.reglages(lire("finance/reglages"));}
+function finMois(a,m){return FIN.mois(lire("finance/mois/"+FIN.cleMois(a,m)));}
+function ecrireFinMois(a,m,M){ecrire("finance/mois/"+FIN.cleMois(a,m),{salaire:M.salaire,autres:M.autres,depenses:M.depenses});}
+function nombre(v){return FIN.formater(v,"");}
+function argent(v,court,R){return FIN.formater(v,(R||finReglages()).devise,court);}
+function pct(x){return x===null||x===undefined?"–":(Math.round(x*1000)/10).toString().replace(".",",")+" %";}
+function nomMoisFin(){return FIN.MOIS[finM.m-1]+" "+finM.a;}
+function resumeFin(){return FIN.resume(finReglages(),finMois(finM.a,finM.m),finM.a,finM.m,auj);}
+function decalerFinMois(n){var d=new Date(finM.a,finM.m-1+n,1);finM={a:d.getFullYear(),m:d.getMonth()+1};finFiltre="";annulerEditionDepense();rafraichirVue();}
+function champMontant(id){var v=FIN.lireMontant($(id).value);return v;}
+
+function afficherChoix(){
+  titres("Accueil","Choisissez votre espace");
+  var p=profil||{},pr=(p.prenoms||"").split(" ")[0]||"",h=new Date().getHours();
+  $("chSalut").textContent=(h<12?"Bonjour":h<18?"Bon après-midi":"Bonsoir")+(pr?" "+pr:"")+" 👋";
+  var d=donneesJour(auj),t=RP.totaux([d]);
+  var mp=t.seul+t.pg+minutesAjoutees(d,"prier");$("chPriere").textContent=mp?hm(mp):"0:00";
+  var b=RP.bilanSemaine(semaineDe(auj).jours.map(donneesJour),lire("reglages/objectifs"));
+  $("chScore").textContent=Math.round(b.score*100)+" %";
+  var R=finReglages(),r=FIN.resume(R,finMois(auj.getFullYear(),auj.getMonth()+1),auj.getFullYear(),auj.getMonth()+1,auj);
+  $("chReste").textContent=r.revenus?argent(r.reste,true,R):"À saisir";
+  $("chDepenses").textContent=argent(r.depensesMois,true,R);
+}
+
+/* ---------- Tableau de bord ---------- */
+function rangeeIndic(boite,ic,lib,val){var r=el("div",{"class":"fin-indic-l"});r.appendChild(icone(ic));r.appendChild(el("span",{},lib));r.appendChild(el("b",{},val));boite.appendChild(r);}
+function objectifFin(boite,titre,fait,cible,couleur,message,R){
+  var d=el("div",{"class":"fin-obj"}),p=cible?Math.min(1,fait/cible):0;
+  var t=el("div",{"class":"fin-obj-tete"});t.appendChild(el("b",{},titre));t.appendChild(el("span",{},cible?Math.round(fait/cible*100)+" %":"–"));d.appendChild(t);
+  var j=el("div",{"class":"fin-jauge"}),i=el("i");i.style.width=(p*100)+"%";i.style.background=couleur;j.appendChild(i);d.appendChild(j);
+  d.appendChild(el("small",{},argent(fait,true,R)+" sur "+(cible?argent(cible,true,R):"objectif non fixé")+(message?" · "+message:"")));
+  boite.appendChild(d);
+}
+function donutFin(boite,parts,centre,sous){
+  var Rr=74,Cc=2*Math.PI*Rr,somme=parts.reduce(function(x,p){return x+p.v;},0),vis=parts.filter(function(p){return p.v>0;}),off=0;
+  var s='<svg viewBox="0 0 200 200" role="img" aria-label="Répartition des dépenses"><circle cx="100" cy="100" r="'+Rr+'" fill="none" stroke="#e4ecf9" stroke-width="20"/>';
+  vis.forEach(function(p){var L=Cc*p.v/somme,g=vis.length>1?3:0;
+    s+='<circle cx="100" cy="100" r="'+Rr+'" fill="none" stroke="'+p.c+'" stroke-width="20" stroke-dasharray="'+Math.max(.5,L-g).toFixed(2)+' '+Cc.toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 100 100)"/>';off+=L;});
+  s+='<text x="100" y="98" class="sy-total fin-dt">'+centre+'</text><text x="100" y="122" class="sy-sous">'+sous+'</text></svg>';
+  boite.innerHTML=s;
+}
+function ligneDepense(dp,R,avecActions){
+  var c=null;R.categories.forEach(function(x){if(x.id===dp.cat)c=x;});
+  var l=el("div",{"class":"fin-dep"}),pt=el("span",{"class":"fin-point"});pt.style.background=c?FIN.couleurCategorie(R,c.id):"#B9C0D8";l.appendChild(pt);
+  var t=el("div",{"class":"fin-dep-txt"});t.appendChild(el("b",{},dp.desc||(c?c.nom:"Dépense")));
+  t.appendChild(el("small",{},(c?c.nom:"Non classé")+(dp.paiement?" · "+dp.paiement:"")+(avecActions?"":" · "+dp.jour+" "+MOIS_C[finM.m-1])));l.appendChild(t);
+  l.appendChild(el("b",{"class":"fin-dep-mt"},"−"+argent(dp.montant,true,R)));
+  if(avecActions){
+    var m=el("button",{type:"button","class":"fin-mini","data-modifier":dp.id,"aria-label":"Modifier « "+(dp.desc||"dépense")+" »"});m.appendChild(icone("pencil"));l.appendChild(m);
+    var x=el("button",{type:"button","class":"fin-mini rouge","data-supprimer":dp.id,"aria-label":"Supprimer « "+(dp.desc||"dépense")+" »"});x.appendChild(icone("trash"));l.appendChild(x);
+  }
+  return l;
+}
+function afficherFinance(){
+  var R=finReglages(),M=finMois(finM.a,finM.m),r=FIN.resume(R,M,finM.a,finM.m,auj);
+  titres("Mes finances",nomMoisFin());
+  Array.prototype.forEach.call(document.querySelectorAll(".fin-mois-nom"),function(b){b.textContent=nomMoisFin();});
+  $("fHero").classList.toggle("negatif",r.revenus>0&&r.reste<0);
+  $("fReste").textContent=r.revenus?argent(r.reste,false,R):"Saisissez vos revenus";
+  $("fResteSous").textContent=r.revenus?(r.reste<0?"Vous avez dépensé plus que vos revenus ce mois-ci.":"disponibles sur "+argent(r.revenus,false,R)+" de revenus"):"Indiquez votre salaire plus bas pour voir ce qu'il vous reste.";
+  $("fRatio").textContent=r.revenus?Math.round(r.totalSorties/r.revenus*100)+" % utilisés":nomMoisFin();
+  $("fBarreSorties").style.width=(r.revenus?Math.min(100,r.totalSorties/r.revenus*100):0)+"%";
+  $("fRevenus").textContent=argent(r.revenus,true,R);$("fSorties").textContent=argent(r.totalSorties,true,R);
+  $("fDepenses").textContent=argent(r.depensesMois,true,R);$("fDepensesSous").textContent=r.budgetCourantes?"budget "+argent(r.budgetCourantes+(R.categories.filter(function(c){return c.type==="offrandes";})[0]||{budget:0}).budget,true,R):r.nb+" dépense"+(r.nb>1?"s":"");
+  $("fDons").textContent=argent(r.donsDieu,true,R);$("fDonsSous").textContent=pct(r.pctDons)+(r.base?" de "+(R.base==="salaire"?"votre salaire":"vos revenus"):"");
+  $("fEpargne").textContent=argent(r.epargne,true,R);$("fEpargneSous").textContent=r.objectifEpargne?"objectif "+argent(r.objectifEpargne,true,R):"pas d'objectif";
+  $("fProjets").textContent=argent(r.projets,true,R);
+  var bp=(R.categories.filter(function(c){return c.type==="projets";})[0]||{}).budget;$("fProjetsSous").textContent=bp?"budget "+argent(bp,true,R):"";
+  if(document.activeElement!==$("fr-salaire")&&document.activeElement!==$("fr-autres")){$("fr-salaire").value=M.salaire?FIN.formater(M.salaire,""):"";$("fr-autres").value=M.autres?FIN.formater(M.autres,""):"";}
+  var ob=$("fObjectifs");ob.textContent="";
+  objectifFin(ob,"Dons au Seigneur ("+String(R.partDons).replace(".",",")+" %)",r.dons,r.objectifDons,"#FFC21A",r.objectifDons?(r.resteADonner?"reste "+argent(r.resteADonner,true,R):"atteint ✓"):"",R);
+  objectifFin(ob,"Épargne du mois",r.epargne,r.objectifEpargne,"#5A4FCF",r.objectifEpargne?(r.resteAEpargner?"reste "+argent(r.resteAEpargner,true,R):"atteinte ✓"):"",R);
+  objectifFin(ob,"Dépenses courantes",r.courantes+r.nonClasse,r.budgetCourantes,"#F2546A",r.budgetCourantes?(r.courantes+r.nonClasse>r.budgetCourantes?"budget dépassé":"reste "+argent(r.budgetCourantes-r.courantes-r.nonClasse,true,R)):"",R);
+  var parts=r.lignes.filter(function(l){return l.type!=="epargne"&&l.type!=="projets"&&l.realise>0;}).map(function(l){return {v:l.realise,lib:l.nom,c:FIN.couleurCategorie(R,l.id)};});
+  if(r.nonClasse)parts.push({v:r.nonClasse,lib:"Non classé",c:"#B9C0D8"});
+  parts.sort(function(x,y){return y.v-x.v;});
+  var somme=parts.reduce(function(x,p){return x+p.v;},0);
+  donutFin($("fDonut"),parts,nombre(somme),R.devise);
+  var lg=$("fLegende");lg.textContent="";
+  if(!parts.length)lg.appendChild(el("p",{"class":"fin-vide"},"Aucune dépense ce mois-ci."));
+  parts.slice(0,7).forEach(function(p){var c=el("div",{"class":"sy-cle"}),i=el("i");i.style.background=p.c;c.appendChild(i);c.appendChild(el("span",{},p.lib));c.appendChild(el("b",{},Math.round(p.v/somme*100)+" %"));lg.appendChild(c);});
+  if(parts.length>7){var reste=parts.slice(7).reduce(function(x,p){return x+p.v;},0),c=el("div",{"class":"sy-cle"}),i=el("i");i.style.background="#D5DAEA";c.appendChild(i);c.appendChild(el("span",{},"Autres catégories"));c.appendChild(el("b",{},Math.round(reste/somme*100)+" %"));lg.appendChild(c);}
+  var ind=$("fIndic");ind.textContent="";
+  rangeeIndic(ind,"receipt","Dépense moyenne par jour",argent(r.moyenne,true,R));
+  rangeeIndic(ind,"trend","Projection fin de mois",r.projection===null?"dès le 5e jour":argent(r.projection,true,R));
+  rangeeIndic(ind,"flame","Jour le plus dépensier",r.jourMax?r.jourMax+" "+MOIS_C[finM.m-1]+" · "+argent(r.montantJourMax,true,R):"–");
+  rangeeIndic(ind,"coins","Dépenses ÷ revenus",pct(r.ratio));
+  rangeeIndic(ind,"check","Dépenses notées",String(r.nb));
+  var mx=Math.max.apply(null,r.parJour.slice(1).concat([1])),fj=$("fJours");fj.textContent="";
+  for(var j=1;j<=r.jours;j++){var b=el("div",{"class":"fin-jour"+(j===r.jourMax?" max":"")+(finM.a===auj.getFullYear()&&finM.m===auj.getMonth()+1&&j===auj.getDate()?" auj":""),title:j+" "+MOIS_C[finM.m-1]+" : "+argent(r.parJour[j],true,R)}),i2=el("i");i2.style.height=(r.parJour[j]/mx*100)+"%";b.appendChild(i2);b.appendChild(el("span",{},j===1||j%5===0?String(j):""));fj.appendChild(b);}
+  var dl=$("fDernieres");dl.textContent="";
+  var tri=M.depenses.slice().sort(function(x,y){return y.jour-x.jour;}).slice(0,5);
+  if(!tri.length)dl.appendChild(el("p",{"class":"fin-vide"},"Aucune dépense notée. Touchez « + Dépense » pour commencer."));
+  tri.forEach(function(dp){dl.appendChild(ligneDepense(dp,R,false));});
+}
+function enregistrerRevenus(){
+  var s=champMontant("fr-salaire"),a=champMontant("fr-autres");
+  if(isNaN(s)||isNaN(a)){dire("msgRevenus","Écrivez seulement des chiffres (sans signe moins).","err");return;}
+  var M=finMois(finM.a,finM.m);M.salaire=s||0;M.autres=a||0;ecrireFinMois(finM.a,finM.m,M);
+  dire("msgRevenus","Revenus de "+nomMoisFin()+" enregistrés.","ok");document.activeElement.blur&&document.activeElement.blur();afficherFinance();
+}
+
+/* ---------- Journal des dépenses ---------- */
+function optionsCategories(sel,R,valeur){
+  sel.textContent="";
+  var grp={};
+  R.categories.forEach(function(c){var g=FIN.TYPES[c.type];if(!grp[g]){grp[g]=el("optgroup",{label:g});}var o=el("option",{value:c.id},c.nom);grp[g].appendChild(o);});
+  ["Dépenses courantes","Dons à Dieu","Épargne et projets"].forEach(function(g){if(grp[g])sel.appendChild(grp[g]);});
+  if(valeur!==undefined)sel.value=valeur;
+}
+function remplirFormDepense(R){
+  var J=FIN.joursDuMois(finM.a,finM.m),sj=$("d-jour"),v=sj.value,mc=finM.a===auj.getFullYear()&&finM.m===auj.getMonth()+1;
+  sj.textContent="";
+  for(var j=1;j<=J;j++){var d=new Date(finM.a,finM.m-1,j);sj.appendChild(el("option",{value:String(j)},JOURS_L[d.getDay()]+" "+j));}
+  sj.value=v&&+v<=J?v:String(mc?auj.getDate():1);
+  var cv=$("d-cat").value;optionsCategories($("d-cat"),R);
+  var defaut=(R.categories.filter(function(c){return /nourriture/i.test(c.nom);})[0]||R.categories.filter(function(c){return c.type==="courante";})[0]||R.categories[0]).id;
+  $("d-cat").value=cv&&R.categories.some(function(c){return c.id===cv;})?cv:defaut;
+  var pv=$("d-paie").value,sp=$("d-paie");sp.textContent="";R.paiements.forEach(function(p){sp.appendChild(el("option",{value:p},p));});
+  sp.value=pv&&R.paiements.indexOf(pv)>=0?pv:R.paiements[0];
+  $("d-devise").textContent=R.devise;
+}
+function afficherDepenses(){
+  var R=finReglages(),M=finMois(finM.a,finM.m);
+  titres("Mes dépenses",nomMoisFin());
+  Array.prototype.forEach.call(document.querySelectorAll(".fin-mois-nom"),function(b){b.textContent=nomMoisFin();});
+  if(!depEnEdition)remplirFormDepense(R);
+  var utilisees={};M.depenses.forEach(function(d){utilisees[d.cat||""]=1;});
+  var f=$("dFiltres");f.textContent="";
+  var tout=el("button",{type:"button",role:"tab","data-filtre-cat":"","aria-selected":String(!finFiltre)},"Toutes");f.appendChild(tout);
+  R.categories.forEach(function(c){if(!utilisees[c.id])return;var b=el("button",{type:"button",role:"tab","data-filtre-cat":c.id,"aria-selected":String(finFiltre===c.id)}),i=el("i");i.style.background=FIN.couleurCategorie(R,c.id);b.appendChild(i);b.appendChild(document.createTextNode(c.nom));f.appendChild(b);});
+  if(utilisees[""]){f.appendChild(el("button",{type:"button",role:"tab","data-filtre-cat":"-","aria-selected":String(finFiltre==="-")},"Non classé"));}
+  f.hidden=M.depenses.length===0;
+  var connues={};R.categories.forEach(function(c){connues[c.id]=1;});
+  var liste=M.depenses.filter(function(d){return !finFiltre||(finFiltre==="-"?!connues[d.cat]:d.cat===finFiltre);});
+  var tot=liste.reduce(function(x,d){return x+n0(d.montant);},0);
+  $("dCompte").textContent=liste.length+" dépense"+(liste.length>1?"s":"")+(finFiltre?" (filtre)":"");$("dTotal").textContent=argent(tot,false,R);
+  var parJour={};liste.forEach(function(d){(parJour[d.jour]=parJour[d.jour]||[]).push(d);});
+  var jr=$("dJournal");jr.textContent="";
+  if(!liste.length)jr.appendChild(el("p",{"class":"fin-vide"},"Aucune dépense pour "+nomMoisFin()+"."));
+  Object.keys(parJour).map(Number).sort(function(x,y){return y-x;}).forEach(function(j){
+    var d=new Date(finM.a,finM.m-1,j),g=el("div",{"class":"fin-jour-groupe"}),t=el("div",{"class":"fin-jour-tete"});
+    t.appendChild(el("span",{},JOURS_L[d.getDay()]+" "+j+" "+MOIS[finM.m-1]));
+    t.appendChild(el("b",{},argent(parJour[j].reduce(function(x,e){return x+n0(e.montant);},0),true,R)));g.appendChild(t);
+    parJour[j].forEach(function(dp){g.appendChild(ligneDepense(dp,R,true));});jr.appendChild(g);
+  });
+}
+function annulerEditionDepense(){depEnEdition="";$("titreFormDepense").textContent="Nouvelle dépense";$("btnDepense").querySelector("span").textContent="Ajouter";$("annulerDepense").hidden=true;$("d-montant").value="";$("d-desc").value="";$("formDepense").classList.remove("edition");}
+function enregistrerDepense(){
+  var v=champMontant("d-montant");
+  if(!v){dire("msgDepense",isNaN(v)?"Le montant doit être un nombre positif.":"Indiquez le montant de la dépense.","err");$("d-montant").focus();return;}
+  var M=finMois(finM.a,finM.m),o={jour:+$("d-jour").value,desc:$("d-desc").value.trim(),cat:$("d-cat").value,montant:v,paiement:$("d-paie").value};
+  if(depEnEdition){M.depenses.forEach(function(d,i){if(d.id===depEnEdition){o.id=d.id;M.depenses[i]=o;}});}
+  else{o.id="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);M.depenses.push(o);}
+  ecrireFinMois(finM.a,finM.m,M);
+  var R=finReglages();
+  dire("msgDepense",(depEnEdition?"Dépense modifiée : ":"Ajouté : ")+(o.desc||"dépense")+" · "+argent(v,true,R),"ok");
+  annulerEditionDepense();afficherDepenses();$("d-montant").focus();
+}
+function modifierDepense(id){
+  var M=finMois(finM.a,finM.m),d=M.depenses.filter(function(x){return x.id===id;})[0];if(!d)return;
+  depEnEdition=id;var R=finReglages();remplirFormDepense(R);
+  $("d-montant").value=FIN.formater(d.montant,"");$("d-desc").value=d.desc||"";$("d-jour").value=String(d.jour);
+  if(R.categories.some(function(c){return c.id===d.cat;}))$("d-cat").value=d.cat;
+  if(d.paiement&&R.paiements.indexOf(d.paiement)<0)$("d-paie").appendChild(el("option",{value:d.paiement},d.paiement));
+  if(d.paiement)$("d-paie").value=d.paiement;
+  $("titreFormDepense").textContent="Modifier la dépense";$("btnDepense").querySelector("span").textContent="Enregistrer";$("annulerDepense").hidden=false;$("formDepense").classList.add("edition");
+  dire("msgDepense","");$("formDepense").scrollIntoView({behavior:"smooth",block:"start"});$("d-montant").focus({preventScroll:true});
+}
+function supprimerDepense(id){
+  var M=finMois(finM.a,finM.m),d=M.depenses.filter(function(x){return x.id===id;})[0];if(!d)return;
+  confirmer("Supprimer cette dépense ?",(d.desc||"Dépense")+" · "+argent(d.montant,false)+" · "+d.jour+" "+MOIS[finM.m-1],"Supprimer").then(function(ok){
+    if(!ok)return;M.depenses=M.depenses.filter(function(x){return x.id!==id;});ecrireFinMois(finM.a,finM.m,M);
+    if(depEnEdition===id)annulerEditionDepense();dire("msgDepense","Dépense supprimée.","ok");afficherDepenses();
+  });
+}
+
+/* ---------- Budgets ---------- */
+var STATUTS={"OK":"ok","Atteint":"ok","Attention":"attention","En cours":"encours","Dépassé":"depasse","À faire":"afaire","–":"aucun"};
+function rangeeBudget(boite,l,R){
+  var d=el("div",{"class":"fin-budget"}),t=el("div",{"class":"fin-budget-tete"}),pt=el("span",{"class":"fin-point"});
+  pt.style.background=l.id?FIN.couleurCategorie(R,l.id):"#B9C0D8";t.appendChild(pt);t.appendChild(el("b",{},l.nom));
+  t.appendChild(el("span",{"class":"fin-statut "+(STATUTS[l.statut]||"aucun")},l.statut==="–"?"sans budget":l.statut));d.appendChild(t);
+  var j=el("div",{"class":"fin-jauge"}),i=el("i",{"class":STATUTS[l.statut]||"aucun"});i.style.width=(l.objectif?Math.min(100,l.realise/l.objectif*100):l.realise?100:0)+"%";j.appendChild(i);d.appendChild(j);
+  var p=el("div",{"class":"fin-budget-pied"});
+  p.appendChild(el("span",{},argent(l.realise,true,R)+(l.objectif?" / "+argent(l.objectif,true,R):"")));
+  p.appendChild(el("span",{},l.objectif?(l.reste>=0?"reste "+argent(l.reste,true,R):"+"+argent(-l.reste,true,R)+" au-delà"):pct(l.pctBase)+" des revenus"));
+  d.appendChild(p);boite.appendChild(d);
+}
+function afficherBudgets(){
+  var R=finReglages(),r=resumeFin();
+  titres("Budgets et objectifs",nomMoisFin());
+  Array.prototype.forEach.call(document.querySelectorAll(".fin-mois-nom"),function(b){b.textContent=nomMoisFin();});
+  var bd=$("bDons"),be=$("bEpargne"),bc=$("bCourantes");bd.textContent="";be.textContent="";bc.textContent="";
+  r.lignes.filter(function(l){return l.type==="dons";}).concat(r.lignes.filter(function(l){return l.type==="offrandes";})).forEach(function(l){rangeeBudget(bd,l,R);});
+  r.lignes.filter(function(l){return l.type==="epargne";}).concat(r.lignes.filter(function(l){return l.type==="projets";})).forEach(function(l){rangeeBudget(be,l,R);});
+  r.lignes.filter(function(l){return l.type==="courante";}).forEach(function(l){rangeeBudget(bc,l,R);});
+  if(r.nonClasse)rangeeBudget(bc,{id:"",nom:"Non classé",realise:r.nonClasse,objectif:0,reste:null,pctBase:r.base?r.nonClasse/r.base:0,statut:"–"},R);
+  $("bDonsAide").textContent=String(R.partDons).replace(".",",")+" % "+(R.base==="salaire"?"du salaire":"des revenus");
+  $("bDonsNote").textContent=r.objectifDons?"Total donné à Dieu : "+argent(r.donsDieu,false,R)+" ("+pct(r.pctDons)+"). "+(r.dons>=r.objectifDons?"Les "+String(R.partDons).replace(".",",")+" % sont atteints.":"Reste à donner : "+argent(r.resteADonner,false,R)+"."):"Saisissez vos revenus du mois pour calculer l'objectif.";
+  $("bEpargneNote").textContent="Total épargne et projets : "+argent(r.epargne+r.projets,false,R)+(r.objectifEpargne?". "+(r.epargne>=r.objectifEpargne?"L'épargne du mois est atteinte.":"Reste à épargner : "+argent(r.resteAEpargner,false,R)+"."):".");
+  $("bCourAide").textContent=r.budgetCourantes?argent(r.courantes+r.nonClasse,true,R)+" / "+argent(r.budgetCourantes,true,R):"";
+}
+
+/* ---------- Bilan de l'année ---------- */
+function tuileBilan(boite,coul,ic,lib,val,sous){var t=el("div",{"class":"fin-tuile "+coul}),s=el("span",{"class":"fin-tic"});s.appendChild(icone(ic));t.appendChild(s);t.appendChild(el("small",{},lib));t.appendChild(el("b",{},val));t.appendChild(el("span",{"class":"fin-tsous"},sous||""));boite.appendChild(t);}
+function afficherBilan(){
+  var R=finReglages(),b=FIN.bilanAnnee(R,function(k){return lire("finance/mois/"+k);},finAn,auj);
+  titres("Bilan "+finAn,"Revenus, dépenses, dons et épargne");$("bAnnee").textContent=String(finAn);
+  var T=b.total,tu=$("bTuiles");tu.textContent="";
+  tuileBilan(tu,"vert","arrow-down","Revenus",argent(T.revenus,true,R),b.mois.filter(function(m){return m.rempli;}).length+" mois suivis");
+  tuileBilan(tu,"corail","receipt","Dépenses",argent(T.depenses,true,R),T.revenus?pct(T.depenses/T.revenus)+" des revenus":"");
+  tuileBilan(tu,"jaune","heart","Dons à Dieu",argent(T.donsDieu,true,R),pct(T.pctDons)+" de la base");
+  tuileBilan(tu,"indigo","piggy","Épargne",argent(T.epargne,true,R),T.objectifEpargne?"objectif "+argent(T.objectifEpargne,true,R):"");
+  tuileBilan(tu,T.reste<0?"corail":"turquoise","wallet","Reste cumulé",argent(T.reste,true,R),"projets : "+argent(T.projets,true,R));
+  var mx=1;b.mois.forEach(function(m){mx=Math.max(mx,m.revenus,m.depenses+m.donsDieu+m.epargne+m.projets);});
+  var bb=$("bBarres");bb.textContent="";
+  b.mois.forEach(function(m){
+    var c=el("div",{"class":"fin-mbar"+(finAn===auj.getFullYear()&&m.mois===auj.getMonth()+1?" actif":""),title:m.nom+" : revenus "+argent(m.revenus,true,R)+", sorties "+argent(m.totalSorties,true,R)}),g=el("div",{"class":"fin-mbar-g"});
+    var rv=el("i",{"class":"rev"});rv.style.height=(m.revenus/mx*100)+"%";g.appendChild(rv);
+    var pile=el("div",{"class":"pile"});[["dep",m.depenses],["don",m.donsDieu],["epa",m.epargne+m.projets]].forEach(function(x){var i=el("i",{"class":x[0]});i.style.height=(x[1]/mx*100)+"%";pile.appendChild(i);});
+    g.appendChild(pile);c.appendChild(g);c.appendChild(el("span",{},MOIS_C[m.mois-1].replace(".","")));bb.appendChild(c);
+  });
+  var t=$("bTable");t.textContent="";
+  var th=el("tr");["Mois","Revenus","Dépenses","Dons à Dieu","% dons","Épargne","Projets","Reste"].forEach(function(x){th.appendChild(el("th",{},x));});var thead=el("thead");thead.appendChild(th);t.appendChild(thead);
+  var tb=el("tbody");
+  b.mois.forEach(function(m){var tr=el("tr",{"class":m.rempli?"":"vide"});tr.appendChild(el("th",{},m.nom));
+    [m.revenus,m.depenses,m.donsDieu].forEach(function(v){tr.appendChild(el("td",{},m.rempli?nombre(v):"–"));});
+    tr.appendChild(el("td",{},m.rempli?pct(m.pctDons):"–"));
+    [m.epargne,m.projets].forEach(function(v){tr.appendChild(el("td",{},m.rempli?nombre(v):"–"));});
+    tr.appendChild(el("td",{"class":m.rempli&&m.reste<0?"neg":""},m.rempli?nombre(m.reste):"–"));tb.appendChild(tr);});
+  t.appendChild(tb);
+  var tf=el("tfoot"),tr=el("tr");tr.appendChild(el("th",{},"Total"));
+  [T.revenus,T.depenses,T.donsDieu].forEach(function(v){tr.appendChild(el("td",{},nombre(v)));});
+  tr.appendChild(el("td",{},pct(T.pctDons)));[T.epargne,T.projets].forEach(function(v){tr.appendChild(el("td",{},nombre(v)));});
+  tr.appendChild(el("td",{"class":T.reste<0?"neg":""},nombre(T.reste)));tf.appendChild(tr);t.appendChild(tf);
+  var bc=$("bCats");bc.textContent="";
+  var cats=b.categories.filter(function(c){return c.total>0;}).sort(function(x,y){return y.total-x.total;});
+  if(!cats.length)bc.appendChild(el("p",{"class":"fin-vide"},"Aucune dépense pour "+finAn+"."));
+  var mc=cats.length?cats[0].total:1;
+  cats.forEach(function(c){var r=el("div",{"class":"fin-cat"}),tt=el("div",{"class":"fin-cat-tete"});tt.appendChild(el("span",{},c.nom));tt.appendChild(el("b",{},argent(c.total,true,R)));tt.appendChild(el("small",{},pct(c.part)));r.appendChild(tt);
+    var j=el("div",{"class":"fin-jauge"}),i=el("i");i.style.width=(c.total/mc*100)+"%";i.style.background=c.id?FIN.couleurCategorie(R,c.id):"#B9C0D8";j.appendChild(i);r.appendChild(j);bc.appendChild(r);});
+}
+
+/* ---------- Réglages ---------- */
+function afficherFinReglages(){
+  titres("Réglages des finances","Dons, épargne, catégories");
+  if(!reglagesEdition)reglagesEdition=JSON.parse(JSON.stringify(finReglages()));
+  var R=reglagesEdition;
+  if(!$("formFinReglages").contains(document.activeElement)){
+    $("r-part").value=String(R.partDons).replace(".",",");$("r-base").value=R.base;$("r-epargne").value=R.epargne?FIN.formater(R.epargne,""):"";$("r-devise").value=R.devise;
+  }
+  dessinerCategoriesEdit();dessinerPaiements();
+}
+function dessinerCategoriesEdit(){
+  var R=reglagesEdition,b=$("rCategories");b.textContent="";
+  R.categories.forEach(function(c,i){
+    var l=el("div",{"class":"fin-cat-ligne"}),pt=el("span",{"class":"fin-point"});pt.style.background=FIN.couleurCategorie(R,c.id);l.appendChild(pt);
+    var n=el("input",{type:"text",value:c.nom,maxlength:"40","aria-label":"Nom de la catégorie","data-cat-nom":String(i)});l.appendChild(n);
+    if(c.type==="dons"||c.type==="epargne"){l.appendChild(el("span",{"class":"fin-auto"},c.type==="dons"?String(R.partDons).replace(".",",")+" % auto":"objectif ci-dessus"));}
+    else l.appendChild(el("input",{type:"text",inputmode:"numeric",value:c.budget?FIN.formater(c.budget,""):"",placeholder:"Budget","aria-label":"Budget de "+c.nom,"data-cat-budget":String(i)}));
+    if(c.type==="courante"){var x=el("button",{type:"button","class":"fin-mini rouge","data-cat-suppr":String(i),"aria-label":"Retirer la catégorie "+c.nom});x.appendChild(icone("trash"));l.appendChild(x);}
+    else l.appendChild(el("span",{"class":"fin-type",title:"Catégorie spéciale"},c.type==="offrandes"?"Dons":c.type==="projets"?"Projet":c.type==="dons"?"Dîme":"Épargne"));
+    b.appendChild(l);
+  });
+}
+function dessinerPaiements(){
+  var b=$("rPaiements");b.textContent="";
+  reglagesEdition.paiements.forEach(function(p,i){var s=el("span",{"class":"fin-puce"},p),x=el("button",{type:"button","data-paie-suppr":String(i),"aria-label":"Retirer "+p});x.appendChild(icone("x"));s.appendChild(x);b.appendChild(s);});
+}
+function lireChampsReglages(){
+  var R=reglagesEdition;
+  Array.prototype.forEach.call($("rCategories").querySelectorAll("[data-cat-nom]"),function(i){var v=i.value.trim();if(v)R.categories[+i.getAttribute("data-cat-nom")].nom=v;});
+  var mauvais=false;
+  Array.prototype.forEach.call($("rCategories").querySelectorAll("[data-cat-budget]"),function(i){var v=FIN.lireMontant(i.value);if(isNaN(v))mauvais=true;else R.categories[+i.getAttribute("data-cat-budget")].budget=v||0;});
+  return !mauvais;
+}
+function enregistrerFinReglages(){
+  var R=reglagesEdition,okCats=lireChampsReglages(),part=Number(String($("r-part").value).replace(",",".").replace(/\s|%/g,"")),ep=FIN.lireMontant($("r-epargne").value);
+  if(!okCats){dire("msgFinReglages","Un budget n'est pas un nombre valable.","err");return;}
+  if(!isFinite(part)||part<0||part>100){dire("msgFinReglages","La part des dons doit être un pourcentage entre 0 et 100.","err");$("r-part").focus();return;}
+  if(isNaN(ep)){dire("msgFinReglages","L'épargne doit être un montant positif.","err");$("r-epargne").focus();return;}
+  R.partDons=part;R.base=$("r-base").value;R.epargne=ep||0;R.devise=$("r-devise").value.trim()||"FCFA";
+  ecrire("finance/reglages",FIN.reglages(R));reglagesEdition=null;
+  dire("msgFinReglages","Réglages enregistrés.","ok");afficherFinReglages();
+}
+function importerExcel(entree){
+  var f=entree.files&&entree.files[0];entree.value="";if(!f)return;
+  if(!/\.xlsx$/i.test(f.name)){dire("msgImport","Choisissez un fichier Excel .xlsx.","err");return;}
+  dire("msgImport","Lecture du fichier…");
+  f.arrayBuffer().then(function(buf){return JSZip.loadAsync(buf);}).then(function(zip){
+    var noms=Object.keys(zip.files).filter(function(n){return /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/[^/]+\.xml)$/.test(n);});
+    return Promise.all(noms.map(function(n){return zip.file(n).async("string");})).then(function(t){var o={};noms.forEach(function(n,i){o[n]=t[i];});return FIN.lireClasseur(o,auj);});
+  }).then(function(res){
+    var cles=Object.keys(res.mois).sort(),noms=cles.map(function(k){return FIN.MOIS[+k.slice(5)-1].toLowerCase();});
+    var existe=cles.filter(function(k){return finMois(+k.slice(0,4),+k.slice(5)).depenses.length;}).length;
+    return confirmer("Importer ce fichier ?",res.reglages.categories.length+" catégories, "+res.nbDepenses+" dépenses ("+(noms.join(", ")||"aucun mois")+" "+res.annee+")."+(existe?" Les mois déjà remplis seront remplacés.":""),"Importer").then(function(ok){
+      if(!ok){dire("msgImport","Import annulé.");return;}
+      ecrire("finance/reglages",res.reglages);
+      cles.forEach(function(k){ecrireFinMois(+k.slice(0,4),+k.slice(5),res.mois[k]);});
+      reglagesEdition=null;if(cles.length){finM={a:+cles[cles.length-1].slice(0,4),m:+cles[cles.length-1].slice(5)};finAn=finM.a;}
+      dire("msgImport","Import réussi : "+res.nbDepenses+" dépenses et vos réglages ont été repris.","ok");afficherFinReglages();
+    });
+  }).catch(function(e){dire("msgImport","Ce fichier n'a pas pu être lu : "+(e&&e.message||e),"err");});
+}
+function brancherFinances(){
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-fin-mois]");if(b){decalerFinMois(+b.getAttribute("data-fin-mois"));return;}
+    b=e.target.closest("[data-fin-an]");if(b){finAn+=+b.getAttribute("data-fin-an");afficherBilan();return;}
+  });
+  $("formRevenus").addEventListener("submit",function(e){e.preventDefault();enregistrerRevenus();});
+  $("fabDepense").onclick=function(){location.hash="#depenses";setTimeout(function(){$("d-montant").focus();},60);};
+  $("formDepense").addEventListener("submit",function(e){e.preventDefault();enregistrerDepense();});
+  $("annulerDepense").onclick=function(){annulerEditionDepense();dire("msgDepense","");};
+  $("dJournal").addEventListener("click",function(e){var b=e.target.closest("[data-modifier]");if(b){modifierDepense(b.getAttribute("data-modifier"));return;}b=e.target.closest("[data-supprimer]");if(b)supprimerDepense(b.getAttribute("data-supprimer"));});
+  $("dFiltres").addEventListener("click",function(e){var b=e.target.closest("[data-filtre-cat]");if(!b)return;finFiltre=b.getAttribute("data-filtre-cat");afficherDepenses();});
+  $("formFinReglages").addEventListener("submit",function(e){e.preventDefault();enregistrerFinReglages();});
+  $("rCategories").addEventListener("click",function(e){var b=e.target.closest("[data-cat-suppr]");if(!b)return;lireChampsReglages();
+    var i=+b.getAttribute("data-cat-suppr"),c=reglagesEdition.categories[i];
+    confirmer("Retirer « "+c.nom+" » ?","Les dépenses déjà notées dans cette catégorie passeront en « Non classé ». N'oubliez pas d'enregistrer.","Retirer").then(function(ok){if(ok){reglagesEdition.categories.splice(i,1);dessinerCategoriesEdit();dire("msgFinReglages","Catégorie retirée : pensez à enregistrer.");}});});
+  $("btnNouvelleCat").onclick=function(){lireChampsReglages();var n=$("r-nouvelle").value.trim(),v=FIN.lireMontant($("r-nouvelleBudget").value);
+    if(!n){dire("msgFinReglages","Donnez un nom à la nouvelle catégorie.","err");$("r-nouvelle").focus();return;}
+    if(isNaN(v)){dire("msgFinReglages","Le budget doit être un montant positif.","err");return;}
+    if(reglagesEdition.categories.some(function(c){return c.nom.toLowerCase()===n.toLowerCase();})){dire("msgFinReglages","Cette catégorie existe déjà.","err");return;}
+    var C=reglagesEdition.categories,pos=C.length;C.forEach(function(c,i){if(c.type==="courante")pos=i+1;});
+    C.splice(pos,0,{id:FIN.nouvelId(C,"c"),nom:n,type:"courante",budget:v||0});
+    $("r-nouvelle").value="";$("r-nouvelleBudget").value="";dessinerCategoriesEdit();dire("msgFinReglages","« "+n+" » ajoutée : pensez à enregistrer.");};
+  $("rPaiements").addEventListener("click",function(e){var b=e.target.closest("[data-paie-suppr]");if(!b)return;if(reglagesEdition.paiements.length<2){dire("msgFinReglages","Gardez au moins un moyen de paiement.","err");return;}
+    lireChampsReglages();reglagesEdition.paiements.splice(+b.getAttribute("data-paie-suppr"),1);dessinerPaiements();});
+  $("btnPaiement").onclick=function(){var p=$("r-paiement").value.trim();if(!p)return;lireChampsReglages();if(reglagesEdition.paiements.indexOf(p)<0)reglagesEdition.paiements.push(p);$("r-paiement").value="";dessinerPaiements();};
+  $("fichierExcel").addEventListener("change",function(){importerExcel(this);});
+}
+
+var VUES={choix:"vueChoix",finance:"vueFinance",depenses:"vueDepenses",budgets:"vueBudgets",bilan:"vueBilan",finreglages:"vueFinReglages",synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
   connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil",bienvenue:"vueBienvenue"};
 var AUTH={connexion:1,mdp:1,chargement:1,accueil:1,bienvenue:1,inscription:1};
 var vueActuelle="";
 function titres(t,sous){$("titreVue").textContent=t;$("pastille").textContent=sous||"";}
 function route(){
   viderSaisie();
-  var h=(location.hash||"#synthese").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
+  var h=(location.hash||"#choix").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
   if(lienRecuperation&&C.session())h="mdp";
   else if(etape==="connexion"){
     /* Sans session : la page d'accueil, sauf si l'on demande un formulaire (ou qu'on est déjà venu). */
@@ -1284,15 +1621,18 @@ function route(){
   else if(etape==="profil"){h="profil";m=null;}
   else if(etape==="identite"){h="accueil";m=null;}
   else if(etape==="assemblee"||etape==="faiseur"){if(h!=="profil")h="accueil";m=null;}
-  else if(AUTH[h])h="synthese";
+  else if(AUTH[h])h="choix";
   if(h==="suivi"&&!suiviPermis())h="jour";
   if(m){afficherApercu(m[1]);return;}
-  if(!VUES[h])h="synthese";
+  if(!VUES[h])h="choix";
+  if(h!=="finreglages")reglagesEdition=null;
   var change=vueActuelle!==h;vueActuelle=h;
   $("apercu").hidden=true;$("page").hidden=false;
   document.body.classList.toggle("auth",!!AUTH[h]||etape==="profil");
   document.body.classList.toggle("bienvenue",h==="bienvenue");
   document.body.setAttribute("data-vue",h);
+  document.body.classList.toggle("espace-finance",!!VUES_FIN[h]);
+  document.body.classList.toggle("espace-choix",h==="choix");
   Object.keys(VUES).forEach(function(k){$(VUES[k]).hidden=k!==h;});
   Array.prototype.forEach.call(document.querySelectorAll("[data-aller]"),function(b){
     if(b.closest(".lateral nav,.onglets-bas")){if(b.getAttribute("data-aller")===h)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");}
@@ -1313,10 +1653,17 @@ function rafraichirVue(){
   else if(h==="chargement"||h==="mdp")titres("Mon compte","");
   else if(h==="jour")afficherJour();
   else if(h==="synthese")afficherSynthese();
+  else if(h==="choix")afficherChoix();
+  else if(h==="finance")afficherFinance();
+  else if(h==="depenses")afficherDepenses();
+  else if(h==="budgets")afficherBudgets();
+  else if(h==="bilan")afficherBilan();
+  else if(h==="finreglages")afficherFinReglages();
 }
 
 /* ---------- Branchements ---------- */
 construireJour();
+brancherFinances();
 $("btnObjectifs").onclick=function(){remplirObjectifs();$("formObjectifs").hidden=false;$("btnObjectifs").hidden=true;dire("msgObjectifs","");$("o-priere").focus();};
 $("annulerObjectifs").onclick=function(){$("formObjectifs").hidden=true;$("btnObjectifs").hidden=false;dire("msgObjectifs","");};
 $("objectifsDefaut").onclick=function(){var o=RP.OBJECTIFS;$("o-priere").value=enHhmm(o.priereParJour);$("o-chap").value=o.chapitresParJour;$("o-rdqd").value=o.rdqdParSemaine;$("o-groupe").value=enHhmm(o.groupeParSemaine);$("o-jeune").value=o.jeuneParSemaine;};
@@ -1385,9 +1732,9 @@ $("etapeFaiseur").addEventListener("submit",function(e){e.preventDefault();
   var c=choixFaiseurAccueil==="libre"?($("f-libre").value.trim()?{faiseur_id:null,faiseur_nom:$("f-libre").value.trim()}:null):(choixFaiseurAccueil?{faiseur_id:choixFaiseurAccueil,faiseur_nom:""}:null);
   if(!c){dire("msgFaiseur","Choisissez votre faiseur de disciple, ou « Plus tard ».","err");return;}
   apresAssemblee(C.majProfil(c),"msgFaiseur");});
-$("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#synthese";route();};
+$("faiseurPlusTard").onclick=function(){ecrireLocal("reglages/faiseurPlusTard",true);location.hash="#choix";route();};
 $("formProfil").addEventListener("submit",function(e){e.preventDefault();enregistrerProfil();});
-$("btnCodeFaiseur").onclick=function(){choisirFaiseurParCode("f-code","msgFaiseur","btnCodeFaiseur",function(){location.hash="#synthese";route();});};
+$("btnCodeFaiseur").onclick=function(){choisirFaiseurParCode("f-code","msgFaiseur","btnCodeFaiseur",function(){location.hash="#choix";route();});};
 $("btnCodeFaiseurProfil").onclick=function(){choisirFaiseurParCode("pf-code","msgFaiseurProfil","btnCodeFaiseurProfil",function(){afficherProfil();});};
 $("nouveauCodeFaiseur").onclick=function(){
   confirmer("Remplacer mon code de faiseur","L'ancien code ne fonctionnera plus. Les disciples déjà liés à vous le restent.","Remplacer").then(function(ok){

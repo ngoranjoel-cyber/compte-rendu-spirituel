@@ -1045,3 +1045,223 @@ body[data-vue="profil"] .entete{background:var(--m-indigo)}
 .mentor[aria-checked="true"] .radio{background:var(--m-vert)!important;border-color:var(--m-vert)!important}
 #tPrier b,#tMediter b{color:#fff!important}
 #tPrecher b{color:#5A3A00!important}
+
+/* ===================================================================
+   Accueil à deux espaces + Finances (mêmes couleurs mixées)
+   =================================================================== */
+:root{--f-vert:#1F9D6B;--f-vert-clair:#DFF5EA;--f-corail:#F2546A;--f-jaune:#FFC21A;--f-indigo:#5A4FCF;--f-turq:#12A89A}
+.num,.fin-hero-montant,.fin-tuile b,.fin-dep-mt,.fin-table td,.fin-indic-l b{font-variant-numeric:tabular-nums}
+
+/* Navigation : une barre par espace */
+body.espace-finance .nav-dieu,body:not(.espace-finance) .nav-fin{display:none!important}
+body.espace-choix .onglets-bas{display:none!important}
+body.espace-choix .lateral nav{display:none!important}
+.lat-accueil{display:none}
+@media (min-width:900px){
+  .lat-accueil{display:flex;align-items:center;gap:10px;border:0;background:#fff;color:var(--encre);font-weight:700;padding:10px 12px;border-radius:14px;margin:4px 0 8px;box-shadow:var(--relief-petit);font-size:.86rem}
+  .lat-accueil[aria-current="page"],.lat-accueil:hover{background:var(--m-jaune);color:#5A3A00}
+  .lat-accueil .ic{width:18px;height:18px}
+}
+.logo-accueil{position:relative;border:0;background:none;padding:0;display:grid;place-items:center;flex:none;cursor:pointer}
+.logo-maison{position:absolute;right:-4px;bottom:-4px;width:19px;height:19px;border-radius:50%;background:var(--m-jaune);color:#5A3A00;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.logo-maison .ic{width:11px;height:11px;stroke-width:2.6}
+body[data-vue="choix"] .entete{background:#fff;color:var(--encre)}
+body[data-vue="choix"] .entete .titre-vue b,body[data-vue="choix"] .entete .titre-vue span{color:var(--encre)!important}
+body[data-vue="choix"] .logo-maison{display:none}
+body[data-vue="finance"] .entete{background:var(--f-vert)}
+body[data-vue="depenses"] .entete{background:var(--f-corail)}
+body[data-vue="budgets"] .entete{background:#E8941A}
+body[data-vue="bilan"] .entete{background:var(--f-indigo)}
+body[data-vue="finreglages"] .entete{background:var(--f-turq)}
+
+/* ---------- Page de choix ---------- */
+.choix-tete{padding:6px 2px 0}
+.choix-salut{font-weight:700;color:var(--f-turq);font-size:.95rem}
+.choix-tete h1{font-size:1.75rem;line-height:1.15;letter-spacing:-.02em;margin-top:4px;color:var(--encre)}
+.choix-tete h1 em{font-style:normal;color:var(--f-indigo)}
+.choix-cartes{display:grid;gap:16px}
+@media (min-width:760px){.choix-cartes{grid-template-columns:1fr 1fr}}
+.choix-carte{position:relative;overflow:hidden;text-align:left;border:0;border-radius:30px;padding:22px;color:#fff;display:flex;flex-direction:column;gap:16px;cursor:pointer;font:inherit;min-height:250px;transition:transform .18s,box-shadow .18s}
+.choix-carte:hover{transform:translateY(-3px)}
+.choix-carte:active{transform:scale(.99)}
+.choix-carte.dieu{background:var(--f-indigo);box-shadow:0 18px 34px rgba(90,79,207,.35)}
+.choix-carte.fin{background:var(--f-vert);box-shadow:0 18px 34px rgba(31,157,107,.33)}
+.choix-carte::before,.choix-carte::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.choix-carte::before{width:190px;height:190px;right:-60px;top:-70px;background:rgba(255,255,255,.12)}
+.choix-carte::after{width:120px;height:120px;right:40px;bottom:-70px;background:var(--f-jaune);opacity:.9}
+.choix-ic{width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.2);display:grid;place-items:center;position:relative;z-index:1}
+.choix-ic .ic{width:28px;height:28px;color:#fff}
+.choix-titre{display:flex;flex-direction:column;gap:3px;position:relative;z-index:1}
+.choix-titre b{font-size:1.45rem;letter-spacing:-.01em}
+.choix-titre span{font-size:.88rem;opacity:.92}
+.choix-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
+.choix-stats>span{background:rgba(255,255,255,.17);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.choix-stats small{font-size:.74rem;opacity:.9}
+.choix-stats b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.choix-aller{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:#fff;border-radius:999px;padding:9px 16px;font-weight:700;font-size:.88rem;position:relative;z-index:1}
+.choix-carte.dieu .choix-aller{color:var(--f-indigo)}.choix-carte.fin .choix-aller{color:var(--f-vert)}
+.choix-aller .ic{width:16px;height:16px}
+.choix-verset{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:20px;padding:14px 16px;color:var(--encre);font-size:.88rem;line-height:1.45;box-shadow:var(--relief-petit)}
+.choix-verset .ic{flex:none;width:20px;height:20px;color:var(--f-turq);margin-top:2px}
+.choix-verset b{color:var(--f-indigo);white-space:nowrap}
+
+/* ---------- Commun Finances ---------- */
+.fin-nav-mois{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fin-nav-mois b{font-size:1.15rem;color:var(--encre)}
+.fin-vide{color:var(--gris);font-size:.9rem;padding:6px 0}
+.fin-point{width:12px;height:12px;border-radius:50%;flex:none}
+.fin-jauge{height:10px;border-radius:6px;background:#E6EBF6;overflow:hidden}
+.fin-jauge i{display:block;height:100%;border-radius:6px;background:var(--f-vert);transition:width .4s}
+.fin-jauge i.ok{background:var(--f-vert)}.fin-jauge i.attention{background:var(--f-jaune)}.fin-jauge i.depasse{background:var(--f-corail)}
+.fin-jauge i.encours{background:var(--f-indigo)}.fin-jauge i.afaire,.fin-jauge i.aucun{background:#AEB6D6}
+.fin-mini{width:34px;height:34px;flex:none;border-radius:11px;border:0;background:var(--panneau);color:var(--f-indigo);display:grid;place-items:center;cursor:pointer}
+.fin-mini .ic{width:16px;height:16px}
+.fin-mini.rouge{color:#C9324A;background:#FDE7EA}
+.btn.clair{background:#fff;color:var(--f-indigo);box-shadow:var(--relief-petit)}
+.lien-gerer{margin-left:auto;border:0;background:var(--panneau);color:var(--f-indigo);font-weight:700;font-size:.82rem;border-radius:999px;padding:7px 12px;cursor:pointer}
+
+/* Héros : reste du mois */
+.fin-hero{position:relative;overflow:hidden;background:var(--f-vert);color:#fff;border-radius:30px;padding:22px;display:flex;flex-direction:column;gap:8px;box-shadow:0 18px 34px rgba(31,157,107,.32)}
+.fin-hero::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-80px;top:-90px;background:rgba(255,255,255,.12)}
+.fin-hero::after{content:"";position:absolute;width:84px;height:84px;border-radius:50%;right:-26px;top:58px;background:var(--f-jaune);opacity:.9}
+.fin-hero.negatif{background:#E2475D;box-shadow:0 18px 34px rgba(226,71,93,.32)}
+.fin-hero>*{position:relative;z-index:1}
+.fin-hero-haut{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600;font-size:.92rem}
+.fin-badge{background:rgba(255,255,255,.22);border-radius:999px;padding:4px 10px;font-size:.78rem;font-weight:700}
+.fin-hero-montant{font-size:2.3rem;line-height:1.1;letter-spacing:-.02em}
+.fin-hero-sous{font-size:.86rem;opacity:.95}
+.fin-hero-barre{height:8px;border-radius:5px;background:rgba(255,255,255,.28);overflow:hidden;margin-top:4px}
+.fin-hero-barre i{display:block;height:100%;background:var(--f-jaune);border-radius:5px}
+.fin-hero-pied{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.fin-hero-pied>span{background:rgba(255,255,255,.17);border-radius:16px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center}
+.fin-hero-pied .ic{grid-row:span 2;width:30px;height:30px;padding:6px;border-radius:10px;background:#fff;color:var(--f-vert)}
+.fin-hero.negatif .fin-hero-pied .ic{color:#E2475D}
+.fin-hero-pied small{font-size:.74rem;opacity:.92}.fin-hero-pied b{font-size:1rem}
+
+/* Tuiles */
+.fin-tuiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (min-width:900px){.fin-tuiles{grid-template-columns:repeat(4,1fr)}.fin-tuiles.cinq{grid-template-columns:repeat(5,1fr)}}
+.fin-tuiles.cinq>:last-child{grid-column:1/-1}
+@media (min-width:900px){.fin-tuiles.cinq>:last-child{grid-column:auto}}
+.fin-tuile{border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.fin-tuile small{font-size:.78rem;font-weight:600;color:var(--encre);opacity:.85}
+.fin-tuile b{font-size:1.18rem;color:var(--encre);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fin-tsous{font-size:.74rem;color:var(--gris)}
+.fin-tic{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;color:#fff;margin-bottom:6px}
+.fin-tic .ic{width:18px;height:18px}
+.fin-tuile.corail{background:#FFE6EA}.fin-tuile.corail .fin-tic{background:var(--f-corail)}
+.fin-tuile.jaune{background:#FFF3CF}.fin-tuile.jaune .fin-tic{background:var(--f-jaune);color:#5A3A00}
+.fin-tuile.indigo{background:#ECEAFD}.fin-tuile.indigo .fin-tic{background:var(--f-indigo)}
+.fin-tuile.turquoise{background:#DBF4F0}.fin-tuile.turquoise .fin-tic{background:var(--f-turq)}
+.fin-tuile.vert{background:var(--f-vert-clair)}.fin-tuile.vert .fin-tic{background:var(--f-vert)}
+
+/* Revenus, objectifs, indicateurs */
+.fin-revenus{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.fin-revenus .btn{grid-column:1/-1}
+.fin-objectifs{display:flex;flex-direction:column;gap:14px}
+.fin-obj{display:flex;flex-direction:column;gap:6px}
+.fin-obj-tete{display:flex;justify-content:space-between;gap:8px;font-size:.9rem;color:var(--encre)}
+.fin-obj-tete span{font-weight:800;color:var(--f-indigo)}
+.fin-obj small{font-size:.78rem;color:var(--gris)}
+.fin-repart{display:grid;grid-template-columns:minmax(150px,190px) 1fr;gap:14px;align-items:center}
+@media (max-width:420px){.fin-repart{grid-template-columns:1fr}.fin-donut{max-width:200px;margin:0 auto}}
+.fin-donut svg{width:100%;height:auto}
+.fin-dt{font-size:22px!important}
+.fin-legende{display:flex;flex-direction:column;gap:6px}
+.fin-indic{display:flex;flex-direction:column;gap:2px}
+.fin-indic-l{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px dashed #DDE3F0;font-size:.88rem;color:var(--encre)}
+.fin-indic-l:last-child{border-bottom:0}
+.fin-indic-l .ic{width:18px;height:18px;color:var(--f-turq);flex:none}
+.fin-indic-l span{flex:1}.fin-indic-l b{text-align:right}
+.fin-jours{display:flex;align-items:flex-end;gap:2px;height:96px;padding-top:6px}
+.fin-jour{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;min-width:0}
+.fin-jour i{display:block;width:100%;max-width:12px;border-radius:4px 4px 2px 2px;background:#C9C4F4;min-height:2px}
+.fin-jour.max i{background:var(--f-corail)}.fin-jour.auj i{background:var(--f-jaune)}
+.fin-jour span{font-size:.62rem;color:var(--gris);height:12px}
+
+/* Listes de dépenses */
+.fin-liste,.fin-journal{display:flex;flex-direction:column;gap:6px}
+.fin-dep{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:16px;background:var(--panneau)}
+.fin-dep-txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.fin-dep-txt b{font-size:.92rem;color:var(--encre);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fin-dep-txt small{font-size:.76rem;color:var(--gris)}
+.fin-dep-mt{font-size:.92rem;color:#C9324A;white-space:nowrap}
+.fin-jour-groupe{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.fin-jour-tete{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;color:var(--f-indigo);padding:4px 4px 0;text-transform:none}
+.fin-total-liste{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:4px;border-bottom:1px solid #E1E7F2}
+.fin-total-liste span{color:var(--gris);font-size:.88rem}.fin-total-liste b{font-size:1.2rem;color:var(--encre)}
+.fin-fab{position:fixed;right:18px;bottom:calc(96px + env(safe-area-inset-bottom));z-index:25;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:var(--f-corail);color:#fff;font-weight:800;padding:14px 18px;box-shadow:0 12px 24px rgba(242,84,106,.42);cursor:pointer;font-size:.95rem}
+.fin-fab .ic{width:20px;height:20px;stroke-width:2.6}
+@media (min-width:900px){.fin-fab{bottom:28px;right:32px}}
+
+/* Formulaire d'ajout */
+.fin-ajout.edition{box-shadow:0 0 0 3px var(--f-jaune),var(--relief)}
+.fin-montant-saisie{display:flex;align-items:baseline;justify-content:center;gap:8px;background:#FFF1F3;border-radius:20px;padding:14px}
+.fin-montant-saisie input{border:0;background:none;font:inherit;font-size:2.1rem;font-weight:800;color:var(--encre);width:100%;max-width:240px;text-align:right;outline:none;font-variant-numeric:tabular-nums}
+.fin-montant-saisie span{font-weight:800;color:var(--f-corail)}
+.fin-champs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fin-champs .champ:first-child{grid-column:1/-1}
+.ligne-boutons{display:flex;gap:10px;flex-wrap:wrap}
+.ligne-boutons .btn{flex:1}
+.fin-filtres{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.fin-filtres::-webkit-scrollbar{display:none}
+.fin-filtres button{flex:none;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:#fff;color:var(--encre);padding:8px 13px;font-weight:600;font-size:.82rem;box-shadow:var(--relief-petit);cursor:pointer}
+.fin-filtres button i{width:9px;height:9px;border-radius:50%}
+.fin-filtres button[aria-selected="true"]{background:var(--f-jaune);color:#5A3A00}
+
+/* Budgets */
+.fin-budgets{display:flex;flex-direction:column;gap:14px}
+.fin-budget{display:flex;flex-direction:column;gap:6px}
+.fin-budget-tete{display:flex;align-items:center;gap:8px}
+.fin-budget-tete b{flex:1;font-size:.92rem;color:var(--encre)}
+.fin-budget-pied{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;color:var(--gris)}
+.fin-statut{font-size:.72rem;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.fin-statut.ok{background:var(--f-vert-clair);color:#16734E}.fin-statut.attention{background:#FFF1C9;color:#7A5200}
+.fin-statut.depasse{background:#FDE3E7;color:#B42340}.fin-statut.encours{background:#ECEAFD;color:#4A3FC0}
+.fin-statut.afaire,.fin-statut.aucun{background:#EEF1F8;color:#5A6190}
+.fin-note{font-size:.84rem;color:var(--encre);background:var(--panneau);border-radius:14px;padding:10px 12px}
+.fin-lien-reglages{align-self:center}
+
+/* Bilan */
+.fin-barres{display:flex;align-items:flex-end;gap:6px;height:190px;padding-top:8px}
+.fin-mbar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;min-width:0}
+.fin-mbar-g{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px}
+.fin-mbar-g>i,.fin-mbar .pile{width:44%;max-width:14px}
+.fin-mbar i.rev{display:block;background:var(--f-vert);border-radius:4px 4px 2px 2px;min-height:2px}
+.fin-mbar .pile{display:flex;flex-direction:column-reverse;height:100%;justify-content:flex-start}
+.fin-mbar .pile i{display:block;width:100%}
+.fin-mbar .pile i.dep{background:var(--f-corail);border-radius:0 0 2px 2px}.fin-mbar .pile i.don{background:var(--f-jaune)}.fin-mbar .pile i.epa{background:var(--f-indigo);border-radius:4px 4px 0 0}
+.fin-mbar span{font-size:.66rem;color:var(--gris)}
+.fin-mbar.actif span{color:var(--f-indigo);font-weight:800}
+.fin-table-boite{overflow-x:auto;margin:0 -6px}
+.fin-table{border-collapse:separate;border-spacing:0;width:100%;font-size:.8rem;min-width:620px}
+.fin-table th,.fin-table td{padding:8px 8px;text-align:right;white-space:nowrap;color:var(--encre)}
+.fin-table thead th{font-size:.72rem;color:var(--f-indigo);font-weight:800;border-bottom:2px solid #E1E7F2}
+.fin-table tbody th,.fin-table tfoot th,.fin-table thead th:first-child{text-align:left}
+.fin-table tbody tr:nth-child(odd) td,.fin-table tbody tr:nth-child(odd) th{background:#F6F8FD}
+.fin-table tbody tr.vide td,.fin-table tbody tr.vide th{color:#9AA3C7}
+.fin-table tfoot th,.fin-table tfoot td{font-weight:800;border-top:2px solid #E1E7F2;background:#FFF7DD}
+.fin-table td.neg{color:#C9324A;font-weight:700}
+.fin-cats{display:flex;flex-direction:column;gap:12px}
+.fin-cat{display:flex;flex-direction:column;gap:5px}
+.fin-cat-tete{display:flex;align-items:baseline;gap:8px;font-size:.88rem;color:var(--encre)}
+.fin-cat-tete span{flex:1}.fin-cat-tete small{color:var(--gris);min-width:48px;text-align:right}
+
+/* Réglages */
+.fin-prive{display:flex;gap:10px;align-items:flex-start;background:var(--f-vert-clair);color:#16734E;border-radius:18px;padding:12px 14px;font-size:.86rem;line-height:1.4}
+.fin-prive .ic{flex:none;width:20px;height:20px;margin-top:1px}
+.fin-cat-edit{display:flex;flex-direction:column;gap:8px}
+.fin-cat-ligne{display:grid;grid-template-columns:auto 1fr 108px 40px;gap:8px;align-items:center}
+.fin-cat-ligne input,.fin-cat-ajout input{height:42px;border:0;border-radius:12px;background:var(--panneau);box-shadow:var(--creux);padding:0 12px;font:inherit;font-size:.9rem;color:var(--encre);min-width:0;width:100%}
+.fin-cat-ligne input[inputmode]{text-align:right}
+.fin-auto{font-size:.74rem;color:var(--gris);text-align:center;line-height:1.2}
+.fin-type{font-size:.66rem;font-weight:800;color:var(--f-indigo);background:#ECEAFD;border-radius:8px;padding:4px 2px;text-align:center}
+.fin-cat-ajout{display:grid;grid-template-columns:1fr 100px auto;gap:8px}
+.fin-cat-ajout.deux{grid-template-columns:1fr auto}
+.fin-puces{display:flex;flex-wrap:wrap;gap:8px}
+.fin-puce{display:inline-flex;align-items:center;gap:4px;background:#ECEAFD;color:var(--f-indigo);border-radius:999px;padding:6px 6px 6px 12px;font-weight:700;font-size:.84rem}
+.fin-puce button{border:0;background:#fff;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:var(--f-indigo);cursor:pointer}
+.fin-puce button .ic{width:12px;height:12px}
+.fin-import p{font-size:.88rem;color:var(--encre)}
+.btn.fichier{cursor:pointer;align-self:flex-start}
+#formFinReglages{gap:16px}

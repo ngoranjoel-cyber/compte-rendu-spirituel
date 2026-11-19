@@ -311,9 +311,14 @@
     function cleUtilisateur(k) { var u = utilisateur(); return u ? PREFIXE + u.id + ":" + k : null; }
     function enAttente() { return lireJson(cleUtilisateur("_attente")) || {}; }
     var SYNCHRONISABLE = /^(jours\/\d{4}-\d{2}-\d{2}|semaines\/\d{4}-\d{2}-\d{2}|mois\/\d{4}-\d{2}|reglages\/(dons|rubriques|objectifs))$/;
+    /* Les finances vont dans une table à part, que seule la personne peut lire. */
+    var FINANCE = /^finance\/(reglages|mois\/\d{4}-\d{2})$/;
+    function tableDe(k) { return FINANCE.test(k) ? "finances" : "entrees"; }
+    /* Table absente (le fichier SQL des finances n'a pas encore été lancé) : on garde les saisies en attente. */
+    function tableAbsente(e) { return !!e && (e.code === "PGRST205" || e.code === "42P01" || e.statut === 404); }
     /* À appeler après chaque enregistrement local. */
     function noter(k) {
-      if (!utilisateur() || !SYNCHRONISABLE.test(k)) return;
+      if (!utilisateur() || !(SYNCHRONISABLE.test(k) || FINANCE.test(k))) return;
       var a = enAttente();
       a[k] = (a[k] || 0) + 1;
       ecrireJson(cleUtilisateur("_attente"), a);
@@ -333,33 +338,43 @@
       return enCours;
     }
     function pousser(u, magasin, bilan) {
-      var a = enAttente(), cles = Object.keys(a);
+      var a = enAttente(), cles = Object.keys(a).filter(function (k) { return !(financesAbsentes && FINANCE.test(k)); });
       if (!cles.length) return Promise.resolve();
-      var lot = cles.slice(0, 200), versions = {};
-      var lignes = [];
+      var lot = cles.slice(0, 200), versions = {}, parTable = { entrees: [], finances: [] }, envoyees = {};
       lot.forEach(function (k) {
         versions[k] = a[k];
         var v = magasin.lire(k);
-        if (v && typeof v === "object") lignes.push({ user_id: u.id, cle: k, donnees: v });
+        if (v && typeof v === "object") parTable[tableDe(k)].push({ user_id: u.id, cle: k, donnees: v });
+        else envoyees[k] = 1;                       // rien à envoyer : on l'oublie
       });
-      var envoi = lignes.length
-        ? api("/rest/v1/entrees?on_conflict=user_id,cle", { methode: "POST", corps: lignes, prefer: "resolution=merge-duplicates,return=minimal" })
-        : Promise.resolve();
-      return envoi.then(function () {
+      function envoyer(table) {
+        var l = parTable[table];
+        if (!l.length) return Promise.resolve();
+        return api("/rest/v1/" + table + "?on_conflict=user_id,cle", { methode: "POST", corps: l, prefer: "resolution=merge-duplicates,return=minimal" })
+          .then(function () { l.forEach(function (x) { envoyees[x.cle] = 1; }); bilan.envoyes += l.length; });
+      }
+      return envoyer("entrees").then(function () {
+        return envoyer("finances").catch(function (e) { if (tableAbsente(e)) financesAbsentes = true; else throw e; });
+      }).then(function () {
         var b = enAttente();
-        lot.forEach(function (k) { if (b[k] === versions[k]) delete b[k]; });   // modifié pendant l'envoi : on le garde
+        lot.forEach(function (k) { if (envoyees[k] && b[k] === versions[k]) delete b[k]; });   // modifié pendant l'envoi : on le garde
         ecrireJson(cleUtilisateur("_attente"), b);
-        bilan.envoyes += lignes.length;
         emettre("attente", Object.keys(b).length);
         if (cles.length > lot.length) return pousser(u, magasin, bilan);
       });
     }
+    var financesAbsentes = false;
     function tirer(u, magasin, bilan) {
-      var curseur = lireJson(cleUtilisateur("_curseur")) || null;     // { maj, cle } de la dernière ligne reçue
+      return tirerTable("entrees", "_curseur", u, magasin, bilan).then(function () {
+        return tirerTable("finances", "_curseurFin", u, magasin, bilan).then(function () { financesAbsentes = false; }, function (e) { if (tableAbsente(e)) financesAbsentes = true; else throw e; });
+      });
+    }
+    function tirerTable(table, nomCurseur, u, magasin, bilan) {
+      var curseur = lireJson(cleUtilisateur(nomCurseur)) || null;     // { maj, cle } de la dernière ligne reçue
       var p = { select: "cle,donnees,maj", user_id: "eq." + u.id, order: "maj.asc,cle.asc", limit: "500" };
       /* Les valeurs sont entre guillemets : la date contient « : », « . » et « + ». */
       if (curseur) p.or = '(maj.gt."' + curseur.maj + '",and(maj.eq."' + curseur.maj + '",cle.gt."' + curseur.cle + '"))';
-      return api("/rest/v1/entrees?" + q(p)).then(function (l) {
+      return api("/rest/v1/" + table + "?" + q(p)).then(function (l) {
         l = l || [];
         var attente = enAttente();
         l.forEach(function (r) {
@@ -367,9 +382,9 @@
         });
         if (l.length) {
           var der = l[l.length - 1];
-          ecrireJson(cleUtilisateur("_curseur"), { maj: der.maj, cle: der.cle });
+          ecrireJson(cleUtilisateur(nomCurseur), { maj: der.maj, cle: der.cle });
         }
-        if (l.length === 500) return tirer(u, magasin, bilan);
+        if (l.length === 500) return tirerTable(table, nomCurseur, u, magasin, bilan);
       });
     }
     /* Une entrée envoyée à part (la photo de profil) : un refus du serveur ne bloque pas les saisies. */
@@ -379,7 +394,7 @@
       return api("/rest/v1/entrees?on_conflict=user_id,cle", { methode: "POST", corps: [{ user_id: u.id, cle: k, donnees: donnees }], prefer: "resolution=merge-duplicates,return=minimal" });
     }
     function derniereSynchro() { return lireJson(cleUtilisateur("_derniere")); }
-    function oublierCurseur() { stock.removeItem(cleUtilisateur("_curseur")); }
+    function oublierCurseur() { stock.removeItem(cleUtilisateur("_curseur")); stock.removeItem(cleUtilisateur("_curseurFin")); }
 
     return {
       actif: !!(url && cle),
@@ -394,7 +409,7 @@
       monProfil: monProfil, majProfil: majProfil, assemblee: assemblee,
       profilsVisibles: profilsVisibles, saisiesDe: saisiesDe, faiseur: faiseur, liensVisibles: liensVisibles, envoyerEntree: envoyerEntree,
       noter: noter, synchroniser: synchroniser, enAttente: function () { return Object.keys(enAttente()).length; },
-      derniereSynchro: derniereSynchro, oublierCurseur: oublierCurseur,
+      derniereSynchro: derniereSynchro, oublierCurseur: oublierCurseur, financesEnLigne: function () { return !financesAbsentes; },
       _rafraichir: rafraichir
     };
   }
