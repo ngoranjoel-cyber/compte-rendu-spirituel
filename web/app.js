@@ -301,20 +301,24 @@ function majForceMdp(v){
 }
 
 /* Colonne de gauche des pages de connexion : composition pastel (cartes, sphères), sans photo. */
+var ROUE='<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" d="M44 4h12l2 11a36 36 0 0 1 9 4l9-7 9 9-7 9a36 36 0 0 1 4 9l11 2v12l-11 2a36 36 0 0 1-4 9l7 9-9 9-9-7a36 36 0 0 1-9 4l-2 11H44l-2-11a36 36 0 0 1-9-4l-9 7-9-9 7-9a36 36 0 0 1-4-9L7 56V44l11-2a36 36 0 0 1 4-9l-7-9 9-9 9 7a36 36 0 0 1 9-4z"/><circle cx="50" cy="50" r="17" fill="#2A160A"/><circle cx="50" cy="50" r="9" fill="currentColor"/></svg>';
 function construireHeros(){
   Array.prototype.forEach.call(document.querySelectorAll(".auth2-hero"),function(h){
-    ["rose","menthe","or"].forEach(function(c){h.appendChild(el("span",{"class":"bv-sphere "+c,"aria-hidden":"true"}));});
+    var deco=el("div",{"class":"ah-deco","aria-hidden":"true"});
+    deco.innerHTML='<span class="ah-roue r1">'+ROUE+'</span><span class="ah-roue r2">'+ROUE+'</span><span class="ah-roue r3">'+ROUE+'</span><span class="ah-tuyau"></span><span class="ah-vapeur v1"></span><span class="ah-vapeur v2"></span><span class="ah-vapeur v3"></span>';
+    h.appendChild(deco);
     var haut=el("div",{"class":"hero-haut"}),badge=el("a",{"class":"hero-badge",href:"#bienvenue","aria-label":"Retour à l'accueil"});
-    var lg=el("img",{src:"logo.png",alt:""});
-    badge.appendChild(lg);var nomBadge=el("span",{"class":"badge-nom"});nomBadge.appendChild(el("b",{},"Compte rendu spirituel"));nomBadge.appendChild(el("small",{},"Prière · Méditation · Évangélisation"));badge.appendChild(nomBadge);haut.appendChild(badge);
-    h.appendChild(haut);
+    badge.appendChild(el("img",{src:"logo.png",alt:""}));var nomBadge=el("span",{"class":"badge-nom"});nomBadge.appendChild(el("b",{},"Compte rendu spirituel"));nomBadge.appendChild(el("small",{},"Prière · Méditation · Évangélisation"));badge.appendChild(nomBadge);haut.appendChild(badge);
+    var bous=el("span",{"class":"ah-boussole","aria-hidden":"true"});
+    bous.innerHTML='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#B87333" stroke="#6E3A1A" stroke-width="4"/><circle cx="50" cy="50" r="38" fill="#F4E6C4" stroke="#8A5A35" stroke-width="2"/><g stroke="#8A5A35" stroke-width="1.5"><path d="M50 14v8M50 78v8M14 50h8M78 50h8"/></g><g class="sp-aiguille"><path d="M50 18 L56 50 L50 54 L44 50Z" fill="#C0392B"/><path d="M50 82 L56 50 L50 46 L44 50Z" fill="#3A2410"/></g><circle cx="50" cy="50" r="4" fill="#B87333"/></svg>';
+    haut.appendChild(bous);h.appendChild(haut);
     var bas=el("div",{"class":"hero-bas"});
     var t=el("h1",{"class":"hero-titre"});t.appendChild(document.createTextNode("Chaque jour, "));t.appendChild(el("em",{},"un pas de plus"));t.appendChild(document.createTextNode(" avec Dieu."));
     bas.appendChild(t);bas.appendChild(el("p",{"class":"hero-desc"},"Prière, méditation et évangélisation : notez votre journée en quelques gestes, en heures et minutes."));
-    var cartes=el("div",{"class":"hero-cartes","aria-hidden":"true"});
-    [["mauve","Prière du jour","01:25"],["menthe","Méditation · RDQD","00:30"]].forEach(function(c){
-      var d=el("div",{"class":"bv-carte "+c[0]});d.appendChild(el("span",{},c[1]));d.appendChild(el("b",{},c[2]));cartes.appendChild(d);});
-    bas.appendChild(cartes);
+    var cartes=el("div",{"class":"hero-cartes ah-instruments","aria-hidden":"true"});
+    var b1=el("div",{"class":"sp-boitier"}),n1=el("span",{"class":"sp-nixie"});chiffres(n1,"01:25","nixie");b1.appendChild(n1);b1.appendChild(el("small",{},"Prière du jour"));
+    var b2=el("div",{"class":"sp-boitier"}),n2=el("span",{"class":"sp-compteur"});chiffres(n2,"00:30","compteur");b2.appendChild(n2);b2.appendChild(el("small",{},"Méditation · RDQD"));
+    cartes.appendChild(b1);cartes.appendChild(b2);bas.appendChild(cartes);
     bas.appendChild(el("p",{"class":"hero-verset"},"« Priez sans cesse. » 1 Thessaloniciens 5.17"));
     h.appendChild(bas);
   });
