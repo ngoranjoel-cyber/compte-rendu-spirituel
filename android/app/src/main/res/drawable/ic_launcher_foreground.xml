@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo : arc du monde, croix dorée et Bible ouverte (dessin en 512 x 512 réduit dans la zone sûre) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.1406"
+        android:scaleY="0.1406"
+        android:translateX="18"
+        android:translateY="16">
+        <path android:fillColor="#FFFFFF" android:fillAlpha="0.32"
+            android:pathData="M253,40h6v30h-6zM128,146l3,-5 28,16 -3,5zM381,141l3,5 -28,16 -3,-5zM80,209h30v6H80zM402,209h30v6h-30z" />
+        <path android:fillColor="#FFFFFF" android:fillAlpha="0.92"
+            android:pathData="M74,286c22,104 112,170 214,160 66,-7 120,-42 150,-94 -40,38 -96,58 -156,52C190,396 112,352 74,286z" />
+        <path android:fillColor="#F6C65E"
+            android:pathData="M245,92h22a9,9 0,0 1,9 9v196a9,9 0,0 1,-9 9h-22a9,9 0,0 1,-9 -9V101a9,9 0,0 1,9 -9zM195,146h122a9,9 0,0 1,9 9v20a9,9 0,0 1,-9 9H195a9,9 0,0 1,-9 -9v-20a9,9 0,0 1,9 -9z" />
+        <path android:fillColor="#FFFFFF"
+            android:pathData="M132,300c46,-20 88,-16 120,12v86c-32,-24 -74,-30 -120,-12zM380,300c-46,-20 -88,-16 -120,12v86c32,-24 74,-30 120,-12z" />
+        <path android:strokeColor="#1764C0" android:strokeAlpha="0.45" android:strokeWidth="5" android:strokeLineCap="round" android:fillColor="#00000000"
+            android:pathData="M154,322c28,-9 52,-6 76,6M154,344c28,-9 52,-6 76,6M154,366c28,-9 52,-6 76,6M358,322c-28,-9 -52,-6 -76,6M358,344c-28,-9 -52,-6 -76,6M358,366c-28,-9 -52,-6 -76,6" />
+    </group>
+</vector>

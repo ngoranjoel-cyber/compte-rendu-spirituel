@@ -1,0 +1,986 @@
+1|# % auto
+2|# % de la base
+3|# % de tus ingresos
+4|# % de tu salario
+5|# % de los ingresos
+6|# % usado
+7|# / # días
+8|# / # días completados
+9|# F de # F · alcanzado ✓
+10|# F de # F · alcanzada ✓
+11|# F de # F · presupuesto superado
+12|# F de # F · quedan # F
+13|# F sin objetivo fijado
+14|al menos # caracteres
+15|# categorías, # gastos ({x} #).
+16|# cap. por día
+17|# de oración · RDQD
+18|# de oración · RDQD · # EV
+19|# discípulo
+20|# gasto
+21|# gastos
+22|# gastos (filtro)
+23|# hora
+24|# horas
+25|# día de RDQD
+26|# días de RDQD
+27|# meses seguidos
+28|# por RDQD
+29|# por día
+30|# pers.
+31|# registro enviándose
+32|# registros enviándose
+33|# solo
+34|# de #
+35|# de # día
+36|# de # días
+37|# de # · oración, meditación, evangelización
+38|#. Crear tu cuenta y unirte a tu asamblea
+39|#. Instalar la aplicación
+40|#. El espacio Finanzas
+41|#. El cronómetro de oración
+42|#. El informe (PDF y Excel)
+43|#. Mi semana, Mi mes y el resumen
+44|#. Para hacedores de discípulos y dirigentes
+45|#. Preguntas frecuentes
+46|#. Llenar «Mi día»
+47|% donaciones
+48|(al menos # caracteres, por ejemplo # cifras)
+49|+ Añadir un apartado
+50|: ni tu hacedor de discípulos ni tu dirigente de asamblea las ven.
+51|Inicio
+52|Inicio: elegir un espacio
+53|Inicio · cambiar de espacio
+54|Mostrar u ocultar la contraseña
+55|Añadir
+56|Añadir un gasto
+57|Cancelar
+58|Año
+59|Año anterior
+60|Año siguiente
+61|Detener
+62|Asamblea
+63|Alcanzado
+64|Ningún hacedor de discípulos elegido.
+65|Aún no hay miembros: dales el código de invitación.
+66|Ningún gasto este mes.
+67|Ningún gasto anotado. Toca «+ Gasto» para empezar.
+68|Hoy
+69|Otro
+70|Otros
+71|Otros ingresos
+72|Necesidades de oración
+73|Biblia
+74|Balance
+75|Balance del año
+76|Balance por mes
+77|Bien
+78|Buen esfuerzo, persevera.
+79|Presupuesto
+80|Presupuestos
+81|Presupuestos y balance:
+82|Presupuestos y objetivos
+83|Regalo
+84|Calculada sobre
+85|Tarjeta
+86|Categoría
+87|Categoría especial
+88|Categorías y presupuestos
+89|Esta semana
+90|Campo
+91|Cambiar
+92|Cambiar la foto
+93|Cambiar la foto de perfil
+94|Capítulos
+95|Capítulos leídos
+96|Capítulos leídos, por día
+97|Cada día,
+98|Cada miembro crea su cuenta y luego introduce este código.
+99|Cargando…
+100|Elegir el archivo .xlsx
+101|Elige el idioma de la aplicación. La guía explica cada página paso a paso.
+102|Elige una contraseña de al menos # caracteres.
+103|Elige tu espacio
+104|Elige a tu hacedor de discípulos en la lista de miembros. Si está en otra asamblea, introduce su código de hacedor.
+105|Cronómetro
+106|Cronómetro detenido: menos de # segundos, no se añadió nada.
+107|Código de tu asamblea
+108|Código de tu hacedor de discípulos
+109|Código para dar a los miembros:
+110|Empezar mi cuaderno
+111|Empieza tu cuaderno
+112|¿Cómo cambiar de hacedor o de asamblea?
+113|¿Cómo cambiar el idioma?
+114|¿Cómo recibir recordatorios?
+115|¿Cómo eliminar mi cuenta?
+116|Cómo funciona
+117|Completa tu perfil
+118|Cuenta
+119|Cuenta lista
+120|Informe
+121|Informe espiritual
+122|Informe espiritual · Oración · Meditación · Evangelización
+123|Condiciones
+124|Privacidad
+125|Confirmar
+126|Inicia sesión para continuar tu seguimiento espiritual diario.
+127|Iniciar sesión
+128|Iniciando sesión…
+129|Contacto (teléfono)
+130|Continuar
+131|Sigue llenando: todo se guarda en el teléfono y se envía en cuanto vuelve la conexión.
+132|Copiar
+133|Copiar el código
+134|Correcto
+135|Ánimo, cada día cuenta.
+136|Creando la cuenta…
+137|Crear la asamblea
+138|Crear mi cuenta
+139|Crear mi cuenta gratis
+140|Crear una cuenta
+141|Crear una copia de seguridad
+142|Crea tu acceso personal en menos de un minuto.
+143|En la aplicación Android, abre «Mi perfil», luego «Recordatorios», y elige los horarios.
+144|En la ventana de impresión, elige «Guardar como PDF» o tu impresora.
+145|En «Mi semana», toca «Imprimir / PDF de la semana»; en «Mi mes», «Imprimir / PDF del mes». El informe ya está lleno con tus registros.
+146|En «Mi perfil», elige otro hacedor o introduce el código de otra asamblea.
+147|En «Mi perfil», da tu código de hacedor a las personas que acompañas, aunque estén en otra asamblea.
+148|En «Mi perfil», abajo, toca «Eliminar mi cuenta». Todos tus datos se borran.
+149|Fecha
+150|De la instalación al informe del mes, paso a paso.
+151|Pídele su código de hacedor (# caracteres): lo encuentra en su perfil.
+152|Último recordatorio a más tardar
+153|Últimos gastos
+154|Descripción
+155|Moneda
+156|Dirigente
+157|Dirigente de asamblea:
+158|Dirigente de la asamblea
+159|Discípulo
+160|Discípulos
+161|Da este código a las personas que acompañas, aunque estén en otra asamblea: al introducirlo, te eligen como hacedor. Verás sus informes, como el dirigente de su asamblea, y nadie más.
+162|Ponle un nombre al nuevo apartado.
+163|Donaciones
+164|Ofrendas al Señor
+165|Ofrendas al Señor (# %)
+166|Ofrendas al Señor, almas ganadas, libros y necesidades.
+167|Donaciones a otros
+168|Donaciones a los hermanos
+169|Donaciones a los padres
+170|Ofrendas y ahorro
+171|Ofrendas a Dios
+172|Ofrendas, ahorro, categorías
+173|Del lunes #/#/# al domingo #/#/#
+174|Duración (h:mm)
+175|Gasto
+176|Gasto medio por día
+177|Gasto eliminado.
+178|Gastos
+179|Gastos:
+180|Gastos corrientes
+181|Gastos del mes
+182|Gastos anotados
+183|Gastos por categoría
+184|Gastos por día
+185|Gastos ÷ ingresos
+186|Diezmo
+187|Diezmo y ofrenda
+188|Correo electrónico
+189|Correo o contraseña incorrectos.
+190|EV · personas
+191|En curso
+192|Arriba de esta guía, o en «Mi perfil», elige el idioma en la lista.
+193|Arriba, los siete días de la semana: toca un día para llenarlo o corregirlo.
+194|En parte
+195|Guardando…
+196|Guardar
+197|Guardar la semana
+198|Guardar la contraseña
+199|Guardar los recordatorios
+200|Guardar los ajustes
+201|Guardado a las #
+202|Enviando la foto…
+203|Enviar o compartir el PDF
+204|Efectivo
+205|Ej.: Wave, Orange Money
+206|Ej.: transporte, arroz, colecta…
+207|Hacedor
+208|Hacedor de otra asamblea: su código
+209|Hacedor de discípulos
+210|Hacedor de discípulos:
+211|Hacedores y dirigentes
+212|Archivo Excel
+213|Archivo descargado.
+214|Filtrar por categoría
+215|Terminar mi inscripción
+216|Finanzas
+217|Gratis · Android, iPhone y ordenador
+218|Guía
+219|Guía de uso
+220|Gestionar
+221|Ignorar
+222|Verá tus informes
+223|Importación correcta: se recuperaron # gastos y tus ajustes.
+224|Importar
+225|¿Importar este archivo?
+226|Importar mi archivo Excel
+227|Imprimir / Guardar en PDF
+228|Imprimir / PDF de la semana
+229|Imprimir / PDF del mes
+230|Imprimir y compartir
+231|Indicadores
+232|Indica tu salario más abajo para ver lo que te queda.
+233|Inscripción
+234|Instalar
+235|Internet
+236|Invitar a miembros
+237|Olvidé mi contraseña.
+238|Amarillo pálido: fin de semana. EV: evangelización • RDQD: encuentro dinámico diario con Dios • PG: oración en grupo • RS • JC: ayuno completo • JP: ayuno parcial • LC: lectura cristiana
+239|No tengo internet.
+240|Soy dirigente de asamblea
+241|Ayuno
+242|Ayuno (días JC + JP)
+243|Ayuno completo
+244|Ayuno y descanso
+245|Ayuno parcial
+246|Día
+247|Día de más gasto
+248|Día a día
+249|Día anterior
+250|Día siguiente
+251|Jornada
+252|Día completo
+253|Día guardado
+254|Días completos
+255|Días de RDQD
+256|Días de RDQD, por semana
+257|Días de ayuno (JC + JP)
+258|Días de ayuno, por semana
+259|Días de la semana
+260|Días completados
+261|La aplicación se abre entonces como una aplicación de verdad, y funciona incluso sin internet: tus registros se envían en cuanto vuelve la conexión.
+262|El encuentro dinámico diario con Dios, los capítulos leídos y la lectura cristiana.
+263|Idioma
+264|Idioma de la aplicación
+265|Idioma y ayuda
+266|El PDF se prepara a partir de la página de arriba.
+267|El dirigente de tu asamblea te da este código de # caracteres.
+268|El archivo Excel contiene la hoja del mes, una hoja por semana y el panel.
+269|El mes en cifras
+270|El monto debe ser un número positivo.
+271|Lectura bíblica
+272|Lectura bíblica (capítulos)
+273|Lectura bíblica (horas : minutos)
+274|Lectura cristiana
+275|Lectura cristiana (horas : minutos)
+276|Leyendo el archivo…
+277|Añadirlos a mi cuenta
+278|Los días en gris están fuera del mes: cuentan en el total de la semana, no en el del mes. EV: evangelización • RDQD: encuentro dinámico diario con Dios • PG: oración en grupo • RS • JC: ayuno completo • JP: ayuno parcial • LC: lectura cristiana
+279|Las personas evangelizadas cada día, y las almas ganadas en el mes.
+280|Los recordatorios (cada # horas a partir de las # h) llegan en la aplicación Android.
+281|Los tiempos se anotan en horas y minutos, los recordatorios te acompañan, y todo está en tus dispositivos.
+282|Las tres tarjetas resumen la oración, la meditación y la evangelización del día. Cuando las tres están llenas, el día está completo.
+283|Libros leídos
+284|Folleto
+285|Alquiler
+286|Mi día
+287|Mi semana
+288|Mi semana:
+289|Miembro de la asamblea
+290|Menú
+291|Mis discípulos
+292|Mis gastos
+293|Mis finanzas
+294|Mis datos
+295|Minutos de oración por día
+296|Dinero móvil
+297|Modificar
+298|Modificar el gasto
+299|Modificar los presupuestos
+300|Modificar mis datos
+301|Yo
+302|Mes
+303|Mes anterior
+304|Mes siguiente
+305|Monto
+306|Monto (F)
+307|Monto del diezmo
+308|Contraseña
+309|Contraseña olvidada
+310|¿Olvidaste tu contraseña?
+311|Medios de pago
+312|Meditación
+313|Meditación (RDQD + lectura)
+314|Meditación · RDQD
+315|Navegación
+316|Navegación de finanzas
+317|Apellido
+318|Nombre de la asamblea
+319|Nombre de la categoría
+320|Nombre de la nueva categoría
+321|Nombre del nuevo apartado
+322|Nombre de tu hacedor de discípulos
+323|Número
+324|Número de RDQD
+325|Nombrar
+326|Nombrar dirigente
+327|Sin clasificar
+328|Comida
+329|Nueva contraseña
+330|Nuevo medio de pago
+331|Nueva categoría
+332|Nuevo gasto
+333|Nuevo apartado
+334|Objetivo
+335|Objetivos
+336|Objetivos del mes
+337|Objetivos guardados
+338|Ofrendas y colectas
+339|Nunca caminamos
+340|Sí / no
+341|Abriendo Google…
+342|Abriendo tu cuaderno…
+343|Abrir mis finanzas
+344|Abrir mi cuaderno
+345|Adónde va el dinero
+346|PDF listo para enviar.
+347|PDF semana
+348|Pago
+349|Parte de las ofrendas al Señor (%)
+350|Compartir…
+351|Compártelo por WhatsApp o correo, descárgalo en PDF o Excel, o imprímelo.
+352|Personas
+353|Personas evangelizadas
+354|Foto guardada
+355|Más tarde
+356|Pescado
+357|Para añadir o quitar un apartado, toca «Modificar» junto al título de la sección, luego «Añadir» y «Terminar».
+358|Para cada apartado, introduce el porcentaje o el monto: el otro se calcula.
+359|Por los demás
+360|Por los demás (horas : minutos)
+361|Para los discípulos de nuestra asamblea
+362|Para hacedores y dirigentes
+363|Por mí
+364|Por mí (horas : minutos)
+365|Por mi hacedor
+366|Por mi hacedor (horas : minutos)
+367|Para un número (capítulos leídos, personas evangelizadas), escribe el número. Para el ayuno, toca el interruptor.
+368|Para una duración, usa los botones − y + (# minutos cada vez) o escribe el tiempo en horas:minutos, por ejemplo #.
+369|Por tu hacedor de discípulos, por ti, por los demás, y la oración en grupo.
+370|Porcentaje del diezmo
+371|Primer recordatorio
+372|Oración
+373|Oración hoy
+374|Oración de la semana
+375|Oración de vigilia
+376|Oración de vigilia (horas : minutos)
+377|Oración del día
+378|Oración en grupo
+379|Oración en grupo (h:mm)
+380|Oración en grupo (horas : minutos)
+381|Oración en grupo, por semana (h:mm)
+382|Oración y meditación
+383|Oración por día
+384|Oración por período
+385|Oración a solas
+386|Oración a solas (h:mm)
+387|Oración a solas, por día (h:mm)
+388|Oración total
+389|Oración · Meditación · Evangelización
+390|Oración, meditación y evangelización: anota tu día en unos pocos gestos, en horas y minutos.
+391|Perfil
+392|Progreso
+393|Proyección a fin de mes
+394|Proyecto
+395|Proyectos
+396|Nombres
+397|Preparando la foto…
+398|Preparando el PDF…
+399|Presentación
+400|Luego cada
+401|Período
+402|¿Qué te dijo Dios esta semana?
+403|¿Qué rumbo sigues hoy?
+404|Preguntas
+405|Salir de la asamblea
+406|Colecta
+407|RDQD (número de días)
+408|RDQD · # min de media
+409|RS (horas : minutos)
+410|Accesos directos
+411|Recordatorios
+412|Recordatorios activados
+413|Recibir el enlace
+414|Unirme
+415|Unirme a mi asamblea
+416|Unirme a otra asamblea (código)
+417|Relación con Dios
+418|Vincula tu cuenta a tu asamblea local.
+419|Reemplazar el código
+420|Encuentro con Dios
+421|Encuentro dinámico diario con Dios
+422|Encuentro dinámico diario con Dios (horas : minutos)
+423|Entrega tu informe del mes antes del día # del mes siguiente.
+424|Recupera tu archivo «Gastos diarios»: parámetros, categorías, ingresos y gastos de cada mes.
+425|Restaurante
+426|Restaurar
+427|Resto
+428|Saldo acumulado
+429|Resto del mes
+430|Mantener la sesión en este dispositivo
+431|Quitar
+432|Quitar Dinero móvil
+433|Quitar de la asamblea
+434|Quitar la foto
+435|Quitar el apartado
+436|Quitar el rol de dirigente
+437|Volver
+438|Volver al inicio
+439|Ingreso del mes (FCFA)
+440|Ingresos
+441|Ingresos:
+442|Ingresos del mes
+443|Ingresos y salidas por mes
+444|Ingresos · Gastos · Ofrendas · Ahorro
+445|Ingresos, gastos, ofrendas y ahorro
+446|Nada
+447|Nada registrado
+448|Nada registrado para este día
+449|Apartado
+450|Apartados añadidos
+451|Realizado
+452|Recuperando tu perfil.
+453|Reintentar
+454|Ajustes
+455|Ajustes:
+456|Ajustes de finanzas
+457|Ajustes guardados.
+458|Regularidad
+459|Reparto del tiempo
+460|Inscribirse
+461|Inscribirse con Google
+462|Registros encontrados en este dispositivo
+463|Escribir su nombre
+464|Introduce el código de # caracteres que te dio tu dirigente de asamblea y toca «Unirme».
+465|Introduce tu correo: recibirás un enlace para elegir una nueva contraseña.
+466|Salario
+467|Salario + otros ingresos
+468|Solo el salario
+469|Copia de seguridad
+470|Puntuación # %
+471|Puntuación de la semana
+472|Iniciar sesión
+473|Iniciar sesión con Google
+474|Cerrar sesión
+475|Semana
+476|Semana y mes
+477|Semana anterior
+478|Semana siguiente
+479|Semana por llenar.
+480|A solas
+481|Atención médica
+482|Sé abundantemente bendecido(a), Hermano / Hermana
+483|Índice de la guía
+484|Dinero recibido en el mes (FCFA)
+485|Sueño
+486|Estadísticas detalladas
+487|Estado
+488|Motivo de oración / compromiso #
+489|Eliminar
+490|¿Eliminar este gasto?
+491|Eliminar mi cuenta
+492|En Android:
+493|En iPhone:
+494|En la página de inicio de sesión, toca «¿Olvidaste tu contraseña?»: llega un enlace por correo.
+495|En ordenador:
+496|Sincronización segura entre dispositivos
+497|Sincronizando…
+498|Sincronizado a las #
+499|Resumen
+500|Resumen:
+501|Tabla
+502|Panel
+503|Panel:
+504|Taxi
+505|Tiempo
+506|Tiempo de RDQD
+507|Terminar
+508|Total
+509|Total dado a Dios: # FCFA (# %). Se alcanzó el # %.
+510|Total dado a Dios: # FCFA (# %). Falta dar: # FCFA.
+511|Total de oración a solas
+512|Total ahorro y proyectos: # FCFA.
+513|Total ahorro y proyectos: # FCFA. Falta ahorrar: # FCFA.
+514|Toca un día para abrirlo.
+515|Toca «Empezar mi cuaderno» y llena apellido, nombres, contacto, ciudad, correo y una contraseña (al menos # caracteres). También puedes usar «Inscribirse con Google».
+516|Todo se guarda automáticamente: no hay botón «Guardar».
+517|Ver todo
+518|Toda la asamblea
+519|Todas
+520|Todas las salidas
+521|Transferencias
+522|Transporte
+523|Tres gestos,
+524|Demasiado corto
+525|Tipo de apartado
+526|Descargar
+527|Una banda abajo de la pantalla recuerda la oración en curso. Puedes cambiar de página o poner el teléfono en reposo: el tiempo sigue.
+528|Un momento…
+529|Una notificación en cada horario, mientras el día no esté completo (oración, meditación, evangelización).
+530|Valores de origen
+531|Validar el código
+532|Transferencia
+533|Ver el día
+534|Ver los informes
+535|Tus finanzas son
+536|Tus finanzas son privadas: solo tú las ves, ni tu hacedor ni tu dirigente.
+537|Tus objetivos personales: sirven para la puntuación de la semana y el informe PDF.
+538|Tus registros quedan en este dispositivo. Guarda una copia de vez en cuando.
+539|Tus registros se guardan en tu cuenta. También puedes guardar una copia en un archivo.
+540|Tu asamblea y tu hacedor de discípulos se eligen en el siguiente paso. Al crear una cuenta, aceptas las
+541|Tu cuaderno de oración, meditación y evangelización. Unos pocos gestos cada día, y tu informe de la semana y del mes está listo para imprimir.
+542|Tu cuenta de Google está vinculada. Faltan tu contacto y tu zona para que aparezcan en tus informes.
+543|Tu hacedor de discípulos
+544|Tu hacedor de discípulos y el dirigente de la asamblea ven estos datos.
+545|Tu hacedor de discípulos y el dirigente de tu asamblea ven tus informes, abren tus PDF de la semana y del mes, y pueden orar por ti en el momento oportuno.
+546|Tu hacedor de discípulos y tu dirigente de asamblea también ven tus informes en la aplicación.
+547|Llegas al inicio, con dos espacios: «Relación con Dios» y «Finanzas». El logo arriba a la izquierda siempre te devuelve a este inicio.
+548|Puedes reemplazar un código en cualquier momento: el anterior deja de funcionar.
+549|Recibirás el código para dar a los miembros y verás sus informes.
+550|¿Ya llevas un archivo Excel de gastos? Impórtalo desde los ajustes de finanzas.
+551|Sesión cerrada.
+552|Viajes
+553|Verificando el código…
+554|Ropa
+555|Zona / Ciudad
+556|con Dios.
+557|presupuesto # F
+558|presupuesto por mes
+559|capítulos leídos
+560|condiciones de uso
+561|crea la asamblea al inscribirte y comparte su código de invitación. Ves toda la asamblea y quién llenó hoy.
+562|en Chrome o Edge, haz clic en el icono de instalación a la derecha de la barra de direcciones.
+563|de discípulos
+564|discípulo
+565|disponibles de # FCFA de ingresos
+566|en curso
+567|en horas : minutos
+568|y las
+569|fija la parte de las ofrendas al Señor (# % por defecto), el objetivo de ahorro, tus categorías y sus presupuestos.
+570|horas : minutos
+571|sin ahorro ni proyectos
+572|solos.
+573|días de ayuno
+574|días completados
+575|la pestaña «Mis discípulos» muestra la puntuación de cada discípulo, sus totales y su informe en PDF, semana a semana.
+576|el resto del mes, los gastos, las ofrendas a Dios, el ahorro y el reparto por categoría.
+577|el estado de cada categoría (OK, Atención, Superado) y el balance del año, mes a mes.
+578|miembros
+579|objetivo # F
+580|objetivo de arriba
+581|llenaron hoy
+582|o
+583|o con tu correo
+584|abre el sitio en Chrome, toca el menú ⋮ y luego «Instalar aplicación» (o «Añadir a pantalla de inicio»).
+585|abre el sitio en Safari, toca el botón Compartir y luego «Añadir a pantalla de inicio».
+586|sin objetivo
+587|pers.
+588|personas evangelizadas
+589|privadas
+590|oración en grupo
+591|oración a solas · # min/día
+592|proyectos: # F
+593|quedan # F
+594|reglas de privacidad
+595|introduce tu salario y tus otros ingresos del mes, luego «Guardar».
+596|sin presupuesto
+597|puntuación media de la semana
+598|a solas · en grupo
+599|tiempo
+600|toca «+ Gasto», indica el monto, la descripción, la categoría, el día y el medio de pago, luego «Añadir».
+601|un calendario de colores. Verde: día completo. Naranja: día parcialmente lleno. Toca un día para abrirlo.
+602|un informe.
+603|un paso más
+604|tu progreso por día, semana, mes o año, con el reparto del tiempo y la regularidad.
+605|tu puntuación y un indicador por objetivo. Toca «Modificar» para fijar tus propios objetivos. También puedes anotar las ofrendas y las observaciones de la semana.
+606|«Acercaos a Dios, y él se acercará a vosotros.»
+607|«Buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.»
+608|«Honra a Jehová con tus bienes, y con las primicias de todos tus frutos.»
+609|«Orad sin cesar.»
+610|«Lámpara es a mis pies tu palabra, y lumbrera a mi camino.»
+611|Junto a cada tiempo, toca el botón cronómetro cuando empieces a orar: empieza a contar.
+612|Por hacer
+613|Al final, toca «Detener»: el tiempo pasado se suma al apartado. Menos de # segundos no cuenta.
+614|Por llenar antes de imprimir el mes
+615|Por llenar para la semana
+616|Por introducir
+617|Almas ganadas e integradas
+618|Ahorro
+619|Ahorro del mes
+620|Ahorro y proyectos
+621|Ahorro a apartar cada mes
+622|Evangelización
+623|Evangelizados
+624|Evolución de la oración
+625|por empezar
+626|por hacer
+627|— Elegir —
+628|← Volver al inicio de sesión
+629|(PDF adjunto:
+630|(aún no inscrito)
+631|: tus registros se guardan en el dispositivo
+632|Mostrar la contraseña
+633|Ningún informe para enviar.
+634|Ningún discípulo te ha elegido todavía como hacedor de discípulos.
+635|Ninguna asamblea
+636|No se encontró ninguna hoja de parámetros ni de mes en este archivo.
+637|Permite las notificaciones para recibir los recordatorios.
+638|Otras categorías
+639|Categoría quitada: recuerda guardar.
+640|No se pudo leer este archivo: {x}
+641|Este archivo no es una copia de seguridad de esta aplicación.
+642|Este enlace no es válido.
+643|Este navegador no permite crear el PDF aquí: usa «Imprimir / Guardar en PDF».
+644|Estos datos aparecen en la cabecera de tus informes.
+645|Estos datos aparecen en la cabecera de tus informes. Se quedan en este dispositivo.
+646|Esta categoría ya existe.
+647|No se puede leer esta imagen.
+648|Cambiar de asamblea
+649|Elige los dos horarios.
+650|Elige una imagen (foto JPEG o PNG).
+651|Elige a tu hacedor de discípulos, o «Más tarde».
+652|Informe semana
+653|No se pudo iniciar sesión.
+654|Copiado ✓
+655|Ponle un nombre a la nueva categoría.
+656|Archivo guardado en Descargas.
+657|Conserva al menos un medio de pago.
+658|Sin conexión
+659|Fuera del mes
+660|Imagen del informe no disponible.
+661|Importación cancelada.
+662|Indica el monto del gasto.
+663|Datos guardados
+664|Datos del mes guardados
+665|El código anterior ya no funcionará. Los discípulos ya vinculados contigo lo siguen estando.
+666|El código anterior ya no funcionará. Los miembros ya inscritos siguen en la asamblea.
+667|La aplicación no está conectada a un servidor.
+668|Error al guardar: la memoria del dispositivo está llena.
+669|No se pudo iniciar la impresión.
+670|La impresión no está disponible en esta vista.
+671|El ahorro debe ser un monto positivo.
+672|Se alcanzó el ahorro del mes.
+673|El inicio de sesión con Google aún no está activado en el servidor.
+674|La solicitud falló ({x}
+675|La parte de las ofrendas debe ser un porcentaje entre # y #.
+676|No se pudo crear la copia de seguridad.
+677|El presupuesto debe ser un monto positivo.
+678|El código tiene # caracteres.
+679|El código de hacedor tiene # caracteres.
+680|El último recordatorio debe ser después del primero.
+681|No se pudo crear el archivo. Inténtalo de nuevo.
+682|No se pudo leer el archivo.
+683|No se pudo cargar el módulo PDF.
+684|No se pudo cargar la plantilla Excel.
+685|El apellido y los nombres son obligatorios.
+686|La nueva contraseña debe ser diferente de la anterior.
+687|Este navegador no ofrece compartir directamente: envía el archivo desde WhatsApp o tu correo.
+688|El servidor no responde correctamente. Inténtalo más tarde.
+689|Las inscripciones están cerradas por ahora.
+690|Los meses ya llenos serán reemplazados.
+691|Ocultar la contraseña
+692|Contraseña cambiada
+693|Contraseña demasiado corta: al menos # caracteres.
+694|Sin sesión.
+695|Nuevo código creado.
+696|PDF compartido.
+697|Compartir cancelado.
+698|Sin conexión a internet. Inténtalo cuando estés conectado.
+699|Ningún hacedor elegido
+700|Ninguna oración anotada
+701|Foto guardada en este dispositivo: se enviará en cuanto el servidor la acepte.
+702|Foto quitada
+703|Para no olvidar la oración, la meditación y la evangelización.
+704|Perfil guardado
+705|Perfil no encontrado. Inténtalo en un momento.
+706|Preparando el archivo…
+707|Recordatorios desactivados
+708|Recordatorios programados
+709|Recordatorios a las {x}
+710|Reemplazar mi código de hacedor
+711|Llena los cuatro campos.
+712|Llena todos los campos.
+713|Introduce tus ingresos del mes para calcular el objetivo.
+714|Sin nombre
+715|Copia restaurada: {x}
+716|Semana guardada
+717|Si existe una cuenta para esta dirección, se acaba de enviar un enlace. Revisa también el correo no deseado.
+718|Eliminar definitivamente
+719|Sincronización imposible: {x}
+720|Demasiados intentos. Espera un minuto y vuelve a intentarlo.
+721|Descarga cancelada.
+722|Un presupuesto no es un número válido.
+723|Uno de los valores introducidos no se acepta.
+724|Tus registros quedan en este dispositivo. Guarda una copia de vez en cuando, y antes de cambiar de teléfono.
+725|Tu cuenta y todos tus registros en línea se borrarán definitivamente. Crea primero una copia de seguridad si quieres conservarlos.
+726|Tu hacedor de discípulos actual ya no verá tus informes. Elegirás uno en la nueva asamblea.
+727|Tu hacedor de discípulos y los dirigentes ya no verán tus informes.
+728|No tienes permiso para hacer este cambio.
+729|Revisa los números (RDQD y ayuno: de # a # días).
+730|Se abre WhatsApp: adjunta el archivo «{x}»
+731|{x} (aún no está en la aplicación)
+732|Escribe la duración en horas:minutos, por ejemplo #.
+733|Escribe los tiempos en horas:minutos, por ejemplo #.
+734|Escribe solo cifras (sin signo menos).
+735|— enviado desde la aplicación Informe espiritual.
+736|{x} · Hacedor: {x}
+737|{x} · Asamblea: {x}
+738|Actualmente: {x}
+739|Añadido: {x}
+740|Bienvenido(a), {x}
+741|Hola {x} 👋
+742|Conectado con {x}
+743|Miembro · {x}
+744|Dirigente de asamblea · {x}
+745|Eres miembro de «{x}». Elige a la persona que te acompaña: verá tus informes, como el dirigente de la asamblea.
+746|Presupuesto de {x}
+747|Quitar la categoría {x}
+748|Quitar el apartado {x}
+749|Quitar {x}
+750|Modificar «{x}»
+751|Eliminar «{x}»
+752|Cronometrar «{x}»
+753|Detener el cronómetro de «{x}»
+754|Menos # para {x}
+755|Más # para {x}
+756|Oración en curso · {x}
+757|Cronómetro iniciado para «{x}». Toca de nuevo para detener.
+758|+# añadido a «{x}».
+759|Gasto modificado: {x}
+760|Ingresos de {x} guardados.
+761|Ningún gasto en {x}.
+762|«{x}» · eres su dirigente
+763|«{x}» añadida: recuerda guardar.
+764|«{x}» ya no aparecerá en tu día. Lo ya anotado queda guardado.
+765|Apartado «{x}» añadido
+766|Restablecer los apartados de origen ({x})
+767|Nombre del apartado #
+768|Del # al # de {x} · semana #
+769|Del # de {x} al # de {x} · semana #
+770|Del # al # de {x}
+771|Paso # de # · {x}
+772|Acompañamiento
+773|Tus datos
+774|{x} es ahora tu hacedor de discípulos.
+775|{x} verá los informes de toda la asamblea y podrá gestionar a los miembros.
+776|{x} (dirigente)
+777|{x} (otra asamblea)
+778|{x}: ingresos # F, salidas # F
+779|PDF {x}
+780|Cuenta creada. Abre el enlace enviado a {x} para confirmar tu dirección y luego inicia sesión.
+781|La contraseña debe tener al menos # caracteres.
+782|Mateo #
+783|# Tesalonicenses #
+784|Proverbios #
+785|Salmo #
+786|Santiago #
+787|«Orad sin cesar.» # Tesalonicenses #
+788|Necesidad #
+789|Discípulo #
+790|Libro #
+791|Total #
+792|Año #
+793|Balance #
+794|Monto {x}
+795|Porcentaje {x}
+796|{x} · {x} · # {x}
+797|{x} · # FCFA · # {x}
+798|{x} · {x} · {x}
+799|{x} · {x}
+800|Bienvenido(a)
+801|Hola
+802|Mi asamblea
+803|Mi asamblea aún no está en la aplicación
+804|Mi código de hacedor de discípulos
+805|Mi cuenta
+806|Mi hacedor de discípulos
+807|Mi hacedor está en otra asamblea
+808|Mi hacedor aún no está inscrito
+809|Mi mes
+810|Mi mes:
+811|Mi perfil
+812|# {x}: nada
+813|ORACIÓN
+814|MEDITACIÓN
+815|EVANGELIZACIÓN
+816|SANTIAGO #
+817|Los …
+818|Atención: las salidas ({x}) superan los ingresos en {x}.
+819|Atención: en el año, las salidas superan los ingresos en {x}.
+820|Presupuesto / objetivo
+821|Presupuesto de la nueva categoría
+822|Cifras clave
+823|hoy
+824|Documento personal y confidencial
+825|Detalle de los gastos ({x})
+826|En {x}: {x} meses seguidos, ingresos {x}, gastos {x}.
+827|En {x}, tus ingresos ascienden a {x} (salario {x}, otros ingresos {x}).
+828|Excel del año
+829|Excel de la semana
+830|Excel del mes
+831|El balance del año redactado: resumen, mes a mes y categorías, en PDF o en Excel.
+832|El día de más gasto es el {x} ({x}); el gasto medio es de {x} por día.
+833|Mes de más gasto: {x} ({x}).
+834|Parte
+835|Parte de los ingresos
+836|Principales partidas de gasto: {x}.
+837|Informe del año (PDF)
+838|Informe del mes (PDF)
+839|Informe financiero del año
+840|Informe financiero del mes
+841|Informe elaborado el {x} con la aplicación Informe espiritual.
+842|Semana # · {x}
+843|Total de salidas
+844|Total dado a Dios: {x}, es decir {x} de la base.
+845|Descargar en Excel
+846|Un informe redactado: resumen, cifras clave, categorías y detalle de los gastos, para imprimir, compartir o descargar.
+847|Tus gastos del mes llegan a {x}, es decir {x} de tus ingresos.
+848|Diste {x} a Dios ({x} de la base): se alcanzó el objetivo de {x}.
+849|Gastaste más que tus ingresos este mes.
+850|Diferencia
+851|Ahorro del año: {x}.
+852|Ahorro apartado: {x}.
+853|Tus gastos del mes llegan a {x}.
+854|Diste {x} a Dios ({x} de la base); faltan {x} para alcanzar el objetivo de {x}.
+855|Diste {x} a Dios.
+856|Ahorro apartado: {x}, se alcanzó el objetivo de {x}.
+857|Ahorro apartado: {x} de un objetivo de {x}.
+858|Proyectos: {x}.
+859|Después de todas las salidas ({x}), te quedan {x}.
+860|Presupuestos superados: {x}.
+861|No se ha introducido ningún dato financiero para {x}.
+862|Ahorro del año: {x} de un objetivo de {x}.
+863|Saldo acumulado del año: {x}.
+864|OK
+865|Atención
+866|Superado
+867|Objetivo de ofrendas
+868|Objetivo de ahorro
+869|Informe financiero
+870|Compartir, imprimir o descargar
+871|Imprimir
+872|cap.
+873|Categorías
+874|Buenas tardes {x} 👋
+875|Buenas noches {x} 👋
+876|Hola 👋
+877|Buenas tardes 👋
+878|Buenas noches 👋
+879|INFORME ESPIRITUAL DEL MES DE
+880|INFORME ESPIRITUAL DEL MES DE {x} #
+881|INFORME ESPIRITUAL • SEMANA # •
+882|INFORME ESPIRITUAL • SEMANA # • {x} #
+883|días
+884|Del lunes
+885|al domingo
+886|Del lunes {x} al domingo {x}
+887|Esta semana está totalmente fuera del mes de
+888|: hoja no utilizada este mes.
+889|Los días en gris están fuera del mes de
+890|: cuentan en el total de la semana, no en la hoja MES.
+891|Los días en gris están fuera del mes: cuentan en el total de la semana, no en el del mes.
+892|Amarillo claro: fin de semana.
+893|¡Todos los objetivos alcanzados!
+894|¡Muy buena semana, sigue así!
+895|¡Todos los objetivos del mes alcanzados!
+896|¡Muy buen mes, sigue así!
+897|Mes por completar.
+898|sin objetivo
+899|ALCANZADO
+900|PANEL •
+901|• Hacedor de discípulos:
+902|el
+903|del
+904|al
+905|día(s) de
+906|Oración a solas por semana (horas)
+907|horas
+908|Oración a solas por día (minutos)
+909|minutos
+910|Escribe el número del mes (1 a 12): el título y los días de la semana se actualizan.
+911|Suma Hacedor + Yo + Conquista + Otro (la oración con discípulo se cuenta aparte, como en tu archivo original).
+912|MES
+913|Semana #
+914|NOMBRE Y APELLIDOS:
+915|CONTACTO:
+916|ZONA / CIUDAD:
+917|PUNTUACIÓN DE LA SEMANA
+918|HACEDOR DE DISCÍPULOS:
+919|ASAMBLEA EN:
+920|ORACIÓN A SOLAS
+921|AYUNO
+922|LECTURA BÍBLICA
+923|SUEÑO
+924|Conquista
+925|BALANCE DE LA SEMANA
+926|Oración en grupo (h:mm)
+927|MOTIVOS DE ORACIÓN / COMPROMISOS DE LA SEMANA
+928|Celdas blancas: por llenar • tiempo en formato h:mm (ej. 0:30) • JC / JP: poner 1 el día del ayuno • amarillo claro: fin de semana • Total, balance y puntuación: calculados automáticamente • la hoja MES se llena sola
+929|EV: evangelización • RDQD: cita diaria con Dios • PG: oración en grupo • RS • JC: ayuno completo • JP: ayuno parcial • LC: lectura cristiana
+930|EV: evangelización • RDQD: encuentro dinámico diario con Dios • PG: oración en grupo • RS • JC: ayuno completo • JP: ayuno parcial • LC: lectura cristiana
+931|OFRENDAS AL SEÑOR
+932|Ayudas de cálculo (no modificar)
+933|MES (N.º):
+934|AÑO:
+935|TOTAL
+936|Tabla de días llenada automáticamente desde las hojas Semana
+937|N.º
+938|Puesto
+939|Oración a solas (min)
+940|SÍNTESIS DEL MES
+941|min/día
+942|Oración en grupo
+943|min/RDQD
+944|cap./día
+945|LIBROS LEÍDOS
+946|NECESIDADES DE ORACIÓN
+947|Leyenda: días llenados automáticamente desde las hojas Semana • a escribir aquí: cifras en azul, libros leídos, necesidades de oración • amarillo claro: fin de semana
+948|MIS OBJETIVOS (cifras en azul: a adaptar)
+949|PUNTUACIÓN DEL MES
+950|Oración a solas por día
+951|h:mm por día
+952|Lectura bíblica por día
+953|capítulos por día
+954|RDQD por semana
+955|días por semana
+956|Oración en grupo por semana
+957|h:mm por semana
+958|Ayuno por semana
+959|día(s) por semana
+960|Valores de ejemplo propuestos por defecto: cámbialos por tus propios objetivos. Pon 0 para no seguir un objetivo.
+961|PROGRESO DEL MES
+962|RESUMEN POR SEMANA (solo días del mes)
+963|Datos de los gráficos (no modificar)
+964|Días del mes
+965|N.º de días
+966|Oración en grupo
+967|RDQD (días)
+968|Ayuno (días)
+969|Objetivo de oración
+970|Realizado (h)
+971|Objetivo (h)
+972|Total del mes
+973|Mejor semana (oración a solas)
+974|Regularidad RDQD
+975|¿QUÉ TE DIJO DIOS ESTA SEMANA?
+976|¿QUÉ TE DIJO DIOS ESTA SEMANA?
+977|{x} por día
+978|{x} por RDQD
+979|{x} cap. por día
+980|# JC • # JP
+981|Informe {x} semana # {x} #
+982|Informe {x} {x} #
+983|Informe semana # {x} #
+984|Informe {x} #
+985|Informe espiritual {x} #
+986|Informe espiritual semana # {x} #

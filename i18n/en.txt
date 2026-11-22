@@ -1,0 +1,986 @@
+1|# % auto
+2|# % of the base
+3|# % of your income
+4|# % of your salary
+5|# % of income
+6|# % used
+7|# / # days
+8|# / # days filled
+9|# F of # F · reached ✓
+10|# F of # F · reached ✓
+11|# F of # F · over budget
+12|# F of # F · # F left
+13|# F, no goal set
+14|at least # characters
+15|# categories, # expenses ({x} #).
+16|# chap. per day
+17|# of prayer · RDQD
+18|# of prayer · RDQD · # EV
+19|# disciple
+20|# expense
+21|# expenses
+22|# expenses (filtered)
+23|# hour
+24|# hours
+25|# day of RDQD
+26|# days of RDQD
+27|# months tracked
+28|# per RDQD
+29|# per day
+30|# people
+31|# entry being sent
+32|# entries being sent
+33|# alone
+34|# of #
+35|# of # day
+36|# of # days
+37|# of # · prayer, meditation, evangelism
+38|#. Create your account and join your assembly
+39|#. Install the app
+40|#. The Finances space
+41|#. The prayer stopwatch
+42|#. The report (PDF and Excel)
+43|#. My week, My month and the summary
+44|#. For disciple-makers and leaders
+45|#. Frequently asked questions
+46|#. Filling in “My day”
+47|% gifts
+48|(at least # characters, for example # digits)
+49|+ Add an item
+50|: neither your disciple-maker nor your assembly leader can see them.
+51|Home
+52|Home: choose a space
+53|Home · switch space
+54|Show or hide the password
+55|Add
+56|Add an expense
+57|Cancel
+58|Year
+59|Previous year
+60|Next year
+61|Stop
+62|Assembly
+63|Reached
+64|No disciple-maker chosen.
+65|No members yet: give them the invitation code.
+66|No expenses this month.
+67|No expenses recorded. Tap “+ Expense” to start.
+68|Today
+69|Other
+70|Others
+71|Other income
+72|Prayer needs
+73|Bible
+74|Summary
+75|Year in review
+76|Summary by month
+77|Good
+78|Good effort, keep going.
+79|Budget
+80|Budgets
+81|Budgets and summary:
+82|Budgets and goals
+83|Gift
+84|Calculated on
+85|Card
+86|Category
+87|Special category
+88|Categories and budgets
+89|This week
+90|Field
+91|Change
+92|Change photo
+93|Change profile photo
+94|Chapters
+95|Chapters read
+96|Chapters read, per day
+97|Every day,
+98|Each member creates an account and then enters this code.
+99|Loading…
+100|Choose the .xlsx file
+101|Choose the language of the app. The guide explains each page step by step.
+102|Choose a password of at least # characters.
+103|Choose your space
+104|Choose your disciple-maker from the list of members. If they are in another assembly, enter their disciple-maker code.
+105|Stopwatch
+106|Stopwatch stopped: less than # seconds, nothing was added.
+107|Your assembly code
+108|Your disciple-maker's code
+109|Code to give to members:
+110|Start my notebook
+111|Start your notebook
+112|How do I change my disciple-maker or assembly?
+113|How do I change the language?
+114|How do I get reminders?
+115|How do I delete my account?
+116|How it works
+117|Complete your profile
+118|Account
+119|Account ready
+120|Report
+121|Spiritual report
+122|Spiritual report · Prayer · Meditation · Evangelism
+123|Terms
+124|Privacy
+125|Confirm
+126|Sign in to continue your daily spiritual follow-up.
+127|Sign in
+128|Signing in…
+129|Contact (phone)
+130|Continue
+131|Keep filling in: everything is kept on the phone and sent as soon as the connection returns.
+132|Copy
+133|Copy the code
+134|Fair
+135|Courage, every day counts.
+136|Creating the account…
+137|Create the assembly
+138|Create my account
+139|Create my free account
+140|Create an account
+141|Create a backup
+142|Create your personal access in less than a minute.
+143|In the Android app, open “My profile”, then “Reminders”, and choose the times.
+144|In the print window, choose “Save as PDF” or your printer.
+145|In “My week”, tap “Print / PDF of the week”; in “My month”, “Print / PDF of the month”. The report is already filled in with your entries.
+146|In “My profile”, choose another disciple-maker or enter the code of another assembly.
+147|In “My profile”, give your disciple-maker code to the people you accompany, even if they are in another assembly.
+148|In “My profile”, at the bottom, tap “Delete my account”. All your data is erased.
+149|Date
+150|From installation to the monthly report, step by step.
+151|Ask them for their disciple-maker code (# characters): they will find it in their profile.
+152|Last reminder no later than
+153|Latest expenses
+154|Description
+155|Currency
+156|Leader
+157|Assembly leader:
+158|Leader of the assembly
+159|Disciple
+160|Disciples
+161|Give this code to the people you accompany, even if they are in another assembly: by entering it, they choose you as their disciple-maker. You will see their reports, like the leader of their assembly, and no one else.
+162|Give the new item a name.
+163|Gifts
+164|Gifts to the Lord
+165|Gifts to the Lord (# %)
+166|Gifts to the Lord, souls won, books and needs.
+167|Gifts to others
+168|Gifts to brothers and sisters
+169|Gifts to parents
+170|Gifts and savings
+171|Gifts to God
+172|Gifts, savings, categories
+173|From Monday #/#/# to Sunday #/#/#
+174|Duration (h:mm)
+175|Expense
+176|Average spending per day
+177|Expense deleted.
+178|Expenses
+179|Expenses:
+180|Everyday expenses
+181|Expenses this month
+182|Recorded expenses
+183|Expenses by category
+184|Expenses by day
+185|Expenses ÷ income
+186|Tithe
+187|Tithe and offering
+188|Email
+189|Incorrect email or password.
+190|EV · people
+191|In progress
+192|At the top of this guide, or in “My profile”, choose the language from the list.
+193|At the top, the seven days of the week: tap a day to fill it in or correct it.
+194|Partly
+195|Saving…
+196|Save
+197|Save the week
+198|Save the password
+199|Save reminders
+200|Save settings
+201|Saved at #
+202|Sending the photo…
+203|Send or share the PDF
+204|Cash
+205|E.g.: Wave, Orange Money
+206|E.g.: transport, rice, collection…
+207|Disciple-maker
+208|Disciple-maker from another assembly: their code
+209|Disciple-maker
+210|Disciple-maker:
+211|Disciple-makers and leaders
+212|Excel file
+213|File downloaded.
+214|Filter by category
+215|Finish my registration
+216|Finances
+217|Free · Android, iPhone and computer
+218|Guide
+219|User guide
+220|Manage
+221|Ignore
+222|They will see your reports
+223|Import successful: # expenses and your settings have been brought in.
+224|Import
+225|Import this file?
+226|Import my Excel file
+227|Print / Save as PDF
+228|Print / PDF of the week
+229|Print / PDF of the month
+230|Print and share
+231|Indicators
+232|Enter your salary below to see what you have left.
+233|Sign up
+234|Install
+235|Internet
+236|Invite members
+237|I forgot my password.
+238|Pale yellow: weekend. EV: evangelism • RDQD: dynamic daily encounter with God • PG: group prayer • RS • JC: full fast • JP: partial fast • LC: Christian reading
+239|I have no internet.
+240|I am an assembly leader
+241|Fasting
+242|Fasting (JC + JP days)
+243|Full fast
+244|Fasting and rest
+245|Partial fast
+246|Day
+247|Highest-spending day
+248|Day by day
+249|Previous day
+250|Next day
+251|Day
+252|Complete day
+253|Day saved
+254|Complete days
+255|RDQD days
+256|RDQD days, per week
+257|Fasting days (JC + JP)
+258|Fasting days, per week
+259|Days of the week
+260|Days filled
+261|The app then opens like a real app, and it works even without internet: your entries are sent as soon as the connection returns.
+262|The dynamic daily encounter with God, chapters read and Christian reading.
+263|Language
+264|App language
+265|Language and help
+266|The PDF is prepared from the page above.
+267|Your assembly leader gives you this #-character code.
+268|The Excel file contains the month sheet, one sheet per week and the dashboard.
+269|The month in figures
+270|The amount must be a positive number.
+271|Bible reading
+272|Bible reading (chapters)
+273|Bible reading (hours : minutes)
+274|Christian reading
+275|Christian reading (hours : minutes)
+276|Reading the file…
+277|Add them to my account
+278|Greyed-out days are outside the month: they count in the week total, not in the month total. EV: evangelism • RDQD: dynamic daily encounter with God • PG: group prayer • RS • JC: full fast • JP: partial fast • LC: Christian reading
+279|People evangelized each day, and souls won during the month.
+280|Reminders (every # hours from # h) arrive in the Android app.
+281|Times are recorded in hours and minutes, reminders keep you on track, and everything is on all your devices.
+282|The three tiles sum up the day's prayer, meditation and evangelism. When all three are filled in, the day is complete.
+283|Books read
+284|Booklet
+285|Rent
+286|My day
+287|My week
+288|My week:
+289|Member of the assembly
+290|Menu
+291|My disciples
+292|My expenses
+293|My finances
+294|My information
+295|Minutes of prayer per day
+296|Mobile money
+297|Edit
+298|Edit the expense
+299|Edit budgets
+300|Edit my information
+301|Me
+302|Month
+303|Previous month
+304|Next month
+305|Amount
+306|Amount (F)
+307|Tithe amount
+308|Password
+309|Forgot password
+310|Forgot your password?
+311|Payment methods
+312|Meditation
+313|Meditation (RDQD + reading)
+314|Meditation · RDQD
+315|Navigation
+316|Finances navigation
+317|Last name
+318|Assembly name
+319|Category name
+320|Name of the new category
+321|Name of the new item
+322|Your disciple-maker's name
+323|Number
+324|Number of RDQD
+325|Appoint
+326|Appoint as leader
+327|Uncategorized
+328|Food
+329|New password
+330|New payment method
+331|New category
+332|New expense
+333|New item
+334|Goal
+335|Goals
+336|Goals for the month
+337|Goals saved
+338|Offerings & collections
+339|We never walk
+340|Yes / no
+341|Opening Google…
+342|Opening your notebook…
+343|Open my finances
+344|Open my notebook
+345|Where the money goes
+346|PDF ready to send.
+347|Week PDF
+348|Payment
+349|Share of gifts to the Lord (%)
+350|Share…
+351|Share it by WhatsApp or email, download it as PDF or Excel, or print it.
+352|People
+353|People evangelized
+354|Photo saved
+355|Later
+356|Fish
+357|To add or remove an item, tap “Edit” next to the section title, then “Add” and “Finish”.
+358|For each item, enter the percentage or the amount: the other is calculated.
+359|For others
+360|For others (hours : minutes)
+361|For the disciples of our assembly
+362|For disciple-makers and leaders
+363|For me
+364|For me (hours : minutes)
+365|For my disciple-maker
+366|For my disciple-maker (hours : minutes)
+367|For a number (chapters read, people evangelized), type the number. For fasting, tap the switch.
+368|For a duration, use the − and + buttons (# minutes each time) or type the time in hours:minutes, for example #.
+369|For your disciple-maker, for yourself, for others, and group prayer.
+370|Tithe percentage
+371|First reminder
+372|Prayer
+373|Prayer today
+374|Prayer this week
+375|Night watch prayer
+376|Night watch prayer (hours : minutes)
+377|Prayer of the day
+378|Group prayer
+379|Group prayer (h:mm)
+380|Group prayer (hours : minutes)
+381|Group prayer, per week (h:mm)
+382|Prayer and meditation
+383|Prayer per day
+384|Prayer per period
+385|Prayer alone
+386|Prayer alone (h:mm)
+387|Prayer alone, per day (h:mm)
+388|Total prayer
+389|Prayer · Meditation · Evangelism
+390|Prayer, meditation and evangelism: record your day in a few taps, in hours and minutes.
+391|Profile
+392|Progress
+393|End-of-month projection
+394|Project
+395|Projects
+396|First names
+397|Preparing the photo…
+398|Preparing the PDF…
+399|Introduction
+400|Then every
+401|Period
+402|What did God tell you this week?
+403|Which way are you heading today?
+404|Questions
+405|Leave the assembly
+406|Collection
+407|RDQD (number of days)
+408|RDQD · # min on average
+409|RS (hours : minutes)
+410|Shortcuts
+411|Reminders
+412|Reminders on
+413|Get the link
+414|Join
+415|Join my assembly
+416|Join another assembly (code)
+417|Relationship with God
+418|Link your account to your local assembly.
+419|Replace the code
+420|Encounter with God
+421|Dynamic daily encounter with God
+422|Dynamic daily encounter with God (hours : minutes)
+423|Hand in your monthly report before the # of the following month.
+424|Bring in your “Daily expenses” file: settings, categories, income and expenses for each month.
+425|Restaurant
+426|Restore
+427|Left
+428|Cumulative balance
+429|Left this month
+430|Stay signed in on this device
+431|Remove
+432|Remove Mobile money
+433|Remove from the assembly
+434|Remove the photo
+435|Remove the item
+436|Remove the leader role
+437|Back
+438|Back to home
+439|Income for the month (FCFA)
+440|Income
+441|Income:
+442|Income this month
+443|Income and outflows by month
+444|Income · Expenses · Gifts · Savings
+445|Income, expenses, gifts and savings
+446|Nothing
+447|Nothing recorded
+448|Nothing recorded for this day
+449|Item
+450|Added items
+451|Done
+452|Retrieving your profile.
+453|Try again
+454|Settings
+455|Settings:
+456|Finance settings
+457|Settings saved.
+458|Regularity
+459|Time breakdown
+460|Sign up
+461|Sign up with Google
+462|Entries found on this device
+463|Type their name
+464|Enter the #-character code given by your assembly leader, then tap “Join”.
+465|Enter your email: you will receive a link to choose a new password.
+466|Salary
+467|Salary + other income
+468|Salary only
+469|Backup
+470|Score # %
+471|Score of the week
+472|Sign in
+473|Sign in with Google
+474|Sign out
+475|Week
+476|Week and month
+477|Previous week
+478|Next week
+479|Week to fill in.
+480|Alone
+481|Medical care
+482|Be abundantly blessed, Brother / Sister
+483|Guide contents
+484|Money received during the month (FCFA)
+485|Sleep
+486|Detailed statistics
+487|Status
+488|Prayer topic / commitment #
+489|Delete
+490|Delete this expense?
+491|Delete my account
+492|On Android:
+493|On iPhone:
+494|On the sign-in page, tap “Forgot your password?”: a link arrives by email.
+495|On a computer:
+496|Secure multi-device sync
+497|Syncing…
+498|Synced at #
+499|Summary
+500|Summary:
+501|Table
+502|Dashboard
+503|Dashboard:
+504|Taxi
+505|Time
+506|RDQD time
+507|Finish
+508|Total
+509|Total given to God: # FCFA (# %). The # % has been reached.
+510|Total given to God: # FCFA (# %). Still to give: # FCFA.
+511|Total prayer alone
+512|Total savings and projects: # FCFA.
+513|Total savings and projects: # FCFA. Still to save: # FCFA.
+514|Tap a day to open it.
+515|Tap “Start my notebook”, then fill in last name, first names, contact, city, email and a password (at least # characters). You can also use “Sign up with Google”.
+516|Everything is saved automatically: there is no “Save” button.
+517|See all
+518|The whole assembly
+519|All
+520|All outflows
+521|Transfers
+522|Transport
+523|Three taps,
+524|Too short
+525|Item type
+526|Download
+527|A banner at the bottom of the screen shows the prayer in progress. You can change page or put the phone to sleep: the time keeps running.
+528|One moment…
+529|A notification at each time, as long as the day is not complete (prayer, meditation, evangelism).
+530|Default values
+531|Confirm the code
+532|Bank transfer
+533|See the day
+534|See the reports
+535|Your finances are
+536|Your finances are private: only you can see them, not your disciple-maker or your leader.
+537|Your personal goals: they are used for the week's score and the PDF report.
+538|Your entries stay on this device. Keep a copy from time to time.
+539|Your entries are saved in your account. You can also keep a copy in a file.
+540|Your assembly and your disciple-maker are chosen in the next step. By creating an account, you accept the
+541|Your notebook of prayer, meditation and evangelism. A few taps every day, and your weekly and monthly report is ready to print.
+542|Your Google account is linked. Only your contact and your area remain, to appear on your reports.
+543|Your disciple-maker
+544|Your disciple-maker and the assembly leader see this information.
+545|Your disciple-maker and the leader of your assembly see your reports, open your weekly and monthly PDFs, and can pray for you at the right time.
+546|Your disciple-maker and your assembly leader also see your reports in the app.
+547|You arrive at home, with two spaces: “Relationship with God” and “Finances”. The logo at the top left always brings you back to this home page.
+548|You can replace a code at any time: the old one no longer works.
+549|You will receive the code to give to members and you will see their reports.
+550|Do you already keep an Excel file of expenses? Import it from the finance settings.
+551|You are signed out.
+552|Travel
+553|Checking the code…
+554|Clothing
+555|Area / City
+556|with God.
+557|budget # F
+558|budget per month
+559|chapters read
+560|terms of use
+561|create the assembly when you sign up, then share its invitation code. You see the whole assembly and who has filled in today.
+562|in Chrome or Edge, click the install icon on the right of the address bar.
+563|disciple-maker
+564|disciple
+565|available out of # FCFA of income
+566|in progress
+567|in hours : minutes
+568|and the
+569|set the share of gifts to the Lord (# % by default), the savings goal, your categories and their budgets.
+570|hours : minutes
+571|excluding savings and projects
+572|alone.
+573|fasting days
+574|days filled
+575|the “My disciples” tab shows each disciple's score, totals and PDF report, week by week.
+576|what is left this month, expenses, gifts to God, savings and the breakdown by category.
+577|the status of each category (OK, Caution, Over) and the year in review, month by month.
+578|members
+579|goal # F
+580|goal above
+581|filled in today
+582|or
+583|or with your email
+584|open the site in Chrome, tap the ⋮ menu then “Install app” (or “Add to Home screen”).
+585|open the site in Safari, tap the Share button then “Add to Home Screen”.
+586|no goal
+587|people
+588|people evangelized
+589|private
+590|group prayer
+591|prayer alone · # min/day
+592|projects: # F
+593|# F left
+594|privacy policy
+595|enter your salary and other income for the month, then “Save”.
+596|no budget
+597|average score of the week
+598|alone · in group
+599|time
+600|tap “+ Expense”, enter the amount, the description, the category, the day and the payment method, then “Add”.
+601|a colored calendar. Green: complete day. Orange: partly filled day. Tap a day to open it.
+602|a report.
+603|one step further
+604|your progress by day, week, month or year, with the time breakdown and regularity.
+605|your score and a gauge for each goal. Tap “Edit” to set your own goals. You can also record the week's gifts and remarks.
+606|“Draw nigh to God, and he will draw nigh to you.”
+607|“Seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.”
+608|“Honour the Lord with thy substance, and with the firstfruits of all thine increase.”
+609|“Pray without ceasing.”
+610|“Thy word is a lamp unto my feet, and a light unto my path.”
+611|Next to each time, tap the stopwatch button when you start praying: it starts counting.
+612|To do
+613|At the end, tap “Stop”: the time spent is added to the item. Less than # seconds does not count.
+614|To fill in before printing the month
+615|To fill in for the week
+616|To enter
+617|Souls won and integrated
+618|Savings
+619|Savings this month
+620|Savings and projects
+621|Savings to set aside each month
+622|Evangelism
+623|Evangelized
+624|Prayer trend
+625|to start
+626|to do
+627|— Choose —
+628|← Back to sign in
+629|(PDF attached:
+630|(not registered yet)
+631|: your entries are kept on the device
+632|Show the password
+633|No report to send.
+634|No disciple has chosen you as their disciple-maker yet.
+635|No assembly
+636|No settings page or month page was found in this file.
+637|Allow notifications to receive reminders.
+638|Other categories
+639|Category removed: remember to save.
+640|This file could not be read: {x}
+641|This file is not a backup from this app.
+642|This link is not valid.
+643|This browser cannot create the PDF here: use “Print / Save as PDF”.
+644|This information appears at the top of your reports.
+645|This information appears at the top of your reports. It stays on this device.
+646|This category already exists.
+647|This image cannot be read.
+648|Change assembly
+649|Choose both times.
+650|Choose an image (JPEG or PNG photo).
+651|Choose your disciple-maker, or “Later”.
+652|Weekly report
+653|Unable to sign in.
+654|Copied ✓
+655|Give the new category a name.
+656|File saved in Downloads.
+657|Keep at least one payment method.
+658|Offline
+659|Outside the month
+660|Report image unavailable.
+661|Import cancelled.
+662|Enter the amount of the expense.
+663|Information saved
+664|Month details saved
+665|The old code will no longer work. Disciples already linked to you stay linked.
+666|The old code will no longer work. Members already registered stay in the assembly.
+667|The app is not connected to a server.
+668|Saving failed: the device memory is full.
+669|Printing could not start.
+670|Printing is not available in this view.
+671|Savings must be a positive amount.
+672|This month's savings goal is reached.
+673|Sign-in with Google is not enabled on the server yet.
+674|The request failed ({x}
+675|The share of gifts must be a percentage between # and #.
+676|The backup could not be created.
+677|The budget must be a positive amount.
+678|The code has # characters.
+679|The disciple-maker code has # characters.
+680|The last reminder must be after the first.
+681|The file could not be created. Try again.
+682|The file could not be read.
+683|The PDF module could not be loaded.
+684|The Excel template could not be loaded.
+685|Last name and first names are required.
+686|The new password must be different from the old one.
+687|Direct sharing is not offered by this browser: send the file from WhatsApp or your email.
+688|The server is not responding correctly. Try again later.
+689|Sign-ups are closed for the moment.
+690|Months already filled in will be replaced.
+691|Hide the password
+692|Password changed
+693|Password too short: at least # characters.
+694|Not signed in.
+695|New code created.
+696|PDF shared.
+697|Sharing cancelled.
+698|No internet connection. Try again when you are connected.
+699|No disciple-maker chosen
+700|No prayer recorded
+701|Photo kept on this device: it will be sent as soon as the server accepts it.
+702|Photo removed
+703|So you do not forget prayer, meditation and evangelism.
+704|Profile saved
+705|Profile not found. Try again in a moment.
+706|Preparing the file…
+707|Reminders off
+708|Reminders scheduled
+709|Reminders at {x}
+710|Replace my disciple-maker code
+711|Fill in all four fields.
+712|Fill in all the fields.
+713|Enter your income for the month to calculate the goal.
+714|No name
+715|Backup restored: {x}
+716|Week saved
+717|If an account exists for this address, a link has just been sent. Remember to check your spam folder.
+718|Delete permanently
+719|Sync failed: {x}
+720|Too many attempts. Wait a minute and try again.
+721|Download cancelled.
+722|A budget is not a valid number.
+723|One of the values entered is not accepted.
+724|Your entries stay on this device. Keep a copy from time to time, and before changing phones.
+725|Your account and all your online entries will be permanently erased. Create a backup first if you want to keep a copy.
+726|Your current disciple-maker will no longer see your reports. You will choose one in the new assembly.
+727|Your disciple-maker and the leaders will no longer see your reports.
+728|You are not allowed to make this change.
+729|Check the numbers (RDQD and fasting: from # to # days).
+730|WhatsApp is opening: attach the file “{x}”
+731|{x} (not on the app yet)
+732|Type the duration in hours:minutes, for example #.
+733|Type the times in hours:minutes, for example #.
+734|Type digits only (no minus sign).
+735|— sent from the Spiritual report app.
+736|{x} · Disciple-maker: {x}
+737|{x} · Assembly: {x}
+738|Currently: {x}
+739|Added: {x}
+740|Welcome, {x}
+741|Hello {x} 👋
+742|Signed in as {x}
+743|Member · {x}
+744|Assembly leader · {x}
+745|You are a member of “{x}”. Choose the person who accompanies you: they will see your reports, like the assembly leader.
+746|Budget for {x}
+747|Remove the category {x}
+748|Remove the item {x}
+749|Remove {x}
+750|Edit “{x}”
+751|Delete “{x}”
+752|Time “{x}”
+753|Stop the stopwatch for “{x}”
+754|Minus # for {x}
+755|Plus # for {x}
+756|Prayer in progress · {x}
+757|Stopwatch started for “{x}”. Tap again to stop.
+758|+# added to “{x}”.
+759|Expense updated: {x}
+760|Income for {x} saved.
+761|No expenses for {x}.
+762|“{x}” · you are its leader
+763|“{x}” added: remember to save.
+764|“{x}” will no longer be offered in your day. What has already been recorded stays saved.
+765|Item “{x}” added
+766|Restore the original items ({x})
+767|Name of item #
+768|From # to # {x} · week #
+769|From # {x} to # {x} · week #
+770|From # to # {x}
+771|Step # of # · {x}
+772|Accompaniment
+773|Your information
+774|{x} is now your disciple-maker.
+775|{x} will see the reports of the whole assembly and will be able to manage members.
+776|{x} (leader)
+777|{x} (other assembly)
+778|{x}: income # F, outflows # F
+779|PDF {x}
+780|Account created. Open the link sent to {x} to confirm your address, then sign in.
+781|The password must be at least # characters.
+782|Matthew #
+783|# Thessalonians #
+784|Proverbs #
+785|Psalm #
+786|James #
+787|“Pray without ceasing.” # Thessalonians #
+788|Need #
+789|Disciple #
+790|Book #
+791|Total #
+792|Year #
+793|Summary #
+794|Amount {x}
+795|Percentage {x}
+796|{x} · {x} · # {x}
+797|{x} · # FCFA · # {x}
+798|{x} · {x} · {x}
+799|{x} · {x}
+800|Welcome
+801|Hello
+802|My assembly
+803|My assembly is not on the app yet
+804|My disciple-maker code
+805|My account
+806|My disciple-maker
+807|My disciple-maker is in another assembly
+808|My disciple-maker has not registered yet
+809|My month
+810|My month:
+811|My profile
+812|# {x}: nothing
+813|PRAYER
+814|MEDITATION
+815|EVANGELISM
+816|JAMES #
+817|The … family
+818|Warning: outflows ({x}) exceed income by {x}.
+819|Warning: over the year, outflows exceed income by {x}.
+820|Budget / goal
+821|Budget for the new category
+822|Key figures
+823|today
+824|Personal and confidential document
+825|Expense details ({x})
+826|In {x}: {x} months tracked, income {x}, expenses {x}.
+827|In {x}, your income amounts to {x} (salary {x}, other income {x}).
+828|Excel for the year
+829|Excel for the week
+830|Excel for the month
+831|The year in review, written up: summary, month by month and categories, as PDF or Excel.
+832|The highest-spending day is the {x} ({x}); average spending is {x} per day.
+833|Highest-spending month: {x} ({x}).
+834|Share
+835|Share of income
+836|Main spending items: {x}.
+837|Year report (PDF)
+838|Month report (PDF)
+839|Annual financial report
+840|Monthly financial report
+841|Report produced on {x} with the Spiritual report app.
+842|Week # · {x}
+843|Total outflows
+844|Total given to God: {x}, i.e. {x} of the base.
+845|Download as Excel
+846|A written report: summary, key figures, categories and expense details, to print, share or download.
+847|Your expenses this month amount to {x}, i.e. {x} of your income.
+848|You gave {x} to God ({x} of the base): the goal of {x} is reached.
+849|You spent more than your income this month.
+850|Difference
+851|Savings for the year: {x}.
+852|Savings set aside: {x}.
+853|Your expenses this month amount to {x}.
+854|You gave {x} to God ({x} of the base); {x} remains to reach the goal of {x}.
+855|You gave {x} to God.
+856|Savings set aside: {x}, the goal of {x} is reached.
+857|Savings set aside: {x} out of a goal of {x}.
+858|Projects: {x}.
+859|After all outflows ({x}), you have {x} left.
+860|Budgets exceeded: {x}.
+861|No financial data has been entered for {x}.
+862|Savings for the year: {x} out of a goal of {x}.
+863|Cumulative balance for the year: {x}.
+864|OK
+865|Caution
+866|Over
+867|Giving goal
+868|Savings goal
+869|Financial report
+870|Share, print or download
+871|Print
+872|chap.
+873|Categories
+874|Good afternoon {x} 👋
+875|Good evening {x} 👋
+876|Hello 👋
+877|Good afternoon 👋
+878|Good evening 👋
+879|SPIRITUAL REPORT FOR THE MONTH OF
+880|SPIRITUAL REPORT FOR THE MONTH OF {x} #
+881|SPIRITUAL REPORT • WEEK # •
+882|SPIRITUAL REPORT • WEEK # • {x} #
+883|days
+884|From Monday
+885|to Sunday
+886|From Monday {x} to Sunday {x}
+887|This week falls entirely outside
+888|: sheet not used this month.
+889|Greyed days fall outside
+890|: they count in the week total, not in the MONTH sheet.
+891|Greyed days fall outside the month: they count in the week total, not in the month total.
+892|Pale yellow: weekend.
+893|All goals reached!
+894|Very good week, keep going!
+895|All of the month's goals reached!
+896|Very good month, keep going!
+897|Month to fill in.
+898|no goal
+899|REACHED
+900|DASHBOARD •
+901|• Disciple-maker:
+902|day
+903|days
+904|to
+905|day(s) out of
+906|Prayer alone per week (hours)
+907|hours
+908|Prayer alone per day (minutes)
+909|minutes
+910|Enter the month number (1 to 12): the title and the weekdays update.
+911|Sum of Disciple-maker + Me + Conquest + Other (prayer with a disciple is counted separately, as in your original file).
+912|MONTH
+913|Week #
+914|FULL NAME:
+915|CONTACT:
+916|ZONE / CITY:
+917|WEEK SCORE
+918|DISCIPLE-MAKER:
+919|ASSEMBLY AT:
+920|PRAYER ALONE
+921|FASTING
+922|BIBLE READING
+923|SLEEP
+924|Conquest
+925|WEEK SUMMARY
+926|Group prayer (h:mm)
+927|PRAYER TOPICS / COMMITMENTS FOR THE WEEK
+928|White cells: to fill in • time in h:mm format (e.g. 0:30) • JC / JP: enter 1 on the fasting day • pale yellow: weekend • Total, summary and score: calculated automatically • the MONTH sheet fills itself
+929|EV: evangelism • RDQD: daily appointment with God • PG: group prayer • RS • JC: complete fast • JP: partial fast • LC: Christian reading
+930|EV: evangelism • RDQD: daily dynamic encounter with God • PG: group prayer • RS • JC: complete fast • JP: partial fast • LC: Christian reading
+931|GIFTS TO THE LORD
+932|Calculation helpers (do not change)
+933|MONTH (No.):
+934|YEAR:
+935|TOTAL
+936|Day table filled automatically from the Week sheets
+937|No.
+938|Rank
+939|Prayer alone (min)
+940|MONTH OVERVIEW
+941|min/day
+942|Group prayer
+943|min/RDQD
+944|ch./day
+945|BOOKS READ
+946|PRAYER NEEDS
+947|Key: days filled automatically from the Week sheets • enter here: figures in blue, books read, prayer needs • pale yellow: weekend
+948|MY GOALS (figures in blue: adjust them)
+949|MONTH SCORE
+950|Prayer alone per day
+951|h:mm per day
+952|Bible reading per day
+953|chapters per day
+954|RDQD per week
+955|days per week
+956|Group prayer per week
+957|h:mm per week
+958|Fasting per week
+959|day(s) per week
+960|Sample values suggested by default: replace them with your own goals. Enter 0 to not track a goal.
+961|MONTH PROGRESS
+962|SUMMARY BY WEEK (days of the month only)
+963|Chart data (do not change)
+964|Days of the month
+965|No. of days
+966|Group prayer
+967|RDQD (days)
+968|Fasting (days)
+969|Prayer goal
+970|Done (h)
+971|Goal (h)
+972|Month total
+973|Best week (prayer alone)
+974|RDQD regularity
+975|WHAT DID GOD TELL YOU THIS WEEK?
+976|WHAT DID GOD TELL YOU THIS WEEK?
+977|{x} per day
+978|{x} per RDQD
+979|{x} ch. per day
+980|# JC • # JP
+981|Report {x} week # {x} #
+982|Report {x} {x} #
+983|Report week # {x} #
+984|Report {x} #
+985|Spiritual report {x} #
+986|Spiritual report week # {x} #

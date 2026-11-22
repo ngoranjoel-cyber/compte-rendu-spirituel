@@ -1,0 +1,986 @@
+# % auto
+# % de la base
+# % de vos revenus
+# % de votre salaire
+# % des revenus
+# % utilisés
+# / # jours
+# / # jours remplis
+# F sur # F · atteint ✓
+# F sur # F · atteinte ✓
+# F sur # F · budget dépassé
+# F sur # F · reste # F
+# F sur objectif non fixé
+# caractères au moins
+# catégories, # dépenses ({x} #).
+# chap. par jour
+# de prière · RDQD
+# de prière · RDQD · # EV
+# disciple
+# dépense
+# dépenses
+# dépenses (filtre)
+# heure
+# heures
+# jour de RDQD
+# jours de RDQD
+# mois suivis
+# par RDQD
+# par jour
+# pers.
+# saisie en cours d'envoi
+# saisies en cours d'envoi
+# seul
+# sur #
+# sur # jour
+# sur # jours
+# sur # · prière, méditation, évangélisation
+#. Créer son compte et rejoindre son assemblée
+#. Installer l'application
+#. L'espace Finances
+#. Le chronomètre de prière
+#. Le compte rendu (PDF et Excel)
+#. Ma semaine, Mon mois et la synthèse
+#. Pour les faiseurs de disciples et les dirigeants
+#. Questions fréquentes
+#. Remplir « Ma journée »
+% dons
+(# caractères au moins, par exemple # chiffres)
++ Ajouter une rubrique
+: ni votre faiseur de disciple ni votre dirigeant d'assemblée ne les voient.
+Accueil
+Accueil : choisir un espace
+Accueil · changer d'espace
+Afficher ou masquer le mot de passe
+Ajouter
+Ajouter une dépense
+Annuler
+Année
+Année précédente
+Année suivante
+Arrêter
+Assemblée
+Atteint
+Aucun faiseur de disciple choisi.
+Aucun membre pour le moment : donnez-leur le code d'invitation.
+Aucune dépense ce mois-ci.
+Aucune dépense notée. Touchez « + Dépense » pour commencer.
+Aujourd'hui
+Autre
+Autres
+Autres revenus
+Besoins de prière
+Bible
+Bilan
+Bilan de l'année
+Bilan par mois
+Bon
+Bon effort, persévère.
+Budget
+Budgets
+Budgets et bilan :
+Budgets et objectifs
+Cadeau
+Calculée sur
+Carte
+Catégorie
+Catégorie spéciale
+Catégories et budgets
+Cette semaine
+Champ
+Changer
+Changer la photo
+Changer la photo de profil
+Chapitres
+Chapitres lus
+Chapitres lus, par jour
+Chaque jour,
+Chaque membre crée son compte puis saisit ce code.
+Chargement…
+Choisir le fichier .xlsx
+Choisissez la langue de l'application. Le guide explique chaque page pas à pas.
+Choisissez un mot de passe d'au moins # caractères.
+Choisissez votre espace
+Choisissez votre faiseur de disciple dans la liste des membres. S'il est dans une autre assemblée, saisissez son code de faiseur.
+Chronomètre
+Chronomètre arrêté : moins de # secondes, rien n'a été ajouté.
+Code de votre assemblée
+Code de votre faiseur de disciple
+Code à donner aux membres :
+Commencer mon carnet
+Commencez votre carnet
+Comment changer de faiseur ou d'assemblée ?
+Comment changer la langue ?
+Comment recevoir des rappels ?
+Comment supprimer mon compte ?
+Comment ça marche
+Complétez votre profil
+Compte
+Compte prêt
+Compte rendu
+Compte rendu spirituel
+Compte rendu spirituel · Prière · Méditation · Évangélisation
+Conditions
+Confidentialité
+Confirmer
+Connectez-vous pour poursuivre votre suivi spirituel quotidien.
+Connexion
+Connexion…
+Contact (téléphone)
+Continuer
+Continuez à remplir : tout est gardé sur le téléphone et envoyé dès que la connexion revient.
+Copier
+Copier le code
+Correct
+Courage, chaque jour compte.
+Création du compte…
+Créer l'assemblée
+Créer mon compte
+Créer mon compte gratuitement
+Créer un compte
+Créer une sauvegarde
+Créez votre accès personnel en moins d'une minute.
+Dans l'application Android, ouvrez « Mon profil », puis « Rappels », et choisissez les horaires.
+Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » ou votre imprimante.
+Dans « Ma semaine », touchez « Imprimer / PDF de la semaine » ; dans « Mon mois », « Imprimer / PDF du mois ». Le compte rendu est déjà rempli avec vos saisies.
+Dans « Mon profil », choisissez un autre faiseur ou saisissez le code d'une autre assemblée.
+Dans « Mon profil », donnez votre code de faiseur aux personnes que vous accompagnez, même si elles sont dans une autre assemblée.
+Dans « Mon profil », en bas, touchez « Supprimer mon compte ». Toutes vos données sont effacées.
+Date
+De l'installation au compte rendu du mois, pas à pas.
+Demandez-lui son code de faiseur (# caractères) : il le trouve dans son profil.
+Dernier rappel au plus tard
+Dernières dépenses
+Description
+Devise
+Dirigeant
+Dirigeant d'assemblée :
+Dirigeant de l'assemblée
+Disciple
+Disciples
+Donnez ce code aux personnes que vous accompagnez, même si elles sont dans une autre assemblée : en le saisissant, elles vous choisissent comme faiseur. Vous verrez leurs comptes rendus, comme le dirigeant de leur assemblée, et personne d'autre.
+Donnez un nom à la nouvelle rubrique.
+Dons
+Dons au Seigneur
+Dons au Seigneur (# %)
+Dons au Seigneur, âmes gagnées, livres et besoins.
+Dons aux autres
+Dons aux frères
+Dons aux parents
+Dons et épargne
+Dons à Dieu
+Dons, épargne, catégories
+Du lundi #/#/# au dimanche #/#/#
+Durée (h:mm)
+Dépense
+Dépense moyenne par jour
+Dépense supprimée.
+Dépenses
+Dépenses :
+Dépenses courantes
+Dépenses du mois
+Dépenses notées
+Dépenses par catégorie
+Dépenses par jour
+Dépenses ÷ revenus
+Dîme
+Dîme et offrande
+E-mail
+E-mail ou mot de passe incorrect.
+EV · personnes
+En cours
+En haut de ce guide, ou dans « Mon profil », choisissez la langue dans la liste.
+En haut, les sept jours de la semaine : touchez un jour pour le remplir ou le corriger.
+En partie
+Enregistrement…
+Enregistrer
+Enregistrer la semaine
+Enregistrer le mot de passe
+Enregistrer les rappels
+Enregistrer les réglages
+Enregistré à #
+Envoi de la photo…
+Envoyer ou partager le PDF
+Espèces
+Ex. : Wave, Orange Money
+Ex. : transport, riz, quête…
+Faiseur
+Faiseur d'une autre assemblée : son code
+Faiseur de disciple
+Faiseur de disciple :
+Faiseurs et dirigeants
+Fichier Excel
+Fichier téléchargé.
+Filtrer par catégorie
+Finaliser mon inscription
+Finances
+Gratuit · Android, iPhone et ordinateur
+Guide
+Guide d'utilisation
+Gérer
+Ignorer
+Il verra vos comptes rendus
+Import réussi : # dépenses et vos réglages ont été repris.
+Importer
+Importer ce fichier ?
+Importer mon fichier Excel
+Imprimer / Enregistrer en PDF
+Imprimer / PDF de la semaine
+Imprimer / PDF du mois
+Imprimer et partager
+Indicateurs
+Indiquez votre salaire plus bas pour voir ce qu'il vous reste.
+Inscription
+Installer
+Internet
+Inviter des membres
+J'ai oublié mon mot de passe.
+Jaune pâle : week-end. EV : évangélisation • RDQD : rencontre dynamique quotidienne avec Dieu • PG : prière en groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne
+Je n'ai pas internet.
+Je suis dirigeant d'assemblée
+Jeûne
+Jeûne (jours JC + JP)
+Jeûne complet
+Jeûne et repos
+Jeûne partiel
+Jour
+Jour le plus dépensier
+Jour par jour
+Jour précédent
+Jour suivant
+Journée
+Journée complète
+Journée enregistrée
+Journées complètes
+Jours de RDQD
+Jours de RDQD, par semaine
+Jours de jeûne (JC + JP)
+Jours de jeûne, par semaine
+Jours de la semaine
+Jours remplis
+L'application s'ouvre ensuite comme une vraie application, et elle fonctionne même sans internet : vos saisies sont envoyées dès que la connexion revient.
+La Rencontre dynamique quotidienne avec Dieu, les chapitres lus et la lecture chrétienne.
+Langue
+Langue de l'application
+Langue et aide
+Le PDF est préparé à partir de la page ci-dessus.
+Le dirigeant de votre assemblée vous donne ce code de # caractères.
+Le fichier Excel contient la feuille du mois, une feuille par semaine et le tableau de bord.
+Le mois en chiffres
+Le montant doit être un nombre positif.
+Lecture biblique
+Lecture biblique (chapitres)
+Lecture biblique (heures : minutes)
+Lecture chrétienne
+Lecture chrétienne (heures : minutes)
+Lecture du fichier…
+Les ajouter à mon compte
+Les jours grisés sont hors du mois : ils comptent dans le total de la semaine, pas dans celui du mois. EV : évangélisation • RDQD : rencontre dynamique quotidienne avec Dieu • PG : prière en groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne
+Les personnes évangélisées chaque jour, et les âmes gagnées dans le mois.
+Les rappels (toutes les # heures à partir de # h) arrivent dans l'application Android.
+Les temps se notent en heures et minutes, les rappels vous accompagnent, et tout se retrouve sur vos appareils.
+Les trois tuiles résument la prière, la méditation et l'évangélisation du jour. Quand les trois sont remplies, la journée est complète.
+Livres lus
+Livret
+Loyer
+Ma journée
+Ma semaine
+Ma semaine :
+Membre de l'assemblée
+Menu
+Mes disciples
+Mes dépenses
+Mes finances
+Mes informations
+Minutes de prière par jour
+Mobile money
+Modifier
+Modifier la dépense
+Modifier les budgets
+Modifier mes informations
+Moi
+Mois
+Mois précédent
+Mois suivant
+Montant
+Montant (F)
+Montant Dîme
+Mot de passe
+Mot de passe oublié
+Mot de passe oublié ?
+Moyens de paiement
+Méditation
+Méditation (RDQD + lecture)
+Méditation · RDQD
+Navigation
+Navigation des finances
+Nom
+Nom de l'assemblée
+Nom de la catégorie
+Nom de la nouvelle catégorie
+Nom de la nouvelle rubrique
+Nom de votre faiseur de disciple
+Nombre
+Nombre de RDQD
+Nommer
+Nommer dirigeant
+Non classé
+Nourriture
+Nouveau mot de passe
+Nouveau moyen de paiement
+Nouvelle catégorie
+Nouvelle dépense
+Nouvelle rubrique
+Objectif
+Objectifs
+Objectifs du mois
+Objectifs enregistrés
+Offrandes & quêtes
+On ne marche
+Oui / non
+Ouverture de Google…
+Ouverture de votre carnet…
+Ouvrir mes finances
+Ouvrir mon carnet
+Où va l'argent
+PDF prêt à envoyer.
+PDF semaine
+Paiement
+Part des dons au Seigneur (%)
+Partager…
+Partagez-le par WhatsApp ou e-mail, téléchargez-le en PDF ou en Excel, ou imprimez-le.
+Personnes
+Personnes évangélisées
+Photo enregistrée
+Plus tard
+Poisson
+Pour ajouter ou retirer une rubrique, touchez « Modifier » à côté du titre de la partie, puis « Ajouter » et « Terminer ».
+Pour chaque rubrique, saisissez le pourcentage ou le montant : l'autre se calcule.
+Pour les autres
+Pour les autres (heures : minutes)
+Pour les disciples de notre assemblée
+Pour les faiseurs et dirigeants
+Pour moi
+Pour moi (heures : minutes)
+Pour mon faiseur
+Pour mon faiseur (heures : minutes)
+Pour un nombre (chapitres lus, personnes évangélisées), écrivez le nombre. Pour le jeûne, touchez l'interrupteur.
+Pour une durée, utilisez les boutons − et + (# minutes à chaque fois) ou écrivez le temps en heures:minutes, par exemple #.
+Pour votre faiseur de disciple, pour vous, pour les autres, et la prière en groupe.
+Pourcentage Dîme
+Premier rappel
+Prière
+Prière aujourd'hui
+Prière de la semaine
+Prière de veille
+Prière de veille (heures : minutes)
+Prière du jour
+Prière en groupe
+Prière en groupe (h:mm)
+Prière en groupe (heures : minutes)
+Prière en groupe, par semaine (h:mm)
+Prière et méditation
+Prière par jour
+Prière par période
+Prière seul
+Prière seul (h:mm)
+Prière seul, par jour (h:mm)
+Prière totale
+Prière · Méditation · Évangélisation
+Prière, méditation et évangélisation : notez votre journée en quelques gestes, en heures et minutes.
+Profil
+Progression
+Projection fin de mois
+Projet
+Projets
+Prénoms
+Préparation de la photo…
+Préparation du PDF…
+Présentation
+Puis toutes les
+Période
+Qu'est-ce que Dieu t'a dit cette semaine ?
+Quel cap suivez-vous aujourd'hui ?
+Questions
+Quitter l'assemblée
+Quête
+RDQD (nombre de jours)
+RDQD · # min en moyenne
+RS (heures : minutes)
+Raccourcis
+Rappels
+Rappels activés
+Recevoir le lien
+Rejoindre
+Rejoindre mon assemblée
+Rejoindre une autre assemblée (code)
+Relation avec Dieu
+Reliez votre compte à votre assemblée locale.
+Remplacer le code
+Rencontre avec Dieu
+Rencontre dynamique quotidienne avec Dieu
+Rencontre dynamique quotidienne avec Dieu (heures : minutes)
+Rendez votre compte rendu du mois avant le # du mois suivant.
+Reprenez votre fichier « Dépenses journalières » : paramètres, catégories, revenus et dépenses de chaque mois.
+Restaurant
+Restaurer
+Reste
+Reste cumulé
+Reste du mois
+Rester connecté sur cet appareil
+Retirer
+Retirer Mobile money
+Retirer de l'assemblée
+Retirer la photo
+Retirer la rubrique
+Retirer le rôle de dirigeant
+Retour
+Retour à l'accueil
+Revenu du mois (FCFA)
+Revenus
+Revenus :
+Revenus du mois
+Revenus et sorties par mois
+Revenus · Dépenses · Dons · Épargne
+Revenus, dépenses, dons et épargne
+Rien
+Rien d'enregistré
+Rien d'enregistré pour ce jour
+Rubrique
+Rubriques ajoutées
+Réalisé
+Récupération de votre profil.
+Réessayer
+Réglages
+Réglages :
+Réglages des finances
+Réglages enregistrés.
+Régularité
+Répartition du temps
+S'inscrire
+S'inscrire avec Google
+Saisies trouvées sur cet appareil
+Saisir son nom
+Saisissez le code de # caractères donné par votre dirigeant d'assemblée, puis touchez « Rejoindre ».
+Saisissez votre e-mail : vous recevrez un lien pour choisir un nouveau mot de passe.
+Salaire
+Salaire + autres revenus
+Salaire seul
+Sauvegarde
+Score # %
+Score de la semaine
+Se connecter
+Se connecter avec Google
+Se déconnecter
+Semaine
+Semaine et mois
+Semaine précédente
+Semaine suivante
+Semaine à remplir.
+Seul
+Soins médicaux
+Sois abondamment béni(e), Frère / Sœur
+Sommaire du guide
+Somme d'argent reçue dans le mois (FCFA)
+Sommeil
+Statistiques détaillées
+Statut
+Sujet de prière / engagement #
+Supprimer
+Supprimer cette dépense ?
+Supprimer mon compte
+Sur Android :
+Sur iPhone :
+Sur la page de connexion, touchez « Mot de passe oublié ? » : un lien arrive par e-mail.
+Sur ordinateur :
+Synchronisation multi-appareils sécurisée
+Synchronisation…
+Synchronisé à #
+Synthèse
+Synthèse :
+Tableau
+Tableau de bord
+Tableau de bord :
+Taxi
+Temps
+Temps de RDQD
+Terminer
+Total
+Total donné à Dieu : # FCFA (# %). Les # % sont atteints.
+Total donné à Dieu : # FCFA (# %). Reste à donner : # FCFA.
+Total prière seul
+Total épargne et projets : # FCFA.
+Total épargne et projets : # FCFA. Reste à épargner : # FCFA.
+Touchez un jour pour l'ouvrir.
+Touchez « Commencer mon carnet », puis remplissez nom, prénoms, contact, ville, e-mail et un mot de passe (# caractères au moins). Vous pouvez aussi utiliser « S'inscrire avec Google ».
+Tout s'enregistre automatiquement : il n'y a pas de bouton « Enregistrer ».
+Tout voir
+Toute l'assemblée
+Toutes
+Toutes les sorties
+Transferts
+Transport
+Trois gestes,
+Trop court
+Type de la rubrique
+Télécharger
+Un bandeau en bas de l'écran rappelle la prière en cours. Vous pouvez changer de page ou mettre le téléphone en veille : le temps continue.
+Un instant…
+Une notification à chaque horaire, tant que la journée n'est pas complète (prière, méditation, évangélisation).
+Valeurs d'origine
+Valider le code
+Virement
+Voir la journée
+Voir les comptes rendus
+Vos finances sont
+Vos finances sont privées : vous seul les voyez, ni votre faiseur ni votre dirigeant.
+Vos objectifs personnels : ils servent au score de la semaine et au compte rendu PDF.
+Vos saisies restent sur cet appareil. Gardez une copie de temps en temps.
+Vos saisies sont enregistrées dans votre compte. Vous pouvez aussi en garder une copie dans un fichier.
+Votre assemblée et votre faiseur de disciple se choisissent à l'étape suivante. En créant un compte, vous acceptez les
+Votre carnet de prière, de méditation et d'évangélisation. Quelques gestes chaque jour, et votre compte rendu de la semaine et du mois est prêt à imprimer.
+Votre compte Google est bien relié. Il reste votre contact et votre zone pour figurer sur vos comptes rendus.
+Votre faiseur de disciple
+Votre faiseur de disciple et le dirigeant de l'assemblée voient ces informations.
+Votre faiseur de disciple et le dirigeant de votre assemblée voient vos comptes rendus, ouvrent vos PDF de la semaine et du mois, et peuvent prier pour vous au bon moment.
+Votre faiseur de disciple et votre dirigeant d'assemblée voient aussi vos comptes rendus dans l'application.
+Vous arrivez sur l'accueil, avec deux espaces : « Relation avec Dieu » et « Finances ». Le logo en haut à gauche ramène toujours à cet accueil.
+Vous pouvez remplacer un code à tout moment : l'ancien ne fonctionne plus.
+Vous recevrez le code à donner aux membres et vous verrez leurs comptes rendus.
+Vous tenez déjà un fichier Excel de dépenses ? Importez-le depuis les réglages des finances.
+Vous êtes déconnecté.
+Voyages
+Vérification du code…
+Vêtements
+Zone / Ville
+avec Dieu.
+budget # F
+budget par mois
+chapitres lus
+conditions d'utilisation
+créez l'assemblée à l'inscription, puis partagez son code d'invitation. Vous voyez toute l'assemblée et qui a rempli aujourd'hui.
+dans Chrome ou Edge, cliquez sur l'icône d'installation à droite de la barre d'adresse.
+de disciple
+disciple
+disponibles sur # FCFA de revenus
+en cours
+en heures : minutes
+et les
+fixez la part des dons au Seigneur (# % par défaut), l'objectif d'épargne, vos catégories et leurs budgets.
+heures : minutes
+hors épargne et projets
+jamais seul.
+jours de jeûne
+jours remplis
+l'onglet « Mes disciples » montre le score de chaque disciple, ses totaux et son compte rendu en PDF, semaine par semaine.
+le reste du mois, les dépenses, les dons à Dieu, l'épargne et la répartition par catégorie.
+le statut de chaque catégorie (OK, Attention, Dépassé) et le bilan de l'année, mois par mois.
+membres
+objectif # F
+objectif ci-dessus
+ont rempli aujourd'hui
+ou
+ou avec votre e-mail
+ouvrez le site dans Chrome, touchez le menu ⋮ puis « Installer l'application » (ou « Ajouter à l'écran d'accueil »).
+ouvrez le site dans Safari, touchez le bouton Partager puis « Sur l'écran d'accueil ».
+pas d'objectif
+pers.
+personnes évangélisées
+privées
+prière en groupe
+prière seul · # min/jour
+projets : # F
+reste # F
+règles de confidentialité
+saisissez votre salaire et vos autres revenus du mois, puis « Enregistrer ».
+sans budget
+score moyen de la semaine
+seul · en groupe
+temps
+touchez « + Dépense », indiquez le montant, la description, la catégorie, le jour et le moyen de paiement, puis « Ajouter ».
+un calendrier coloré. Vert : journée complète. Orange : journée en partie remplie. Touchez un jour pour l'ouvrir.
+un compte rendu.
+un pas de plus
+votre progression par jour, semaine, mois ou année, avec la répartition du temps et la régularité.
+votre score et une jauge par objectif. Touchez « Modifier » pour fixer vos propres objectifs. Vous pouvez aussi noter les dons et les remarques de la semaine.
+« Approchez-vous de Dieu, et il s'approchera de vous. »
+« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus. »
+« Honore l'Éternel avec tes biens, et avec les prémices de tout ton revenu. »
+« Priez sans cesse. »
+« Ta parole est une lampe à mes pieds, et une lumière sur mon sentier. »
+À côté de chaque temps, touchez le bouton chronomètre au moment où vous commencez à prier : il se met à compter.
+À faire
+À la fin, touchez « Arrêter » : le temps passé s'ajoute à la rubrique. Moins de # secondes ne compte pas.
+À remplir avant d'imprimer le mois
+À remplir pour la semaine
+À saisir
+Âmes gagnées et intégrées
+Épargne
+Épargne du mois
+Épargne et projets
+Épargne à mettre de côté chaque mois
+Évangélisation
+Évangélisés
+Évolution de la prière
+à commencer
+à faire
+— Choisir —
+← Retour à la connexion
+(PDF joint :
+(pas encore inscrit)
+: vos saisies sont gardées sur l'appareil
+Afficher le mot de passe
+Aucun compte rendu à envoyer.
+Aucun disciple ne vous a encore choisi comme faiseur de disciple.
+Aucune assemblée
+Aucune page de paramètres ni de mois n'a été trouvée dans ce fichier.
+Autorisez les notifications pour recevoir les rappels.
+Autres catégories
+Catégorie retirée : pensez à enregistrer.
+Ce fichier n'a pas pu être lu : {x}
+Ce fichier n'est pas une sauvegarde de cette application.
+Ce lien n'est pas valable.
+Ce navigateur ne permet pas de fabriquer le PDF ici : utilisez « Imprimer / Enregistrer en PDF ».
+Ces informations figurent en tête de vos comptes rendus.
+Ces informations figurent en tête de vos comptes rendus. Elles restent sur cet appareil.
+Cette catégorie existe déjà.
+Cette image ne peut pas être lue.
+Changer d'assemblée
+Choisissez les deux horaires.
+Choisissez une image (photo JPEG ou PNG).
+Choisissez votre faiseur de disciple, ou « Plus tard ».
+Compte rendu semaine
+Connexion impossible.
+Copié ✓
+Donnez un nom à la nouvelle catégorie.
+Fichier enregistré dans Téléchargements.
+Gardez au moins un moyen de paiement.
+Hors connexion
+Hors du mois
+Image du compte rendu impossible.
+Import annulé.
+Indiquez le montant de la dépense.
+Informations enregistrées
+Infos du mois enregistrées
+L'ancien code ne fonctionnera plus. Les disciples déjà liés à vous le restent.
+L'ancien code ne fonctionnera plus. Les membres déjà inscrits restent dans l'assemblée.
+L'application n'est pas reliée à un serveur.
+L'enregistrement a échoué : la mémoire de l'appareil est pleine.
+L'impression n'a pas pu démarrer.
+L'impression n'est pas disponible dans cette vue.
+L'épargne doit être un montant positif.
+L'épargne du mois est atteinte.
+La connexion avec Google n'est pas encore activée sur le serveur.
+La demande a échoué ({x}
+La part des dons doit être un pourcentage entre # et #.
+La sauvegarde n'a pas pu être créée.
+Le budget doit être un montant positif.
+Le code compte # caractères.
+Le code de faiseur a # caractères.
+Le dernier rappel doit être après le premier.
+Le fichier n'a pas pu être créé. Réessayez.
+Le fichier n'a pas pu être lu.
+Le module PDF n'a pas pu être chargé.
+Le modèle Excel n'a pas pu être chargé.
+Le nom et les prénoms sont obligatoires.
+Le nouveau mot de passe doit être différent de l'ancien.
+Le partage direct n'est pas proposé par ce navigateur : envoyez le fichier depuis WhatsApp ou votre messagerie.
+Le serveur ne répond pas correctement. Réessayez plus tard.
+Les inscriptions sont fermées pour le moment.
+Les mois déjà remplis seront remplacés.
+Masquer le mot de passe
+Mot de passe changé
+Mot de passe trop court : au moins # caractères.
+Non connecté.
+Nouveau code créé.
+PDF partagé.
+Partage annulé.
+Pas de connexion internet. Réessayez quand vous serez connecté.
+Pas de faiseur choisi
+Pas de prière notée
+Photo gardée sur cet appareil : elle sera envoyée dès que le serveur l'acceptera.
+Photo retirée
+Pour ne pas oublier la prière, la méditation et l'évangélisation.
+Profil enregistré
+Profil introuvable. Réessayez dans un instant.
+Préparation du fichier…
+Rappels désactivés
+Rappels programmés
+Rappels à {x}
+Remplacer mon code de faiseur
+Remplissez les quatre champs.
+Remplissez tous les champs.
+Saisissez vos revenus du mois pour calculer l'objectif.
+Sans nom
+Sauvegarde restaurée : {x}
+Semaine enregistrée
+Si un compte existe pour cette adresse, un lien vient d'être envoyé. Pensez à regarder dans les courriers indésirables.
+Supprimer définitivement
+Synchronisation impossible : {x}
+Trop de tentatives. Patientez une minute puis réessayez.
+Téléchargement annulé.
+Un budget n'est pas un nombre valable.
+Une des valeurs saisies n'est pas acceptée.
+Vos saisies restent sur cet appareil. Gardez une copie de temps en temps, et avant de changer de téléphone.
+Votre compte et toutes vos saisies en ligne seront effacés définitivement. Créez d'abord une sauvegarde si vous voulez garder une copie.
+Votre faiseur de disciple actuel ne verra plus vos comptes rendus. Vous en choisirez un dans la nouvelle assemblée.
+Votre faiseur de disciple et les dirigeants ne verront plus vos comptes rendus.
+Vous n'avez pas le droit de faire cette modification.
+Vérifiez les nombres (RDQD et jeûne : de # à # jours).
+WhatsApp s'ouvre : joignez le fichier « {x} »
+{x} (pas encore sur l'application)
+Écrivez la durée en heures:minutes, par exemple #.
+Écrivez les temps en heures:minutes, par exemple #.
+Écrivez seulement des chiffres (sans signe moins).
+— envoyé depuis l'application Compte rendu spirituel.
+{x} · Faiseur : {x}
+{x} · Assemblée : {x}
+Actuellement : {x}
+Ajouté : {x}
+Bienvenue, {x}
+Bonjour {x} 👋
+Connecté avec {x}
+Membre · {x}
+Dirigeant d'assemblée · {x}
+Vous êtes membre de « {x} ». Choisissez la personne qui vous accompagne : elle verra vos comptes rendus, comme le dirigeant de l'assemblée.
+Budget de {x}
+Retirer la catégorie {x}
+Retirer la rubrique {x}
+Retirer {x}
+Modifier « {x} »
+Supprimer « {x} »
+Chronométrer « {x} »
+Arrêter le chronomètre de « {x} »
+Moins # pour {x}
+Plus # pour {x}
+Prière en cours · {x}
+Chronomètre lancé pour « {x} ». Touchez de nouveau pour arrêter.
++# ajouté à « {x} ».
+Dépense modifiée : {x}
+Revenus de {x} enregistrés.
+Aucune dépense pour {x}.
+« {x} » · vous en êtes le dirigeant
+« {x} » ajoutée : pensez à enregistrer.
+« {x} » ne sera plus proposée dans votre journée. Ce qui a déjà été noté reste enregistré.
+Rubrique « {x} » ajoutée
+Rétablir les rubriques d'origine ({x})
+Nom de la rubrique #
+Du # au # {x} · semaine #
+Du # {x} au # {x} · semaine #
+Du # au # {x}
+Étape # sur # · {x}
+Accompagnement
+Vos informations
+{x} est maintenant votre faiseur de disciple.
+{x} verra les comptes rendus de toute l'assemblée et pourra gérer les membres.
+{x} (dirigeant)
+{x} (autre assemblée)
+{x} : revenus # F, sorties # F
+PDF {x}
+Compte créé. Ouvrez le lien envoyé à {x} pour confirmer votre adresse, puis connectez-vous.
+Le mot de passe doit faire # caractères au moins.
+Matthieu #
+# Thessaloniciens #
+Proverbes #
+Psaume #
+Jacques #
+« Priez sans cesse. » # Thessaloniciens #
+Besoin #
+Disciple #
+Livre #
+Total #
+Année #
+Bilan #
+Montant {x}
+Pourcentage {x}
+{x} · {x} · # {x}
+{x} · # FCFA · # {x}
+{x} · {x} · {x}
+{x} · {x}
+Bienvenue
+Bonjour
+Mon assemblée
+Mon assemblée n'est pas encore sur l'application
+Mon code de faiseur de disciple
+Mon compte
+Mon faiseur de disciple
+Mon faiseur est dans une autre assemblée
+Mon faiseur n'est pas encore inscrit
+Mon mois
+Mon mois :
+Mon profil
+# {x} : rien
+PRIÈRE
+MÉDITATION
+ÉVANGÉLISATION
+JACQUES #
+Chez les …
+Attention : les sorties ({x}) dépassent les revenus de {x}.
+Attention : sur l'année, les sorties dépassent les revenus de {x}.
+Budget / objectif
+Budget de la nouvelle catégorie
+Chiffres clés
+aujourd'hui
+Document personnel et confidentiel
+Détail des dépenses ({x})
+En {x} : {x} mois suivis, revenus {x}, dépenses {x}.
+En {x}, vos revenus s'élèvent à {x} (salaire {x}, autres revenus {x}).
+Excel de l'année
+Excel de la semaine
+Excel du mois
+Le bilan de l'année rédigé : synthèse, mois par mois et catégories, en PDF ou en Excel.
+Le jour le plus dépensier est le {x} ({x}) ; la dépense moyenne est de {x} par jour.
+Mois le plus dépensier : {x} ({x}).
+Part
+Part des revenus
+Principaux postes de dépense : {x}.
+Rapport de l'année (PDF)
+Rapport du mois (PDF)
+Rapport financier de l'année
+Rapport financier du mois
+Rapport établi le {x} avec l'application Compte rendu spirituel.
+Semaine # · {x}
+Total des sorties
+Total donné à Dieu : {x}, soit {x} de la base.
+Télécharger en Excel
+Un rapport rédigé : synthèse, chiffres clés, catégories et détail des dépenses, à imprimer, partager ou télécharger.
+Vos dépenses du mois atteignent {x}, soit {x} de vos revenus.
+Vous avez donné {x} à Dieu ({x} de la base) : l'objectif de {x} est atteint.
+Vous avez dépensé plus que vos revenus ce mois-ci.
+Écart
+Épargne de l'année : {x}.
+Épargne mise de côté : {x}.
+Vos dépenses du mois atteignent {x}.
+Vous avez donné {x} à Dieu ({x} de la base) ; il reste {x} pour atteindre l'objectif de {x}.
+Vous avez donné {x} à Dieu.
+Épargne mise de côté : {x}, l'objectif de {x} est atteint.
+Épargne mise de côté : {x} sur un objectif de {x}.
+Projets : {x}.
+Après toutes les sorties ({x}), il vous reste {x}.
+Budgets dépassés : {x}.
+Aucune donnée financière n'a été saisie pour {x}.
+Épargne de l'année : {x} sur un objectif de {x}.
+Reste cumulé sur l'année : {x}.
+OK
+Attention
+Dépassé
+Objectif de dons
+Objectif d'épargne
+Rapport financier
+Partager, imprimer ou télécharger
+Imprimer
+chap.
+Catégories
+Bon après-midi {x} 👋
+Bonsoir {x} 👋
+Bonjour 👋
+Bon après-midi 👋
+Bonsoir 👋
+COMPTE RENDU SPIRITUEL DU MOIS DE
+COMPTE RENDU SPIRITUEL DU MOIS DE {x} #
+COMPTE RENDU SPIRITUEL • SEMAINE # •
+COMPTE RENDU SPIRITUEL • SEMAINE # • {x} #
+jours
+Du lundi
+au dimanche
+Du lundi {x} au dimanche {x}
+Cette semaine est entièrement hors du mois de
+: feuille non utilisée ce mois-ci.
+Les jours grisés sont hors du mois de
+: ils comptent dans le total de la semaine, pas dans la feuille MOIS.
+Les jours grisés sont hors du mois : ils comptent dans le total de la semaine, pas dans celui du mois.
+Jaune pâle : week-end.
+Tous les objectifs sont atteints !
+Très bonne semaine, continue !
+Tous les objectifs du mois sont atteints !
+Très bon mois, continue !
+Mois à remplir.
+sans objectif
+ATTEINT
+TABLEAU DE BORD •
+• Faiseur de disciple :
+le
+du
+au
+jour(s) sur
+Prière seul par semaine (heures)
+heures
+Prière seul par jour (minutes)
+minutes
+Saisir le numéro du mois (1 à 12) : le titre et les jours de la semaine se mettent à jour.
+Somme Faiseur + Moi + Conquête + Autre (la prière avec disciple est comptée à part, comme dans ton fichier d'origine).
+MOIS
+Semaine #
+NOM ET PRÉNOMS :
+CONTACT :
+ZONE / VILLE :
+SCORE DE LA SEMAINE
+FAISEUR DE DISCIPLE :
+ASSEMBLÉE CHEZ :
+PRIÈRE SEUL
+JEÛNE
+LECTURE BIBLIQUE
+SOMMEIL
+Conquête
+BILAN DE LA SEMAINE
+Prière de groupe (h:mm)
+SUJETS DE PRIÈRE / ENGAGEMENTS DE LA SEMAINE
+Cellules blanches : à remplir • temps au format h:mm (ex. 0:30) • JC / JP : mettre 1 le jour du jeûne • jaune pâle : week-end • Total, bilan et score : calculés automatiquement • la feuille MOIS se remplit toute seule
+EV : évangélisation • RDQD : rendez-vous quotidien avec Dieu • PG : prière de groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne
+EV : évangélisation • RDQD : rencontre dynamique quotidienne avec Dieu • PG : prière en groupe • RS • JC : jeûne complet • JP : jeûne partiel • LC : lecture chrétienne
+DONS AU SEIGNEUR
+Aides de calcul (ne pas modifier)
+MOIS (N°) :
+ANNÉE :
+TOTAL
+Tableau des jours rempli automatiquement depuis les feuilles Semaine
+N°
+Rang
+Prière seul (min)
+SYNTHÈSE DU MOIS
+min/jour
+Prière avec en Groupe
+min/RDQD
+chap./jour
+LIVRES LUS
+BESOINS DE PRIÈRE
+Légende : jours remplis automatiquement depuis les feuilles Semaine • à saisir ici : chiffres en bleu, livres lus, besoins de prière • jaune pâle : week-end
+MES OBJECTIFS (chiffres en bleu : à adapter)
+SCORE DU MOIS
+Prière seul par jour
+h:mm par jour
+Lecture biblique par jour
+chapitres par jour
+RDQD par semaine
+jours par semaine
+Prière de groupe par semaine
+h:mm par semaine
+Jeûne par semaine
+jour(s) par semaine
+Valeurs d'exemple proposées par défaut : remplace-les par tes propres objectifs. Mettre 0 pour ne pas suivre un objectif.
+PROGRESSION DU MOIS
+RÉCAPITULATIF PAR SEMAINE (jours du mois uniquement)
+Données des graphiques (ne pas modifier)
+Jours du mois
+Nb jours
+Prière groupe
+RDQD (jours)
+Jeûne (jours)
+Objectif prière
+Réalisé (h)
+Objectif (h)
+Total du mois
+Meilleure semaine (prière seul)
+Régularité RDQD
+QU'EST CE QUE DIEU T'A DIT CETTE SEMAINE ?
+QU'EST-CE QUE DIEU T'A DIT CETTE SEMAINE ?
+{x} par jour
+{x} par RDQD
+{x} chap. par jour
+# JC • # JP
+Compte rendu {x} semaine # {x} #
+Compte rendu {x} {x} #
+Compte rendu semaine # {x} #
+Compte rendu {x} #
+Compte rendu spirituel {x} #
+Compte rendu spirituel semaine # {x} #
