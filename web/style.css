@@ -986,6 +986,7 @@ body[data-vue="mois"] .entete{background:#E8941A}
 body[data-vue="synthese"] .entete{background:var(--m-vert)}
 body[data-vue="suivi"] .entete{background:var(--m-corail)}
 body[data-vue="profil"] .entete{background:var(--m-indigo)}
+body[data-vue="guide"] .entete{background:linear-gradient(135deg,#5A4FCF,#12A89A)}
 .entete .titre-vue b,.entete .titre-vue span,.entete .titre-vue small{color:#fff!important}
 .entete .avatar{box-shadow:0 0 0 2px #fff}
 .bulle{background:var(--m-indigo)!important;box-shadow:0 16px 30px rgba(90,79,207,.35)!important}
@@ -1612,3 +1613,60 @@ body.auth .auth2-droite a{color:#8A3B12}
 .ah-roue.r1{top:20%!important}.ah-roue.r2{top:calc(20% + 104px)!important}
 @media (max-width:1023px){.ah-roue.r1{top:auto!important;bottom:150px}.ah-roue.r2{top:auto!important;bottom:110px;right:60px}}
 body.auth .oeil,body.auth [class*="oeil"]{color:#8A5A35!important}
+
+/* ==========================================================
+   LANGUES ET GUIDE D'UTILISATION
+   ========================================================== */
+.sel-langue{font:inherit;font-weight:600;border:1px solid var(--trait-fort);background:var(--surface);color:var(--encre);border-radius:10px;padding:7px 10px;cursor:pointer}
+/* Accueil (cuir) : guide + langue sous le verset */
+.choix-aide{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;margin:4px 18px 0}
+.sp-guide{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:700 .92rem "Roboto Slab",serif;color:#3A2410;padding:10px 18px;border-radius:8px;
+  background:linear-gradient(180deg,#FBE6A8 0%,#E2B865 40%,#B88B37 75%,#9A7228 100%);box-shadow:inset 0 1px 0 #FFF4CF,inset 0 -2px 0 rgba(0,0,0,.25),0 4px 8px rgba(0,0,0,.35)}
+.sp-guide:hover{filter:brightness(1.06)}
+.sp-guide .ic{width:18px;height:18px}
+.sp-langue{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(180deg,#5A3520,#3A2010);border-radius:8px;padding:4px 6px 4px 10px;box-shadow:0 0 0 2px #B87333,0 4px 8px rgba(0,0,0,.35)}
+.sp-langue .ic{width:18px;height:18px;color:#F2C98A}
+.sp-langue .sel-langue{background:transparent;border:0;color:#FBE6A8;font-family:"Roboto Slab",serif;padding:6px 4px}
+.sp-langue .sel-langue option{color:#2A160A}
+/* Menu latéral */
+.lat-guide{display:none}
+@media (min-width:900px){
+  .lat-guide{display:flex;align-items:center;gap:12px;border:0;background:none;padding:8px 10px;border-radius:12px;text-align:left;color:var(--gris);font-weight:600;margin-top:auto;cursor:pointer}
+  .lat-guide:hover,.lat-guide[aria-current="page"]{background:var(--panneau);color:var(--encre)}
+  .lat-guide + .pied-lateral{margin-top:6px}
+}
+/* Connexion et page publique */
+.auth2-outils{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-bottom:14px}
+.auth2-guide{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.86rem;text-decoration:none;color:inherit;opacity:.9}
+.auth2-guide .ic{width:16px;height:16px}
+body.auth .auth2-outils .sel-langue{background:rgba(255,248,230,.92);border-color:#B87333;color:#3A2410}
+.bv-langue{padding:5px 8px;font-size:.85rem}
+/* Le guide, consulté sans être connecté : pas de menus du compte */
+body.hors-session .lateral,body.hors-session .onglets-bas,body.hors-session .entete .avatar{display:none!important}
+/* Page du guide */
+.vue.guide{gap:14px;padding-bottom:30px}
+.guide-tete{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#5A4FCF,#12A89A);color:#fff;border-radius:22px;padding:18px 20px;box-shadow:0 10px 24px rgba(90,79,207,.28)}
+.guide-tete .pic{background:rgba(255,255,255,.2)!important;color:#fff!important;width:48px;height:48px;flex:none}
+.guide-tete h1{font-size:1.35rem;color:#fff!important;margin:0}
+.guide-tete .sous{color:rgba(255,255,255,.88)!important;margin:2px 0 0;font-size:.9rem}
+.guide-langue{padding:12px 16px!important}
+.guide-langue .champ{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+.guide-sommaire{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.guide-sommaire a{flex:none;text-decoration:none;font-weight:700;font-size:.82rem;color:#5A4FCF;background:#fff;border-radius:999px;padding:7px 13px;box-shadow:0 2px 6px rgba(90,79,207,.12)}
+.guide-sommaire a:hover{background:#5A4FCF;color:#fff}
+.guide-sec{background:var(--surface);border-radius:18px;box-shadow:var(--ombre);overflow:hidden;scroll-margin-top:80px}
+.guide-sec summary{display:flex;align-items:center;gap:12px;padding:14px 16px;font-weight:800;color:var(--encre);cursor:pointer;list-style:none}
+.guide-sec summary::-webkit-details-marker{display:none}
+.guide-sec summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(45deg);transition:transform .25s;opacity:.6;flex:none}
+.guide-sec[open] summary::after{transform:rotate(225deg)}
+.guide-sec summary .pic{flex:none}
+.guide-sec ol{margin:0;padding:0 18px 16px 40px;display:grid;gap:9px;line-height:1.55;color:var(--gris);font-size:.93rem}
+.guide-sec ol li::marker{color:#5A4FCF;font-weight:800}
+.guide-sec b{color:var(--encre)}
+.guide-sec dl{margin:0;padding:0 18px 16px;display:grid;gap:4px}
+.guide-sec dt{font-weight:800;color:var(--encre);margin-top:8px}
+.guide-sec dd{margin:0;color:var(--gris);line-height:1.5;font-size:.93rem}
+.guide-pied{justify-content:center}
+@media (prefers-reduced-motion:reduce){.guide-sec summary::after{transition:none}}
+
+.sp-nixie.texte-libre,.sp-compteur.texte-libre{font-family:inherit;font-size:1.05rem;letter-spacing:0;color:#FFD9A0;text-shadow:0 0 6px rgba(255,170,60,.6);padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

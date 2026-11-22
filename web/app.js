@@ -2,10 +2,11 @@
 (function(){
 "use strict";
 var XL=self.CompteRenduXL,RP=self.CompteRenduRapport;
-var MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-var MOIS_C=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
-var JOURS=["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"];
-var JOURS_L=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+var NOMS_L=self.I18N?I18N.noms():null;
+var MOIS=NOMS_L?NOMS_L.mois:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+var MOIS_C=NOMS_L?NOMS_L.moisC:["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+var JOURS=NOMS_L?NOMS_L.jours:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"];
+var JOURS_L=NOMS_L?NOMS_L.joursL:["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
 /* Les rangées de « Ma journée » : champ, libellé, icône, couleur, type (min, n, b, h), unité, sigle */
 var SECTIONS_JOUR=[
   {id:"sec-prier",titre:"Prière",icone:"heart",couleur:"rose",aide:"en heures : minutes",lignes:[
@@ -812,7 +813,7 @@ function afficherMois(){
   $("mLabel").textContent=maj(MOIS[m-1])+" "+a;
   titres("Mon mois",maj(MOIS[m-1])+" "+a);
   var cal=$("calMois");cal.textContent="";
-  ["L","M","M","J","V","S","D"].forEach(function(x){cal.appendChild(el("span",{"class":"jsem"},x));});
+  (self.I18N&&I18N.langue!=="fr"?[1,2,3,4,5,6,0].map(function(i){return JOURS[i];}):["L","M","M","J","V","S","D"]).forEach(function(x){cal.appendChild(el("span",{"class":"jsem"},x));});
   var decal=(new Date(a,m-1,1).getDay()+6)%7;
   for(var v=0;v<decal;v++)cal.appendChild(el("span",{"class":"case-cal vide-cal"}));
   for(var j=1;j<=nb;j++){
@@ -1117,8 +1118,10 @@ function ajusterApercu(){
   var e=Math.min(1,c.clientWidth/f.offsetWidth);
   f.style.transform="scale("+e+")";c.style.height=Math.ceil(f.offsetHeight*e)+"px";
 }
-function montrerApercu(html,titre,paysage){
-  apercuCourant={titre:titre,paysage:paysage};
+function montrerApercu(html,titre,paysage,excel,finance){
+  apercuCourant={titre:titre,paysage:paysage,excel:excel||null,finance:!!finance};
+  /* Le compte rendu spirituel garde le modèle d'origine (en français), quelle que soit la langue de l'application. */
+  $("feuille").setAttribute("translate","no");$("apercuExcel").hidden=!excel;
   $("formatPage").textContent="@page{size:A4 "+(paysage?"landscape":"portrait")+";margin:10mm}";
   $("feuille").innerHTML=html;
   $("page").hidden=true;$("apercu").hidden=false;dire("msgApercu","Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » ou votre imprimante.");
@@ -1126,19 +1129,19 @@ function montrerApercu(html,titre,paysage){
   /* Préparé d'avance : au toucher de « Partager », le téléphone ouvre son partage tout de suite. */
   setTimeout(function(){if(!$("apercu").hidden)preparerPdf().then(function(){dire("msgPartage","PDF prêt à envoyer.","ok");},function(){dire("msgPartage","");});},400);
 }
-function montrerApercuAutre(html,titre,paysage){apercuAutre={html:html,titre:titre,paysage:paysage};location.hash="#apercu-autre";}
+function montrerApercuAutre(html,titre,paysage,excel,finance){apercuAutre={html:html,titre:titre,paysage:paysage,excel:excel,finance:finance};location.hash="#apercu-autre";}
 function afficherApercu(type){
-  if(type==="autre"){if(apercuAutre)montrerApercu(apercuAutre.html,apercuAutre.titre,apercuAutre.paysage);else location.replace("#suivi");return;}
+  if(type==="autre"){if(apercuAutre)montrerApercu(apercuAutre.html,apercuAutre.titre,apercuAutre.paysage,apercuAutre.excel,apercuAutre.finance);else location.replace("#suivi");return;}
   if(type==="semaine"){
     var s=semaineDe(jour),moisRef=jour.getMonth();
     montrerApercu(RP.semaine({annee:jour.getFullYear(),mois:moisRef+1,numero:s.numero,profil:profil,logo:logo(),objectifs:lire("reglages/objectifs"),notes:lire("semaines/"+cleJour(s.lundi))||{},
       jours:s.jours.map(function(dt){return {date:dt,dansMois:dt.getMonth()===moisRef,donnees:donneesJour(dt)};})}),
-      "Compte rendu semaine "+s.numero+" "+XL.MOIS[moisRef]+" "+jour.getFullYear(),true);
+      "Compte rendu semaine "+s.numero+" "+XL.MOIS[moisRef]+" "+jour.getFullYear(),true,fichierSemaine);
   }else{
     var a=vueM.a,m=vueM.m,inf=infosMois(a,m),jours=[];
     for(var j=1;j<=31;j++)jours.push(lire("jours/"+cleMois(a,m)+"-"+pad(j)));
     inf.dons=donsCalcules(inf);
-    montrerApercu(RP.mois({annee:a,mois:m,jours:jours,profil:profil,infos:inf,logo:logo()}),"Compte rendu "+XL.MOIS[m-1]+" "+a,false);
+    montrerApercu(RP.mois({annee:a,mois:m,jours:jours,profil:profil,infos:inf,logo:logo()}),"Compte rendu "+XL.MOIS[m-1]+" "+a,false,function(){return fichierMois(a,m);});
   }
 }
 function imprimer(){
@@ -1184,8 +1187,12 @@ function fabriquerPdf(){
       doc.setTitle(apercuCourant.titre);doc.setCreator("Compte rendu spirituel");
       var A4=apercuCourant.paysage?[841.89,595.28]:[595.28,841.89],marge=20;
       return doc.embedPng(im.png).then(function(png){
-        var page=doc.addPage(A4),lw=A4[0]-2*marge,lh=A4[1]-2*marge,k=Math.min(lw/im.w,lh/im.h);
-        page.drawImage(png,{x:marge+(lw-im.w*k)/2,y:A4[1]-marge-im.h*k,width:im.w*k,height:im.h*k});
+        var lw=A4[0]-2*marge,lh=A4[1]-2*marge,k=Math.min(lw/im.w,lh/im.h);
+        /* Une page si la feuille tient à peu près sur un A4 ; sinon pleine largeur, découpée en plusieurs pages. */
+        if(!apercuCourant.finance||im.h*lw/im.w<=lh*1.15){var page=doc.addPage(A4);page.drawImage(png,{x:marge+(lw-im.w*k)/2,y:A4[1]-marge-im.h*k,width:im.w*k,height:im.h*k});return doc.save();}
+        k=lw/im.w;var haut=im.h*k,n=Math.ceil(haut/lh);
+        for(var i=0;i<n;i++){var p=doc.addPage(A4);p.drawImage(png,{x:marge,y:A4[1]-marge-haut+i*lh,width:lw,height:haut});
+          p.drawRectangle({x:0,y:A4[1]-marge,width:A4[0],height:marge,color:L.rgb(1,1,1)});p.drawRectangle({x:0,y:0,width:A4[0],height:marge,color:L.rgb(1,1,1)});}
         return doc.save();
       });
     });
@@ -1239,21 +1246,63 @@ function remettreFichier(nom,octets,mime){
   setTimeout(function(){URL.revokeObjectURL(url);},4000);
   return Promise.resolve("Fichier téléchargé.");
 }
+var MIME_XL="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+function nomFichier(s){return s.replace(/[\\/:*?"<>|]+/g," ").replace(/\s+/g,"_").replace(/^_|_$/g,"");}
 function exporter(){
-  var a=vueM.a,m=vueM.m,b=$("btnXl");
-  if(typeof JSZip==="undefined"||!window.MODELE_XL){dire("msgXl","Le modèle Excel n'a pas pu être chargé.","err");return;}
-  b.disabled=true;dire("msgXl","Préparation du fichier…");
+  var b=$("btnXl");b.disabled=true;dire("msgXl","Préparation du fichier…");
+  fichierMois(vueM.a,vueM.m).then(function(f){return remettreFichier(f.nom,f.octets,MIME_XL);}).then(function(msg){dire("msgXl",msg,"ok");},function(e){
+    dire("msgXl",e&&e.code==="declined"?"Téléchargement annulé.":(e&&e.message)||"Le fichier n'a pas pu être créé. Réessayez.","err");}).then(function(){b.disabled=false;});
+}
+function fichierMois(a,m){
+  if(typeof JSZip==="undefined"||!window.MODELE_XL)return Promise.reject(new Error("Le modèle Excel n'a pas pu être chargé."));
   var jours={},semaines={};
   XL.semainesDuMois(a,m).forEach(function(s){
     var notes=lire("semaines/"+cleJour(s.lundi));if(notes)semaines[cleJour(s.lundi)]=notes;
     s.jours.forEach(function(dt){var d=donneesJour(dt);if(d)jours[cleJour(dt)]=d;});
   });
   var p=profil||{},inf=infosMois(a,m);
-  XL.construire(window.MODELE_XL,{annee:a,mois:m,jours:jours,semaines:semaines,infos:inf,
+  return XL.construire(window.MODELE_XL,{annee:a,mois:m,jours:jours,semaines:semaines,infos:inf,
     entete:{nom:nomComplet(p),faiseur:p.faiseur||"",assemblee:(p.assemblee||"")+(p.zone?" • "+p.zone:"")}},JSZip).then(function(octets){
-    return remettreFichier("Compte_rendu_spirituel_"+XL.MOIS[m-1]+"_"+a+".xlsx",octets,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-  }).then(function(msg){dire("msgXl",msg,"ok");},function(e){dire("msgXl",e&&e.code==="declined"?"Téléchargement annulé.":"Le fichier n'a pas pu être créé. Réessayez.","err");
-  }).then(function(){b.disabled=false;});
+    return {nom:"Compte_rendu_spirituel_"+XL.MOIS[m-1]+"_"+a+".xlsx",octets:octets};
+  });
+}
+/* ---------- Excel de la semaine (compte rendu spirituel) ---------- */
+function fichierSemaine(){
+  /* Le classeur d'origine (feuille MOIS, Semaine 1 à 6, Tableau de bord), nommé pour la semaine. */
+  var s=semaineDe(jour),a=jour.getFullYear(),m=jour.getMonth()+1;
+  return fichierMois(a,m).then(function(f){return {nom:"Compte_rendu_spirituel_semaine_"+s.numero+"_"+XL.MOIS[m-1]+"_"+a+".xlsx",octets:f.octets};});
+}
+function exporterSemaine(){
+  var b=$("btnXlSemaine");enregistrerSemaine();b.disabled=true;dire("msgXlSemaine","Préparation du fichier…");
+  fichierSemaine().then(function(f){return remettreFichier(f.nom,f.octets,MIME_XL);}).then(function(m){dire("msgXlSemaine",m,"ok");},function(e){
+    dire("msgXlSemaine",e&&e.code==="declined"?"Téléchargement annulé.":(e&&e.message)||"Le fichier n'a pas pu être créé. Réessayez.","err");}).then(function(){b.disabled=false;});
+}
+/* ---------- Rapports financiers (PDF et Excel) ---------- */
+function optionsRapportFin(){
+  return {reglages:lire("finance/reglages"),nom:nomComplet(profil||{}),logo:logo(),aujourdhui:auj,noms:{mois:MOIS,moisC:MOIS_C},droite:!!(self.I18N&&I18N.rtl)};
+}
+function optionsFinMois(){var o=optionsRapportFin();o.annee=finM.a;o.mois=finM.m;o.donnees=lire("finance/mois/"+FIN.cleMois(finM.a,finM.m));return o;}
+function optionsFinAn(){var o=optionsRapportFin();o.annee=finAn;o.lireMois=function(k){return lire("finance/mois/"+k);};return o;}
+function titreFin(an){var T=self.I18N?I18N.t:function(s){return s;};return an?T("Rapport financier de l'année")+" "+finAn:T("Rapport financier du mois")+" "+maj(MOIS[finM.m-1])+" "+finM.a;}
+function fichierFin(an){
+  if(typeof JSZip==="undefined"||!self.Tableur)return Promise.reject(new Error("Le fichier n'a pas pu être créé. Réessayez."));
+  var f=an?RapportFinance.excelAnnee(optionsFinAn()):RapportFinance.excelMois(optionsFinMois());
+  return Tableur.creer(f,JSZip).then(function(octets){return {nom:nomFichier(an?"Finances_"+finAn:"Finances_"+FIN.cleMois(finM.a,finM.m))+".xlsx",octets:octets};});
+}
+function rapportFin(an){
+  var html=an?RapportFinance.htmlAnnee(optionsFinAn()):RapportFinance.htmlMois(optionsFinMois());
+  montrerApercuAutre(html,titreFin(an),false,function(){return fichierFin(an);},true);
+}
+function excelFin(an){
+  var b=$(an?"btnXlFinAn":"btnXlFinMois"),msg=an?"msgRapportFinAn":"msgRapportFinMois";b.disabled=true;dire(msg,"Préparation du fichier…");
+  fichierFin(an).then(function(f){return remettreFichier(f.nom,f.octets,MIME_XL);}).then(function(m){dire(msg,m,"ok");},function(e){
+    dire(msg,e&&e.code==="declined"?"Téléchargement annulé.":(e&&e.message)||"Le fichier n'a pas pu être créé. Réessayez.","err");}).then(function(){b.disabled=false;});
+}
+function excelApercu(){
+  if(!apercuCourant||!apercuCourant.excel)return;
+  var b=$("apercuExcel");
+  occuper(b,apercuCourant.excel().then(function(f){return remettreFichier(f.nom,f.octets,MIME_XL);})).then(function(m){dire("msgPartage",m,"ok");},function(e){
+    dire("msgPartage",e&&e.code==="declined"?"Téléchargement annulé.":(e&&e.message)||"Le fichier n'a pas pu être créé. Réessayez.","err");});
 }
 function sauvegarder(){
   var donnees={},r=racine();
@@ -1323,7 +1372,7 @@ function ecrireFinMois(a,m,M){ecrire("finance/mois/"+FIN.cleMois(a,m),{salaire:M
 function nombre(v){return FIN.formater(v,"");}
 function argent(v,court,R){return FIN.formater(v,(R||finReglages()).devise,court);}
 function pct(x){return x===null||x===undefined?"–":(Math.round(x*1000)/10).toString().replace(".",",")+" %";}
-function nomMoisFin(){return FIN.MOIS[finM.m-1]+" "+finM.a;}
+function nomMoisFin(){return maj(MOIS[finM.m-1])+" "+finM.a;}
 function resumeFin(){return FIN.resume(finReglages(),finMois(finM.a,finM.m),finM.a,finM.m,auj);}
 function decalerFinMois(n){var d=new Date(finM.a,finM.m-1+n,1);finM={a:d.getFullYear(),m:d.getMonth()+1};finFiltre="";annulerEditionDepense();rafraichirVue();}
 function champMontant(id){var v=FIN.lireMontant($(id).value);return v;}
@@ -1331,7 +1380,11 @@ function champMontant(id){var v=FIN.lireMontant($(id).value);return v;}
 /* ---------- Instruments (cuir et cuivre) ---------- */
 /* Chiffres lumineux (tubes Nixie) ou compteur mécanique : un caractère par case, le texte reste lisible tel quel. */
 function chiffres(e,texte,genre){
+  if(self.I18N)texte=I18N.t(texte);
   e.textContent="";e.setAttribute("aria-label",texte);
+  /* Écritures liées (arabe, ourdou, indiennes…) : pas de découpage lettre par lettre. */
+  if(/[^\u0000-\u024F\u2000-\u206F\u20A0-\u20CF\u2212]/.test(String(texte))){e.textContent=texte;e.classList.add("texte-libre");return;}
+  e.classList.remove("texte-libre");
   String(texte).split("").forEach(function(c,i){
     var vide=/\s|\u202f|\u00a0/.test(c),sep=/[:.,%−-]/.test(c);
     var x=el("span",{"class":(genre==="nixie"?"tube":"roue")+(vide?" vide":sep?" sep":""),"aria-hidden":"true"},vide?" ":c);
@@ -1641,7 +1694,7 @@ function importerExcel(entree){
     var noms=Object.keys(zip.files).filter(function(n){return /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/[^/]+\.xml)$/.test(n);});
     return Promise.all(noms.map(function(n){return zip.file(n).async("string");})).then(function(t){var o={};noms.forEach(function(n,i){o[n]=t[i];});return FIN.lireClasseur(o,auj);});
   }).then(function(res){
-    var cles=Object.keys(res.mois).sort(),noms=cles.map(function(k){return FIN.MOIS[+k.slice(5)-1].toLowerCase();});
+    var cles=Object.keys(res.mois).sort(),noms=cles.map(function(k){return MOIS[+k.slice(5)-1].toLowerCase();});
     var existe=cles.filter(function(k){return finMois(+k.slice(0,4),+k.slice(5)).depenses.length;}).length;
     return confirmer("Importer ce fichier ?",res.reglages.categories.length+" catégories, "+res.nbDepenses+" dépenses ("+(noms.join(", ")||"aucun mois")+" "+res.annee+")."+(existe?" Les mois déjà remplis seront remplacés.":""),"Importer").then(function(ok){
       if(!ok){dire("msgImport","Import annulé.");return;}
@@ -1680,7 +1733,7 @@ function brancherFinances(){
   $("fichierExcel").addEventListener("change",function(){importerExcel(this);});
 }
 
-var VUES={choix:"vueChoix",finance:"vueFinance",depenses:"vueDepenses",budgets:"vueBudgets",bilan:"vueBilan",finreglages:"vueFinReglages",synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
+var VUES={guide:"vueGuide",choix:"vueChoix",finance:"vueFinance",depenses:"vueDepenses",budgets:"vueBudgets",bilan:"vueBilan",finreglages:"vueFinReglages",synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
   connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil",bienvenue:"vueBienvenue"};
 var AUTH={connexion:1,mdp:1,chargement:1,accueil:1,bienvenue:1,inscription:1};
 var vueActuelle="";
@@ -1688,7 +1741,8 @@ function titres(t,sous){$("titreVue").textContent=t;$("pastille").textContent=so
 function route(){
   viderSaisie();
   var h=(location.hash||"#choix").slice(1),m=/^apercu-(semaine|mois|autre)$/.exec(h),etape=etapeAccueil();
-  if(lienRecuperation&&C.session())h="mdp";
+  if(h==="guide")m=null;
+  else if(lienRecuperation&&C.session())h="mdp";
   else if(etape==="connexion"){
     /* Sans session : la page d'accueil, sauf si l'on demande un formulaire (ou qu'on est déjà venu). */
     var deja=false;try{deja=!!localStorage.getItem("crs:dejaConnecte");}catch(e){}
@@ -1714,6 +1768,7 @@ function route(){
   document.body.setAttribute("data-vue",h);
   document.body.classList.toggle("espace-finance",!!VUES_FIN[h]);
   document.body.classList.toggle("espace-choix",h==="choix");
+  document.body.classList.toggle("hors-session",h==="guide"&&etape==="connexion");
   Object.keys(VUES).forEach(function(k){$(VUES[k]).hidden=k!==h;});
   Array.prototype.forEach.call(document.querySelectorAll("[data-aller]"),function(b){
     if(b.closest(".lateral nav,.onglets-bas")){if(b.getAttribute("data-aller")===h)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");}
@@ -1729,6 +1784,7 @@ function rafraichirVue(){
   else if(h==="mois")afficherMois();
   else if(h==="suivi")afficherSuivi();
   else if(h==="accueil")afficherAccueil(etapeAccueil());
+  else if(h==="guide")titres("Guide d'utilisation","");
   else if(h==="connexion")titres("Connexion","");
   else if(h==="bienvenue")titres("Bienvenue","");
   else if(h==="chargement"||h==="mdp")titres("Mon compte","");
@@ -1751,7 +1807,7 @@ $("btnObjectifs").onclick=function(){remplirObjectifs();$("formObjectifs").hidde
 $("annulerObjectifs").onclick=function(){$("formObjectifs").hidden=true;$("btnObjectifs").hidden=false;dire("msgObjectifs","");};
 $("objectifsDefaut").onclick=function(){var o=RP.OBJECTIFS;$("o-priere").value=enHhmm(o.priereParJour);$("o-chap").value=o.chapitresParJour;$("o-rdqd").value=o.rdqdParSemaine;$("o-groupe").value=enHhmm(o.groupeParSemaine);$("o-jeune").value=o.jeuneParSemaine;};
 $("formObjectifs").addEventListener("submit",function(e){e.preventDefault();enregistrerObjectifs();});
-["partager","whatsapp","email","telecharger"].forEach(function(c){$({partager:"pdfPartager",whatsapp:"pdfWhatsapp",email:"pdfEmail",telecharger:"pdfTelecharger"}[c]).addEventListener("click",function(){partagerPdf(c);});});
+["partager"].forEach(function(c){$({partager:"pdfPartager"}[c]).addEventListener("click",function(){partagerPdf(c);});});
 $("syPeriode").addEventListener("click",function(e){var b=e.target.closest("[data-periode]");if(!b)return;synth.periode=b.getAttribute("data-periode");afficherSynthese();});
 ["fichierPhoto","fichierPhoto2"].forEach(function(id){$(id).addEventListener("change",function(){changerPhoto(this);});});
 $("retirerPhoto").onclick=retirerPhoto;
@@ -1794,9 +1850,10 @@ $("etapeIdentite").addEventListener("submit",function(e){e.preventDefault();
   occuper(b,C.majProfil(d).then(function(){return chargerCompte();})).then(function(){dire("msgIdentite","");route();},function(err){dire("msgIdentite",err.message,"err");});
 });
 construireHeros();
+if(self.I18N)I18N.brancher();
 /* Liens internes de la page d'accueil : défilement doux, sans changer de vue. */
 Array.prototype.forEach.call(document.querySelectorAll("[data-defiler]"),function(a){
-  a.addEventListener("click",function(e){e.preventDefault();var c=document.querySelector(a.getAttribute("href"));if(c)c.scrollIntoView({behavior:"smooth",block:"start"});});
+  a.addEventListener("click",function(e){e.preventDefault();var c=document.querySelector(a.getAttribute("href"));if(c&&c.tagName==="DETAILS")c.open=true;if(c)c.scrollIntoView({behavior:"smooth",block:"start"});});
 });
 try{montrerFormConnexion(localStorage.getItem("crs:dejaConnecte")?"connexion":"inscription");}catch(e){montrerFormConnexion("inscription");}
 Array.prototype.forEach.call(document.querySelectorAll("[data-copier]"),function(b){
@@ -1897,6 +1954,13 @@ $("ajouterDon").onclick=function(){if(donsCourants.length<XL.NB_DONS){donsCouran
 $("btnPdfSemaine").onclick=function(){enregistrerSemaine();location.hash="#apercu-semaine";};
 $("btnPdfMois").onclick=function(){if(enregistrerInfos())location.hash="#apercu-mois";};
 $("btnXl").onclick=function(){if(enregistrerInfos())exporter();};
+$("btnXlSemaine").onclick=exporterSemaine;
+$("apercuExcel").onclick=excelApercu;
+$("apercuImprimer").onclick=function(){imprimer();};
+$("btnRapportFinMois").onclick=function(){rapportFin(false);};
+$("btnRapportFinAn").onclick=function(){rapportFin(true);};
+$("btnXlFinMois").onclick=function(){excelFin(false);};
+$("btnXlFinAn").onclick=function(){excelFin(true);};
 $("fermerApercu").onclick=function(){history.back();};
 $("btnImprimer").onclick=imprimer;
 $("btnSauver").onclick=sauvegarder;
