@@ -1001,3 +1001,28 @@ Pêche
 Sable
 Perle
 Personnalisée
+La Bible
+Choisir un livre
+Rechercher dans la Bible
+Affichage
+Chapitre précédent
+Chapitre suivant
+Surligner
+Effacer
+Partager
+Fermer
+Un mot, une phrase ou une référence (ex. Jean 3:16)
+Taille du texte
+Plus petit
+Plus grand
+Version de la Bible
+Disponible hors connexion après la première ouverture.
+Téléchargement de la Bible…
+La Bible n'a pas encore été téléchargée. Connectez-vous à internet une première fois pour l'ouvrir ; elle restera ensuite disponible hors connexion.
+Compté dans « Chapitres lus » aujourd'hui
+J'ai lu ce chapitre
+Ancien Testament
+Nouveau Testament
+Résultats : #
+Aucun résultat
+Seuls les 300 premiers résultats sont affichés.

@@ -1001,3 +1001,28 @@
 1001|Arena
 1002|Perla
 1003|Personalizado
+1004|La Biblia
+1005|Elegir un libro
+1006|Buscar en la Biblia
+1007|Visualización
+1008|Capítulo anterior
+1009|Capítulo siguiente
+1010|Resaltar
+1011|Borrar
+1012|Compartir
+1013|Cerrar
+1014|Una palabra, una frase o una referencia (ej. Juan 3:16)
+1015|Tamaño del texto
+1016|Más pequeño
+1017|Más grande
+1018|Versión de la Biblia
+1019|Disponible sin conexión después de la primera apertura.
+1020|Descargando la Biblia…
+1021|La Biblia aún no se ha descargado. Conéctese a internet una primera vez para abrirla; después seguirá disponible sin conexión.
+1022|Contado en «Capítulos leídos» hoy
+1023|He leído este capítulo
+1024|Antiguo Testamento
+1025|Nuevo Testamento
+1026|Resultados: #
+1027|Ningún resultado
+1028|Solo se muestran los primeros 300 resultados.

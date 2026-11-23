@@ -1001,3 +1001,28 @@
 1001|Sand
 1002|Pearl
 1003|Custom
+1004|The Bible
+1005|Choose a book
+1006|Search the Bible
+1007|Display
+1008|Previous chapter
+1009|Next chapter
+1010|Highlight
+1011|Clear
+1012|Share
+1013|Close
+1014|A word, a phrase or a reference (e.g. John 3:16)
+1015|Text size
+1016|Smaller
+1017|Larger
+1018|Bible version
+1019|Available offline after the first opening.
+1020|Downloading the Bible…
+1021|The Bible has not been downloaded yet. Connect to the internet once to open it; it will then stay available offline.
+1022|Counted in “Chapters read” today
+1023|I have read this chapter
+1024|Old Testament
+1025|New Testament
+1026|Results: #
+1027|No results
+1028|Only the first 300 results are shown.

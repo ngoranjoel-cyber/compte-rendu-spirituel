@@ -1001,3 +1001,28 @@
 1001|Areia
 1002|Pérola
 1003|Personalizada
+1004|A Bíblia
+1005|Escolher um livro
+1006|Pesquisar na Bíblia
+1007|Exibição
+1008|Capítulo anterior
+1009|Capítulo seguinte
+1010|Destacar
+1011|Apagar
+1012|Partilhar
+1013|Fechar
+1014|Uma palavra, uma frase ou uma referência (ex. João 3:16)
+1015|Tamanho do texto
+1016|Menor
+1017|Maior
+1018|Versão da Bíblia
+1019|Disponível sem internet após a primeira abertura.
+1020|A transferir a Bíblia…
+1021|A Bíblia ainda não foi transferida. Ligue-se à internet uma primeira vez para a abrir; depois ficará disponível sem internet.
+1022|Contado em «Capítulos lidos» hoje
+1023|Li este capítulo
+1024|Antigo Testamento
+1025|Novo Testamento
+1026|Resultados: #
+1027|Nenhum resultado
+1028|Só são mostrados os primeiros 300 resultados.
