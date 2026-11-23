@@ -147,6 +147,8 @@ document.documentElement.lang=langue==="pcm"?"pcm":langue;
 document.documentElement.dir=RTL[langue]?"rtl":"ltr";
 if(langue!=="fr"&&!AUDIT){
   /* Dictionnaire de la langue choisie, chargé tout de suite (avant app.js) : trad/xx.js appelle I18N.pret(). */
-  document.write('<script src="langue-'+langue+'.js"><\/script>');
+  /* Si le fichier de langue manque (hors connexion avant la première visite), l'application démarre en français plutôt que de rester bloquée. */
+  self.__langueEchec=function(){if(!self.TRADUCTIONS)self.I18N.pret();};
+  document.write('<script src="langue-'+langue+'.js" onerror="__langueEchec()"><\/script>');
 }else if(document.body)demarrer();else document.addEventListener("DOMContentLoaded",demarrer);
 })();
