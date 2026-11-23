@@ -989,3 +989,15 @@
 989|Sem conexão: seus registros ficam guardados no aparelho
 990|Sincronizado
 991|Preparemo-nos para encontrar nosso Senhor e Salvador Jesus Cristo
+992|Cor das páginas
+993|Escolha a cor de fundo das páginas e dos cabeçalhos. Esta definição fica guardada neste aparelho.
+994|A página inicial e o espaço Finanças mantêm a decoração em madeira.
+995|Padrão
+996|Céu
+997|Menta
+998|Lavanda
+999|Rosa
+1000|Pêssego
+1001|Areia
+1002|Pérola
+1003|Personalizada

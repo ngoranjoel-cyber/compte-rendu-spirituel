@@ -989,3 +989,15 @@ Hors connexion : # saisies à envoyer
 Hors connexion : vos saisies sont gardées sur l'appareil
 Synchronisé
 Préparons-nous à rencontrer notre Seigneur et Sauveur Jésus-Christ
+Couleur des pages
+Choisissez la couleur de fond des pages et des en-têtes. Ce réglage est gardé sur cet appareil.
+L'accueil et l'espace Finances gardent leur décor bois.
+Par défaut
+Ciel
+Menthe
+Lavande
+Rose
+Pêche
+Sable
+Perle
+Personnalisée

@@ -989,3 +989,15 @@
 989|Offline: your entries are kept on the device
 990|Synced
 991|Let us prepare to meet our Lord and Saviour Jesus Christ
+992|Page colour
+993|Choose the background colour of the pages and headers. This setting is kept on this device.
+994|The home page and the Finances space keep their wood design.
+995|Default
+996|Sky
+997|Mint
+998|Lavender
+999|Pink
+1000|Peach
+1001|Sand
+1002|Pearl
+1003|Custom
