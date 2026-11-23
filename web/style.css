@@ -703,7 +703,7 @@ body.bienvenue{background:var(--fond)}
 .bv-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
 .bv-marque{display:flex;align-items:center;gap:12px}
 .bv-logo{width:48px;height:48px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 10px 22px rgba(98,102,140,.18)}
-.bv-logo img{width:38px;height:38px;object-fit:contain}
+.bv-logo img{width:46px;height:46px;object-fit:contain}
 .bv-marque b{display:block;font-size:16px;font-weight:600}
 .bv-marque span{display:block;font-size:12px;color:var(--gris);letter-spacing:.05em}
 .bv-liens{display:flex;flex-wrap:wrap;align-items:center;gap:22px;font-size:14px}
