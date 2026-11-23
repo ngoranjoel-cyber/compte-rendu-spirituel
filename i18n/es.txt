@@ -1001,3 +1001,6 @@
 1001|Arena
 1002|Perla
 1003|Personalizado
+1004|Ajustes · color e idioma
+1005|Elegir el color
+1006|Cerrar

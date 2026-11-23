@@ -1001,3 +1001,6 @@
 1001|Sand
 1002|Pearl
 1003|Custom
+1004|Settings · colour and language
+1005|Choose the colour
+1006|Close
