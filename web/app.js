@@ -1757,7 +1757,7 @@ function brancherFinances(){
   $("fichierExcel").addEventListener("change",function(){importerExcel(this);});
 }
 
-var VUES={guide:"vueGuide",choix:"vueChoix",finance:"vueFinance",depenses:"vueDepenses",budgets:"vueBudgets",bilan:"vueBilan",finreglages:"vueFinReglages",synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
+var VUES={guide:"vueGuide",bible:"vueBible",choix:"vueChoix",finance:"vueFinance",depenses:"vueDepenses",budgets:"vueBudgets",bilan:"vueBilan",finreglages:"vueFinReglages",synthese:"vueSynthese",jour:"vueJour",semaine:"vueSemaine",mois:"vueMois",profil:"vueProfil",suivi:"vueSuivi",
   connexion:"vueConnexion",mdp:"vueMdp",chargement:"vueChargement",accueil:"vueAccueil",bienvenue:"vueBienvenue"};
 var AUTH={connexion:1,mdp:1,chargement:1,accueil:1,bienvenue:1,inscription:1};
 var vueActuelle="";
@@ -1813,6 +1813,7 @@ function rafraichirVue(){
   else if(h==="bienvenue")titres("Bienvenue","");
   else if(h==="chargement"||h==="mdp")titres("Mon compte","");
   else if(h==="jour")afficherJour();
+  else if(h==="bible"&&self.BIBLE)BIBLE.afficher();
   else if(h==="synthese")afficherSynthese();
   else if(h==="choix")afficherChoix();
   else if(h==="finance")afficherFinance();
@@ -1875,6 +1876,15 @@ $("etapeIdentite").addEventListener("submit",function(e){e.preventDefault();
 });
 construireHeros();
 if(self.I18N)I18N.brancher();
+/* La Bible : « J'ai lu ce chapitre » ajoute 1 à « Chapitres lus » du jour. */
+if(self.BIBLE)BIBLE.brancher({titres:titres,ajouterChapitre:function(){
+  var k=cleJour(new Date()),d=lire("jours/"+k)||{};d.chapitres=n0(d.chapitres)+1;d.maj=new Date().toISOString();
+  if(!essayer("msgJour",function(){ecrire("jours/"+k,d);}))return false;
+  try{signalerNatif(k,d);}catch(e){}return true;}});
+/* Le verset de l'accueil s'ouvre dans la Bible. */
+(function(){var REFS=[[39,5,33],[51,4,17],[58,3,8],[18,118,105],[19,2,9]],v=document.querySelector(".choix-verset");if(!v||!self.BIBLE)return;
+  v.style.cursor="pointer";v.setAttribute("role","link");
+  v.addEventListener("click",function(){var r=REFS[numVerset]||REFS[0];BIBLE.ouvrirA(r[0],r[1],r[2]);location.hash="#bible";});})();
 Array.prototype.forEach.call(document.querySelectorAll(".entete-langue"),function(l){l.setAttribute("data-l",(document.documentElement.lang||"fr").slice(0,2).toUpperCase());});
 /* Couleur des pages (Profil) : fond clair + couleur des en-têtes, gardés sur l'appareil. */
 (function(){

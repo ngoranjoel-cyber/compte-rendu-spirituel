@@ -120,6 +120,9 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
   <symbol id="i-chrono" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2"/><path d="M9.5 2.5h5M12 2.5v3.5M18.5 6.5l1.5-1.5"/></symbol>
   <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/></symbol>
   <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.7 1.7-1.7H16a5 5 0 0 0 5-5C21 6.4 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="14.5" cy="7" r="1.2"/><circle cx="17.2" cy="10.5" r="1.2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+  <symbol id="i-bible" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M12 6.5v7M9.5 9h5"/></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2 20h20"/></symbol>
 </svg>
@@ -145,6 +148,7 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
       <button type="button" data-aller="jour"><span class="pic petit vert"><svg class="ic"><use href="#i-sun"/></svg></span>Ma journée</button>
       <button type="button" data-aller="semaine"><span class="pic petit bleu"><svg class="ic"><use href="#i-week"/></svg></span>Ma semaine</button>
       <button type="button" data-aller="mois"><span class="pic petit violet"><svg class="ic"><use href="#i-grid"/></svg></span>Mon mois</button>
+      <button type="button" data-aller="bible"><span class="pic petit orange"><svg class="ic"><use href="#i-bible"/></svg></span>La Bible</button>
       <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="pic petit orange"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Mes disciples</span></button>
       <button type="button" data-aller="profil"><span class="pic petit ardoise"><svg class="ic"><use href="#i-user"/></svg></span>Mon profil</button>
       <button type="button" data-aller="synthese"><span class="pic petit rose"><svg class="ic"><use href="#i-chart"/></svg></span>Synthèse</button>
@@ -876,10 +880,30 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
           <p class="sp-verset-cite" id="chVerset">« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus. »</p>
           <p class="sp-verset-ref"><svg class="ic"><use href="#i-book-open"/></svg><b id="chVersetRef">Matthieu 6.33</b></p>
         </div>
-        <div class="choix-aide"><button type="button" class="sp-guide" data-aller="guide"><svg class="ic"><use href="#i-book-open"/></svg>Guide d'utilisation</button><label class="sp-langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label></div>
+        <div class="choix-aide"><button type="button" class="sp-guide sp-bible" data-aller="bible"><svg class="ic"><use href="#i-bible"/></svg>La Bible</button><button type="button" class="sp-guide" data-aller="guide"><svg class="ic"><use href="#i-book-open"/></svg>Guide d'utilisation</button><label class="sp-langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label></div>
       </main>
 
       <!-- ===== Finances : tableau de bord ===== -->
+      <main class="vue bible" id="vueBible" hidden>
+        <div class="bible-barre">
+          <button type="button" class="bible-ref" id="bibleRef" aria-label="Choisir un livre">…</button>
+          <span class="bible-version" id="bibleVersion" translate="no"></span>
+          <button type="button" class="bible-outil" id="bibleChercher" aria-label="Rechercher dans la Bible" title="Rechercher dans la Bible"><svg class="ic"><use href="#i-search"/></svg></button>
+          <button type="button" class="bible-outil aa" id="bibleAa" aria-label="Affichage" title="Affichage">Aa</button>
+        </div>
+        <div class="bible-etat" id="bibleEtat" hidden></div>
+        <article class="bible-texte" id="bibleTexte" translate="no"></article>
+        <div class="bible-nav-chap" id="bibleNavChap">
+          <button type="button" class="bible-fleche" id="biblePrec" aria-label="Chapitre précédent" title="Chapitre précédent"><svg class="ic"><use href="#i-left"/></svg></button>
+          <button type="button" class="bible-fleche" id="bibleSuiv" aria-label="Chapitre suivant" title="Chapitre suivant"><svg class="ic"><use href="#i-right"/></svg></button>
+        </div>
+        <div class="bible-selection" id="bibleSelection" hidden>
+          <b id="bibleSelRef" translate="no"></b>
+          <div class="bible-sel-couleurs"><span>Surligner</span><button type="button" data-couleur="jaune" style="background:#FFE58A" aria-label="Surligner"></button><button type="button" data-couleur="vert" style="background:#BDEFC9" aria-label="Surligner"></button><button type="button" data-couleur="bleu" style="background:#C4E1FF" aria-label="Surligner"></button><button type="button" data-couleur="rose" style="background:#FFCFE0" aria-label="Surligner"></button><button type="button" data-couleur="" class="sans" aria-label="Effacer"><svg class="ic"><use href="#i-x"/></svg></button></div>
+          <div class="bible-sel-actions"><button type="button" id="bibleCopier"><svg class="ic"><use href="#i-copy"/></svg>Copier</button><button type="button" id="biblePartager"><svg class="ic"><use href="#i-share"/></svg>Partager</button><button type="button" id="bibleAnnuler">Annuler</button></div>
+        </div>
+      </main>
+
       <main class="vue fin" id="vueFinance" hidden>
         <div class="fin-nav-mois"><button type="button" class="btn-rond" data-fin-mois="-1" aria-label="Mois précédent"><svg class="ic"><use href="#i-left"/></svg></button><b class="fin-mois-nom">…</b><button type="button" class="btn-rond" data-fin-mois="1" aria-label="Mois suivant"><svg class="ic"><use href="#i-right"/></svg></button></div>
         <section class="fin-hero" id="fHero">
@@ -1045,6 +1069,7 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
     <button type="button" data-aller="jour"><span class="rond-ic"><svg class="ic"><use href="#i-sun"/></svg></span>Journée</button>
     <button type="button" data-aller="semaine"><span class="rond-ic"><svg class="ic"><use href="#i-week"/></svg></span>Semaine</button>
     <button type="button" data-aller="mois"><span class="rond-ic"><svg class="ic"><use href="#i-grid"/></svg></span>Mois</button>
+    <button type="button" data-aller="bible"><span class="rond-ic"><svg class="ic"><use href="#i-bible"/></svg></span>Bible</button>
     <button type="button" data-aller="suivi" class="nav-suivi" hidden><span class="rond-ic"><svg class="ic"><use href="#i-users"/></svg></span><span class="nom-suivi">Disciples</span></button>
     <button type="button" data-aller="profil"><span class="rond-ic"><svg class="ic"><use href="#i-user"/></svg></span>Profil</button>
     <button type="button" data-aller="synthese"><span class="rond-ic"><svg class="ic"><use href="#i-chart"/></svg></span>Synthèse</button>
@@ -1070,6 +1095,22 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
 </div>
 
 <!-- Fenêtre de confirmation -->
+<dialog id="bibleLivres" class="bible-fen grande">
+  <div class="bf-tete"><h2 id="bibleLivresTitre">Choisir un livre</h2><button type="button" class="bf-fermer" data-fermer aria-label="Fermer"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <div class="bf-corps" id="bibleLivresCorps" translate="no"></div>
+</dialog>
+<dialog id="bibleRecherche" class="bible-fen grande">
+  <div class="bf-tete"><h2>Rechercher dans la Bible</h2><button type="button" class="bf-fermer" data-fermer aria-label="Fermer"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <label class="bible-q"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="bibleQ" placeholder="Un mot, une phrase ou une référence (ex. Jean 3:16)" autocomplete="off"></label>
+  <div class="bf-corps" id="bibleResultats" translate="no"></div>
+</dialog>
+<dialog id="bibleAffichage" class="bible-fen">
+  <div class="bf-tete"><h2>Affichage</h2><button type="button" class="bf-fermer" data-fermer aria-label="Fermer"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <p class="bf-libelle">Taille du texte</p>
+  <div class="bible-taille"><button type="button" id="bibleMoins" aria-label="Plus petit">A−</button><b id="bibleTailleVal">19</b><button type="button" id="biblePlus" aria-label="Plus grand">A+</button></div>
+  <label class="champ bf-libelle">Version de la Bible<select id="bibleLangue" translate="no"></select></label>
+  <p class="aide">Disponible hors connexion après la première ouverture.</p>
+</dialog>
 <dialog id="dialogue">
   <form method="dialog" class="vue" style="gap:14px">
     <h2 id="dialogueTitre"></h2>
@@ -1091,6 +1132,7 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
 <script src="langues.js"></script>
 <script src="tableur.js"></script>
 <script src="rapport-finance.js"></script>
+<script src="bible.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

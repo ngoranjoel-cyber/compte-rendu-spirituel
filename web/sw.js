@@ -3,11 +3,12 @@
    - Les polices (Google Fonts, Adobe Fonts) sont gardées après leur premier chargement.
    - Hors connexion, toute page de l'application s'ouvre depuis le cache.
    Les saisies faites hors connexion sont gardées sur l'appareil et envoyées au retour du réseau (voir compte.js). */
-var CACHE = "compte-rendu-v35";
+var CACHE = "compte-rendu-v36";
+var BIBLE = "compte-rendu-bible-v1";
 var POLICES = "compte-rendu-polices-v1";
 var FICHIERS = ["./", "index.html", "style.css", "langues.js", "tableur.js", "rapport-finance.js", "app.js", "xl.js", "rapport.js", "finance.js", "compte.js", "config.js", "modele.js", "jszip.min.js", "confidentialite.html", "conditions.html",
   "manifest.webmanifest", "icone.svg", "logo.png", "pdf-lib.min.js", "icone-192.png", "icone-512.png", "icone-maskable.png", "oiseau-192.png", "oiseau-512.png",
-  "langue-en.js", "langue-es.js", "langue-pt.js", "langue-zh.js", "langue-ar.js"];
+  "bible.js", "langue-en.js", "langue-es.js", "langue-pt.js", "langue-zh.js", "langue-ar.js"];
 var HOTES_POLICES = ["fonts.googleapis.com", "fonts.gstatic.com", "use.typekit.net", "p.typekit.net"];
 
 self.addEventListener("install", function (e) {
@@ -21,7 +22,7 @@ self.addEventListener("install", function (e) {
 
 self.addEventListener("activate", function (e) {
   e.waitUntil(caches.keys().then(function (noms) {
-    return Promise.all(noms.filter(function (n) { return n !== CACHE && n !== POLICES; }).map(function (n) { return caches.delete(n); }));
+    return Promise.all(noms.filter(function (n) { return n !== CACHE && n !== POLICES && n !== BIBLE; }).map(function (n) { return caches.delete(n); }));
   }).then(function () { return self.clients.claim(); }));
 });
 
@@ -42,6 +43,17 @@ self.addEventListener("fetch", function (e) {
 
   /* Les appels au serveur des comptes (autre adresse) ne passent pas par le cache. */
   if (url.origin !== self.location.origin) return;
+
+  /* La Bible (bible-xx.json, plusieurs Mo) : gardée à part dès la première lecture, puis lue sans réseau.
+     Ce cache n'est pas vidé aux mises à jour de l'application. */
+  if (/[/]bible-[a-z][a-z][.]json$/.test(url.pathname)) {
+    e.respondWith(caches.open(BIBLE).then(function (c) {
+      return c.match(req, { ignoreSearch: true }).then(function (r) {
+        return r || fetch(req).then(function (rep) { if (rep.ok) c.put(req, rep.clone()); return rep; });
+      });
+    }));
+    return;
+  }
 
   /* Fichiers de l'application : le réseau d'abord pour recevoir les mises à jour, le cache en secours hors connexion. */
   e.respondWith(
