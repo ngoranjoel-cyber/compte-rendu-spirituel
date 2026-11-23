@@ -1001,6 +1001,3 @@
 1001|Areia
 1002|Pérola
 1003|Personalizada
-1004|Definições · cor e idioma
-1005|Escolher a cor
-1006|Fechar
