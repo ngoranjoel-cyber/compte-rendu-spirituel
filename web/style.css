@@ -1671,44 +1671,37 @@ body.hors-session .lateral,body.hors-session .onglets-bas,body.hors-session .ent
 
 .sp-nixie.texte-libre,.sp-compteur.texte-libre{font-family:inherit;font-size:1.05rem;letter-spacing:0;color:#FFD9A0;text-shadow:0 0 6px rgba(255,170,60,.6);padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ---------- Adaptation à toutes les tailles d'écran ----------
-   Téléphone : aucune carte ne dépasse de l'écran, même sur les petits modèles (320-360 px).
-   Ordinateur : la page s'élargit sur les grands écrans au lieu de rester une colonne étroite au milieu. */
-.page{min-width:0}
-.grille-2{grid-template-columns:minmax(0,1fr)}
-@media (min-width:1100px){.grille-2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-.grille-2>*,.carte,.panneau,.etape-cartes>*,.choix-cartes>*,.choix-stats>*,.fin-tuiles>*,.fin-champs>*,.fin-revenus>*,.fin-hero-pied>*,.sp-instruments>*,.ligne2>*{min-width:0}
-.carte select,.panneau select,.carte input:not([type=checkbox]):not([type=radio]),.panneau input:not([type=checkbox]):not([type=radio]){max-width:100%}
-img,svg,canvas{max-width:100%}
-@media (min-width:1440px){
-  .page{max-width:1180px}
-  #apercu{max-width:1240px}
+/* ---------- Pages d'accueil : les figures occupent bien l'écran ----------
+   Seulement : page de présentation (bienvenue), connexion / inscription, et l'accueil « Choisissez votre espace ».
+   Sur grand écran, l'ensemble est agrandi proportionnellement (mêmes formes, plus grandes) ;
+   sur téléphone, l'en-tête et les colonnes se réorganisent pour que rien ne se chevauche. */
+
+/* Accueil « Choisissez votre espace » : centré dans l'écran et agrandi sur les grands écrans */
+@media (min-width:960px){
+  body.espace-choix .page{max-width:none;min-height:100vh;display:flex;align-items:center;justify-content:center}
+  body.espace-choix #vueChoix{width:100%;max-width:920px}
 }
-@media (min-width:1800px){
-  .page{max-width:1340px}
-  #apercu{max-width:1400px}
+@media (min-width:1500px) and (min-height:820px){body.espace-choix #vueChoix{zoom:1.18}}
+@media (min-width:1800px) and (min-height:950px){body.espace-choix #vueChoix{zoom:1.38}}
+@media (min-width:2300px) and (min-height:1250px){body.espace-choix #vueChoix{zoom:1.75}}
+
+/* Page de présentation : plus large et agrandie sur les grands écrans */
+@media (min-width:1500px){body.bienvenue .bv-cadre{zoom:1.15}}
+@media (min-width:1800px){body.bienvenue .bv-cadre{zoom:1.32}}
+@media (min-width:2300px){body.bienvenue .bv-cadre{zoom:1.7}}
+/* Téléphone : le nom à gauche sur sa ligne, la langue et les liens dessous */
+@media (max-width:560px){
+  body.bienvenue .bv-nav{flex-wrap:wrap;row-gap:12px}
+  body.bienvenue .bv-marque{flex:1 1 100%}
+  body.bienvenue .bv-liens{flex:1 1 100%;justify-content:space-between;gap:12px}
 }
-/* Petits téléphones : on resserre les rangées de saisie */
-@media (max-width:374px){
-  .page{padding-left:10px;padding-right:10px}
-  .panneau{padding:8px}
-  .rangee{gap:7px;padding:7px 6px}
-  .rangee .pic{width:30px;height:30px}
-  .pas button{width:28px;height:30px}
-  .pas input{width:44px}
-  .chrono{min-width:30px;height:30px}
-  .carte{padding:14px}
-}
-.calendrier{grid-template-columns:repeat(7,minmax(0,1fr))}
-.case-cal{min-width:0;padding:0}
-@media (max-width:374px){.calendrier{gap:4px}.case-cal{border-radius:10px;font-size:.85rem}}
-@media (min-width:2200px){.page{max-width:1560px}#apercu{max-width:1560px}}
-/* Compteur « Reste du mois » : les chiffres rétrécissent au lieu de passer à la ligne */
-body.espace-finance .fin-hero-montant{flex-wrap:nowrap;justify-content:center}
-body.espace-finance .fin-hero-montant .roue{width:clamp(16px,6.2vw,26px);height:clamp(30px,10.5vw,42px);font-size:clamp(15px,5.6vw,24px);flex:none}
-body.espace-finance .fin-hero-montant .roue.vide{width:clamp(4px,1.4vw,6px)}
-@media (max-width:374px){
-  .sy-zone{grid-template-columns:minmax(0,1fr) 112px minmax(0,1fr);gap:6px 4px}
-  .sy-zone *{overflow-wrap:anywhere}
-  .fin-hero-pied{gap:8px}.fin-hero-pied *{font-size:.78rem}
+
+/* Connexion et inscription : la carte remplit mieux les grands écrans */
+@media (min-width:1500px) and (min-height:900px){body.auth .auth2{zoom:1.12}}
+@media (min-width:1800px) and (min-height:1000px){body.auth .auth2{zoom:1.25}}
+@media (min-width:2300px) and (min-height:1300px){body.auth .auth2{zoom:1.6}}
+/* Téléphone : la colonne décorative reste compacte au-dessus du formulaire */
+@media (max-width:639px){
+  body.auth .auth2-hero{min-height:300px}
+  body.auth .hero-bas{padding-top:24px}
 }
