@@ -988,3 +988,4 @@
 988|Sin conexión: # registros por enviar
 989|Sin conexión: tus registros se guardan en el dispositivo
 990|Sincronizado
+991|Preparémonos para encontrarnos con nuestro Señor y Salvador Jesucristo

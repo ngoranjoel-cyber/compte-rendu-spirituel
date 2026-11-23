@@ -988,3 +988,4 @@
 988|Offline: # entries to send
 989|Offline: your entries are kept on the device
 990|Synced
+991|Let us prepare to meet our Lord and Saviour Jesus Christ
