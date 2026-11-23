@@ -1026,3 +1026,7 @@
 1026|Resultados: #
 1027|Ningún resultado
 1028|Solo se muestran los primeros 300 resultados.
+1029|Estilo de las páginas de inicio
+1030|Elija el aspecto de la página de inicio y de las páginas de conexión. Este ajuste se guarda en este dispositivo.
+1031|Madera y cobre
+1032|Colores de «Relación con Dios»

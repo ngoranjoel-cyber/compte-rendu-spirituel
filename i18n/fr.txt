@@ -1026,3 +1026,7 @@ Nouveau Testament
 Résultats : #
 Aucun résultat
 Seuls les 300 premiers résultats sont affichés.
+Style des pages d'accueil
+Choisissez l'apparence de l'accueil et des pages de connexion. Ce réglage est gardé sur cet appareil.
+Bois et cuivre
+Couleurs de « Relation avec Dieu »

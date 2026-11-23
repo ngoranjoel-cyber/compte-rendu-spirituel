@@ -1026,3 +1026,7 @@
 1026|Results: #
 1027|No results
 1028|Only the first 300 results are shown.
+1029|Home page style
+1030|Choose how the home page and the sign-in pages look. This setting is kept on this device.
+1031|Wood and copper
+1032|“Relationship with God” colours
