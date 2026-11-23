@@ -1814,137 +1814,139 @@ dialog.bible-fen.grande[open]{display:flex;flex-direction:column}
 
 /* =====================================================================
    PAGES D'ACCUEIL AUX COULEURS DE « RELATION AVEC DIEU »
-   Accueil « Choisissez votre espace », connexion, inscription et premières étapes.
-   Mêmes éléments qu'avant (cadrans, compteurs, boussole…), seules les couleurs changent
-   et les formes s'alignent sur le reste de l'application (cartes blanches arrondies, boutons ronds).
+   Même mise en forme que le cuir et le bois (plaques, coutures, rivets, tubes, parchemin, polices) :
+   seules les couleurs changent. Accueil « Choisissez votre espace », connexion, inscription, premières étapes.
+   Style au choix sur l'accueil (classe « accueil-dieu » sur <html>) ; par défaut : bois et cuivre.
    L'espace Finances garde son décor bois.
-   Style au choix dans Profil (classe « accueil-dieu » sur <html>) ; par défaut : bois et cuivre.
    ===================================================================== */
-html.accueil-dieu:has(body[data-vue="choix"]),html.accueil-dieu:has(body.auth){background:#E9EEFA}
+html.accueil-dieu:has(body[data-vue="choix"]),html.accueil-dieu:has(body.auth){background:#DCE3F7}
 html.accueil-dieu body[data-vue="choix"],html.accueil-dieu body.auth{
-  --d-encre:#2E2A7A;--d-gris:#4D4A9E;--d-indigo:#5A4FCF;--d-turq:#12A89A;--d-vert:#2FB866;--d-jaune:#FFC21A;--d-corail:#F2546A;--d-trait:#D9DEF2;--d-pale:#EEF0FF;
-  background-color:#E9EEFA!important;
-  background-image:radial-gradient(60% 45% at 0% 0%,rgba(90,79,207,.13),transparent 70%),radial-gradient(55% 40% at 100% 100%,rgba(18,168,154,.13),transparent 70%),radial-gradient(40% 30% at 100% 0%,rgba(255,194,26,.10),transparent 70%)!important;
-  background-attachment:fixed!important}
+  background-color:#E6ECFA!important;
+  background-image:
+    repeating-linear-gradient(90deg,transparent 0 92px,rgba(90,79,207,.10) 92px 95px,rgba(255,255,255,.55) 95px 96px),
+    repeating-linear-gradient(92deg,rgba(90,79,207,.025) 0 2px,transparent 2px 7px,rgba(255,255,255,.18) 7px 9px,transparent 9px 15px),
+    radial-gradient(120% 70% at 30% 10%,#F4F2FF 0%,#E6ECFA 60%,#D3DCF5 100%)!important}
 
 /* ---------- Accueil « Choisissez votre espace » ---------- */
-html.accueil-dieu body[data-vue="choix"] .entete{background:linear-gradient(135deg,#5A4FCF,#12A89A)!important;border-bottom:0!important;box-shadow:0 6px 18px rgba(90,79,207,.25)!important}
-html.accueil-dieu body[data-vue="choix"] .entete .titre-vue b{color:#fff!important;font-family:var(--police)!important;letter-spacing:0}
-html.accueil-dieu body[data-vue="choix"] .entete .titre-vue span{color:rgba(255,255,255,.85)!important}
-html.accueil-dieu body[data-vue="choix"] .entete .avatar{box-shadow:0 0 0 2px #fff!important}
-html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre{background:#fff;border-radius:24px;box-shadow:0 12px 30px rgba(70,80,190,.14)}
-html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre .choix-salut{color:var(--d-turq)!important}
-html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre h1{font-family:var(--police)!important;font-weight:800;color:var(--d-encre)!important;text-shadow:none}
-html.accueil-dieu .sp-boussole,html.accueil-dieu .ah-boussole svg{filter:drop-shadow(0 6px 10px rgba(90,79,207,.25))!important}
-html.accueil-dieu body[data-vue="choix"] .sp-boussole circle:nth-of-type(1),html.accueil-dieu body.auth .ah-boussole circle:nth-of-type(1){fill:#5A4FCF;stroke:#463CB8}
-html.accueil-dieu body[data-vue="choix"] .sp-boussole circle:nth-of-type(2),html.accueil-dieu body.auth .ah-boussole circle:nth-of-type(2){fill:#fff;stroke:#C9CDF5}
+html.accueil-dieu body[data-vue="choix"] .entete{background:linear-gradient(180deg,#5A4FCF,#463CB8)!important;border-bottom-color:#2E2A7A;box-shadow:0 3px 0 #12A89A,0 6px 14px rgba(46,42,122,.35)!important}
+html.accueil-dieu body[data-vue="choix"] .entete .titre-vue b{color:#FFFFFF!important}
+html.accueil-dieu body[data-vue="choix"] .entete .titre-vue span{color:#DCD9FF!important}
+html.accueil-dieu body[data-vue="choix"] .entete .avatar{box-shadow:0 0 0 3px #12A89A,0 0 0 5px #2E2A7A}
+html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre{background:linear-gradient(170deg,#6FE0D3 0%,#12A89A 45%,#0B7C72 100%);box-shadow:inset 0 2px 0 rgba(210,255,250,.55),inset 0 -3px 0 rgba(0,0,0,.2),0 8px 16px rgba(46,42,122,.3)}
+html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre .choix-salut{color:#043F39!important}
+html.accueil-dieu body[data-vue="choix"] .sp-entete-cuivre h1{color:#FFFFFF!important;text-shadow:0 1px 0 rgba(0,60,55,.35)}
+html.accueil-dieu .sp-boussole,html.accueil-dieu .ah-boussole{filter:drop-shadow(0 6px 8px rgba(46,42,122,.35))}
+html.accueil-dieu body[data-vue="choix"] .sp-boussole circle:nth-of-type(1),html.accueil-dieu body.auth .ah-boussole circle:nth-of-type(1){fill:#5A4FCF;stroke:#2E2A7A}
+html.accueil-dieu body[data-vue="choix"] .sp-boussole circle:nth-of-type(2),html.accueil-dieu body.auth .ah-boussole circle:nth-of-type(2){fill:#F4F2FF}
 html.accueil-dieu body[data-vue="choix"] .sp-boussole g:first-of-type,html.accueil-dieu body.auth .ah-boussole g:first-of-type{stroke:#5A4FCF}
 html.accueil-dieu body[data-vue="choix"] .sp-aiguille path:first-child,html.accueil-dieu body.auth .sp-aiguille path:first-child{fill:#F2546A}
 html.accueil-dieu body[data-vue="choix"] .sp-aiguille path:last-child,html.accueil-dieu body.auth .sp-aiguille path:last-child{fill:#2E2A7A}
 html.accueil-dieu body[data-vue="choix"] .sp-boussole circle:nth-of-type(3),html.accueil-dieu body.auth .ah-boussole circle:nth-of-type(3){fill:#FFC21A}
-html.accueil-dieu body[data-vue="choix"] .choix-carte.dieu{--acc:#5A4FCF;--acc-pale:#ECEBFF}
-html.accueil-dieu body[data-vue="choix"] .choix-carte.fin{--acc:#2FB866;--acc-pale:#DFF5EA}
-html.accueil-dieu body[data-vue="choix"] .sp-cuir{background:#fff!important;border-radius:26px!important;box-shadow:0 14px 34px rgba(70,80,190,.14)!important;color:var(--d-encre)}
-html.accueil-dieu body[data-vue="choix"] .sp-cuir::before{inset:0 0 auto 0!important;top:0!important;right:0!important;height:6px!important;width:auto!important;border:0!important;border-radius:26px 26px 0 0!important;background:var(--acc)!important}
-html.accueil-dieu body[data-vue="choix"] .sp-rivet-ic{background:var(--acc-pale);color:var(--acc);border-radius:16px;box-shadow:none}
-html.accueil-dieu body[data-vue="choix"] .sp-plaque{background:none;box-shadow:none;padding:0;font-family:var(--police)}
-html.accueil-dieu body[data-vue="choix"] .sp-plaque::before,html.accueil-dieu body[data-vue="choix"] .sp-plaque::after{display:none}
-html.accueil-dieu body[data-vue="choix"] .sp-plaque b{color:var(--d-encre)!important;font-size:1.25rem;padding-left:0}
-html.accueil-dieu body[data-vue="choix"] .sp-plaque span{color:var(--d-gris)!important;padding-left:0}
-html.accueil-dieu body[data-vue="choix"] .sp-bande-cuir{background:none;box-shadow:none;padding:0;margin:0}
-html.accueil-dieu body[data-vue="choix"] .sp-boitier{border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,.12);background:var(--d-indigo)}
-html.accueil-dieu body[data-vue="choix"] .choix-carte.dieu .sp-boitier:nth-child(2){background:var(--d-turq)}
-html.accueil-dieu body[data-vue="choix"] .choix-carte.fin .sp-boitier:nth-child(1){background:var(--d-corail)}
-html.accueil-dieu body[data-vue="choix"] .choix-carte.fin .sp-boitier:nth-child(2){background:var(--d-vert)}
-html.accueil-dieu body[data-vue="choix"] .sp-boitier small,html.accueil-dieu body.auth .ah-instruments .sp-boitier small{color:rgba(255,255,255,.92);font-family:var(--police)}
-html.accueil-dieu body[data-vue="choix"] .tube,html.accueil-dieu body.auth .tube{background:rgba(255,255,255,.2);border:0;border-radius:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);color:#fff;text-shadow:none;font:800 26px/1 var(--police);animation:none}
-html.accueil-dieu body[data-vue="choix"] .tube.sep,html.accueil-dieu body[data-vue="choix"] .tube.vide,html.accueil-dieu body.auth .tube.sep,html.accueil-dieu body.auth .tube.vide{background:none;box-shadow:none}
-html.accueil-dieu body[data-vue="choix"] .roue,html.accueil-dieu body.auth .roue{background:#fff;border:0;border-radius:7px;box-shadow:0 2px 0 rgba(0,0,0,.12);color:var(--d-encre);font-family:var(--police);font-weight:800}
-html.accueil-dieu body[data-vue="choix"] .roue.vide,html.accueil-dieu body.auth .roue.vide{background:none;box-shadow:none}
-html.accueil-dieu body[data-vue="choix"] .sp-cadran path{stroke:rgba(255,255,255,.22)}
-html.accueil-dieu body[data-vue="choix"] .sp-cadran .seg{stroke:#fff;opacity:.28}
-html.accueil-dieu body[data-vue="choix"] .sp-cadran .seg.on{opacity:1;filter:none}
-html.accueil-dieu body[data-vue="choix"] .sp-cadran-val{color:#fff!important;text-shadow:none;font-family:var(--police);font-weight:800}
-html.accueil-dieu body[data-vue="choix"] .sp-bouton{background:var(--acc);color:#fff;font:800 .92rem var(--police);box-shadow:0 8px 18px rgba(0,0,0,.16)}
-html.accueil-dieu body[data-vue="choix"] .sp-levier{background:var(--d-pale);box-shadow:inset 0 0 0 2px var(--d-trait)}
-html.accueil-dieu body[data-vue="choix"] .sp-tige{background:linear-gradient(180deg,#8C84EA,#5A4FCF)}
-html.accueil-dieu body[data-vue="choix"] .sp-tige::before{background:radial-gradient(circle at 35% 30%,#FFF3C2,#FFC21A 60%,#D99A00)}
-html.accueil-dieu body[data-vue="choix"] .sp-led{background:radial-gradient(circle at 35% 30%,#FFF3C2,#FFC21A 60%,#D99A00);box-shadow:0 0 8px rgba(255,194,26,.8),0 0 0 2px #fff}
-html.accueil-dieu body[data-vue="choix"] .sp-led.vert{background:radial-gradient(circle at 35% 30%,#E6FFF0,#2FB866 60%,#1A7F45);box-shadow:0 0 10px rgba(47,184,102,.8),0 0 0 2px #fff}
-html.accueil-dieu body[data-vue="choix"] .sp-pousser{color:var(--d-gris);font-family:var(--police)}
-html.accueil-dieu body[data-vue="choix"] .sp-pousser i{background:radial-gradient(circle at 40% 35%,#fff,#DFE3F5 60%,#B9C0E6);box-shadow:0 0 0 3px #2FB866,0 4px 8px rgba(0,0,0,.15)}
-html.accueil-dieu body[data-vue="choix"] .sp-parchemin{background:#fff!important;border-radius:22px!important;box-shadow:0 12px 30px rgba(70,80,190,.12)!important;border-left:6px solid var(--d-jaune)!important;color:var(--d-encre)!important;font-family:var(--police)}
-html.accueil-dieu body[data-vue="choix"] .sp-parchemin::before,html.accueil-dieu body[data-vue="choix"] .sp-parchemin::after{display:none}
-html.accueil-dieu body[data-vue="choix"] .sp-verset-ref{font-family:var(--police)}
-html.accueil-dieu body[data-vue="choix"] .sp-verset-ref .ic{color:var(--d-turq)}
-html.accueil-dieu body[data-vue="choix"] .sp-verset-ref b{color:var(--d-encre)!important}
-html.accueil-dieu body[data-vue="choix"] .sp-guide{background:#fff;color:var(--d-encre);font:800 .9rem var(--police);border-radius:999px;box-shadow:0 6px 16px rgba(70,80,190,.14)}
-html.accueil-dieu body[data-vue="choix"] .sp-guide .ic{color:var(--d-indigo)}
-html.accueil-dieu body[data-vue="choix"] .sp-bible{background:var(--d-indigo);color:#fff}
-html.accueil-dieu body[data-vue="choix"] .sp-bible .ic{color:#fff}
-html.accueil-dieu body[data-vue="choix"] .sp-langue{background:#fff;border-radius:999px;box-shadow:0 6px 16px rgba(70,80,190,.14)}
-html.accueil-dieu body[data-vue="choix"] .sp-langue .ic{color:var(--d-indigo)}
-html.accueil-dieu body[data-vue="choix"] .sp-langue .sel-langue{color:var(--d-encre);font-family:var(--police);font-weight:800}
+/* Cartes en « cuir » indigo (Relation avec Dieu) et turquoise (Finances) */
+html.accueil-dieu body[data-vue="choix"] .sp-cuir{background:
+    radial-gradient(130% 90% at 25% 15%,rgba(255,255,255,.18),transparent 55%),
+    repeating-radial-gradient(circle at 30% 40%,rgba(0,0,0,.035) 0 2px,transparent 2px 5px),
+    linear-gradient(160deg,#7A70E6,#5A4FCF 60%,#463CB8)!important;
+  color:#EEF0FF;box-shadow:0 0 0 3px #2E2A7A,0 0 0 6px #FFC21A,0 0 0 8px #3A3392,0 14px 26px rgba(46,42,122,.35)!important}
+html.accueil-dieu body[data-vue="choix"] .choix-carte.fin.sp-cuir{background:
+    radial-gradient(130% 90% at 25% 15%,rgba(255,255,255,.18),transparent 55%),
+    repeating-radial-gradient(circle at 30% 40%,rgba(0,0,0,.035) 0 2px,transparent 2px 5px),
+    linear-gradient(160deg,#2CC3B4,#12A89A 60%,#0B7C72)!important;
+  box-shadow:0 0 0 3px #075C55,0 0 0 6px #FFC21A,0 0 0 8px #0A6B63,0 14px 26px rgba(46,42,122,.35)!important}
+html.accueil-dieu body[data-vue="choix"] .sp-cuir::before{border-color:rgba(255,255,255,.55)!important}
+html.accueil-dieu body[data-vue="choix"] .sp-rivet-ic{background:radial-gradient(circle at 35% 30%,#FFF0B8,#FFC21A 55%,#B88400);color:#2E2A7A;box-shadow:0 0 0 3px #2E2A7A,0 4px 8px rgba(0,0,0,.3)}
+html.accueil-dieu body[data-vue="choix"] .sp-plaque{background:linear-gradient(180deg,#FFFFFF 0%,#EEEDFF 40%,#D5D1FA 75%,#BEB8F2 100%);box-shadow:inset 0 1px 0 #FFFFFF,inset 0 -2px 0 rgba(46,42,122,.2),0 2px 4px rgba(0,0,0,.3)}
+html.accueil-dieu body[data-vue="choix"] .sp-plaque::before,html.accueil-dieu body[data-vue="choix"] .sp-plaque::after{background:radial-gradient(circle at 35% 30%,#FFFFFF,#5A4FCF)}
+html.accueil-dieu body[data-vue="choix"] .sp-plaque b{color:#2E2A7A!important}
+html.accueil-dieu body[data-vue="choix"] .sp-plaque span{color:#4D4A9E!important}
+html.accueil-dieu body[data-vue="choix"] .sp-bande-cuir{background:linear-gradient(180deg,#463CB8,#2E2A7A);box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 4px 8px rgba(0,0,0,.3)}
+html.accueil-dieu body[data-vue="choix"] .choix-carte.fin .sp-bande-cuir{background:linear-gradient(180deg,#0E8F83,#075C55)}
+html.accueil-dieu body[data-vue="choix"] .sp-boitier,html.accueil-dieu body.auth .ah-instruments .sp-boitier{background:linear-gradient(180deg,#2D2875,#1A1752);box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 0 0 3px #8C84EA,0 0 0 5px #231F63}
+html.accueil-dieu body[data-vue="choix"] .sp-boitier small,html.accueil-dieu body.auth .ah-instruments .sp-boitier small{color:#DCD9FF}
+html.accueil-dieu body[data-vue="choix"] .tube,html.accueil-dieu body.auth .tube{background:radial-gradient(circle at 50% 35%,#2D2875,#0F0D33 70%);border-color:#6D63DD;box-shadow:inset 0 0 10px rgba(18,168,154,.3),inset 0 -6px 8px rgba(0,0,0,.6);color:#8FF6E9;text-shadow:0 0 4px #2CC3B4,0 0 10px #12A89A,0 0 18px #0B7C72}
+html.accueil-dieu body[data-vue="choix"] .tube.sep,html.accueil-dieu body[data-vue="choix"] .tube.vide,html.accueil-dieu body.auth .tube.sep,html.accueil-dieu body.auth .tube.vide{background:none;border-color:transparent;box-shadow:none}
+html.accueil-dieu body[data-vue="choix"] .roue,html.accueil-dieu body.auth .roue{background:linear-gradient(180deg,#2D2875 0%,#16134A 48%,#0F0D33 50%,#231F63 100%);border-color:#0F0D33;color:#FFFFFF}
+html.accueil-dieu body[data-vue="choix"] .roue.vide,html.accueil-dieu body.auth .roue.vide{background:none;border-color:transparent;box-shadow:none}
+html.accueil-dieu body[data-vue="choix"] .sp-cadran path{stroke:#0F0D33}
+html.accueil-dieu body[data-vue="choix"] .sp-cadran-val{color:#E6FFFB!important;text-shadow:0 0 6px rgba(44,195,180,.7)}
+html.accueil-dieu body[data-vue="choix"] .sp-bouton{color:#FFFFFF;background:linear-gradient(180deg,#463CB8,#2E2A7A);box-shadow:0 0 0 2px #FFC21A,0 0 0 4px #1C1958,0 6px 12px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.25)}
+html.accueil-dieu body[data-vue="choix"] .choix-carte.fin .sp-bouton{background:linear-gradient(180deg,#0E8F83,#075C55);box-shadow:0 0 0 2px #FFC21A,0 0 0 4px #053F3A,0 6px 12px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.25)}
+html.accueil-dieu body[data-vue="choix"] .sp-levier{background:linear-gradient(180deg,#2D2875,#1A1752);box-shadow:inset 0 2px 5px rgba(0,0,0,.6),0 0 0 2px #8C84EA}
+html.accueil-dieu body[data-vue="choix"] .sp-tige{background:linear-gradient(180deg,#FFF0B8,#D99A00)}
+html.accueil-dieu body[data-vue="choix"] .sp-tige::before{background:radial-gradient(circle at 35% 30%,#FFF6D6,#FFC21A 60%,#B88400)}
+html.accueil-dieu body[data-vue="choix"] .sp-led{background:radial-gradient(circle at 35% 30%,#FFF6D6,#FFC21A 55%,#B88400);box-shadow:0 0 8px #FFC21A,0 0 0 2px #1A1752}
+html.accueil-dieu body[data-vue="choix"] .sp-led.vert{background:radial-gradient(circle at 35% 30%,#E6FFF0,#2FB866 55%,#14713B);box-shadow:0 0 10px #4BE38A,0 0 18px rgba(75,227,138,.5),0 0 0 2px #1A1752}
+html.accueil-dieu body[data-vue="choix"] .sp-pousser{color:#EEF0FF}
+html.accueil-dieu body[data-vue="choix"] .sp-pousser i{background:radial-gradient(circle at 40% 35%,#FFFFFF,#C9C4F5 55%,#6D63DD);box-shadow:0 0 0 3px #8C84EA,0 0 0 5px #1A1752,0 4px 6px rgba(0,0,0,.35)}
+html.accueil-dieu body[data-vue="choix"] .sp-parchemin{background:radial-gradient(120% 140% at 50% 50%,transparent 55%,rgba(90,79,207,.22) 100%),linear-gradient(180deg,#FFFFFF,#E8E5FF)!important;color:#2E2A7A!important;box-shadow:0 8px 18px rgba(46,42,122,.25)!important}
+html.accueil-dieu body[data-vue="choix"] .sp-parchemin::before,html.accueil-dieu body[data-vue="choix"] .sp-parchemin::after{background:linear-gradient(90deg,#463CB8,#A9A2F2 45%,#3A3392);box-shadow:0 4px 8px rgba(46,42,122,.3)}
+html.accueil-dieu body[data-vue="choix"] .sp-verset-ref .ic{color:#12A89A}
+html.accueil-dieu body[data-vue="choix"] .sp-verset-ref b{color:#2E2A7A!important}
+html.accueil-dieu body[data-vue="choix"] .sp-guide{color:#2E2A7A;background:linear-gradient(180deg,#FFFFFF 0%,#EEEDFF 40%,#D5D1FA 75%,#BEB8F2 100%);box-shadow:inset 0 1px 0 #FFFFFF,inset 0 -2px 0 rgba(46,42,122,.2),0 4px 8px rgba(46,42,122,.25)}
+html.accueil-dieu body[data-vue="choix"] .sp-guide.sp-bible{background:linear-gradient(180deg,#FFF0B8,#FFC21A 60%,#E0A600)}
+html.accueil-dieu body[data-vue="choix"] .sp-langue,html.accueil-dieu .sp-style{background:linear-gradient(180deg,#463CB8,#2E2A7A);box-shadow:0 0 0 2px #12A89A,0 4px 8px rgba(46,42,122,.3)}
+html.accueil-dieu body[data-vue="choix"] .sp-langue .ic{color:#FFE38A}
+html.accueil-dieu body[data-vue="choix"] .sp-langue .sel-langue{color:#FFFFFF}
 @media (min-width:960px){
-  html.accueil-dieu body[data-vue="choix"] .lateral{background:#fff!important;border-right:1px solid var(--d-trait)!important}
-  html.accueil-dieu body[data-vue="choix"] .lateral .marque div b,html.accueil-dieu body[data-vue="choix"] .lateral .moi div b{color:var(--d-encre)!important;font-family:var(--police)}
-  html.accueil-dieu body[data-vue="choix"] .lateral .marque div span,html.accueil-dieu body[data-vue="choix"] .lateral .moi div span,html.accueil-dieu body[data-vue="choix"] .synchro{color:var(--d-gris)!important}
-  html.accueil-dieu body[data-vue="choix"] .lat-accueil{background:var(--d-pale)!important;color:var(--d-indigo)!important;font-family:var(--police)!important;border-radius:14px!important}
-  html.accueil-dieu body.espace-choix .lateral .nav-choix{border-left-color:var(--d-trait)!important}
-  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button{background:#fff!important;color:var(--d-encre)!important;font:700 .95rem var(--police)!important;border-radius:14px!important;clip-path:none!important;transform:none!important;box-shadow:0 4px 12px rgba(70,80,190,.12)!important}
-  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button:nth-child(1)::before{background:var(--d-indigo)}
-  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button:nth-child(2)::before{background:var(--d-turq)}
-  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button:nth-child(3)::before{background:var(--d-jaune)}
-  html.accueil-dieu body[data-vue="choix"] .lateral .moi .avatar{border-radius:50%!important;box-shadow:none!important}
+  html.accueil-dieu body[data-vue="choix"] .lateral{background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 30%),repeating-linear-gradient(0deg,transparent 0 140px,rgba(0,0,0,.18) 140px 143px),linear-gradient(180deg,#5A4FCF,#3A3392)!important;border-image:linear-gradient(180deg,#6FE0D3,#0B7C72,#6FE0D3) 1!important}
+  html.accueil-dieu body[data-vue="choix"] .lateral .marque div b,html.accueil-dieu body[data-vue="choix"] .lateral .moi div b{color:#FFFFFF!important}
+  html.accueil-dieu body[data-vue="choix"] .lateral .marque div span,html.accueil-dieu body[data-vue="choix"] .lateral .moi div span,html.accueil-dieu body[data-vue="choix"] .synchro{color:#DCD9FF!important}
+  html.accueil-dieu body[data-vue="choix"] .lat-accueil{background:linear-gradient(180deg,#FFFFFF,#D5D1FA 60%,#BEB8F2)!important;color:#2E2A7A!important}
+  html.accueil-dieu body.espace-choix .lateral .nav-choix{border-left-color:#12A89A}
+  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button{color:#2E2A7A!important;background:linear-gradient(180deg,#FFFFFF,#E8E5FF)!important;box-shadow:0 3px 6px rgba(46,42,122,.3)}
+  html.accueil-dieu body[data-vue="choix"] .lateral .nav-choix button::before{background:radial-gradient(circle at 35% 30%,#FFF0B8,#FFC21A)}
+  html.accueil-dieu body[data-vue="choix"] .lateral .moi .avatar{box-shadow:0 0 0 4px #FFC21A,0 0 0 7px #2E2A7A,0 6px 12px rgba(0,0,0,.3)!important}
 }
 
 /* ---------- Connexion, inscription, premières étapes ---------- */
-html.accueil-dieu body.auth .auth2{box-shadow:0 30px 60px rgba(70,80,190,.18)!important;border-radius:28px!important;font-family:var(--police)}
-html.accueil-dieu body.auth .auth2-hero{background:radial-gradient(90% 60% at 20% 10%,rgba(255,255,255,.16),transparent 60%),linear-gradient(150deg,#5A4FCF 0%,#4C44C4 45%,#12A89A 100%)!important;color:#fff!important}
-html.accueil-dieu body.auth .auth2-hero::before{border:1.5px solid rgba(255,255,255,.2);border-radius:20px}
-html.accueil-dieu body.auth .hero-badge{background:rgba(255,255,255,.96)!important;border-radius:16px!important;box-shadow:0 8px 18px rgba(0,0,0,.15)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .hero-badge img{background:#fff;box-shadow:0 0 0 2px var(--d-indigo)}
-html.accueil-dieu body.auth .hero-badge b{color:var(--d-encre)!important}html.accueil-dieu body.auth .hero-badge small{color:var(--d-gris)!important}
-html.accueil-dieu body.auth .hero-titre{font-family:var(--police)!important;color:#fff!important;text-shadow:none}
-html.accueil-dieu body.auth .hero-titre em{font-family:var(--police);font-weight:800;color:var(--d-jaune)!important;text-shadow:none;animation:none}
-html.accueil-dieu body.auth .hero-desc{color:rgba(255,255,255,.92)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .ah-instruments .sp-boitier{background:rgba(255,255,255,.14);border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-html.accueil-dieu body.auth .hero-verset{background:#fff;color:var(--d-encre)!important;font-family:var(--police);border-radius:14px;box-shadow:0 8px 18px rgba(0,0,0,.15);border-left:5px solid var(--d-jaune)}
-html.accueil-dieu body.auth .ah-roue{color:rgba(255,255,255,.9);filter:none}
-html.accueil-dieu body.auth .ah-roue svg circle:first-of-type{fill:#4C44C4}
-html.accueil-dieu body.auth .ah-roue.r1,html.accueil-dieu body.auth .ah-roue.r3{opacity:.18}html.accueil-dieu body.auth .ah-roue.r2{opacity:.24}
-html.accueil-dieu body.auth .ah-tuyau{background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.35) 40%,rgba(255,255,255,.12));box-shadow:none;opacity:1}
-html.accueil-dieu body.auth .auth2-droite{background:#fff!important}
-html.accueil-dieu body.auth .onglets2{background:var(--d-pale)!important;box-shadow:none!important;border-radius:16px!important}
-html.accueil-dieu body.auth .onglets2 .pilule{background:var(--d-indigo)!important;border-radius:12px!important;box-shadow:0 6px 14px rgba(90,79,207,.3)!important}
-html.accueil-dieu body.auth .onglets2 button{font-family:var(--police)!important;color:var(--d-gris)!important;font-weight:800!important;border-radius:12px!important}
-html.accueil-dieu body.auth .onglets2 button[aria-selected="true"]{color:#fff!important}
-html.accueil-dieu body.auth .titre-auth{font-family:var(--police)!important;color:var(--d-encre)!important}
-html.accueil-dieu body.auth .sous-auth,html.accueil-dieu body.auth .etape-kicker{color:var(--d-gris)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .etiquette2{color:var(--d-encre)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .saisie2{background:#F6F8FF!important;border:2px solid var(--d-trait)!important;border-radius:14px!important;color:var(--d-encre)!important;box-shadow:none;font-family:var(--police)}
-html.accueil-dieu body.auth .saisie2::placeholder{color:#9AA0C8!important}
-html.accueil-dieu body.auth .saisie2:focus{border-color:var(--d-indigo)!important;box-shadow:0 0 0 4px rgba(90,79,207,.15)!important}
-html.accueil-dieu body.auth .saisie2.code2{background:#F6F8FF!important;color:var(--d-indigo)!important;text-shadow:none;border-color:var(--d-indigo)!important}
-html.accueil-dieu body.auth .ou{color:#6B6FB5!important;font-family:var(--police)}
-html.accueil-dieu body.auth .ou::before,html.accueil-dieu body.auth .ou::after{height:2px!important;background:linear-gradient(90deg,transparent,#C9CDF5,transparent)!important}
-html.accueil-dieu body.auth .btn-google{background:#fff!important;border:2px solid var(--d-trait)!important;color:var(--d-encre)!important;font-family:var(--police);font-weight:800;box-shadow:0 4px 12px rgba(70,80,190,.1)!important}
-html.accueil-dieu body.auth .btn-google:hover{box-shadow:0 8px 18px rgba(70,80,190,.16)!important}
-html.accueil-dieu body.auth .btn-google:active{box-shadow:0 2px 6px rgba(70,80,190,.12)!important}
-html.accueil-dieu body.auth .btn-foret{background:var(--d-vert)!important;color:#fff!important;font-family:var(--police)!important;letter-spacing:0;box-shadow:0 10px 20px rgba(47,184,102,.32)!important}
-html.accueil-dieu body.auth .lien2,html.accueil-dieu body.auth .auth2-droite a{color:var(--d-indigo)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .case2{color:var(--d-encre)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .case2 input{accent-color:var(--d-indigo)!important}
-html.accueil-dieu body.auth .auth2 .msg{color:var(--d-gris)}html.accueil-dieu body.auth .auth2 .msg.ok{color:#1F9D6B!important}html.accueil-dieu body.auth .auth2 .msg.err{color:#D93A50!important}
-html.accueil-dieu body.auth .bandeau2{background:#F6F8FF!important;border:1px dashed #C9CDF5!important;color:var(--d-encre)!important}
-html.accueil-dieu body.auth .pret{background:var(--d-jaune)!important;color:var(--d-encre)!important;font-family:var(--police)}
-html.accueil-dieu body.auth .mentor{background:#F6F8FF!important;border:2px solid var(--d-trait)!important;border-radius:14px!important}
-html.accueil-dieu body.auth .mentor[aria-checked="true"]{border-color:var(--d-indigo)!important;background:var(--d-pale)!important;box-shadow:0 0 0 3px rgba(90,79,207,.18)}
-html.accueil-dieu body.auth .mentor[aria-checked="true"] .radio{background:var(--d-indigo)!important;border-color:var(--d-indigo)!important}
-html.accueil-dieu body.auth .mention-legale,html.accueil-dieu body.auth .pied-auth,html.accueil-dieu body.auth .auth2-droite footer{color:#6B6FB5!important}
-html.accueil-dieu body.auth .oeil,html.accueil-dieu body.auth [class*="oeil"]{color:#6B6FB5!important}
-html.accueil-dieu body.auth .auth2-outils .sel-langue{background:#fff;border-color:var(--d-trait);color:var(--d-encre)}
-html.accueil-dieu body.auth .auth2-guide{color:var(--d-indigo)}
+html.accueil-dieu body.auth .auth2{box-shadow:0 0 0 3px #2E2A7A,0 0 0 7px #12A89A,0 0 0 10px #3A3392,0 30px 60px rgba(46,42,122,.35)!important}
+html.accueil-dieu body.auth .auth2-hero{background:
+   radial-gradient(130% 90% at 25% 15%,rgba(255,255,255,.2),transparent 55%),
+   repeating-radial-gradient(circle at 30% 40%,rgba(0,0,0,.035) 0 2px,transparent 2px 5px),
+   linear-gradient(160deg,#7A70E6,#5A4FCF 60%,#463CB8)!important;color:#EEF0FF!important}
+html.accueil-dieu body.auth .auth2-hero::before{border-color:rgba(255,255,255,.55)}
+html.accueil-dieu body.auth .hero-badge{background:linear-gradient(180deg,#FFFFFF 0%,#EEEDFF 40%,#D5D1FA 75%,#BEB8F2 100%)!important;color:#2E2A7A!important;box-shadow:inset 0 1px 0 #FFFFFF,0 3px 6px rgba(46,42,122,.35)!important}
+html.accueil-dieu body.auth .hero-badge img{background:#FFFFFF;box-shadow:0 0 0 2px #5A4FCF}
+html.accueil-dieu body.auth .hero-badge b{color:#2E2A7A!important}html.accueil-dieu body.auth .hero-badge small{color:#4D4A9E!important}
+html.accueil-dieu body.auth .hero-titre{color:#FFFFFF!important;text-shadow:0 2px 0 #2E2A7A,0 6px 14px rgba(0,0,0,.3)}
+html.accueil-dieu body.auth .hero-titre em{color:#FFD84D!important;text-shadow:0 0 8px rgba(255,194,26,.75),0 0 22px rgba(255,194,26,.45)}
+html.accueil-dieu body.auth .hero-desc{color:#EEF0FF!important}
+html.accueil-dieu body.auth .hero-verset{background:linear-gradient(180deg,#FFFFFF,#E8E5FF);color:#2E2A7A!important;box-shadow:0 4px 10px rgba(46,42,122,.35)}
+html.accueil-dieu .ah-roue{filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
+html.accueil-dieu .ah-roue.r1{color:#A9A2F2}html.accueil-dieu .ah-roue.r2{color:#FFC21A}html.accueil-dieu .ah-roue.r3{color:#6FE0D3}
+html.accueil-dieu .ah-roue svg circle:first-of-type{fill:#463CB8}
+html.accueil-dieu .ah-tuyau{background:linear-gradient(90deg,#2E2A7A,#A9A2F2 40%,#463CB8)}
+html.accueil-dieu body.auth .auth2-droite{background:radial-gradient(130% 120% at 50% 50%,transparent 60%,rgba(90,79,207,.18) 100%),linear-gradient(180deg,#FFFFFF,#EEF0FF)!important}
+html.accueil-dieu body.auth .onglets2{background:linear-gradient(180deg,#2D2875,#1A1752)!important;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 0 0 3px #8C84EA,0 0 0 5px #231F63}
+html.accueil-dieu body.auth .onglets2 .pilule{background:linear-gradient(180deg,#FFFFFF 0%,#EEEDFF 45%,#D5D1FA 80%,#BEB8F2 100%)!important;box-shadow:inset 0 1px 0 #FFFFFF,0 3px 6px rgba(0,0,0,.35)!important}
+html.accueil-dieu body.auth .onglets2 button{color:#DCD9FF!important}
+html.accueil-dieu body.auth .onglets2 button[aria-selected="true"]{color:#2E2A7A!important}
+html.accueil-dieu body.auth .titre-auth{color:#2E2A7A!important}
+html.accueil-dieu body.auth .sous-auth,html.accueil-dieu body.auth .etape-kicker{color:#4D4A9E!important}
+html.accueil-dieu body.auth .etiquette2{color:#2E2A7A!important}
+html.accueil-dieu body.auth .saisie2{background:#FFFFFF!important;border-color:#BEB8F2!important;color:#2E2A7A!important;box-shadow:inset 0 2px 4px rgba(46,42,122,.12)}
+html.accueil-dieu body.auth .saisie2::placeholder{color:#9A96C8!important}
+html.accueil-dieu body.auth .saisie2:focus{border-color:#5A4FCF!important;box-shadow:inset 0 2px 4px rgba(46,42,122,.12),0 0 0 4px rgba(90,79,207,.25),0 0 18px rgba(18,168,154,.3)!important}
+html.accueil-dieu body.auth .saisie2.code2{background:linear-gradient(180deg,#2D2875,#1A1752)!important;color:#8FF6E9!important;text-shadow:0 0 6px #12A89A;border-color:#8C84EA!important}
+html.accueil-dieu body.auth .ou{color:#5A4FCF!important}
+html.accueil-dieu body.auth .ou::before,html.accueil-dieu body.auth .ou::after{background:linear-gradient(90deg,transparent,#5A4FCF,transparent)!important}
+html.accueil-dieu body.auth .btn-google{background:#FFFFFF!important;border-color:#8C84EA!important;color:#2E2A7A!important;box-shadow:0 3px 0 #5A4FCF,0 6px 12px rgba(46,42,122,.15)!important}
+html.accueil-dieu body.auth .btn-google:hover{box-shadow:0 5px 0 #5A4FCF,0 10px 18px rgba(46,42,122,.2)!important}
+html.accueil-dieu body.auth .btn-google:active{box-shadow:0 1px 0 #5A4FCF!important}
+html.accueil-dieu body.auth .btn-foret{background:linear-gradient(180deg,#3BCB76,#1F9D55)!important;color:#FFFFFF!important;box-shadow:0 0 0 2px #FFC21A,0 0 0 5px #14713B,0 4px 0 7px #0E5A2E,0 10px 20px rgba(0,0,0,.25)!important}
+html.accueil-dieu body.auth .lien2,html.accueil-dieu body.auth .auth2-droite a{color:#5A4FCF!important}
+html.accueil-dieu body.auth .case2{color:#2E2A7A!important}
+html.accueil-dieu body.auth .case2 input{accent-color:#5A4FCF!important}
+html.accueil-dieu body.auth .auth2 .msg{color:#4D4A9E}html.accueil-dieu body.auth .auth2 .msg.ok{color:#1F9D55!important}html.accueil-dieu body.auth .auth2 .msg.err{color:#D93A50!important}
+html.accueil-dieu body.auth .bandeau2{background:rgba(255,255,255,.85)!important;border-color:#A9A2F2!important;color:#2E2A7A!important}
+html.accueil-dieu body.auth .pret{background:linear-gradient(180deg,#FFF0B8,#FFC21A 60%,#D99A00)!important;color:#2E2A7A!important}
+html.accueil-dieu body.auth .mentor{background:#FFFFFF!important;border-color:#D5D1FA!important}
+html.accueil-dieu body.auth .mentor[aria-checked="true"]{border-color:#5A4FCF!important;background:#EEEDFF!important;box-shadow:0 0 0 3px rgba(90,79,207,.25)}
+html.accueil-dieu body.auth .mentor[aria-checked="true"] .radio{background:#5A4FCF!important;border-color:#5A4FCF!important}
+html.accueil-dieu body.auth .mention-legale,html.accueil-dieu body.auth .pied-auth,html.accueil-dieu body.auth .auth2-droite footer{color:#4D4A9E!important}
+html.accueil-dieu body.auth .oeil,html.accueil-dieu body.auth [class*="oeil"]{color:#5A4FCF!important}
+html.accueil-dieu body.auth .auth2-outils .sel-langue{background:#FFFFFF;border-color:#BEB8F2;color:#2E2A7A}
+html.accueil-dieu body.auth .auth2-guide{color:#5A4FCF}
 
 /* Choix du style des pages d'accueil, sur l'accueil lui-même : bois et cuivre ou couleurs de « Relation avec Dieu » */
 .sp-style{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:linear-gradient(180deg,#5A3520,#3A2010);box-shadow:0 0 0 2px #B87333,0 4px 8px rgba(0,0,0,.35)}
@@ -1953,5 +1955,4 @@ html.accueil-dieu body.auth .auth2-guide{color:var(--d-indigo)}
 .sp-style [data-accueil="bois"] i{background:radial-gradient(circle at 35% 30%,#E9A46B,#8C5129 55%,#3E220F);box-shadow:inset 0 0 0 2px #C99A45}
 .sp-style [data-accueil="dieu"] i{background:conic-gradient(#5A4FCF 0 33%,#12A89A 0 66%,#FFC21A 0)}
 .sp-style button[aria-checked="true"]{border-color:#FBE6A8}
-html.accueil-dieu .sp-style{background:#fff;box-shadow:0 6px 16px rgba(70,80,190,.14)}
-html.accueil-dieu .sp-style button[aria-checked="true"]{border-color:#5A4FCF}
+html.accueil-dieu .sp-style button[aria-checked="true"]{border-color:#FFE38A}
