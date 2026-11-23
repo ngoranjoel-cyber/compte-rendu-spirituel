@@ -1743,3 +1743,23 @@ body.espace-finance .entete-langue{color:#F6D894;border-color:rgba(201,154,69,.7
 .pastille-c.multi{background:conic-gradient(#ef4444,#f59e0b,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7,#ef4444)}
 .pastille-c input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;border:0;padding:0}
 .nuancier small{font-size:.75rem;font-weight:600;text-align:center}
+
+/* Bouton ⚙ Réglages et sa fenêtre */
+.entete{gap:8px}
+.entete-reglages{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.14);color:inherit;cursor:pointer;padding:0}
+.entete-reglages .ic{width:19px;height:19px}
+.entete-reglages:hover{background:rgba(255,255,255,.28)}
+body[data-vue="choix"] .entete-reglages,body.espace-finance .entete-reglages{color:#F6D894;border-color:rgba(201,154,69,.75);background:rgba(0,0,0,.15)}
+.lat-reglages{display:flex;align-items:center;gap:10px;border:0;background:none;padding:8px 10px;border-radius:12px;text-align:left;color:var(--gris);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer}
+.lat-reglages:hover{background:var(--panneau);color:var(--encre)}
+.lat-reglages .ic{width:18px;height:18px;flex:none}
+dialog.fen-reglages{max-width:520px;max-height:calc(100vh - 32px);overflow:auto;padding:20px}
+.fen-reglages .fr-tete{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.fen-reglages h2{display:flex;align-items:center;gap:10px;font-size:1.25rem;margin:0}
+.fen-reglages h2 .ic{width:24px;height:24px}
+.fen-reglages .fr-fermer{width:36px;height:36px;border-radius:50%;border:0;background:var(--panneau);color:var(--encre);display:grid;place-items:center;cursor:pointer;padding:0}
+.fen-reglages .fr-bloc{border-top:1px solid var(--trait);padding:14px 0 8px}
+.fen-reglages h3{display:flex;align-items:center;gap:8px;font-size:1rem;margin:0 0 4px}
+.fen-reglages h3 .ic{width:18px;height:18px}
+.fen-reglages .champ{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.fen-reglages .nuancier{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}

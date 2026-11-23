@@ -1876,6 +1876,16 @@ $("etapeIdentite").addEventListener("submit",function(e){e.preventDefault();
 construireHeros();
 if(self.I18N)I18N.brancher();
 Array.prototype.forEach.call(document.querySelectorAll(".entete-langue"),function(l){l.setAttribute("data-l",(document.documentElement.lang||"fr").slice(0,2).toUpperCase());});
+/* Bouton ⚙ Réglages (en-tête de chaque page, menu de gauche, Profil) : fenêtre couleur des pages + langue. */
+(function(){
+  var f=$("fenReglages");if(!f)return;
+  document.addEventListener("click",function(e){
+    var o=e.target.closest&&e.target.closest("[data-reglages]");
+    if(o){e.preventDefault();if(typeof f.showModal==="function"){if(!f.open)f.showModal();}else f.setAttribute("open","");return;}
+    if(e.target.closest&&e.target.closest("[data-fermer-reglages]")){f.close?f.close():f.removeAttribute("open");return;}
+    if(e.target===f&&f.open){var r=f.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)f.close();}
+  });
+})();
 /* Couleur des pages (Profil) : fond clair + couleur des en-têtes, gardés sur l'appareil. */
 (function(){
   var box=$("nuancier");if(!box)return;
