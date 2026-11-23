@@ -1886,56 +1886,15 @@ if(self.BIBLE)BIBLE.brancher({titres:titres,ajouterChapitre:function(){
   v.style.cursor="pointer";v.setAttribute("role","link");
   v.addEventListener("click",function(){var r=REFS[numVerset]||REFS[0];BIBLE.ouvrirA(r[0],r[1],r[2]);location.hash="#bible";});})();
 Array.prototype.forEach.call(document.querySelectorAll(".entete-langue"),function(l){l.setAttribute("data-l",(document.documentElement.lang||"fr").slice(0,2).toUpperCase());});
-/* Style des pages d'accueil (Profil) : « bois » (par défaut) ou « dieu », gardé sur l'appareil. */
+/* Style des pages d'accueil (choisi sur l'accueil) : « bois » (par défaut) ou « dieu », gardé sur l'appareil. */
 (function(){
   var boutons=document.querySelectorAll("[data-accueil]");if(!boutons.length)return;
   function actuel(){try{return localStorage.getItem("crs:accueil")==="dieu"?"dieu":"bois";}catch(e){return "bois";}}
   function marquer(){var a=actuel();Array.prototype.forEach.call(boutons,function(b){b.setAttribute("aria-checked",b.getAttribute("data-accueil")===a?"true":"false");});}
   Array.prototype.forEach.call(boutons,function(b){b.addEventListener("click",function(){
     var v=b.getAttribute("data-accueil");try{if(v==="dieu")localStorage.setItem("crs:accueil","dieu");else localStorage.removeItem("crs:accueil");}catch(e){}
-    document.documentElement.classList.toggle("accueil-dieu",v==="dieu");marquer();});});
-  marquer();
-})();
-/* Couleur des pages (Profil) : fond clair + couleur des en-têtes, gardés sur l'appareil. */
-(function(){
-  var box=$("nuancier");if(!box)return;
-  var tr=function(x){return self.I18N?I18N.t(x):x;};
-  var LISTE=[["defaut","Par défaut","",""],["ciel","Ciel","#E3EFFF","#2F6FD6"],["menthe","Menthe","#DDF4E8","#1F9D6B"],["lavande","Lavande","#ECE7FF","#6A4FCF"],["rose","Rose","#FDE6EF","#D6457A"],["peche","Pêche","#FFE9DA","#DD6B20"],["sable","Sable","#F4ECD8","#9C7424"],["perle","Perle","#E9EDF2","#475569"]];
-  function lire(){try{return JSON.parse(localStorage.getItem("crs:couleur")||"null");}catch(e){return null;}}
-  function hex(c){c=c.replace("#","");return [parseInt(c.slice(0,2),16),parseInt(c.slice(2,4),16),parseInt(c.slice(4,6),16)];}
-  function versHex(r){return "#"+r.map(function(v){return ("0"+Math.round(Math.max(0,Math.min(255,v))).toString(16)).slice(-2);}).join("");}
-  function melange(c,d,t){var a=hex(c),b=hex(d);return versHex(a.map(function(v,i){return v+(b[i]-v)*t;}));}
-  function lum(c){var r=hex(c);return (0.299*r[0]+0.587*r[1]+0.114*r[2])/255;}
-  /* Couleur personnalisée : fond très clair tiré de la couleur, en-tête assez foncé pour le texte blanc. */
-  function perso(c){var a=c;while(lum(a)>0.55)a=melange(a,"#000000",0.15);return {n:"perso",f:melange(c,"#ffffff",0.84),a:a,c:c};}
-  function appliquer(v){
-    var r=document.documentElement;
-    if(v&&v.f){r.setAttribute("data-couleur",v.n);r.style.setProperty("--c-fond",v.f);r.style.setProperty("--c-accent",v.a);try{localStorage.setItem("crs:couleur",JSON.stringify(v));}catch(e){}}
-    else{r.removeAttribute("data-couleur");r.style.removeProperty("--c-fond");r.style.removeProperty("--c-accent");try{localStorage.removeItem("crs:couleur");}catch(e){}}
-    marquer();
-  }
-  function marquer(){var v=lire(),n=v&&v.n||"defaut";Array.prototype.forEach.call(box.querySelectorAll("button"),function(b){b.setAttribute("aria-pressed",b.dataset.n===n?"true":"false");});
-    if(v&&v.n==="perso"){entree.value=v.c||v.a;pastillePerso.style.background=v.f;pastillePerso.style.borderColor=v.a;}}
-  LISTE.forEach(function(x){
-    var b=document.createElement("button");b.type="button";b.dataset.n=x[0];
-    var p=document.createElement("span");p.className="pastille-c";
-    if(x[2]){p.style.background=x[2];p.style.borderColor=x[3];p.innerHTML='<i style="background:'+x[3]+'"></i>';}else p.className+=" defaut";
-    var t=document.createElement("small");t.textContent=tr(x[1]);
-    b.appendChild(p);b.appendChild(t);
-    b.onclick=function(){appliquer(x[2]?{n:x[0],f:x[2],a:x[3]}:null);};
-    box.appendChild(b);
-  });
-  var bp=document.createElement("label");bp.className="perso";bp.dataset.n="perso";
-  var pastillePerso=document.createElement("span");pastillePerso.className="pastille-c multi";
-  var entree=document.createElement("input");entree.type="color";entree.value="#2F6FD6";entree.setAttribute("aria-label",tr("Personnalisée"));
-  var tp=document.createElement("small");tp.textContent=tr("Personnalisée");
-  pastillePerso.appendChild(entree);bp.appendChild(pastillePerso);bp.appendChild(tp);
-  entree.addEventListener("input",function(){appliquer(perso(entree.value));});
-  /* Le bouton « Personnalisée » se comporte comme les autres pour l'état choisi. */
-  var faux=document.createElement("button");faux.type="button";faux.dataset.n="perso";faux.hidden=true;box.appendChild(faux);
-  box.appendChild(bp);
-  var obs=function(){bp.classList.toggle("choisi",faux.getAttribute("aria-pressed")==="true");};
-  var m0=marquer;marquer=function(){m0();obs();};
+    document.documentElement.classList.toggle("accueil-dieu",v==="dieu");marquer();
+    if(vueActuelle==="choix"&&typeof ajusterChoix==="function"){ajusterChoix();setTimeout(ajusterChoix,350);}});});
   marquer();
 })();
 /* Liens internes de la page d'accueil : défilement doux, sans changer de vue. */

@@ -16,9 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@500;700;800&family=Share+Tech+Mono&family=Roboto+Mono:wght@700&family=Lora:ital,wght@0,500;1,500&display=swap">
 <link rel="stylesheet" href="style.css">
-<script>/* Couleur des pages choisie dans Profil (gardée sur l'appareil), appliquée avant l'affichage. */
-(function(){try{if(localStorage.getItem("crs:accueil")==="dieu")document.documentElement.classList.add("accueil-dieu");}catch(e){}})();
-(function(){try{var c=JSON.parse(localStorage.getItem("crs:couleur")||"null");if(c&&c.f){var r=document.documentElement;r.setAttribute("data-couleur",c.n||"perso");r.style.setProperty("--c-fond",c.f);r.style.setProperty("--c-accent",c.a);}}catch(e){}})();</script>
+<script>/* Style des pages d'accueil choisi sur l'accueil (gardé sur l'appareil), appliqué avant l'affichage. */
+(function(){try{if(localStorage.getItem("crs:accueil")==="dieu")document.documentElement.classList.add("accueil-dieu");}catch(e){}})();</script>
 <style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
 <style id="styleOuverture">
 /* Écran d'ouverture : affiché tout de suite, avant le reste de la page, puis effacé en fondu. */
@@ -706,18 +705,6 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
           <div class="panneau-titre" style="padding:0"><span class="pic vert"><svg class="ic"><use href="#i-globe"/></svg></span><div><h2>Langue et aide</h2><p class="aide">Choisissez la langue de l'application. Le guide explique chaque page pas à pas.</p></div></div>
           <div class="actions"><label class="champ" style="flex:1;min-width:180px">Langue<select class="sel-langue"></select></label><button class="btn" type="button" data-aller="guide"><svg class="ic"><use href="#i-book-open"/></svg>Guide d'utilisation</button></div>
         </div>
-        <div class="carte" id="carteCouleur">
-          <div class="panneau-titre" style="padding:0"><span class="pic violet"><svg class="ic"><use href="#i-palette"/></svg></span><div><h2>Couleur des pages</h2><p class="aide">Choisissez la couleur de fond des pages et des en-têtes. Ce réglage est gardé sur cet appareil.</p></div></div>
-          <div class="nuancier" id="nuancier" role="group" aria-label="Couleur des pages"></div>
-          <p class="aide">L'accueil et l'espace Finances gardent leur décor bois.</p>
-        </div>
-        <div class="carte" id="carteAccueil">
-          <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-home"/></svg></span><div><h2>Style des pages d'accueil</h2><p class="aide">Choisissez l'apparence de l'accueil et des pages de connexion. Ce réglage est gardé sur cet appareil.</p></div></div>
-          <div class="styles-accueil" role="radiogroup" aria-label="Style des pages d'accueil">
-            <button type="button" role="radio" data-accueil="bois"><span class="apercu-accueil bois"><i></i><i></i></span><b>Bois et cuivre</b></button>
-            <button type="button" role="radio" data-accueil="dieu"><span class="apercu-accueil dieu"><i></i><i></i></span><b>Couleurs de « Relation avec Dieu »</b></button>
-          </div>
-        </div>
         <div class="carte" id="carteRappel">
           <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-bell"/></svg></span><div><h2>Rappels</h2><p class="aide" id="rappelWeb">Les rappels (toutes les 3 heures à partir de 4 h) arrivent dans l'application Android.</p></div></div>
           <div id="rappelNatif" hidden class="vue" style="gap:12px">
@@ -888,7 +875,7 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
           <p class="sp-verset-cite" id="chVerset">« Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus. »</p>
           <p class="sp-verset-ref"><svg class="ic"><use href="#i-book-open"/></svg><b id="chVersetRef">Matthieu 6.33</b></p>
         </div>
-        <div class="choix-aide"><button type="button" class="sp-guide sp-bible" data-aller="bible"><svg class="ic"><use href="#i-bible"/></svg>La Bible</button><button type="button" class="sp-guide" data-aller="guide"><svg class="ic"><use href="#i-book-open"/></svg>Guide d'utilisation</button><label class="sp-langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label></div>
+        <div class="choix-aide"><div class="sp-style" role="radiogroup" aria-label="Style des pages d'accueil"><button type="button" role="radio" data-accueil="bois" title="Bois et cuivre" aria-label="Bois et cuivre"><i></i></button><button type="button" role="radio" data-accueil="dieu" title="Couleurs de « Relation avec Dieu »" aria-label="Couleurs de « Relation avec Dieu »"><i></i></button></div><button type="button" class="sp-guide sp-bible" data-aller="bible"><svg class="ic"><use href="#i-bible"/></svg>La Bible</button><button type="button" class="sp-guide" data-aller="guide"><svg class="ic"><use href="#i-book-open"/></svg>Guide d'utilisation</button><label class="sp-langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label></div>
       </main>
 
       <!-- ===== Finances : tableau de bord ===== -->

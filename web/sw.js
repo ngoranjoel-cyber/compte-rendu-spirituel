@@ -3,7 +3,7 @@
    - Les polices (Google Fonts, Adobe Fonts) sont gardées après leur premier chargement.
    - Hors connexion, toute page de l'application s'ouvre depuis le cache.
    Les saisies faites hors connexion sont gardées sur l'appareil et envoyées au retour du réseau (voir compte.js). */
-var CACHE = "compte-rendu-v38";
+var CACHE = "compte-rendu-v39";
 var BIBLE = "compte-rendu-bible-v1";
 var POLICES = "compte-rendu-polices-v1";
 var FICHIERS = ["./", "index.html", "style.css", "langues.js", "tableur.js", "rapport-finance.js", "app.js", "xl.js", "rapport.js", "finance.js", "compte.js", "config.js", "modele.js", "jszip.min.js", "confidentialite.html", "conditions.html",
