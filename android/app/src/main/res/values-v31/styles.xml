@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12 et plus : écran d'ouverture aux couleurs de l'application (bois sombre, oiseau sans carré blanc). -->
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/marine</item>
+        <item name="android:colorAccent">@color/marine</item>
+        <item name="android:statusBarColor">@color/fond</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowBackground">@color/fond</item>
+        <item name="android:windowSplashScreenBackground">#2B170A</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ouverture_oiseau</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#2B170A</item>
+    </style>
+</resources>
