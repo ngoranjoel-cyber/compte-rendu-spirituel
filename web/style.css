@@ -1670,3 +1670,45 @@ body.hors-session .lateral,body.hors-session .onglets-bas,body.hors-session .ent
 @media (prefers-reduced-motion:reduce){.guide-sec summary::after{transition:none}}
 
 .sp-nixie.texte-libre,.sp-compteur.texte-libre{font-family:inherit;font-size:1.05rem;letter-spacing:0;color:#FFD9A0;text-shadow:0 0 6px rgba(255,170,60,.6);padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- Adaptation à toutes les tailles d'écran ----------
+   Téléphone : aucune carte ne dépasse de l'écran, même sur les petits modèles (320-360 px).
+   Ordinateur : la page s'élargit sur les grands écrans au lieu de rester une colonne étroite au milieu. */
+.page{min-width:0}
+.grille-2{grid-template-columns:minmax(0,1fr)}
+@media (min-width:1100px){.grille-2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.grille-2>*,.carte,.panneau,.etape-cartes>*,.choix-cartes>*,.choix-stats>*,.fin-tuiles>*,.fin-champs>*,.fin-revenus>*,.fin-hero-pied>*,.sp-instruments>*,.ligne2>*{min-width:0}
+.carte select,.panneau select,.carte input:not([type=checkbox]):not([type=radio]),.panneau input:not([type=checkbox]):not([type=radio]){max-width:100%}
+img,svg,canvas{max-width:100%}
+@media (min-width:1440px){
+  .page{max-width:1180px}
+  #apercu{max-width:1240px}
+}
+@media (min-width:1800px){
+  .page{max-width:1340px}
+  #apercu{max-width:1400px}
+}
+/* Petits téléphones : on resserre les rangées de saisie */
+@media (max-width:374px){
+  .page{padding-left:10px;padding-right:10px}
+  .panneau{padding:8px}
+  .rangee{gap:7px;padding:7px 6px}
+  .rangee .pic{width:30px;height:30px}
+  .pas button{width:28px;height:30px}
+  .pas input{width:44px}
+  .chrono{min-width:30px;height:30px}
+  .carte{padding:14px}
+}
+.calendrier{grid-template-columns:repeat(7,minmax(0,1fr))}
+.case-cal{min-width:0;padding:0}
+@media (max-width:374px){.calendrier{gap:4px}.case-cal{border-radius:10px;font-size:.85rem}}
+@media (min-width:2200px){.page{max-width:1560px}#apercu{max-width:1560px}}
+/* Compteur « Reste du mois » : les chiffres rétrécissent au lieu de passer à la ligne */
+body.espace-finance .fin-hero-montant{flex-wrap:nowrap;justify-content:center}
+body.espace-finance .fin-hero-montant .roue{width:clamp(16px,6.2vw,26px);height:clamp(30px,10.5vw,42px);font-size:clamp(15px,5.6vw,24px);flex:none}
+body.espace-finance .fin-hero-montant .roue.vide{width:clamp(4px,1.4vw,6px)}
+@media (max-width:374px){
+  .sy-zone{grid-template-columns:minmax(0,1fr) 112px minmax(0,1fr);gap:6px 4px}
+  .sy-zone *{overflow-wrap:anywhere}
+  .fin-hero-pied{gap:8px}.fin-hero-pied *{font-size:.78rem}
+}
