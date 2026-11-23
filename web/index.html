@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@500;700;800&family=Share+Tech+Mono&family=Roboto+Mono:wght@700&family=Lora:ital,wght@0,500;1,500&display=swap">
 <link rel="stylesheet" href="style.css">
 <script>/* Couleur des pages choisie dans Profil (gardée sur l'appareil), appliquée avant l'affichage. */
+(function(){try{if(localStorage.getItem("crs:accueil")==="dieu")document.documentElement.classList.add("accueil-dieu");}catch(e){}})();
 (function(){try{var c=JSON.parse(localStorage.getItem("crs:couleur")||"null");if(c&&c.f){var r=document.documentElement;r.setAttribute("data-couleur",c.n||"perso");r.style.setProperty("--c-fond",c.f);r.style.setProperty("--c-accent",c.a);}}catch(e){}})();</script>
 <style id="formatPage">@page{size:A4 portrait;margin:10mm}</style>
 <style id="styleOuverture">
@@ -709,6 +710,13 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
           <div class="panneau-titre" style="padding:0"><span class="pic violet"><svg class="ic"><use href="#i-palette"/></svg></span><div><h2>Couleur des pages</h2><p class="aide">Choisissez la couleur de fond des pages et des en-têtes. Ce réglage est gardé sur cet appareil.</p></div></div>
           <div class="nuancier" id="nuancier" role="group" aria-label="Couleur des pages"></div>
           <p class="aide">L'accueil et l'espace Finances gardent leur décor bois.</p>
+        </div>
+        <div class="carte" id="carteAccueil">
+          <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-home"/></svg></span><div><h2>Style des pages d'accueil</h2><p class="aide">Choisissez l'apparence de l'accueil et des pages de connexion. Ce réglage est gardé sur cet appareil.</p></div></div>
+          <div class="styles-accueil" role="radiogroup" aria-label="Style des pages d'accueil">
+            <button type="button" role="radio" data-accueil="bois"><span class="apercu-accueil bois"><i></i><i></i></span><b>Bois et cuivre</b></button>
+            <button type="button" role="radio" data-accueil="dieu"><span class="apercu-accueil dieu"><i></i><i></i></span><b>Couleurs de « Relation avec Dieu »</b></button>
+          </div>
         </div>
         <div class="carte" id="carteRappel">
           <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-bell"/></svg></span><div><h2>Rappels</h2><p class="aide" id="rappelWeb">Les rappels (toutes les 3 heures à partir de 4 h) arrivent dans l'application Android.</p></div></div>

@@ -1886,6 +1886,16 @@ if(self.BIBLE)BIBLE.brancher({titres:titres,ajouterChapitre:function(){
   v.style.cursor="pointer";v.setAttribute("role","link");
   v.addEventListener("click",function(){var r=REFS[numVerset]||REFS[0];BIBLE.ouvrirA(r[0],r[1],r[2]);location.hash="#bible";});})();
 Array.prototype.forEach.call(document.querySelectorAll(".entete-langue"),function(l){l.setAttribute("data-l",(document.documentElement.lang||"fr").slice(0,2).toUpperCase());});
+/* Style des pages d'accueil (Profil) : « bois » (par défaut) ou « dieu », gardé sur l'appareil. */
+(function(){
+  var boutons=document.querySelectorAll("[data-accueil]");if(!boutons.length)return;
+  function actuel(){try{return localStorage.getItem("crs:accueil")==="dieu"?"dieu":"bois";}catch(e){return "bois";}}
+  function marquer(){var a=actuel();Array.prototype.forEach.call(boutons,function(b){b.setAttribute("aria-checked",b.getAttribute("data-accueil")===a?"true":"false");});}
+  Array.prototype.forEach.call(boutons,function(b){b.addEventListener("click",function(){
+    var v=b.getAttribute("data-accueil");try{if(v==="dieu")localStorage.setItem("crs:accueil","dieu");else localStorage.removeItem("crs:accueil");}catch(e){}
+    document.documentElement.classList.toggle("accueil-dieu",v==="dieu");marquer();});});
+  marquer();
+})();
 /* Couleur des pages (Profil) : fond clair + couleur des en-têtes, gardés sur l'appareil. */
 (function(){
   var box=$("nuancier");if(!box)return;
