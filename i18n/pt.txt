@@ -984,3 +984,7 @@
 984|Relatório {x} #
 985|Relatório espiritual {x} #
 986|Relatório espiritual semana # {x} #
+987|Sem conexão: # registro a enviar
+988|Sem conexão: # registros a enviar
+989|Sem conexão: seus registros ficam guardados no aparelho
+990|Sincronizado

@@ -984,3 +984,7 @@
 984|Report {x} #
 985|Spiritual report {x} #
 986|Spiritual report week # {x} #
+987|Offline: # entry to send
+988|Offline: # entries to send
+989|Offline: your entries are kept on the device
+990|Synced
