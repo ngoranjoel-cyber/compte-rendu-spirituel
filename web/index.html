@@ -152,7 +152,6 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
     <button type="button" class="lat-guide" data-aller="guide"><span class="pic petit vert"><svg class="ic"><use href="#i-book-open"/></svg></span>Guide d'utilisation</button>
     <div class="pied-lateral">
       <span class="synchro" id="etatSynchroLateral" hidden></span>
-      <button type="button" class="lat-reglages" data-reglages><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Réglages · couleur et langue</button>
       <label class="lat-langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label>
       <button type="button" class="moi" data-aller="profil"><span class="avatar petit" id="avatarLateral">?</span><div><b id="nomLateral"></b><span id="assembleeLaterale"></span></div></button>
     </div>
@@ -163,7 +162,6 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
     <header class="entete">
       <button type="button" class="logo-accueil" data-aller="choix" aria-label="Accueil : choisir un espace"><svg class="logo" aria-hidden="true"><use href="#logo-crs"/></svg><span class="logo-maison" aria-hidden="true"><svg class="ic"><use href="#i-home"/></svg></span></button>
       <div class="titre-vue"><b id="titreVue">Compte rendu</b><span id="pastille"></span></div>
-      <button type="button" class="entete-reglages" data-reglages aria-label="Réglages" title="Réglages"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg></button>
       <label class="entete-langue" title="Langue"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><select class="sel-langue" aria-label="Langue"></select></label>
       <button type="button" class="avatar" id="avatarEntete" data-aller="profil" aria-label="Mon profil">?</button>
     </header>
@@ -705,7 +703,8 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
         </div>
         <div class="carte" id="carteCouleur">
           <div class="panneau-titre" style="padding:0"><span class="pic violet"><svg class="ic"><use href="#i-palette"/></svg></span><div><h2>Couleur des pages</h2><p class="aide">Choisissez la couleur de fond des pages et des en-têtes. Ce réglage est gardé sur cet appareil.</p></div></div>
-          <div class="actions"><button class="btn" type="button" data-reglages><svg class="ic"><use href="#i-palette"/></svg>Choisir la couleur</button></div>
+          <div class="nuancier" id="nuancier" role="group" aria-label="Couleur des pages"></div>
+          <p class="aide">L'accueil et l'espace Finances gardent leur décor bois.</p>
         </div>
         <div class="carte" id="carteRappel">
           <div class="panneau-titre" style="padding:0"><span class="pic orange"><svg class="ic"><use href="#i-bell"/></svg></span><div><h2>Rappels</h2><p class="aide" id="rappelWeb">Les rappels (toutes les 3 heures à partir de 4 h) arrivent dans l'application Android.</p></div></div>
@@ -1071,20 +1070,6 @@ window.addEventListener("load",fin);setTimeout(fin,6000);})();
 </div>
 
 <!-- Fenêtre de confirmation -->
-<dialog id="fenReglages" class="fen-reglages" aria-labelledby="frTitre">
-  <div class="fr-tete"><h2 id="frTitre"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg>Réglages</h2><button type="button" class="fr-fermer" data-fermer-reglages aria-label="Fermer"><svg class="ic"><use href="#i-x"/></svg></button></div>
-  <section class="fr-bloc">
-    <h3><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg>Couleur des pages</h3>
-    <p class="aide">Choisissez la couleur de fond des pages et des en-têtes. Ce réglage est gardé sur cet appareil.</p>
-    <div class="nuancier" id="nuancier" role="group" aria-label="Couleur des pages"></div>
-    <p class="aide">L'accueil et l'espace Finances gardent leur décor bois.</p>
-  </section>
-  <section class="fr-bloc">
-    <h3><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>Langue</h3>
-    <label class="champ">Langue de l'application<select class="sel-langue" aria-label="Langue"></select></label>
-  </section>
-  <div class="actions" style="justify-content:flex-end"><button class="btn vert" type="button" data-fermer-reglages>Fermer</button></div>
-</dialog>
 <dialog id="dialogue">
   <form method="dialog" class="vue" style="gap:14px">
     <h2 id="dialogueTitre"></h2>
