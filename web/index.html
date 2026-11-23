@@ -53,9 +53,9 @@
   <p class="ouv-verset"><span>Préparons-nous à rencontrer notre Seigneur et Sauveur Jésus-Christ</span></p>
 </div>
 <script>
-/* L'écran d'ouverture reste au moins 1,4 s, puis s'efface quand la page est prête (au plus tard après 5 s). */
+/* L'écran d'ouverture reste 3 s, puis s'efface quand la page est prête (au plus tard après 6 s). */
 (function(){var t0=Date.now(),fait=false;function fin(){if(fait)return;fait=true;var o=document.getElementById("ouverture");if(!o)return;o.classList.add("fini");setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o);},700);}
-window.addEventListener("load",function(){setTimeout(fin,Math.max(0,1400-(Date.now()-t0)));});setTimeout(fin,5000);})();
+window.addEventListener("load",function(){setTimeout(fin,Math.max(0,3000-(Date.now()-t0)));});setTimeout(fin,6000);})();
 </script>
 
 <!-- Icônes (traits, 24 x 24) -->
