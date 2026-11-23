@@ -1681,9 +1681,6 @@ body.hors-session .lateral,body.hors-session .onglets-bas,body.hors-session .ent
   body.espace-choix .page{max-width:none;min-height:100vh;display:flex;align-items:center;justify-content:center}
   body.espace-choix #vueChoix{width:100%;max-width:920px}
 }
-@media (min-width:1500px) and (min-height:820px){body.espace-choix #vueChoix{zoom:1.18}}
-@media (min-width:1800px) and (min-height:950px){body.espace-choix #vueChoix{zoom:1.38}}
-@media (min-width:2300px) and (min-height:1250px){body.espace-choix #vueChoix{zoom:1.75}}
 
 /* Page de présentation : plus large et agrandie sur les grands écrans */
 @media (min-width:1500px){body.bienvenue .bv-cadre{zoom:1.15}}
@@ -1705,3 +1702,15 @@ body.hors-session .lateral,body.hors-session .onglets-bas,body.hors-session .ent
   body.auth .auth2-hero{min-height:300px}
   body.auth .hero-bas{padding-top:24px}
 }
+
+/* Accueil « Choisissez votre espace » : sans le cœur ni la bourse, page entière visible sans défiler,
+   compteurs toujours dans leur boîtier (la taille des chiffres s'adapte à leur nombre). */
+body.espace-choix #vueChoix .sp-medaillon,body.espace-choix #vueChoix .sp-bourse{display:none}
+body.espace-choix #vueChoix .sp-carte-haut{min-height:0}
+body.espace-choix .page{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+@media (max-width:959px){body.espace-choix #vueChoix{gap:12px}body.espace-choix #vueChoix .choix-cartes{gap:12px}}
+body.espace-choix #vueChoix .sp-boitier{container-type:inline-size;min-width:0}
+body.espace-choix #vueChoix .sp-compteur{--w:min(23px,calc((100cqw - 8px - var(--c,8) * 3px) / var(--n,8)));gap:3px}
+body.espace-choix #vueChoix .sp-compteur .roue{width:var(--w);height:calc(var(--w) * 1.65);font-size:calc(var(--w) * .95)}
+body.espace-choix #vueChoix .sp-compteur .roue.vide{width:calc(var(--w) * .3)}
+body.espace-choix #vueChoix .sp-compteur .roue.sep{width:calc(var(--w) * .6)}

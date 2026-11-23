@@ -1385,6 +1385,9 @@ function chiffres(e,texte,genre){
   /* Écritures liées (arabe, ourdou, indiennes…) : pas de découpage lettre par lettre. */
   if(/[^\u0000-\u024F\u2000-\u206F\u20A0-\u20CF\u2212]/.test(String(texte))){e.textContent=texte;e.classList.add("texte-libre");return;}
   e.classList.remove("texte-libre");
+  /* Largeur du texte (en « roues ») : sert à réduire les chiffres pour qu'ils tiennent toujours dans leur boîtier. */
+  var unites=0;String(texte).split("").forEach(function(c){unites+=/\s|\u202f|\u00a0/.test(c)?.3:/[:.,%−-]/.test(c)?.6:1;});
+  e.style.setProperty("--n",unites.toFixed(2));e.style.setProperty("--c",String(texte).length);
   String(texte).split("").forEach(function(c,i){
     var vide=/\s|\u202f|\u00a0/.test(c),sep=/[:.,%−-]/.test(c);
     var x=el("span",{"class":(genre==="nixie"?"tube":"roue")+(vide?" vide":sep?" sep":""),"aria-hidden":"true"},vide?" ":c);
@@ -1422,7 +1425,28 @@ function afficherChoix(){
   chiffres($("chReste"),r.revenus?argent(r.reste,true,R):"À saisir","compteur");
   chiffres($("chDepenses"),argent(r.depensesMois,true,R),"compteur");
   clearInterval(minuterieVerset);minuterieVerset=setInterval(function(){if(vueActuelle==="choix")tournerVerset();},9000);
+  ajusterChoix();setTimeout(ajusterChoix,350);
 }
+/* Accueil : toute la page tient dans l'écran, sans défilement (réduite sur petit écran, agrandie sur grand écran). */
+function ajusterChoix(){
+  var v=$("vueChoix");if(!v||v.hidden||vueActuelle!=="choix")return;
+  var page=v.parentElement,cs=getComputedStyle(page),large=window.innerWidth>=960;
+  v.style.zoom="";v.style.marginTop="";
+  var bas=window.innerHeight-parseFloat(cs.paddingBottom||0)-(large?0:4);
+  var dispoL=page.clientWidth-parseFloat(cs.paddingLeft||0)-parseFloat(cs.paddingRight||0);
+  /* Deux ou trois passes : on mesure la place réellement prise, puis on corrige le facteur. */
+  var z=1;
+  for(var k=0;k<3;k++){
+    var r=v.getBoundingClientRect(),haut=large?parseFloat(cs.paddingTop||0):r.top,h=r.height;if(!h)return;
+    var cible=z*(bas-haut)/h;
+    if(large)cible=Math.min(cible,z*dispoL/r.width,1.75);else cible=Math.min(cible,1);
+    if(Math.abs(cible-z)<.003)break;
+    z=cible;v.style.zoom=z.toFixed(4);
+  }
+  /* Ce qui reste (tablette) : la page est centrée verticalement. */
+  if(!large){var r2=v.getBoundingClientRect(),reste=bas-r2.bottom;if(reste>8)v.style.marginTop=Math.floor(reste/2/z)+"px";}
+}
+window.addEventListener("resize",function(){ajusterChoix();});
 
 /* ---------- Tableau de bord ---------- */
 function rangeeIndic(boite,ic,lib,val){var r=el("div",{"class":"fin-indic-l"});r.appendChild(icone(ic));r.appendChild(el("span",{},lib));r.appendChild(el("b",{},val));boite.appendChild(r);}
@@ -2009,5 +2033,5 @@ if(enLigne){
 }else{
   route();
 }
-if(!natif&&!window.SANS_SW&&"serviceWorker" in navigator&&location.protocol==="https:"){navigator.serviceWorker.register("sw.js").catch(function(){});}
+if(!natif&&!window.SANS_SW&&"serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost")){navigator.serviceWorker.register("sw.js").catch(function(){});}
 })();
